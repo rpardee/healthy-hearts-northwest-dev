@@ -1,10 +1,13 @@
 <header>
 	<% if partner_signed_in? %>
-		<%= link_to image_tag("HHNW_logo_grayscale_reverse_rgb", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner) %>
+		<%= link_to image_tag("HHNW_logo_grayscale_reverse_rgb.png", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner) %>
 		<div class='signout'>
 			<%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %>
 		</div>
 	<% else %>
-		<%= link_to image_tag("HHNW_logo_grayscale_reverse_rgb", size: "228x86", alt: "Link to Home Page"), root_path %>
+		<%= link_to image_tag("HHNW_logo_grayscale_reverse_rgb.png", size: "228x86", alt: "Link to Home Page"), root_path %>
 	<% end %>
+	<div>
+	image_tag("HHNW_logo_grayscale_reverse_rgb.png", size: "228x86", alt: "Link to Home Page")
+	</div>
 </header>
