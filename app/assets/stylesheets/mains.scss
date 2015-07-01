@@ -1,0 +1,29 @@
+// Place all the styles related to the mains controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#front-page {
+  background-color: #AD122A;
+  color: #D1D2D4;
+  font-family: arial, verdana, helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+
+  h1 {
+  	font-family: arial, verdana, helvetica, sans-serif;
+  	font-size: 48px;
+  	line-height: 64px;
+  	padding: 30px;
+
+  }
+
+  p {
+  	font-family: arial, verdana, helvetica, sans-serif;
+  	font-size: 24px;
+  	line-height: 32px;
+  	padding: 30px;
+  }
+
+  a {
+  	color: #92D7E7;
+  }
+}

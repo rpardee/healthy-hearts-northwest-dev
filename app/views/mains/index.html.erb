@@ -1,0 +1,28 @@
+<div id='front-page'>
+
+	<%= image_tag "HHNW_MacColl_logo_reverse_rgb.png", size: "380x179", alt: "Health Hearts Northwest Logo" %>
+
+	<h1>Welcome to the homepage for the Healthy Hearts Northwest project.</h1>
+	<p>The <%= link_to "Partner View", partner_path(@test_partner) %>
+			test area is open for vetting. Please check it out and provide comments!
+		<br />
+		Hint: Try username "test@ghc.org" and password "password." Without quotes.
+	</p>
+
+	<p>(The log-in functions below aren't yet enabled.) </p>
+	<p>Please < %= link_to "log in", partners_path % > to continue.</p>
+	<p>Or < %= link_to "sign up", new_partner_registration_path % > to set up a user.</p>
+
+	<div class="image-background">
+		<div class="horiz-center">
+			<%= image_tag "ORPRN Logo.png", size: "342x98", alt: "ORPRN Logo" %>
+			<%= image_tag "Qualis.png", size: "342x144", alt: "Qualis Logo" %>
+			<%= image_tag "WPRNlogo1.png", size: "342x191", alt: "WPRN Logo" %>
+		</div>
+	</div>
+
+	<footer>
+		This project is supported by grant number R18HS023908 from the Agency for Healthcare Research and Quality.
+	</footer>
+
+</div>

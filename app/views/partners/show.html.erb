@@ -1,0 +1,109 @@
+<%= render 'layouts/header' %>
+
+<h2> Current Status for <%= @partner.name %> </h2>
+
+<div id='left-3'>
+  <h3>Appointments</h3>
+  <% if @partner.events.appointments.any? %>
+    <table class='typical'>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Practice</th>
+        <th>Category</th>
+      </tr>
+      <% @partner.events.appointments.order("schedule_dt, schedule_tm").each do |e| %>
+        <tr>
+          <td><%= link_to e.schedule_dt.strftime("%a %b %e"), partner_event_path(@partner, e) %></td>
+          <td><%= e.schedule_tm.strftime("%I:%M %p") %></td>
+          <td><%= e.practice.name %></td>
+          <td><%= e.category %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p> No appointments currently scheduled. </p>
+  <% end %>
+</div>
+
+<div id='middle-3'>
+  <%= form_for(@event) do |f| %>
+    <% if @event.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+        <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <h3>New Appointment</h3>
+    <div class='boxed'>
+      <p>
+        <%= f.label :practice, "Practice" %>
+        <%= f.select :practice_id, options_for_select(Practice.order("name").map{ |p| [p.name, p.id] }), include_blank: true %>
+      </p>
+      <p>
+        <%= f.label :schedule_dt, "Date" %>
+        <%= f.text_field :schedule_dt %>
+      </p>
+      <p>
+        <%= f.label :schedule_tm, "Time" %>
+        <%= f.text_field :schedule_tm %>
+      </p>
+      <p>
+        <%= f.label :category %>
+        <%= f.text_field :category %>
+      </p>
+      <p>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+      </p>
+      <%= f.hidden_field :partner_id, value: @partner.id %>
+
+      <div class="actions">
+        <%= f.submit "Add Appointment" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    Show appointments in the next <br />
+    <%= radio_button_tag 'timeframe', 'day' %>
+    <%= label_tag 'timeframe_day', 'Day' %>
+    <%= radio_button_tag 'timeframe', 'week' %>
+    <%= label_tag 'timeframe_week', 'Week' %>
+  </div>
+</div>
+
+<div id='right-3'>
+  <h3>Practices</h3>
+  We'll need to know what columns go here before we can sort on them.
+  <% if @partner.practices.any? %>
+    <table class='typical'>
+      <tr>
+        <th>Name</th>
+        <th>Last Contact</th>
+        <th>Milestone 1</th>
+        <th>Milestone 2</th>
+      </tr>
+      <% @partner.practices.each do |p| %>
+        <tr>
+          <td><%= link_to p.name, partner_practice_path(@partner, p) %></td>
+          <td><%= p.events.last_contact %></td>
+          <td><%= p.milestone_1 %></td>
+          <td><%= p.milestone_2 %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p> No practices associated with this partner. </p>
+  <% end %>
+</div>
+
+<div class='clearfix'></div>
+
+<%= link_to "Back", :back %>

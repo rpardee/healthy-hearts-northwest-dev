@@ -1,0 +1,34 @@
+<%= form_for(@personnel) do |f| %>
+  <% if @personnel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@personnel.errors.count, "error") %> prohibited this personnel from being saved:</h2>
+
+      <ul>
+      <% @personnel.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :practice_id %>
+
+  <table class='space'>
+    <tr>
+      <td><%= f.label :name %></td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :role %></td>
+      <td><%= f.text_field :role %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :best_contact, "Best Contact" %></td>
+      <td><%= f.text_field :best_contact %></td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

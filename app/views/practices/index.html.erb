@@ -1,0 +1,25 @@
+<%= render 'layouts/header' %>
+
+<h1>Listing Practices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @practices.each do |practice| %>
+      <tr>
+        <td><%= practice.name %></td>
+        <td><%= link_to 'Edit', edit_practice_path(practice) %></td>
+        <td><%= link_to 'Destroy', practice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Practice', new_practice_path %>

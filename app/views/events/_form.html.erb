@@ -1,0 +1,47 @@
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :practice_id, value: @practice_id %>
+  <%= f.hidden_field :partner_id, value: @partner_id %>
+
+  <table class='space'>
+    <tr>
+      <td><%= f.label :category %></td>
+      <td><%= f.text_field :category %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :schedule_dt, "Scheduled Date" %></td>
+      <td><%= f.text_field :schedule_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y") %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :schedule_tm, "Scheduled Time" %></td>
+      <td><%= f.text_field :schedule_tm, value: @event.schedule_tm.try(:strftime, "%l:%M %p") %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :outcome %></td>
+      <td><%= f.text_field :outcome %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :outcome_dt, "Outcome Date" %></td>
+      <td><%= f.text_field :outcome_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y") %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :description, "Description" %></td>
+      <td><%= f.text_area :description, cols: 40, rows: 3 %></td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

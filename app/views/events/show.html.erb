@@ -1,0 +1,41 @@
+<%= render 'layouts/header' %>
+
+<div id='left-2'>
+  <h2><%= @event.practice.name %></h2>
+  <table class='space'>
+    <tr>
+      <td> Contact Category </td>
+      <td><%= @event.category %></td>
+    </tr>
+    <tr>
+      <td> Scheduled Date </td>
+      <td> <%= @event.schedule_dt.strftime("%B %e, %Y") if @event.schedule_dt %> </td>
+    </tr>
+    <tr>
+      <td> Scheduled Time </td>
+      <td> <%= @event.schedule_tm.strftime("%l:%M %p") if @event.schedule_tm %> </td>
+    </tr>
+    <tr>
+      <td> Outcome </td>
+      <td> <%= @event.outcome %></td>
+    </tr>
+    <tr>
+      <td> Outcome Date </td>
+      <td> <%= @event.outcome_dt.strftime("%B %e, %Y") if @event.outcome_dt %></td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td><%= @event.description %></td>
+    </tr>
+  </table>
+</div>
+
+<div id='right-2'>
+  <h2> <%= link_to "Edit Event", edit_event_path(@event) %> </h2>
+  <h2> <%= link_to "View #{@event.partner.name}", partner_path(@event.partner) %> </h2>
+  <h2> <%= link_to "View #{@event.practice.name}", practice_path(@event.practice) %> </h2>
+</div>
+
+<div class='clearfix'></div>
+
+<%= link_to "Back", :back %>

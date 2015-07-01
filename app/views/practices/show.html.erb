@@ -1,0 +1,128 @@
+<%= render 'layouts/header' %>
+
+<div id='left-3'>
+  <h2> <%= link_to @practice.name, edit_practice_path(@practice) %> </h2>
+  <table class='space'>
+    <tr>
+      <td> Partner </td>
+      <td><%= link_to @practice.partner.name, partner_path(@practice.partner) %></td>
+    </tr>
+    <tr>
+      <td> Address </td>
+      <td> <%= link_to @practice.address, "https://maps.google.com/maps?q=#{@practice.address}" %> </td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td> <%= @practice.phone %></td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td><%= link_to @practice.url, @practice.url %></td>
+    </tr>
+  </table>
+
+  <h3>Personnel</h3>
+  <% if @practice.personnels.any? %>
+    <table class='typical'>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Best Contact</th>
+      </tr>
+      <% @practice.personnels.order("name").each do |p| %>
+        <tr>
+          <td><%= link_to p.name, edit_practice_personnel_path(@practice, p) %></td>
+          <td><%= p.role %></td>
+          <td><%= p.best_contact %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p> No personnel noted. </p>
+  <% end %>
+</div>
+
+<div id='middle-3'>
+  <%= form_for(@personnel) do |f| %>
+    <% if @personnel.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@personnel.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+        <ul>
+        <% @personnel.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <h3>Add Personnel</h3>
+    <div class='boxed'>
+      <%= f.hidden_field :practice_id, value: @practice.id %>
+      <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :role %>
+        <%= f.text_field :role %>
+      </p>
+      <p>
+        <%= f.label :best_contact, "Best Contact" %>
+        <%= f.text_field :best_contact %>
+      </p>
+      <%= f.hidden_field :practice_id, value: @practice.id %>
+
+      <div class="actions">
+        <%= f.submit "Add Person" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div id='right-3'>
+  <h3 class='float-left'> Event Log </h3>
+  <%= button_to "Schedule New", new_practice_event_path(@practice), method: :get %>
+  <span class='clearfix'>&nbsp;</span>
+  <% if @practice.events.any? %>
+    <table class='typical'>
+      <tr>
+        <th>Scheduled Date</th>
+        <th>Outcome Date</th>
+        <th>Outcome</th>
+        <th>Category</th>
+        <th>Description</th>
+      </tr>
+      <% @practice.events.order("schedule_dt, schedule_tm").each do |e| %>
+        <tr>
+          <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), practice_event_path(@practice, e) %></td>
+          <td><%= e.outcome_dt.try(:strftime, "%-m/%-d/%Y") %></td>
+          <td><%= e.outcome %></td>
+          <td><%= e.category %></td>
+          <td><%= truncate(e.description, length: 25) %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p> No events exist. </p>
+  <% end %>
+</div>
+
+<div class='clearfix'></div>
+
+<footer>
+  <table class='typical'>
+    <tr>
+      <td>Milestone 1</td>
+      <td>Milestone 2</td>
+      <td>Milestone 3</td>
+    </tr>
+    <tr>
+      <td><%= image_tag("check-mark-blue", size: "20x20", alt: "Check mark") if @practice.milestone_1 %></td>
+      <td><%= image_tag("check-mark-blue", size: "20x20", alt: "Check mark") if @practice.milestone_2 %></td>
+      <td><%= image_tag("check-mark-blue", size: "20x20", alt: "Check mark") if @practice.milestone_3 %></td>
+    </tr>
+  </table>
+</footer>
+
+<%= link_to "Back", :back %>
