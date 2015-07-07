@@ -1,6 +1,6 @@
 <%= render 'layouts/header' %>
 
-<div id='left-3'>
+<div id='left-13'>
   <h2> <%= link_to @practice.name, edit_practice_path(@practice) %> </h2>
   <table class='space'>
     <tr>
@@ -21,7 +21,52 @@
     </tr>
   </table>
 
-  <h3>Personnel</h3>
+  <div id='openPopupForm' class='extraTopSpace'>
+    <h3>Personnel
+      <a class='addButton'>
+        <%= image_tag("plus-blue.png", size: "15x15", alt: "New Personnel") %>
+      </a>
+    </h3>
+  </div>
+  <div id='popupForm'>
+    <%= form_for(@personnel) do |f| %>
+      <% if @personnel.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@personnel.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+          <ul>
+          <% @personnel.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div id="closePopupForm">
+        <a><%= image_tag("close.gif", alt: "Close") %></a>
+      </div>
+      <h3>Add Personnel</h3>
+      <%= f.hidden_field :practice_id, value: @practice.id %>
+      <table class='space'>
+        <tr>
+          <td><%= f.label :name %></td>
+          <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :role %></td>
+          <td><%= f.text_field :role %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :best_contact, "Best Contact" %></td>
+          <td><%= f.text_field :best_contact %></td>
+        </tr>
+      </table>
+      <div class="actions">
+        <%= f.submit "Add Person" %>
+      </div>
+    <% end %>
+  </div>
+
   <% if @practice.personnels.any? %>
     <table class='typical'>
       <tr>
@@ -42,47 +87,9 @@
   <% end %>
 </div>
 
-<div id='middle-3'>
-  <%= form_for(@personnel) do |f| %>
-    <% if @personnel.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@personnel.errors.count, "error") %> prohibited this appointment from being saved:</h2>
-
-        <ul>
-        <% @personnel.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <h3>Add Personnel</h3>
-    <div class='boxed'>
-      <%= f.hidden_field :practice_id, value: @practice.id %>
-      <p>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </p>
-      <p>
-        <%= f.label :role %>
-        <%= f.text_field :role %>
-      </p>
-      <p>
-        <%= f.label :best_contact, "Best Contact" %>
-        <%= f.text_field :best_contact %>
-      </p>
-      <%= f.hidden_field :practice_id, value: @practice.id %>
-
-      <div class="actions">
-        <%= f.submit "Add Person" %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<div id='right-3'>
+<div id='right-23'>
   <h3 class='float-left'> Event Log </h3>
-  <%= button_to "Schedule New", new_practice_event_path(@practice), method: :get %>
+  <%= button_to "Schedule New Event", new_practice_event_path(@practice), method: :get %>
   <span class='clearfix'>&nbsp;</span>
   <% if @practice.events.any? %>
     <table class='typical'>
@@ -91,7 +98,7 @@
         <th>Outcome Date</th>
         <th>Outcome</th>
         <th>Category</th>
-        <th>Description</th>
+        <th>Notes</th>
       </tr>
       <% @practice.events.order("schedule_dt, schedule_tm").each do |e| %>
         <tr>
@@ -99,7 +106,7 @@
           <td><%= e.outcome_dt.try(:strftime, "%-m/%-d/%Y") %></td>
           <td><%= e.outcome %></td>
           <td><%= e.category %></td>
-          <td><%= truncate(e.description, length: 25) %></td>
+          <td><%= truncate(e.description, length: 75) %></td>
         </tr>
       <% end %>
     </table>

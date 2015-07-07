@@ -36,7 +36,7 @@
       <td><%= f.text_field :outcome_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y") %></td>
     </tr>
     <tr>
-      <td><%= f.label :description, "Description" %></td>
+      <td><%= f.label :description, "Notes" %></td>
       <td><%= f.text_area :description, cols: 40, rows: 3 %></td>
     </tr>
   </table>

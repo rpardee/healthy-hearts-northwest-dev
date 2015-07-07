@@ -2,9 +2,71 @@
 
 <h2> Current Status for <%= @partner.name %> </h2>
 
-<div id='left-3'>
-  <h3>Appointments</h3>
+<div id='left-13'>
+  <div id='openPopupForm'>
+    <h3>Appointments
+      <a class='addButton'>
+        <%= image_tag("plus-blue.png", size: "15x15", alt: "New Appointment") %>
+      </a>
+    </h3>
+  </div>
+
+  <div id='popupForm'>
+    <%= form_for(@event) do |f| %>
+      <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+          <ul>
+          <% @event.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div id="closePopupForm">
+        <a><%= image_tag("close.gif", alt: "Close") %></a>
+      </div>
+      <h3>New Appointment</h3>
+      <table class='space'>
+        <tr>
+          <td><%= f.label :practice, "Practice" %></td>
+          <td><%= f.select :practice_id, options_for_select(Practice.order("name").map{ |p| [p.name, p.id] }), include_blank: true %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :schedule_dt, "Date" %></td>
+          <td><%= f.text_field :schedule_dt %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :schedule_tm, "Time" %></td>
+          <td><%= f.text_field :schedule_tm %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :category %></td>
+          <td><%= f.text_field :category %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :description %></td>
+          <td><%= f.text_field :description %></td>
+        </tr>
+      </table>
+      <%= f.hidden_field :partner_id, value: @partner.id %>
+
+      <div class="actions">
+        <%= f.submit "Add Appointment" %>
+      </div>
+    <% end %>
+  </div>
+
   <% if @partner.events.appointments.any? %>
+    <div>
+      Show appointments in the next
+      <%= radio_button_tag 'timeframe', 'day' %>
+      <%= label_tag 'timeframe_day', 'Day' %>
+      <%= radio_button_tag 'timeframe', 'week' %>
+      <%= label_tag 'timeframe_week', 'Week' %>
+    </div>
     <table class='typical'>
       <tr>
         <th>Date</th>
@@ -26,62 +88,11 @@
   <% end %>
 </div>
 
-<div id='middle-3'>
-  <%= form_for(@event) do |f| %>
-    <% if @event.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this appointment from being saved:</h2>
-
-        <ul>
-        <% @event.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <h3>New Appointment</h3>
-    <div class='boxed'>
-      <p>
-        <%= f.label :practice, "Practice" %>
-        <%= f.select :practice_id, options_for_select(Practice.order("name").map{ |p| [p.name, p.id] }), include_blank: true %>
-      </p>
-      <p>
-        <%= f.label :schedule_dt, "Date" %>
-        <%= f.text_field :schedule_dt %>
-      </p>
-      <p>
-        <%= f.label :schedule_tm, "Time" %>
-        <%= f.text_field :schedule_tm %>
-      </p>
-      <p>
-        <%= f.label :category %>
-        <%= f.text_field :category %>
-      </p>
-      <p>
-        <%= f.label :description %>
-        <%= f.text_field :description %>
-      </p>
-      <%= f.hidden_field :partner_id, value: @partner.id %>
-
-      <div class="actions">
-        <%= f.submit "Add Appointment" %>
-      </div>
-    </div>
-  <% end %>
-
-  <div>
-    Show appointments in the next <br />
-    <%= radio_button_tag 'timeframe', 'day' %>
-    <%= label_tag 'timeframe_day', 'Day' %>
-    <%= radio_button_tag 'timeframe', 'week' %>
-    <%= label_tag 'timeframe_week', 'Week' %>
-  </div>
-</div>
-
-<div id='right-3'>
-  <h3>Practices</h3>
-  We'll need to know what columns go here before we can sort on them.
+<div id='right-23'>
+  <h3 class='float-left'> Practices </h3>
+  <%= button_to "Add New Practice", new_partner_practice_path(@partner), method: :get %>
+  <span class='clearfix'>&nbsp;</span>
+  We'll need to choose which columns go here before we can sort on them.
   <% if @partner.practices.any? %>
     <table class='typical'>
       <tr>

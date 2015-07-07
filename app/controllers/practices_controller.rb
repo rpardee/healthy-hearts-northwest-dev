@@ -17,6 +17,7 @@ class PracticesController < ApplicationController
   # GET /practices/new
   def new
     @practice = Practice.new
+    @partner_id = params[:partner_id]
   end
 
   # GET /practices/1/edit
@@ -30,7 +31,7 @@ class PracticesController < ApplicationController
 
     respond_to do |format|
       if @practice.save
-        format.html { redirect_to @practice, notice: 'Practice was successfully created.' }
+        format.html { redirect_to partner_path(params[:practice][:partner_id]), notice: 'Practice was successfully created.' }
         format.json { render :show, status: :created, location: @practice }
       else
         format.html { render :new }
@@ -44,7 +45,7 @@ class PracticesController < ApplicationController
   def update
     respond_to do |format|
       if @practice.update(practice_params)
-        format.html { redirect_to @practice, notice: 'Practice was successfully updated.' }
+        format.html { redirect_to partner_path(params[:practice][:partner_id]), notice: 'Practice was successfully updated.' }
         format.json { render :show, status: :ok, location: @practice }
       else
         format.html { render :edit }

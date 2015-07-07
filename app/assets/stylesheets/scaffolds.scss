@@ -155,7 +155,7 @@ div {
 
   img {
     vertical-align: middle;
-    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 
@@ -171,19 +171,14 @@ footer {
   width: 100%;
 }
 
-#left-3 {
+#left-13 {
   float: left;
   width: 30%;
 }
 
-#middle-3 {
-  display: inline-block;
-  width: 25%;
-}
-
-#right-3 {
+#right-23 {
   float: right;
-  width: 40%;
+  width: 65%;
 }
 
 #left-2 {
@@ -214,11 +209,43 @@ footer {
   clear: both;
 }
 
+.extraTopSpace {
+  margin-top: 15px;
+}
+
 .boxed {
   border: 1px solid black;
   padding-top: 5px;
   margin: 5px;
   p {
     margin: 5px;
+  }
+}
+
+a.addButton {
+  margin-left: 35%;
+}
+
+#popupForm {
+  position: absolute;
+  background-color: $gray;
+  border: 1px solid $dark-red;
+  display: none;
+  left: 50px;
+  top: 100px;
+  z-index: 1000;
+  font-weight: bold;
+  padding: 25px 25px 12px;
+  width: 275px;
+
+  h3 { color: $white; }
+
+  #closePopupForm {
+    height: 15px;
+    width: 15px;
+    padding: 1px;
+    position: absolute;
+    right: 17px;
+    top: 17px;
   }
 }
