@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'devise', '~> 3.5.1'
 gem 'american_date', '~> 1.1.0'
+gem 'rails_12factor', group: :production
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
