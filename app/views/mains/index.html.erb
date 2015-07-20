@@ -1,17 +1,17 @@
 <div id='front-page'>
 
-	<%= image_tag "HHNW_MacColl_logo_reverse_rgb.png", size: "380x179", alt: "Health Hearts Northwest Logo" %>
+	<%= image_tag "HHNW_MacColl_logo_reverse_rgb.png", size: "380x179", alt: "Healthy Hearts Northwest Logo" %>
 
-	<h1>Welcome to the homepage for the Healthy Hearts Northwest project.</h1>
+	<h1>Healthy Hearts Northwest.</h1>
 	<p>The <%= link_to "Partner View", partner_path(@test_partner) %>
 			test area is open for vetting. Please check it out and provide comments!
 		<br />
 		Hint: Try username "test@ghc.org" and password "password." Without quotes.
 	</p>
 
-	<p>(The log-in functions below aren't yet enabled.) </p>
-	<p>Please < %= link_to "log in", partners_path % > to continue.</p>
-	<p>Or < %= link_to "sign up", new_partner_registration_path % > to set up a user.</p>
+	<p>(Eventually the text above will be replaced by the text below.) </p>
+	<p>Please <%= link_to "log in", partners_path %> to continue.</p>
+	<p>Or <%= link_to "sign up", new_partner_registration_path %> to set up a user.</p>
 
 	<div class="image-background">
 		<div class="horiz-center">

@@ -72,6 +72,7 @@ class PracticesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def practice_params
-      params[:practice].permit(:name, :partner_id, :address, :phone, :url, :milestone_1, :milestone_2, :milestone_3)
+      params[:practice].permit(:name, :partner_id, :address, :phone, :url,
+        :status, :primary_care, :md_fte, :emr_certified, :emr_certified_year)
     end
 end

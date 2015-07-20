@@ -1,15 +1,17 @@
 <%= render 'layouts/header' %>
 
 <div id='left-13'>
-  <h2> <%= link_to @practice.name, edit_practice_path(@practice) %> </h2>
+  <h2> <%= @practice.name %>
+    <%= link_to image_tag("arrow-blue.png", size: "15x15"), edit_practice_path(@practice), class: 'addButton', title: 'Edit Practice', rel: 'tooltip' %>
+  </h2>
   <table class='space'>
     <tr>
-      <td> Partner </td>
+      <td> Primary Recruiter </td>
       <td><%= link_to @practice.partner.name, partner_path(@practice.partner) %></td>
     </tr>
     <tr>
       <td> Address </td>
-      <td> <%= link_to @practice.address, "https://maps.google.com/maps?q=#{@practice.address}" %> </td>
+      <td> <%= link_to @practice.address, "https://maps.google.com/maps?q=#{@practice.address}", :target => '_blank' %> </td>
     </tr>
     <tr>
       <td>Phone</td>
@@ -17,18 +19,18 @@
     </tr>
     <tr>
       <td>URL</td>
-      <td><%= link_to @practice.url, @practice.url %></td>
+      <td><%= link_to @practice.url, @practice.url, :target => '_blank' %></td>
     </tr>
   </table>
 
   <div id='openPopupForm' class='extraTopSpace'>
-    <h3>Personnel
-      <a class='addButton'>
-        <%= image_tag("plus-blue.png", size: "15x15", alt: "New Personnel") %>
+    <h3>Staff
+      <a class='addButton' title="Add New Staff" rel="tooltip">
+        <%= image_tag("plus-blue.png", size: "15x15") %>
       </a>
     </h3>
   </div>
-  <div id='popupForm'>
+  <div id='popupForm' class='popupForm-large'>
     <%= form_for(@personnel) do |f| %>
       <% if @personnel.errors.any? %>
         <div id="error_explanation">
@@ -45,70 +47,95 @@
       <div id="closePopupForm">
         <a><%= image_tag("close.gif", alt: "Close") %></a>
       </div>
-      <h3>Add Personnel</h3>
+      <h3>Add Staff</h3>
       <%= f.hidden_field :practice_id, value: @practice.id %>
       <table class='space'>
         <tr>
           <td><%= f.label :name %></td>
-          <td><%= f.text_field :name %></td>
+          <td colspan='2'><%= f.text_field :name %></td>
         </tr>
         <tr>
           <td><%= f.label :role %></td>
-          <td><%= f.text_field :role %></td>
+          <td><%= f.select :role, Personnel.roles.keys, include_blank: true %></td>
         </tr>
         <tr>
-          <td><%= f.label :best_contact, "Best Contact" %></td>
-          <td><%= f.text_field :best_contact %></td>
+          <td><%= f.label :phone1, "Phone 1" %></td>
+          <td><%= f.text_field :phone1 %></td>
+          <td>Best Contact? <%= f.check_box :phone1_best %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :email1, "Email 1" %></td>
+          <td><%= f.text_field :email1 %></td>
+          <td>Best Contact? <%= f.check_box :email1_best %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :phone2, "Phone 2" %></td>
+          <td><%= f.text_field :phone2 %></td>
+          <td>Best Contact? <%= f.check_box :phone2_best %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :email2, "Email 2" %></td>
+          <td><%= f.text_field :email2 %></td>
+          <td>Best Contact? <%= f.check_box :email2_best %></td>
         </tr>
       </table>
       <div class="actions">
-        <%= f.submit "Add Person" %>
+        <%= f.submit "Add Staff" %>
       </div>
     <% end %>
   </div>
 
   <% if @practice.personnels.any? %>
-    <table class='typical'>
+    <table class='typical enable-data-table'>
+      <thead>
       <tr>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Best Contact</th>
-      </tr>
-      <% @practice.personnels.order("name").each do |p| %>
-        <tr>
-          <td><%= link_to p.name, edit_practice_personnel_path(@practice, p) %></td>
-          <td><%= p.role %></td>
-          <td><%= p.best_contact %></td>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Best Contact</th>
         </tr>
-      <% end %>
+      </thead>
+      <tbody>
+        <% @practice.personnels.order("name").each do |p| %>
+          <tr>
+            <td><%= link_to p.name, edit_practice_personnel_path(@practice, p) %></td>
+            <td><%= p.role %></td>
+            <td><%= p.best_contact %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   <% else %>
-    <p> No personnel noted. </p>
+    <p> No staff noted. </p>
   <% end %>
 </div>
 
 <div id='right-23'>
-  <h3 class='float-left'> Event Log </h3>
-  <%= button_to "Schedule New Event", new_practice_event_path(@practice), method: :get %>
-  <span class='clearfix'>&nbsp;</span>
+  <h3> Contact Log <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Schedule New Event"), new_practice_event_path(@practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %>
+  </h3>
   <% if @practice.events.any? %>
-    <table class='typical'>
-      <tr>
-        <th>Scheduled Date</th>
-        <th>Outcome Date</th>
-        <th>Outcome</th>
-        <th>Category</th>
-        <th>Notes</th>
-      </tr>
-      <% @practice.events.order("schedule_dt, schedule_tm").each do |e| %>
+    <table class='typical enable-data-table'>
+      <thead>
         <tr>
-          <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), practice_event_path(@practice, e) %></td>
-          <td><%= e.outcome_dt.try(:strftime, "%-m/%-d/%Y") %></td>
-          <td><%= e.outcome %></td>
-          <td><%= e.category %></td>
-          <td><%= truncate(e.description, length: 75) %></td>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Recruiter</th>
+          <th>Contact Type</th>
+          <th>Outcome</th>
+          <th>Notes</th>
         </tr>
-      <% end %>
+      </thead>
+      <tbody>
+        <% @practice.events.order("schedule_dt, schedule_tm").each do |e| %>
+          <tr>
+            <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), practice_event_path(@practice, e) %></td>
+            <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
+            <td><%= e.partner.name %></td>
+            <td><%= e.contact_type %></td>
+            <td><%= e.outcome %></td>
+            <td><%= truncate(e.description, length: 75) %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   <% else %>
     <p> No events exist. </p>
@@ -116,20 +143,5 @@
 </div>
 
 <div class='clearfix'></div>
-
-<footer>
-  <table class='typical'>
-    <tr>
-      <td>Milestone 1</td>
-      <td>Milestone 2</td>
-      <td>Milestone 3</td>
-    </tr>
-    <tr>
-      <td><%= image_tag("check-mark-blue", size: "20x20", alt: "Check mark") if @practice.milestone_1 %></td>
-      <td><%= image_tag("check-mark-blue", size: "20x20", alt: "Check mark") if @practice.milestone_2 %></td>
-      <td><%= image_tag("check-mark-blue", size: "20x20", alt: "Check mark") if @practice.milestone_3 %></td>
-    </tr>
-  </table>
-</footer>
 
 <%= link_to "Back", :back %>

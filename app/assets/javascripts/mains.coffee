@@ -9,3 +9,16 @@ $(document).on('click', '#openPopupForm', ( ->
 $(document).on('click', '#closePopupForm', ( ->
 	$('#popupForm').fadeOut 'fast'
 ))
+
+$(document).ready ->
+	$('table.enable-data-table')
+		.addClass("compact hover stripe")
+		.dataTable( {
+			"paging": false,
+			"info": false,
+			stateSave: true
+		})
+
+$(document).ready ->
+	$('input.datepicker').datepicker()
+

@@ -12,6 +12,8 @@
  *
  *= require_self
  *= require reset.css
+ *= require jquery-ui/datepicker
+ *= require jquery.dataTables.css
  *= require scaffolds.scss
  *= require mains.scss
  */

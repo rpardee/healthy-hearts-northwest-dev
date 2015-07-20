@@ -1,40 +1,34 @@
 <%= render 'layouts/header' %>
 
-<div id='left-2'>
-  <h2><%= @event.practice.name %></h2>
-  <table class='space'>
-    <tr>
-      <td> Contact Category </td>
-      <td><%= @event.category %></td>
-    </tr>
-    <tr>
-      <td> Scheduled Date </td>
-      <td> <%= @event.schedule_dt.strftime("%B %e, %Y") if @event.schedule_dt %> </td>
-    </tr>
-    <tr>
-      <td> Scheduled Time </td>
-      <td> <%= @event.schedule_tm.strftime("%l:%M %p") if @event.schedule_tm %> </td>
-    </tr>
-    <tr>
-      <td> Outcome </td>
-      <td> <%= @event.outcome %></td>
-    </tr>
-    <tr>
-      <td> Outcome Date </td>
-      <td> <%= @event.outcome_dt.strftime("%B %e, %Y") if @event.outcome_dt %></td>
-    </tr>
-    <tr>
-      <td>Notes</td>
-      <td><%= @event.description %></td>
-    </tr>
-  </table>
-</div>
-
-<div id='right-2'>
-  <h2> <%= link_to "Edit Event", edit_event_path(@event) %> </h2>
-  <h2> <%= link_to "View #{@event.partner.name}", partner_path(@event.partner) %> </h2>
-  <h2> <%= link_to "View #{@event.practice.name}", practice_path(@event.practice) %> </h2>
-</div>
+<h2>
+  <%= link_to "#{@event.practice.name}", practice_path(@event.practice), title: "View #{@event.practice.name}", rel: "tooltip" %>
+</h2>
+<h3>
+  <%= @event.schedule_dt.try(:strftime, "%B %e, %Y")%>
+  <%= @event.schedule_tm.try(:strftime, "%l:%M %p") %>
+  <%= link_to image_tag("arrow-blue.png", size: "15x15"), edit_event_path(@event), class: 'addButton', title: 'Edit Contact', rel: 'tooltip' %>
+</h3>
+<table class='space'>
+  <tr>
+    <td> Recruiter </td>
+    <td><%= link_to "#{@event.partner.name}", partner_path(@event.partner), title: "View #{@event.partner.name}", rel: "tooltip" %></td>
+  </tr>
+  <tr>
+    <td> Contact Type </td>
+    <td><%= @event.contact_type %></td>
+  </tr>
+  <tr>
+    <td> Outcome </td>
+    <td> <%= @event.outcome %></td>
+  </tr>
+  <tr>
+    <td> Outcome Date </td>
+    <td> <%= @event.outcome_dt.try(:strftime, "%B %e, %Y") %></td>
+  <tr>
+    <td>Notes</td>
+    <td><%= @event.description %></td>
+  </tr>
+</table>
 
 <div class='clearfix'></div>
 

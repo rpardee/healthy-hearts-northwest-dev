@@ -16,19 +16,35 @@
   <table class='space'>
     <tr>
       <td><%= f.label :name %></td>
-      <td><%= f.text_field :name %></td>
+      <td colspan='2'><%= f.text_field :name %></td>
     </tr>
     <tr>
       <td><%= f.label :role %></td>
-      <td><%= f.text_field :role %></td>
+      <td colspan='2'><%= f.text_field :role %></td>
     </tr>
     <tr>
-      <td><%= f.label :best_contact, "Best Contact" %></td>
-      <td><%= f.text_field :best_contact %></td>
+      <td><%= f.label :phone1, "Phone 1" %></td>
+      <td><%= f.text_field :phone1 %></td>
+      <td> Best contact? <%= f.check_box :phone1_best %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :phone2, "Phone 2" %></td>
+      <td><%= f.text_field :phone2 %></td>
+      <td> Best contact? <%= f.check_box :phone2_best %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :email1, "Email 1" %></td>
+      <td><%= f.text_field :email1 %></td>
+      <td> Best contact? <%= f.check_box :email1_best %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :email2, "Email 2" %></td>
+      <td><%= f.text_field :email2 %></td>
+      <td> Best contact? <%= f.check_box :email2_best %></td>
     </tr>
   </table>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update Staff" %>
   </div>
 <% end %>

@@ -5,8 +5,8 @@ class CreateEvents < ActiveRecord::Migration
     	t.references :practice, index: true, foreign_key: true, null: false
     	t.date :schedule_dt, null: false
       t.time :schedule_tm, null: false
-    	t.integer :category, null: false
-    	t.integer :outcome
+    	t.integer :contact_type, null: false, default: 0
+    	t.integer :outcome, null: false, default: 0
     	t.date :outcome_dt
     	t.text :description
       t.timestamps null: false

@@ -71,6 +71,8 @@ class PersonnelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def personnel_params
-      params[:personnel].permit(:practice_id, :name, :role, :best_contact)
+      params[:personnel].permit(:practice_id, :name, :role,
+        :phone1, :phone1_best, :phone2, :phone2_best,
+        :email1, :email1_best, :email2, :email2_best)
     end
 end

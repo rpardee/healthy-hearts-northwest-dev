@@ -17,16 +17,16 @@ ActiveRecord::Schema.define(version: 20150701171220) do
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
-    t.integer  "partner_id",  null: false
-    t.integer  "practice_id", null: false
-    t.date     "schedule_dt"
-    t.time     "schedule_tm"
-    t.integer  "category"
-    t.integer  "outcome"
+    t.integer  "partner_id",               null: false
+    t.integer  "practice_id",              null: false
+    t.date     "schedule_dt",              null: false
+    t.time     "schedule_tm",              null: false
+    t.integer  "contact_type", default: 0, null: false
+    t.integer  "outcome",      default: 0, null: false
     t.date     "outcome_dt"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "events", ["partner_id"], name: "index_events_on_partner_id", using: :btree
@@ -58,27 +58,36 @@ ActiveRecord::Schema.define(version: 20150701171220) do
   add_index "partners", ["unlock_token"], name: "index_partners_on_unlock_token", unique: true, using: :btree
 
   create_table "personnels", force: :cascade do |t|
-    t.integer  "practice_id",  null: false
-    t.string   "name",         null: false
+    t.integer  "practice_id",                            null: false
+    t.string   "name",                                   null: false
     t.integer  "role"
-    t.string   "best_contact"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "phone1",      limit: 20
+    t.boolean  "phone1_best",            default: false, null: false
+    t.string   "phone2",      limit: 20
+    t.boolean  "phone2_best",            default: false, null: false
+    t.string   "email1",      limit: 20
+    t.boolean  "email1_best",            default: false, null: false
+    t.string   "email2",      limit: 20
+    t.boolean  "email2_best",            default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
 
   create_table "practices", force: :cascade do |t|
-    t.integer  "partner_id",  null: false
-    t.string   "name"
+    t.integer  "partner_id",                         null: false
+    t.string   "name",                               null: false
     t.string   "address"
     t.string   "phone"
     t.string   "url"
-    t.boolean  "milestone_1"
-    t.boolean  "milestone_2"
-    t.boolean  "milestone_3"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "status",             default: 0,     null: false
+    t.boolean  "primary_care",       default: false, null: false
+    t.integer  "md_fte",             default: 0,     null: false
+    t.boolean  "emr_certified",      default: false, null: false
+    t.integer  "emr_certified_year", default: 0,     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree

@@ -22,6 +22,8 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @practice_id = @event.practice_id
+    @partner_id = @event.partner_id
   end
 
   # POST /events
@@ -31,7 +33,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to partner_path(@event.partner_id), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -45,7 +47,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to partner_path(@event.partner_id), notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit }
@@ -72,6 +74,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params[:event].permit(:practice_id, :partner_id, :schedule_dt, :schedule_tm, :category, :outcome, :outcome_dt, :description)
+      params[:event].permit(:practice_id, :partner_id, :schedule_dt,
+        :schedule_tm, :contact_type, :outcome, :outcome_dt, :description)
     end
 end

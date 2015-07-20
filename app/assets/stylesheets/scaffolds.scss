@@ -223,7 +223,7 @@ footer {
 }
 
 a.addButton {
-  margin-left: 35%;
+  margin-left: 5%;
 }
 
 #popupForm {
@@ -236,7 +236,7 @@ a.addButton {
   z-index: 1000;
   font-weight: bold;
   padding: 25px 25px 12px;
-  width: 275px;
+  width: 30%;
 
   h3 { color: $white; }
 
@@ -248,4 +248,12 @@ a.addButton {
     right: 17px;
     top: 17px;
   }
+}
+
+.popupForm-large {
+  width: 50%;
+}
+
+#selectData {
+  display: none;
 }

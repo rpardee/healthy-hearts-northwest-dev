@@ -11,29 +11,37 @@
     </div>
   <% end %>
 
+  <h3>
+    <%= @event.schedule_dt.try(:strftime, "%B %e, %Y")%>
+    <%= @event.schedule_tm.try(:strftime, "%l:%M %p") %>
+  </h3>
+
   <%= f.hidden_field :practice_id, value: @practice_id %>
-  <%= f.hidden_field :partner_id, value: @partner_id %>
 
   <table class='space'>
     <tr>
-      <td><%= f.label :category %></td>
-      <td><%= f.text_field :category %></td>
+      <td><%= f.label :partner_id %></td>
+      <td><%= f.select :partner_id, options_for_select(Partner.order("name").collect { |p| [p.name, p.id] }, selected: @partner_id) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :contact_type %></td>
+      <td><%= f.select :contact_type, Event.contact_types.keys %></td>
     </tr>
     <tr>
       <td><%= f.label :schedule_dt, "Scheduled Date" %></td>
-      <td><%= f.text_field :schedule_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y") %></td>
+      <td><%= f.text_field :schedule_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y"), class: 'datepicker' %> mm/dd/yyyy</td>
     </tr>
     <tr>
       <td><%= f.label :schedule_tm, "Scheduled Time" %></td>
-      <td><%= f.text_field :schedule_tm, value: @event.schedule_tm.try(:strftime, "%l:%M %p") %></td>
+      <td><%= f.text_field :schedule_tm, value: @event.schedule_tm.try(:strftime, "%l:%M %p"), type: "time" %> hh:mm MM</td>
     </tr>
     <tr>
       <td><%= f.label :outcome %></td>
-      <td><%= f.text_field :outcome %></td>
+      <td><%= f.select :outcome, Event.outcomes.keys, include_blank: true %>
     </tr>
     <tr>
       <td><%= f.label :outcome_dt, "Outcome Date" %></td>
-      <td><%= f.text_field :outcome_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y") %></td>
+      <td><%= f.text_field :outcome_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y"), class: 'datepicker' %></td>
     </tr>
     <tr>
       <td><%= f.label :description, "Notes" %></td>

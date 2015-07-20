@@ -1,12 +1,16 @@
 <%= render 'layouts/header' %>
 
-<h2> Current Status for <%= @partner.name %> </h2>
+<h2>
+  Home for
+  <span id='selectData'><%= select_tag "partners", options_for_select(Partner.order("name").collect { |p| [p.name, p.id] }, selected: @partner.id) %></span>
+  <span id="displayData" data-partner-id="<%= @partner.id %>" title="Click to change" rel="tooltip"><%= @partner.name %></span>
+</h2>
 
-<div id='left-13'>
+<div id='left-2'>
   <div id='openPopupForm'>
     <h3>Appointments
-      <a class='addButton'>
-        <%= image_tag("plus-blue.png", size: "15x15", alt: "New Appointment") %>
+      <a class='addButton' title="Add New Appointment" rel="tooltip">
+        <%= image_tag("plus-blue.png", size: "15x15") %>
       </a>
     </h3>
   </div>
@@ -31,27 +35,30 @@
       <h3>New Appointment</h3>
       <table class='space'>
         <tr>
-          <td><%= f.label :practice, "Practice" %></td>
+          <td><%= f.label :practice_id, "Practice" %></td>
           <td><%= f.select :practice_id, options_for_select(Practice.order("name").map{ |p| [p.name, p.id] }), include_blank: true %></td>
         </tr>
         <tr>
+          <td><%= f.label :partner_id, "Partner" %></td>
+          <td><%= f.select :partner_id, options_for_select(Partner.order("name").map{ |p| [p.name, p.id] }, selected: @partner.id) %></td>
+        </tr>
+        <tr>
           <td><%= f.label :schedule_dt, "Date" %></td>
-          <td><%= f.text_field :schedule_dt %></td>
+          <td><%= f.text_field :schedule_dt, class: 'datepicker' %> mm/dd/yyyy</td>
         </tr>
         <tr>
           <td><%= f.label :schedule_tm, "Time" %></td>
-          <td><%= f.text_field :schedule_tm %></td>
+          <td><%= f.text_field :schedule_tm, type: "time" %> hh:mm MM</td>
         </tr>
         <tr>
-          <td><%= f.label :category %></td>
-          <td><%= f.text_field :category %></td>
+          <td><%= f.label :contact_type, "Contact Type" %></td>
+          <td><%= f.select :contact_type, Event.contact_types.keys %></td>
         </tr>
         <tr>
-          <td><%= f.label :description %></td>
-          <td><%= f.text_field :description %></td>
+          <td><%= f.label :description, "Notes" %></td>
+          <td><%= f.text_area :description, rows: 5 %></td>
         </tr>
       </table>
-      <%= f.hidden_field :partner_id, value: @partner.id %>
 
       <div class="actions">
         <%= f.submit "Add Appointment" %>
@@ -60,55 +67,59 @@
   </div>
 
   <% if @partner.events.appointments.any? %>
-    <div>
-      Show appointments in the next
-      <%= radio_button_tag 'timeframe', 'day' %>
-      <%= label_tag 'timeframe_day', 'Day' %>
-      <%= radio_button_tag 'timeframe', 'week' %>
-      <%= label_tag 'timeframe_week', 'Week' %>
-    </div>
-    <table class='typical'>
-      <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Practice</th>
-        <th>Category</th>
-      </tr>
-      <% @partner.events.appointments.order("schedule_dt, schedule_tm").each do |e| %>
+    <table class='typical enable-data-table'>
+    <thead>
         <tr>
-          <td><%= link_to e.schedule_dt.strftime("%a %b %e"), partner_event_path(@partner, e) %></td>
-          <td><%= e.schedule_tm.strftime("%I:%M %p") %></td>
-          <td><%= e.practice.name %></td>
-          <td><%= e.category %></td>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Recruiter</th>
+          <th>Practice</th>
+          <th>Contact Type</th>
         </tr>
-      <% end %>
+      </thead>
+      <tbody>
+        <% @partner.events.appointments.order("schedule_dt, schedule_tm").each do |e| %>
+          <tr>
+            <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), partner_event_path(@partner, e) %></td>
+            <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
+            <td><%= e.partner.name %></td>
+            <td><%= e.practice.name %></td>
+            <td><%= e.contact_type %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   <% else %>
     <p> No appointments currently scheduled. </p>
   <% end %>
 </div>
 
-<div id='right-23'>
-  <h3 class='float-left'> Practices </h3>
-  <%= button_to "Add New Practice", new_partner_practice_path(@partner), method: :get %>
+<div id='right-2'>
+  <h3 class='float-left'> Practice Snapshot </h3>
+  <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Add New Practice"), new_partner_practice_path(@partner), class: 'addButton', title: 'Add New Practice', rel: 'tooltip' %>
+
   <span class='clearfix'>&nbsp;</span>
-  We'll need to choose which columns go here before we can sort on them.
+
   <% if @partner.practices.any? %>
-    <table class='typical'>
-      <tr>
-        <th>Name</th>
-        <th>Last Contact</th>
-        <th>Milestone 1</th>
-        <th>Milestone 2</th>
-      </tr>
-      <% @partner.practices.each do |p| %>
+    <table class='typical enable-data-table'>
+      <thead>
         <tr>
-          <td><%= link_to p.name, partner_practice_path(@partner, p) %></td>
-          <td><%= p.events.last_contact %></td>
-          <td><%= p.milestone_1 %></td>
-          <td><%= p.milestone_2 %></td>
+          <th>Name</th>
+          <th>Last Contact</th>
+          <th>Status 1</th>
+          <th>Status 2</th>
         </tr>
-      <% end %>
+      </thead>
+      <tbody>
+        <% @partner.practices.each do |p| %>
+          <tr>
+            <td><%= link_to p.name, partner_practice_path(@partner, p) %></td>
+            <td><%= p.events.last_contact %></td>
+            <td><%= p.status %></td>
+            <td><%= p.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   <% else %>
     <p> No practices associated with this partner. </p>
