@@ -13,7 +13,7 @@
  *= require_self
  *= require reset.css
  *= require jquery-ui/datepicker
- *= require jquery.dataTables.css
+ *= require jquery.dataTables.css.scss
  *= require scaffolds.scss
  *= require mains.scss
  */
