@@ -50,7 +50,7 @@ class Practice < ActiveRecord::Base
 		"Unknown" => 4
 	}
 
-	RECRUITMENT_SOURCE = {
+	RECRUITMENT_SOURCE_VALS = {
 		"Email blast" => 1,
 		"Individual email" => 2,
 		"Flyer" => 3,

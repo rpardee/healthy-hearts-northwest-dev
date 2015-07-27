@@ -40,6 +40,14 @@
         <td><%= f.select :partner_id, options_for_select(Partner.order("name").map{ |p| [p.name, p.id] }, selected: @practice.partner_id || @partner_id) %></td>
       </tr>
       <tr>
+        <td><%= f.label :recruitment_source, "Recruitment Source" %></td>
+        <td><%= f.select :recruitment_source, PRACTICE::RECRUITMENT_SOURCE_VALS  %></td>
+      </tr>
+      <tr class='toggle-disable'>
+        <td><%= f.label :recruitment_source_referral, "Specify" %></td>
+        <td><%= f.text_field :recruitment_source_referral %></td>
+      </tr>
+      <tr>
         <td><%= f.label :address %></td>
         <td><%= f.text_field :address, size: 40 %></td>
       </tr>
