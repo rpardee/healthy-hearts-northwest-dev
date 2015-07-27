@@ -22,3 +22,5 @@ $(document).ready ->
 $(document).ready ->
 	$('input.datepicker').datepicker()
 
+$(document).ready ->
+	$('nav').sticky({ topSpacing: 50 })

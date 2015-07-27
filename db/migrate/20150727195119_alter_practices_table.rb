@@ -1,0 +1,43 @@
+class AlterPracticesTable < ActiveRecord::Migration
+  def change
+  	add_column :practices, :email, :string
+  	add_column :practices, :npi, :string
+  	add_column :practices, :recruitment_source, :integer
+  	add_column :practices, :recruitment_source_referral, :string
+  	rename_column :practices, :emr_certified, :prac_ehr
+  	add_column :practices, :prac_ehr_yr, :integer
+  	add_column :practices, :prac_ehrname, :integer
+  	add_column :practices, :prac_ehrname_other, :string
+  	add_column :practices, :prac_ehrversion, :string
+  	add_column :practices, :prac_ehr_mu, :integer
+  	add_column :practices, :prac_mu_stage1, :integer
+  	add_column :practices, :prac_mu_stage2, :integer
+  	add_column :practices, :prac_ehr_extractdata, :integer
+  	add_column :practices, :prac_ehr_person_extractdata, :integer
+  	add_column :practices, :prac_ehr_person_extractdata_other, :string
+  	add_column :practices, :prac_it_support, :integer
+  	add_column :practices, :prac_ehr_vendor, :integer
+  	add_column :practices, :prac_share_healthinfo, :integer
+  	add_column :practices, :prac_cqm, :integer
+  	add_column :practices, :prac_cqm_submit, :integer
+  	add_column :practices, :prac_cqm_who, :string
+  	add_column :practices, :prac_ehr_satisfaction, :integer
+  	add_column :practices, :prac_new_ehr, :integer
+  	add_column :practices, :elig_phys_count, :integer
+  	add_column :practices, :elig_phys_fte, :float
+  	add_column :practices, :elig_ownership, :integer
+  	add_column :practices, :elig_ownership_other, :string
+  	add_column :practices, :elig_ownership_years, :integer
+  	add_column :practices, :elig_clinic_count, :integer
+  	add_column :practices, :elig_specialty, :integer
+  	add_column :practices, :elig_pcmh, :integer
+  	add_column :practices, :elig_aco, :integer
+  	add_column :practices, :elig_aco_apply, :integer
+  	add_column :practices, :interest_why, :text
+  	add_column :practices, :interest_expect, :text
+  	add_column :practices, :interest_challenge, :text
+  	remove_column :practices, :mde_fte, :integer
+  	remove_column :practices, :status, :integer
+  	remove_column :practices, :emr_certified_year, :integer
+  end
+end

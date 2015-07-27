@@ -17,10 +17,29 @@ class Personnel < ActiveRecord::Base
 		end
 	end
 
-	enum role: {
-		"Practice Manager" => 1,
-		"Primary Site Contact" => 2,
-		"Primary Clinician" => 3,
-		"Secondary Site Contact" => 4
+	ROLES = {
+		"Practice manager" => 1,
+		"Primary site contact" => 2,
+		"Primary clinician" => 3,
+		"Secondary site contact" => 4,
+		"Front desk" => 5,
+		"IT manager" => 6,
+		"Physician" => 7,
+		"Nurse practitioner" => 8,
+		"PA" => 9,
+		"MA" => 10,
+		"LPN" => 11,
+		"RN" => 12,
+		"Psychologist" => 13,
+		"Licensed social worker" => 14,
+		"Social worker" => 15,
+		"Psychiatrist" => 16,
+		"PT" => 17,
+		"OT" => 18,
+		"Certified nurse midwife" => 19,
+		"Pharmacist" => 20,
+		"Other" => 99
+
 	}
+
 end

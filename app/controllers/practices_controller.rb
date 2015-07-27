@@ -73,6 +73,21 @@ class PracticesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def practice_params
       params[:practice].permit(:name, :partner_id, :address, :phone, :url,
-        :status, :primary_care, :md_fte, :emr_certified, :emr_certified_year)
+        :primary_care, :email, :npi, :prac_ehr_yr, :prac_ehr, :prac_ehrname,
+        :prac_ehrversion,
+        :prac_ehrname_other, :prac_ehr_mu, :prac_mu_stage1, :prac_mu_stage2,
+        :prac_ehr_extractdata, :prac_ehr_person_extractdata,
+        :prac_ehr_person_extractdata_other, :prac_it_support,
+        :prac_ehr_vendor, :prac_share_healthinfo, :prac_cqm,
+        :prac_cqm_submit, :prac_cqm_who, :prac_ehr_satisfaction,
+        :prac_new_ehr, :elig_phys_count, :elig_phys_fte,
+        :elig_phys_count, :elig_phys_fte, :elig_ownership,
+        :elig_ownership_other, :elig_ownership_years,
+        :elig_clinic_count, :elig_specialty, :elig_pcmh,
+        :elig_aco, :elig_aco_apply, :interest_why, :interest_expect,
+        :interest_challenge,
+        personnels_attributes: [:id, :_destroy, :name, :role, :phone1,
+          :phone1_best, :phone2, :phone2_best, :email1, :email1_best,
+          :email2, :email1_best])
     end
 end

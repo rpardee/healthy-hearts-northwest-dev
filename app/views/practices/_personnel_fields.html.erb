@@ -1,0 +1,31 @@
+<div class='nested-fields box'>
+  <table class='space'>
+    <tr>
+      <td><%= f.label :name %></td>
+      <td colspan='3'><%= f.text_field :name %></td>
+      <td><%= f.label :role %></td>
+      <td colspan='2'><%= f.select :role, Personnel::ROLES, include_blank: true %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :phone1, "Phone 1" %></td>
+      <td><%= f.text_field :phone1 %></td>
+      <td>Best Contact? <%= f.check_box :phone1_best %></td>
+      <td>&nbsp;</td>
+      <td><%= f.label :email1, "Email 1" %></td>
+      <td><%= f.text_field :email1 %></td>
+      <td>Best Contact? <%= f.check_box :email1_best %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :phone2, "Phone 2" %></td>
+      <td><%= f.text_field :phone2 %></td>
+      <td>Best Contact? <%= f.check_box :phone2_best %></td>
+      <td>&nbsp;</td>
+      <td><%= f.label :email2, "Email 2" %></td>
+      <td><%= f.text_field :email2 %></td>
+      <td>Best Contact? <%= f.check_box :email2_best %></td>
+    </tr>
+    <tr>
+      <td colspan='7'><%= link_to_remove_association "Delete Staff Member", f %></td>
+    </tr>
+  </table>
+</div>

@@ -113,7 +113,7 @@
       <tbody>
         <% @partner.practices.each do |p| %>
           <tr>
-            <td><%= link_to p.name, partner_practice_path(@partner, p) %></td>
+            <td><%= link_to p.name, edit_partner_practice_path(@partner, p) %></td>
             <td><%= p.events.last_contact %></td>
             <td><%= p.status %></td>
             <td><%= p.status %></td>

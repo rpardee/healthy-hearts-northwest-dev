@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701171220) do
+ActiveRecord::Schema.define(version: 20150727195119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,18 +76,50 @@ ActiveRecord::Schema.define(version: 20150701171220) do
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
 
   create_table "practices", force: :cascade do |t|
-    t.integer  "partner_id",                         null: false
-    t.string   "name",                               null: false
+    t.integer  "partner_id",                                        null: false
+    t.string   "name",                                              null: false
     t.string   "address"
     t.string   "phone"
     t.string   "url"
-    t.integer  "status",             default: 0,     null: false
-    t.boolean  "primary_care",       default: false, null: false
-    t.integer  "md_fte",             default: 0,     null: false
-    t.boolean  "emr_certified",      default: false, null: false
-    t.integer  "emr_certified_year", default: 0,     null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.boolean  "primary_care",                      default: false, null: false
+    t.boolean  "prac_ehr",                          default: false, null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "email"
+    t.string   "npi"
+    t.integer  "recruitment_source"
+    t.string   "recruitment_source_referral"
+    t.integer  "prac_ehr_yr"
+    t.integer  "prac_ehrname"
+    t.string   "prac_ehrname_other"
+    t.string   "prac_ehrversion"
+    t.integer  "prac_ehr_mu"
+    t.integer  "prac_mu_stage1"
+    t.integer  "prac_mu_stage2"
+    t.integer  "prac_ehr_extractdata"
+    t.integer  "prac_ehr_person_extractdata"
+    t.string   "prac_ehr_person_extractdata_other"
+    t.integer  "prac_it_support"
+    t.integer  "prac_ehr_vendor"
+    t.integer  "prac_share_healthinfo"
+    t.integer  "prac_cqm"
+    t.integer  "prac_cqm_submit"
+    t.string   "prac_cqm_who"
+    t.integer  "prac_ehr_satisfaction"
+    t.integer  "prac_new_ehr"
+    t.integer  "elig_phys_count"
+    t.float    "elig_phys_fte"
+    t.integer  "elig_ownership"
+    t.string   "elig_ownership_other"
+    t.integer  "elig_ownership_years"
+    t.integer  "elig_clinic_count"
+    t.integer  "elig_specialty"
+    t.integer  "elig_pcmh"
+    t.integer  "elig_aco"
+    t.integer  "elig_aco_apply"
+    t.text     "interest_why"
+    t.text     "interest_expect"
+    t.text     "interest_challenge"
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree

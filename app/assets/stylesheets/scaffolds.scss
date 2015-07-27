@@ -13,7 +13,7 @@ $line-height-base: 18px;
 body {
   background-color: white;
   color: #333;
-  font-family: arial, verdana, helvetica, sans-serif;
+  font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
   margin: 10px;
@@ -50,6 +50,88 @@ table.space {
   td, th {
     padding: 5px;
   }
+}
+
+div.box {
+  border: 1px black solid;
+  padding: 1% 3% 2% 3%;
+  background-color: $gray;
+  p {
+    color: $light-red;
+    font-weight: bold;
+    font-size: $font-size-base*1.5;
+    line-height: $line-height-base*1.5;
+  }
+}
+
+div#nav-section {
+  width: 15%;
+  float: left;
+}
+
+nav {
+  ul {
+    list-style: none;
+  }
+  li {
+    background: #4479BA;
+    margin: 10px 0px;
+  }
+  a {
+    color: $white;
+    padding: 10px 15px;
+    text-decoration: none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    display: block;
+  }
+  a:visited {
+    color: $white;
+  }
+  a:hover, a:focus {
+    background: #356094;
+    border: solid 1px #2A4E77;
+  }
+  a:active {
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    background: #2E5481;
+    border: solid 1px #203E5F;
+  }
+  input {
+    border: none;
+    width: 100%;
+    font-weight: bold;
+    color: $white;
+    background: #4479BA;
+    padding: 10px 15px;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    display: block;
+  }
+  input:hover, input:focus {
+    background: #356094;
+    border: solid 1px #2A4E77;
+  }
+  input:active {
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    background: #2E5481;
+    border: solid 1px #203E5F;
+  }
+}
+
+div#nav-right {
+  float: right;
+  width: 80%;
 }
 
 h1 {
@@ -211,15 +293,6 @@ footer {
 
 .extraTopSpace {
   margin-top: 15px;
-}
-
-.boxed {
-  border: 1px solid black;
-  padding-top: 5px;
-  margin: 5px;
-  p {
-    margin: 5px;
-  }
 }
 
 a.addButton {
