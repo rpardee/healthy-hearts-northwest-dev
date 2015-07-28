@@ -20,12 +20,12 @@
 
   <table class='space'>
     <tr>
-      <td><%= f.label :partner_id %></td>
+      <td><%= f.label :partner_id, "Assigned Recruiter" %></td>
       <td><%= f.select :partner_id, options_for_select(Partner.order("name").collect { |p| [p.name, p.id] }, selected: @partner_id) %></td>
     </tr>
     <tr>
       <td><%= f.label :contact_type %></td>
-      <td><%= f.select :contact_type, Event.contact_types.keys %></td>
+      <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS, include_blank: true %></td>
     </tr>
     <tr>
       <td><%= f.label :schedule_dt, "Scheduled Date" %></td>
@@ -37,7 +37,7 @@
     </tr>
     <tr>
       <td><%= f.label :outcome %></td>
-      <td><%= f.select :outcome, Event.outcomes.keys, include_blank: true %>
+      <td><%= f.select :outcome, Event::OUTCOME_VALS, include_blank: true %>
     </tr>
     <tr>
       <td><%= f.label :description, "Notes" %></td>
@@ -46,6 +46,6 @@
   </table>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update Contact" %>
   </div>
 <% end %>

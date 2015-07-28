@@ -52,7 +52,7 @@
         </tr>
         <tr>
           <td><%= f.label :contact_type, "Contact Type" %></td>
-          <td><%= f.select :contact_type, Event.contact_types.keys %></td>
+          <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS %></td>
         </tr>
         <tr>
           <td><%= f.label :description, "Notes" %></td>
@@ -80,11 +80,11 @@
       <tbody>
         <% @partner.events.appointments.order("schedule_dt, schedule_tm").each do |e| %>
           <tr>
-            <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), partner_event_path(@partner, e) %></td>
+            <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), edit_partner_event_path(@partner, e) %></td>
             <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
             <td><%= e.partner.name %></td>
             <td><%= e.practice.name %></td>
-            <td><%= e.contact_type %></td>
+            <td><%= Event::CONTACT_TYPE_VALS.key(e.contact_type) %></td>
           </tr>
         <% end %>
       </tbody>

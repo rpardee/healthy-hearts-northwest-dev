@@ -4,7 +4,7 @@
       <td><%= f.label :name %></td>
       <td colspan='3'><%= f.text_field :name %></td>
       <td><%= f.label :role %></td>
-      <td colspan='2'><%= f.select :role, Personnel::ROLES, include_blank: true %></td>
+      <td colspan='2'><%= f.select :role, Personnel::ROLE_VALS, include_blank: true %></td>
     </tr>
     <tr>
       <td><%= f.label :phone1, "Phone 1" %></td>

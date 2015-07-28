@@ -6,6 +6,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all
+    @event = Event.new
     @practice = Practice.where(id: params[:practice_id]).first
   end
 

@@ -12,18 +12,18 @@
   <% end %>
 
 <div id='nav-section'>
-<nav>
-  <ul id='main-menu'>
-    <li><%= link_to "General", "#general" %></li>
-    <li><%= link_to "Staff", "#staff" %></li>
-    <li><%= link_to "Interest", "#interest" %></li>
-    <li><%= link_to "Eligibility", "#eligibility" %></li>
-    <li><%= link_to "Characteristics", "#characteristics" %></li>
-    <li><%= link_to "EHR Assessment", "#assessment" %></li><br />
-    <li><%= link_to "Back", :back %></li>
-    <li><%= f.submit "Save" %></li>
-  </ul>
-</nav>
+  <nav>
+    <ul id='main-menu'>
+      <li><%= link_to "General", "#general" %></li>
+      <li><%= link_to "Staff", "#staff" %></li>
+      <li><%= link_to "Interest", "#interest" %></li>
+      <li><%= link_to "Eligibility", "#eligibility" %></li>
+      <li><%= link_to "Characteristics", "#characteristics" %></li>
+      <li><%= link_to "EHR Assessment", "#assessment" %></li><br />
+      <li><%= link_to "Back", :back %></li>
+      <li><%= f.submit "Save" %></li>
+    </ul>
+  </nav>
 </div>
 
 <div id='nav-right'>
@@ -76,10 +76,10 @@
     <div id='personnels'>
       <%= f.fields_for :personnels do |personnel| %>
         <%= render 'personnel_fields', :f => personnel %>
-        <div class='links'>
-          <%= link_to_add_association 'Add Staff Member', f, :personnels %>
-        </div>
       <% end %>
+    </div>
+    <div class='links'>
+      <%= link_to_add_association 'Add Staff Member', f, :personnels %>
     </div>
   </div>
 
@@ -108,7 +108,7 @@
     <table class='space'>
       <tr>
         <td><%= f.label :primary_care, "Primary care practice with Family Physicians or General Internists" %></td>
-        <td><%= f.select :primary_care, [["no",false],["yes",true]] %></td>
+        <td><%= f.select :primary_care, [["no",false],["yes",true]], include_blank: true %></td>
       </tr>
       <tr>
         <td><%= f.label :elig_phys_count, "Number of MDs at street address of practice" %></td>

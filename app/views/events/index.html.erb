@@ -26,6 +26,7 @@
 
   <% if @practice.personnels.any? %>
     <table class='typical enable-data-table'>
+      <caption>Staff</caption>
       <thead>
       <tr>
           <th>Name</th>
@@ -37,20 +38,80 @@
         <% @practice.personnels.order("name").each do |p| %>
           <tr>
             <td><%= link_to p.name, edit_practice_personnel_path(@practice, p), title: "Edit Staff Info", rel: "tooltip" %></td>
-            <td><%= p.role %></td>
+            <td><%= Personnel::ROLE_VALS.key(p.role) %></td>
             <td><%= p.best_contact %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% else %>
+    <br />
     <h4> No staff noted. </h4>
+    <br />
   <% end %>
 </div>
 
 <div id='right-23'>
-  <h3> Contact Log <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Schedule New Event"), new_practice_event_path(@practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %>
-  </h3>
+
+  <div id='openPopupForm'>
+    <h3>Contacts
+      <a class='addButton' title="Add New Appointment" rel="tooltip">
+        <%= image_tag("plus-blue.png", size: "15x15") %>
+      </a>
+    </h3>
+  </div>
+
+  <div id='popupForm'>
+    <%= form_for(@event) do |f| %>
+      <% if @event.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+          <ul>
+          <% @event.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div id="closePopupForm">
+        <a><%= image_tag("close.gif", alt: "Close") %></a>
+      </div>
+      <h3>New Appointment</h3>
+      <table class='space'>
+        <tr>
+          <td><%= f.label :practice_id, "Practice" %></td>
+          <td><%= f.select :practice_id, options_for_select(Practice.order("name").map{ |p| [p.name, p.id] }), selected: params[:practice_id] %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :partner_id, "Partner" %></td>
+          <td><%= f.select :partner_id, options_for_select(Partner.order("name").map{ |p| [p.name, p.id] }, selected: current_partner.id) %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :schedule_dt, "Date" %></td>
+          <td><%= f.text_field :schedule_dt, class: 'datepicker' %> mm/dd/yyyy</td>
+        </tr>
+        <tr>
+          <td><%= f.label :schedule_tm, "Time" %></td>
+          <td><%= f.text_field :schedule_tm, type: "time" %> hh:mm MM</td>
+        </tr>
+        <tr>
+          <td><%= f.label :contact_type, "Contact Type" %></td>
+          <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :description, "Notes" %></td>
+          <td><%= f.text_area :description, rows: 5 %></td>
+        </tr>
+      </table>
+
+      <div class="actions">
+        <%= f.submit "Add Appointment" %>
+      </div>
+    <% end %>
+  </div>
+
   <% if @practice.events.any? %>
     <table class='typical enable-data-table'>
       <thead>
@@ -77,7 +138,9 @@
       </tbody>
     </table>
   <% else %>
-    <p> No events exist. </p>
+    <br />
+    <h4> No contacts noted. </h4>
+    <br />
   <% end %>
 </div>
 

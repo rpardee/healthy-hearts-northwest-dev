@@ -17,7 +17,7 @@ class Personnel < ActiveRecord::Base
 		end
 	end
 
-	ROLES = {
+	ROLE_VALS = {
 		"Practice manager" => 1,
 		"Primary site contact" => 2,
 		"Primary clinician" => 3,
@@ -39,7 +39,6 @@ class Personnel < ActiveRecord::Base
 		"Certified nurse midwife" => 19,
 		"Pharmacist" => 20,
 		"Other" => 99
-
 	}
 
 end

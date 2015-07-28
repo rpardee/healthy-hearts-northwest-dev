@@ -29,7 +29,16 @@ class Practice < ActiveRecord::Base
 	end
 
 	def status
-		"Interested (eligibility TBD)"
+		# if interested then
+		# Ineligible
+		# Refused
+		# Interested & eligible
+		# Interested (eligibility TBD)
+		if primary_care == true and elig_phys_fte <= 10 and prac_ehr_mu == 1
+			"Eligible"
+		else
+			"Ineligible"
+		end
 	end
 
 	YN12_VALS = {
