@@ -36,7 +36,7 @@ class AlterPracticesTable < ActiveRecord::Migration
   	add_column :practices, :interest_why, :text
   	add_column :practices, :interest_expect, :text
   	add_column :practices, :interest_challenge, :text
-  	remove_column :practices, :mde_fte, :integer
+  	remove_column :practices, :md_fte, :integer
   	remove_column :practices, :status, :integer
   	remove_column :practices, :emr_certified_year, :integer
   end
