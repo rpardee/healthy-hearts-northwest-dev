@@ -6,6 +6,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all
+    @practice = Practice.where(id: params[:practice_id]).first
   end
 
   # GET /events/1
@@ -17,12 +18,14 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @practice_id = params[:practice_id]
-    @partner_id = Practice.where(id: @practice_id).first.partner_id
+    @practice = Practice.where(id: @practice_id).first
+    @partner_id = @practice.partner_id
   end
 
   # GET /events/1/edit
   def edit
     @practice_id = @event.practice_id
+    @practice = Practice.where(id: @practice_id).first
     @partner_id = @event.partner_id
   end
 

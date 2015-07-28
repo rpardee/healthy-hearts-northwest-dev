@@ -20,7 +20,7 @@
     <li><%= link_to "Eligibility", "#eligibility" %></li>
     <li><%= link_to "Characteristics", "#characteristics" %></li>
     <li><%= link_to "EHR Assessment", "#assessment" %></li><br />
-    <li><%= link_to "Back (no save)", :back %></li>
+    <li><%= link_to "Back", :back %></li>
     <li><%= f.submit "Save" %></li>
   </ul>
 </nav>
@@ -41,9 +41,9 @@
       </tr>
       <tr>
         <td><%= f.label :recruitment_source, "Recruitment Source" %></td>
-        <td><%= f.select :recruitment_source, PRACTICE::RECRUITMENT_SOURCE_VALS  %></td>
+        <td><%= f.select :recruitment_source, Practice::RECRUITMENT_SOURCE_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_recruitment_source_referral', :enablevalue => 4 } }  %></td>
       </tr>
-      <tr class='toggle-disable'>
+      <tr class='disabled-question'>
         <td><%= f.label :recruitment_source_referral, "Specify" %></td>
         <td><%= f.text_field :recruitment_source_referral %></td>
       </tr>
@@ -128,7 +128,7 @@
       </tr>
       <tr>
         <td>HTE assessment complete</td>
-        <td><%= @practice.hte_complete %> </td>
+        <td><bold><%= @practice.hte_complete %></bold> </td>
       </tr>
     </table>
   </div>
@@ -139,9 +139,9 @@
     <table class='space'>
       <tr>
         <td><%= f.label :elig_ownership, "1. Which of the following describes your practice's ownership? (Choose one)" %></td>
-        <td><%= f.select :elig_ownership, Practice::ELIG_OWNERSHIP_VALS, include_blank: true  %></td>
+        <td><%= f.select :elig_ownership, Practice::ELIG_OWNERSHIP_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_elig_ownership_other', :enablevalue => 99 } }   %></td>
       </tr>
-      <tr class='toggle-disable'>
+      <tr class='disabled-question'>
         <td><%= f.label :elig_ownership_other, "Specify" %></td>
         <td><%= f.text_field :elig_ownership_other  %></td>
       </tr>
@@ -183,10 +183,10 @@
       <tr>
         <td><%= f.label :prac_ehrname, "2. What is the name of your current EHR system? (choose one)" %></td>
         <td>
-          <%= f.select :prac_ehrname, Practice::PRAC_EHRNAME_VALS, include_blank: true  %>
+          <%= f.select :prac_ehrname, Practice::PRAC_EHRNAME_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_prac_ehrname_other', :enablevalue => 99 } }   %>
         </td>
       </tr>
-      <tr class='toggle-disable'>
+      <tr class='disabled-question'>
         <td><%= f.label :prac_ehrname_other, "Please specify" %></td>
         <td><%= f.text_field :prac_ehrname_other %></td>
       </tr>
@@ -215,10 +215,10 @@
       <tr>
         <td><%= f.label :prac_ehr_person_extractdata, "7. Who is the person responsible for extracting data from the EHR for purposes of quality reporting?" %></td>
         <td>
-          <%= f.select :prac_ehr_person_extractdata, Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS, include_blank: true  %>
+          <%= f.select :prac_ehr_person_extractdata, Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_prac_ehr_person_extractdata_other', :enablevalue => 9 } }   %>
         </td>
       </tr>
-      <tr class='toggle-disable'>
+      <tr class='disabled-question'>
         <td><%= f.label :prac_ehr_person_extractdata_other, "Please specify" %></td>
         <td><%= f.text_field :prac_ehr_person_extractdata_other %></td>
       </tr>

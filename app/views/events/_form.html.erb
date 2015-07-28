@@ -40,10 +40,6 @@
       <td><%= f.select :outcome, Event.outcomes.keys, include_blank: true %>
     </tr>
     <tr>
-      <td><%= f.label :outcome_dt, "Outcome Date" %></td>
-      <td><%= f.text_field :outcome_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y"), class: 'datepicker' %></td>
-    </tr>
-    <tr>
       <td><%= f.label :description, "Notes" %></td>
       <td><%= f.text_area :description, cols: 40, rows: 3 %></td>
     </tr>

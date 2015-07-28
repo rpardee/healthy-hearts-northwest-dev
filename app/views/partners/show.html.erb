@@ -106,8 +106,8 @@
         <tr>
           <th>Name</th>
           <th>Last Contact</th>
-          <th>Status 1</th>
-          <th>Status 2</th>
+          <th>Status</th>
+          <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -116,7 +116,7 @@
             <td><%= link_to p.name, edit_partner_practice_path(@partner, p) %></td>
             <td><%= p.events.last_contact %></td>
             <td><%= p.status %></td>
-            <td><%= p.status %></td>
+            <td><%= link_to "View Contacts", practice_events_path(p) %></td>
           </tr>
         <% end %>
       </tbody>

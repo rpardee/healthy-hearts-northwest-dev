@@ -1,25 +1,86 @@
 <%= render 'layouts/header' %>
 
-<h1>Listing Events</h1>
+<h1> Contacts for <%= @practice.name %> </h1>
 
-<table>
-  <thead>
+<div id='left-13'>
+  <h2><%= link_to @practice.name, edit_practice_path(@practice), title: 'Edit Practice', rel: 'tooltip' %>
+  </h2>
+  <table class='space'>
     <tr>
-      <th colspan="3"></th>
+      <td> Primary Recruiter </td>
+      <td><%= link_to @practice.partner.name, partner_path(@practice.partner), title: "View #{@practice.partner.name}", rel: 'tooltip' %></td>
     </tr>
-  </thead>
+    <tr>
+      <td> Address </td>
+      <td> <%= link_to @practice.address, "https://maps.google.com/maps?q=#{@practice.address}", target: '_blank', title: 'Map Practice', rel: 'tooltip' %> </td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td> <%= @practice.phone %></td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td><%= link_to @practice.url, @practice.url, target: '_blank', title: "Open URL", rel: 'tooltip' %></td>
+    </tr>
+  </table>
 
-  <tbody>
-    <% @events.each do |event| %>
+  <% if @practice.personnels.any? %>
+    <table class='typical enable-data-table'>
+      <thead>
       <tr>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Best Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @practice.personnels.order("name").each do |p| %>
+          <tr>
+            <td><%= link_to p.name, edit_practice_personnel_path(@practice, p), title: "Edit Staff Info", rel: "tooltip" %></td>
+            <td><%= p.role %></td>
+            <td><%= p.best_contact %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h4> No staff noted. </h4>
+  <% end %>
+</div>
 
-<br>
+<div id='right-23'>
+  <h3> Contact Log <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Schedule New Event"), new_practice_event_path(@practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %>
+  </h3>
+  <% if @practice.events.any? %>
+    <table class='typical enable-data-table'>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Recruiter</th>
+          <th>Contact Type</th>
+          <th>Outcome</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @practice.events.order("schedule_dt, schedule_tm").each do |e| %>
+          <tr>
+            <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), edit_practice_event_path(@practice, e), title: "Edit Contact", rel: "tooltip" %></td>
+            <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
+            <td><%= e.partner.name %></td>
+            <td><%= e.contact_type %></td>
+            <td><%= e.outcome %></td>
+            <td><%= truncate(e.description, length: 75) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p> No events exist. </p>
+  <% end %>
+</div>
 
-<%= link_to 'New Event', new_event_path %>
+<div class='clearfix'></div>
+
+<%= link_to "Back", :back %>

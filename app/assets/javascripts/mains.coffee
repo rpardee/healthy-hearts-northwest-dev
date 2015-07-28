@@ -24,3 +24,23 @@ $(document).ready ->
 
 $(document).ready ->
 	$('nav').sticky({ topSpacing: 50 })
+
+enableObjectIf = (selectorObject, value, effectorName) ->
+	effector = $(effectorName)
+	v = parseInt($(selectorObject).val())
+	if v == value
+		$(effector).removeAttr('disabled')
+	else
+		$(effector).attr('disabled', true)
+
+$(document).ready ->
+	$('.enable-control').each (index, element) =>
+		value = $(element).data('enablevalue')
+		effectorName = $(element).data('effector')
+		enableObjectIf($(element), value, effectorName)
+
+$(document).ready ->
+	$('.enable-control').on 'change',  ->
+		value = $(this).data('enablevalue')
+		effectorName = $(this).data('effector')
+		enableObjectIf($(this), value, effectorName)
