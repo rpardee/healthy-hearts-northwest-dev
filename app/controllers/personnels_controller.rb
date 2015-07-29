@@ -1,6 +1,8 @@
 class PersonnelsController < ApplicationController
   before_action :set_personnel, only: [:show, :edit, :update, :destroy]
 
+  validates_presence_of :name
+
   # GET /personnels
   # GET /personnels.json
   def index
