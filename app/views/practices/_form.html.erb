@@ -88,6 +88,18 @@
     <p class='title'>Interest</p>
     <table class='space'>
       <tr>
+        <td><%= f.label :interest_yn, "Are you interested in participating in this study?" %></td>
+        <td><%= f.select :interest_yn, Practice::YN12_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_interest_why_not', :enablevalue => 2 } } %></td>
+      </tr>
+      <tr class='disabled-question'>
+        <td><%= f.label :interest_why_not, "If no, why not?" %></td>
+        <td><%= f.select :interest_why_not, Practice::INTEREST_WHY_NOT_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_interest_why_not_other', :enablevalue => 99 } } %></td>
+      </tr>
+      <tr class='disabled-question'>
+        <td><%= f.label :interest_why_not_other, "Please specify:" %></td>
+        <td><%= f.text_field :interest_why_not_other %></td>
+      </tr>
+      <tr>
         <td><%= f.label :interest_why, "Why is your practice interested in participating in H2N?" %></td>
         <td><%= f.text_area :interest_why, rows: 3, cols: 50 %></td>
       </tr>
@@ -108,7 +120,7 @@
     <table class='space'>
       <tr>
         <td><%= f.label :primary_care, "Primary care practice with Family Physicians or General Internists" %></td>
-        <td><%= f.select :primary_care, [["no",false],["yes",true]], include_blank: true %></td>
+        <td><%= f.select :primary_care, Practice::YN12_VALS, include_blank: true %></td>
       </tr>
       <tr>
         <td><%= f.label :elig_phys_count, "Number of MDs at street address of practice" %></td>
@@ -127,8 +139,8 @@
         <td><%= f.select :prac_ehr_mu, Practice::YN12_VALS, include_blank: true %></td>
       </tr>
       <tr>
-        <td>HTE assessment complete</td>
-        <td><bold><%= @practice.hte_complete %></bold> </td>
+        <td><%= f.label :prac_ehr_mu_yr, "What year was your EHR certified?" %></td>
+        <td><%= f.text_field :prac_ehr_mu_yr, size: 4 %></td>
       </tr>
     </table>
   </div>
@@ -155,7 +167,7 @@
       </tr>
       <tr>
         <td><%= f.label :elig_specialty, "4. Which of the following describes your practice's specialty mix?" %></td>
-        <td><%= f.select :elig_ownership, Practice::ELIG_SPECIALTY_VALS, include_blank: true  %></td>
+        <td><%= f.select :elig_specialty, Practice::ELIG_SPECIALTY_VALS, include_blank: true  %></td>
       </tr>
       <tr>
         <td><%= f.label :elig_pcmh, "5. Is your practice PCMH recognized or accredited?" %></td>

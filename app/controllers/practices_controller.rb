@@ -86,6 +86,7 @@ class PracticesController < ApplicationController
         :elig_clinic_count, :elig_specialty, :elig_pcmh,
         :elig_aco, :elig_aco_apply, :interest_why, :interest_expect,
         :interest_challenge, :recruitment_source, :recruitment_source_referral,
+        :prac_ehr_mu_yr, :interest_yn, :interest_why_not, :interest_why_not_other,
         personnels_attributes: [:id, :_destroy, :name, :role, :phone1,
           :phone1_best, :phone2, :phone2_best, :email1, :email1_best,
           :email2, :email1_best])

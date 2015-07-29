@@ -67,6 +67,19 @@ class Practice < ActiveRecord::Base
 		"Conference presenation" => 5
 	}
 
+	INTEREST_WHY_NOT_VALS = {
+		"No time/too busy" => 1,
+		"Already involved in an overlapping initiative" => 2,
+		"Practice to close/move in near future" => 3,
+		"Don’t need help/satisfied with internal QI" => 4,
+		"Bad past experience" => 5,
+		"Not relevant to patient population" => 6,
+		"Bad timing" => 7,
+		"No IT support onsite" => 8,
+		"Data collection demands of project" => 9,
+		"Other (specify)" => 99
+	}
+
 	ELIG_OWNERSHIP_VALS = {
 		"Private solo or group practice" => 1,
 		"Freestanding urgent care center" => 2,
