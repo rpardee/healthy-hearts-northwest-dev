@@ -31,7 +31,7 @@
     </h3>
   </div>
   <div id='popupForm' class='popupForm-large'>
-    <%= form_for(@personnel) do |f| %>
+    <%= form_for([@practice, @personnel]) do |f| %>
       <% if @personnel.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@personnel.errors.count, "error") %> prohibited this appointment from being saved:</h2>

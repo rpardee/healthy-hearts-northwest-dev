@@ -34,6 +34,8 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
+    @practice_id = @event.practice_id
+    @practice = Practice.where(id: @practice_id).first
 
     respond_to do |format|
       if @event.save
