@@ -110,7 +110,7 @@
 </div>
 
 <div id='right-23'>
-  <h3> Contact Log <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Schedule New Event"), new_practice_event_path(@practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %>
+  <h3> Activity Log <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Schedule New Event"), new_practice_event_path(@practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %>
   </h3>
   <% if @practice.events.any? %>
     <table class='typical enable-data-table'>
@@ -119,7 +119,7 @@
           <th>Date</th>
           <th>Time</th>
           <th>Recruiter</th>
-          <th>Contact Type</th>
+          <th>Mode</th>
           <th>Outcome</th>
           <th>Notes</th>
         </tr>
@@ -130,8 +130,8 @@
             <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), practice_event_path(@practice, e) %></td>
             <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
             <td><%= e.partner.name %></td>
-            <td><%= e.contact_type %></td>
-            <td><%= e.outcome %></td>
+            <td><%= Event::CONTACT_TYPE_VALS.key(e.contact_type) %></td>
+            <td><%= Event::OUTCOME_VALS.key(e.outcome) %></td>
             <td><%= truncate(e.description, length: 75) %></td>
           </tr>
         <% end %>

@@ -24,7 +24,7 @@
       <td><%= f.select :partner_id, options_for_select(Partner.order("name").collect { |p| [p.name, p.id] }, selected: @partner_id) %></td>
     </tr>
     <tr>
-      <td><%= f.label :contact_type %></td>
+      <td><%= f.label :contact_type, "Mode" %></td>
       <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS, include_blank: true %></td>
     </tr>
     <tr>
@@ -46,6 +46,6 @@
   </table>
 
   <div class="actions">
-    <%= f.submit "Update Contact" %>
+    <%= f.submit "Update Activity" %>
   </div>
 <% end %>

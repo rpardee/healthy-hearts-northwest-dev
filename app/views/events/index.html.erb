@@ -1,61 +1,12 @@
 <%= render 'layouts/header' %>
 
-<h1> Contacts for <%= @practice.name %> </h1>
+<h1> Activities for <%= @practice.name %> </h1>
 
-<div id='left-13'>
-  <h2><%= link_to @practice.name, edit_practice_path(@practice), title: 'Edit Practice', rel: 'tooltip' %>
-  </h2>
-  <table class='space'>
-    <tr>
-      <td> Primary Recruiter </td>
-      <td><%= link_to @practice.partner.name, partner_path(@practice.partner), title: "View #{@practice.partner.name}", rel: 'tooltip' %></td>
-    </tr>
-    <tr>
-      <td> Address </td>
-      <td> <%= link_to @practice.address, "https://maps.google.com/maps?q=#{@practice.address}", target: '_blank', title: 'Map Practice', rel: 'tooltip' %> </td>
-    </tr>
-    <tr>
-      <td>Phone</td>
-      <td> <%= @practice.phone %></td>
-    </tr>
-    <tr>
-      <td>URL</td>
-      <td><%= link_to @practice.url, @practice.url, target: '_blank', title: "Open URL", rel: 'tooltip' %></td>
-    </tr>
-  </table>
-
-  <% if @practice.personnels.any? %>
-    <table class='typical enable-data-table'>
-      <caption>Staff</caption>
-      <thead>
-      <tr>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Best Contact</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @practice.personnels.order("name").each do |p| %>
-          <tr>
-            <td><%= link_to p.name, edit_practice_personnel_path(@practice, p), title: "Edit Staff Info", rel: "tooltip" %></td>
-            <td><%= Personnel::ROLE_VALS.key(p.role) %></td>
-            <td><%= p.best_contact %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <br />
-    <h4> No staff noted. </h4>
-    <br />
-  <% end %>
-</div>
-
-<div id='right-23'>
+<div>
 
   <div id='openPopupForm'>
-    <h3>Contacts
-      <a class='addButton' title="Add New Appointment" rel="tooltip">
+    <h3>Activities
+      <a class='addButton' title="Add New Activity" rel="tooltip">
         <%= image_tag("plus-blue.png", size: "15x15") %>
       </a>
     </h3>
@@ -65,7 +16,7 @@
     <%= form_for(@event) do |f| %>
       <% if @event.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this activity from being saved:</h2>
 
           <ul>
           <% @event.errors.full_messages.each do |message| %>
@@ -78,14 +29,14 @@
       <div id="closePopupForm">
         <a><%= image_tag("close.gif", alt: "Close") %></a>
       </div>
-      <h3>New Appointment</h3>
+      <h3>New Activity</h3>
       <table class='space'>
         <tr>
           <td><%= f.label :practice_id, "Practice" %></td>
           <td><%= f.select :practice_id, options_for_select(Practice.order("name").map{ |p| [p.name, p.id] }), selected: params[:practice_id] %></td>
         </tr>
         <tr>
-          <td><%= f.label :partner_id, "Partner" %></td>
+          <td><%= f.label :partner_id, "Assigned Recruiter" %></td>
           <td><%= f.select :partner_id, options_for_select(Partner.order("name").map{ |p| [p.name, p.id] }, selected: current_partner.id) %></td>
         </tr>
         <tr>
@@ -97,7 +48,7 @@
           <td><%= f.text_field :schedule_tm, type: "time" %> hh:mm MM</td>
         </tr>
         <tr>
-          <td><%= f.label :contact_type, "Contact Type" %></td>
+          <td><%= f.label :contact_type, "Mode" %></td>
           <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS %></td>
         </tr>
         <tr>
@@ -107,7 +58,7 @@
       </table>
 
       <div class="actions">
-        <%= f.submit "Add Appointment" %>
+        <%= f.submit "Add Activity" %>
       </div>
     <% end %>
   </div>
@@ -118,8 +69,8 @@
         <tr>
           <th>Date</th>
           <th>Time</th>
-          <th>Recruiter</th>
-          <th>Contact Type</th>
+          <th>Assigned<br />Recruiter</th>
+          <th>Mode</th>
           <th>Outcome</th>
           <th>Notes</th>
         </tr>
@@ -130,8 +81,8 @@
             <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), edit_practice_event_path(@practice, e), title: "Edit Contact", rel: "tooltip" %></td>
             <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
             <td><%= e.partner.name %></td>
-            <td><%= e.contact_type %></td>
-            <td><%= e.outcome %></td>
+            <td><%= Event::CONTACT_TYPE_VALS.key(e.contact_type) %></td>
+            <td><%= Event::OUTCOME_VALS.key(e.outcome) %></td>
             <td><%= truncate(e.description, length: 75) %></td>
           </tr>
         <% end %>
@@ -139,7 +90,7 @@
     </table>
   <% else %>
     <br />
-    <h4> No contacts noted. </h4>
+    <h4> No activities noted. </h4>
     <br />
   <% end %>
 </div>

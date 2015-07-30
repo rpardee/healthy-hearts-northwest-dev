@@ -12,7 +12,9 @@ class Event < ActiveRecord::Base
 		"(no contact)" => 0,
 		"phone" => 1,
 		"email" => 2,
-		"in-person" => 3
+		"in-person" => 3,
+		"text" => 4,
+		"other" => 9
 	}
 
 	OUTCOME_VALS = {
