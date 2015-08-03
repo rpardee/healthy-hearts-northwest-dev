@@ -8,7 +8,7 @@
 
 <div id='left-2'>
   <div id='openPopupForm'>
-    <h3 title="Activities coming up" rel="tooltip">Appointment Snapshot
+    <h3 title="Activities coming up" rel="tooltip">Upcoming Activity Snapshot
       <a class='addButton' title="Add New Activity" rel="tooltip">
         <%= image_tag("plus-blue.png", size: "15x15") %>
       </a>
@@ -80,7 +80,7 @@
       <tbody>
         <% @partner.events.appointments.order("schedule_dt, schedule_tm").each do |e| %>
           <tr>
-            <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), edit_partner_event_path(@partner, e) %></td>
+            <td><%= link_to e.schedule_dt.try(:strftime, "%Y-%m-%d"), edit_partner_event_path(@partner, e) %></td>
             <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
             <td><%= e.partner.name %></td>
             <td><%= e.practice.name %></td>

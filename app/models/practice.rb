@@ -14,7 +14,7 @@ class Practice < ActiveRecord::Base
 			if event.nil?
 				last_contact = ""
 			else
-				last_contact = event.schedule_dt.strftime("%-m/%-d/%Y")
+				last_contact = event.schedule_dt.strftime("%Y-%m-%d")
 			end
 		end
 
@@ -22,10 +22,6 @@ class Practice < ActiveRecord::Base
 			self.where("schedule_dt >= ?", Date.today)
 		end
 
-	end
-
-	def hte_complete
-		false
 	end
 
 	def status
@@ -81,6 +77,7 @@ class Practice < ActiveRecord::Base
 		"Other (specify)" => 99
 	}
 
+	# "Other" is 16 in original coding
 	ELIG_OWNERSHIP_VALS = {
 		"Private solo or group practice" => 1,
 		"Freestanding urgent care center" => 2,
@@ -105,14 +102,16 @@ class Practice < ActiveRecord::Base
 		"Multi-specialty" => 2
 	}
 
+	# All Yes, Mediare options are coded as "1" per the evaluator doco
+	# The original coding is included in comments below
 	ELIG_ACO_VALS = {
 		"Yes, a Medicare Pioneer ACO" => 1,
-		"Yes, Medicare Shared Saving Program ACO" => 2,
-		"Yes, Medicare Advance Payment ACO" => 3,
-		"Yes, a commercial ACO" => 4,
-		"Yes, another type of ACO" => 5,
-		"Medicaid ACO" => 6,
-		"No" => 0
+		"Yes, Medicare Shared Saving Program ACO" => 2, # 1
+		"Yes, Medicare Advance Payment ACO" => 3,				# 1
+		"Yes, a commercial ACO" => 4,										# 2
+		"Yes, another type of ACO" => 5,								# 3
+		"Medicaid ACO" => 6,														# 4
+		"No" => 0																				# 5
 	}
 
 	PRAC_EHR_VALS = {

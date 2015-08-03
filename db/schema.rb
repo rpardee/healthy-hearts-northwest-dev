@@ -11,22 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729142729) do
+ActiveRecord::Schema.define(version: 20150803201610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
-    t.integer  "partner_id",               null: false
-    t.integer  "practice_id",              null: false
-    t.date     "schedule_dt",              null: false
-    t.time     "schedule_tm",              null: false
-    t.integer  "contact_type", default: 0, null: false
-    t.integer  "outcome",      default: 0, null: false
+    t.integer  "partner_id",                  null: false
+    t.integer  "practice_id",                 null: false
+    t.date     "schedule_dt",                 null: false
+    t.time     "schedule_tm",                 null: false
+    t.integer  "contact_type",    default: 0, null: false
+    t.integer  "outcome",         default: 0, null: false
     t.date     "outcome_dt"
     t.text     "description"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "current_partner"
   end
 
   add_index "events", ["partner_id"], name: "index_events_on_partner_id", using: :btree
@@ -58,19 +59,20 @@ ActiveRecord::Schema.define(version: 20150729142729) do
   add_index "partners", ["unlock_token"], name: "index_partners_on_unlock_token", unique: true, using: :btree
 
   create_table "personnels", force: :cascade do |t|
-    t.integer  "practice_id",                            null: false
-    t.string   "name",                                   null: false
+    t.integer  "practice_id",                                null: false
+    t.string   "name",                                       null: false
     t.integer  "role"
-    t.string   "phone1",      limit: 20
-    t.boolean  "phone1_best",            default: false, null: false
-    t.string   "phone2",      limit: 20
-    t.boolean  "phone2_best",            default: false, null: false
-    t.string   "email1",      limit: 20
-    t.boolean  "email1_best",            default: false, null: false
-    t.string   "email2",      limit: 20
-    t.boolean  "email2_best",            default: false, null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "phone1",          limit: 20
+    t.boolean  "phone1_best",                default: false, null: false
+    t.string   "phone2",          limit: 20
+    t.boolean  "phone2_best",                default: false, null: false
+    t.string   "email1",          limit: 20
+    t.boolean  "email1_best",                default: false, null: false
+    t.string   "email2",          limit: 20
+    t.boolean  "email2_best",                default: false, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "current_partner"
   end
 
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
@@ -124,6 +126,7 @@ ActiveRecord::Schema.define(version: 20150729142729) do
     t.integer  "interest_yn"
     t.integer  "interest_why_not"
     t.string   "interest_why_not_other"
+    t.string   "current_partner"
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree

@@ -26,6 +26,7 @@ class PersonnelsController < ApplicationController
   def create
     @personnel = Personnel.new(personnel_params)
     partner_id = Practice.find(@personnel.practice_id).partner_id
+    @personnel.current_partner = current_partner.name
 
     respond_to do |format|
       if @personnel.save
@@ -42,6 +43,7 @@ class PersonnelsController < ApplicationController
   # PATCH/PUT /personnels/1.json
   def update
     partner_id = Practice.find(@personnel.practice_id).partner_id
+    @personnel.current_partner = current_partner.name
     respond_to do |format|
       if @personnel.update(personnel_params)
         format.html { redirect_to partner_practice_path(partner_id, @personnel.practice_id), notice: 'Personnel was successfully updated.' }

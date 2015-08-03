@@ -78,7 +78,7 @@
       <tbody>
         <% @practice.events.order("schedule_dt, schedule_tm").each do |e| %>
           <tr>
-            <td><%= link_to e.schedule_dt.try(:strftime, "%-m/%-d/%Y"), edit_practice_event_path(@practice, e), title: "Edit Contact", rel: "tooltip" %></td>
+            <td><%= link_to e.schedule_dt.try(:strftime, "%Y-%m-%d"), edit_practice_event_path(@practice, e), title: "Edit Contact", rel: "tooltip" %></td>
             <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
             <td><%= e.partner.name %></td>
             <td><%= Event::CONTACT_TYPE_VALS.key(e.contact_type) %></td>
