@@ -25,7 +25,11 @@
     </tr>
     <tr>
       <td><%= f.label :contact_type, "Mode" %></td>
-      <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS, include_blank: true %></td>
+      <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#event_contact_type_other', :enablevalue => 9 } } %></td>
+    </tr>
+    <tr class='disabled-question'>
+      <td><%= f.label :contact_type_other, "Specify" %></td>
+      <td><%= f.text_field :contact_type_other %></td>
     </tr>
     <tr>
       <td><%= f.label :schedule_dt, "Scheduled Date" %></td>

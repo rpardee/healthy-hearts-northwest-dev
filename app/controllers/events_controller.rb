@@ -8,6 +8,7 @@ class EventsController < ApplicationController
     @events = Event.all
     @event = Event.new
     @practice = Practice.where(id: params[:practice_id]).first
+    @partner = @practice.partner
   end
 
   # GET /events/1
@@ -20,14 +21,14 @@ class EventsController < ApplicationController
     @event = Event.new
     @practice_id = params[:practice_id]
     @practice = Practice.where(id: @practice_id).first
-    @partner_id = @practice.partner_id
+    @partner = @practice.partner
   end
 
   # GET /events/1/edit
   def edit
     @practice_id = @event.practice_id
     @practice = Practice.where(id: @practice_id).first
-    @partner_id = @event.partner_id
+    @partner = @practice.partner
   end
 
   # POST /events
@@ -85,6 +86,6 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params[:event].permit(:practice_id, :partner_id, :schedule_dt,
-        :schedule_tm, :contact_type, :outcome, :outcome_dt, :description)
+        :schedule_tm, :contact_type, :contact_type_other, :outcome, :outcome_dt, :description)
     end
 end

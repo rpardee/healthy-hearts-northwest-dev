@@ -17,17 +17,18 @@ ActiveRecord::Schema.define(version: 20150803201610) do
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
-    t.integer  "partner_id",                  null: false
-    t.integer  "practice_id",                 null: false
-    t.date     "schedule_dt",                 null: false
-    t.time     "schedule_tm",                 null: false
-    t.integer  "contact_type",    default: 0, null: false
-    t.integer  "outcome",         default: 0, null: false
+    t.integer  "partner_id",                     null: false
+    t.integer  "practice_id",                    null: false
+    t.date     "schedule_dt",                    null: false
+    t.time     "schedule_tm",                    null: false
+    t.integer  "contact_type",       default: 0, null: false
+    t.integer  "outcome",            default: 0, null: false
     t.date     "outcome_dt"
     t.text     "description"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "current_partner"
+    t.string   "contact_type_other"
   end
 
   add_index "events", ["partner_id"], name: "index_events_on_partner_id", using: :btree
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150803201610) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
+    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false

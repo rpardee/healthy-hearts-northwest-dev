@@ -1,0 +1,54 @@
+<div id='popupForm'>
+  <%= form_for(@event) do |f| %>
+    <% if @event.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+        <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div id="closePopupForm">
+      <a><%= image_tag("close.gif", alt: "Close") %></a>
+    </div>
+    <h3>New Activity</h3>
+    <table class='space'>
+      <tr>
+        <td><%= f.label :practice_id, "Practice" %></td>
+        <td><%= f.select :practice_id, options_for_select(Practice.order("name").map{ |p| [p.name, p.id] }), include_blank: true %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :partner_id, "Assigned Recruiter" %></td>
+        <td><%= f.select :partner_id, options_for_select(Partner.order("name").map{ |p| [p.name, p.id] }, selected: @partner.id) %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :schedule_dt, "Date" %></td>
+        <td><%= f.text_field :schedule_dt, class: 'datepicker' %> mm/dd/yyyy</td>
+      </tr>
+      <tr>
+        <td><%= f.label :schedule_tm, "Time" %></td>
+        <td><%= f.text_field :schedule_tm, type: "time" %> hh:mm MM</td>
+      </tr>
+      <tr>
+        <td><%= f.label :contact_type, "Mode" %></td>
+        <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#event_contact_type_other', :enablevalue => 9 } } %></td>
+      </tr>
+      <tr class='disabled-question'>
+        <td><%= f.label :contact_type_other, "Specify" %></td>
+        <td><%= f.text_field :contact_type_other %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :description, "Notes" %></td>
+        <td><%= f.text_area :description, rows: 5 %></td>
+      </tr>
+    </table>
+
+    <div class="actions">
+      <%= f.submit "Add Activity" %>
+    </div>
+  <% end %>
+</div>
