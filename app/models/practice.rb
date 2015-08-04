@@ -3,12 +3,20 @@ class Practice < ActiveRecord::Base
 
 	validates_presence_of :name
 
-	has_many :personnels, dependent: :destroy
+	has_many :personnels, dependent: :destroy do
+		def primary_contact
+			personnel = self.where("role = ?", Personnel::ROLE_VALS["Primary site contact"]).first
+			if personnel.nil?
+				primary_contact = "(none)"
+			else
+				primary_contact = personnel.name
+			end
+		end
+	end
 	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
 		:allow_destroy => true
 
 	has_many :events, dependent: :destroy do
-
 		def last_contact
 			event = self.order("schedule_dt").last
 			if event.nil?
@@ -21,7 +29,6 @@ class Practice < ActiveRecord::Base
 		def appointments
 			self.where("schedule_dt >= ?", Date.today)
 		end
-
 	end
 
 	def status
@@ -61,7 +68,7 @@ class Practice < ActiveRecord::Base
 		"Individual email" => 2,
 		"Flyer" => 3,
 		"Referral (specify)" => 4,
-		"Conference presenation" => 5
+		"Conference presentation" => 5
 	}
 
 	INTEREST_WHY_NOT_VALS = {

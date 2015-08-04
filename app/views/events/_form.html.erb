@@ -37,7 +37,7 @@
     </tr>
     <tr>
       <td><%= f.label :schedule_tm, "Scheduled Time" %></td>
-      <td><%= f.text_field :schedule_tm, value: @event.schedule_tm.try(:strftime, "%l:%M %p"), type: "time" %> hh:mm MM</td>
+      <td><%= f.text_field :schedule_tm, value: @event.schedule_tm.try(:strftime, "%I:%M %p"), class: 'timefield' %> hh:mm MM</td>
     </tr>
     <tr>
       <td><%= f.label :outcome %></td>

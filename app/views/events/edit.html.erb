@@ -1,6 +1,6 @@
 <%= render 'layouts/header' %>
 
-<h1>Editing Activity for <%= @practice.name %></h1>
+<h1>Editing Activity for <%= link_to @practice.name, edit_partner_practice_path(@partner, @practice) %></h1>
 
 <%= render 'form' %>
 

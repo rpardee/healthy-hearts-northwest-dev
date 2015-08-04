@@ -119,27 +119,27 @@
     <p class='title'>Eligibility</p>
     <table class='space'>
       <tr>
-        <td><%= f.label :primary_care, "Primary care practice with Family Physicians or General Internists" %></td>
+        <td><%= f.label :primary_care, "1. Primary care practice with Family Physicians or General Internists" %></td>
         <td><%= f.select :primary_care, Practice::YN12_VALS, include_blank: true %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_phys_count, "Number of MDs at street address of practice" %></td>
+        <td><%= f.label :elig_phys_count, "2. Number of MDs at street address of practice" %></td>
         <td><%= f.text_field :elig_phys_count, size: 5 %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_phys_fte, "Number of MD FTE at street address of practice" %></td>
+        <td><%= f.label :elig_phys_fte, "3. Number of combined MD FTE at street address of practice" %></td>
         <td><%= f.text_field :elig_phys_fte, size: 5 %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr, "Does your practice use an electronic health record (EHR) system? Do not include billing record systems." %></td>
+        <td><%= f.label :prac_ehr, "4. Does your practice use an electronic health record (EHR) system? Do not include billing record systems." %></td>
         <td><%= f.select :prac_ehr, Practice::PRAC_EHR_VALS, include_blank: true %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr_mu, "Is your current system Certified to meet Meaningful Use as defined by Health and Human Services/ONC?" %></td>
+        <td><%= f.label :prac_ehr_mu, "5. Is your current system Certified to meet Meaningful Use as defined by Health and Human Services/ONC?" %></td>
         <td><%= f.select :prac_ehr_mu, Practice::YN12_VALS, include_blank: true %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr_mu_yr, "What year was your EHR certified?" %></td>
+        <td><%= f.label :prac_ehr_mu_yr, "6. What year was your EHR certified?" %></td>
         <td><%= f.text_field :prac_ehr_mu_yr, size: 4 %></td>
       </tr>
     </table>
@@ -263,7 +263,7 @@
         <td>(Please enter this information in the Staff List)</td>
       </tr>
       <tr>
-        <td><%= f.label :prac_cqm_submit, "15. Have you are are you sooon going to submit CQM reports through the Physician Quality Reporting System (PQRS)?" %></td>
+        <td><%= f.label :prac_cqm_submit, "15. Have you or are you soon going to submit CQM reports through the Physician Quality Reporting System (PQRS)?" %></td>
         <td><%= f.select :prac_cqm_submit, Practice::YN12_VALS, include_blank: true  %></td>
       </tr>
       <tr>

@@ -55,7 +55,8 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Last Contact</th>
+          <th>Contact</th>
+          <th>Last Event</th>
           <th>Status</th>
           <th>&nbsp;</th>
         </tr>
@@ -64,6 +65,7 @@
         <% @partner.practices.each do |p| %>
           <tr>
             <td><%= link_to p.name, edit_partner_practice_path(@partner, p) %></td>
+            <td><%= p.personnels.primary_contact %></td>
             <td><%= p.events.last_contact %></td>
             <td><%= p.status %></td>
             <td><%= link_to "View Activities", practice_events_path(p) %></td>

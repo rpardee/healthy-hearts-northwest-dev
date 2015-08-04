@@ -16,6 +16,7 @@
 //= require jquery-ui/datepicker
 //= require jquery.dataTables.js
 //= require jquery.sticky.js
+//= require jquery.maskedinput.js
 //= require turbolinks
 //= require cocoon
 //= require_tree .

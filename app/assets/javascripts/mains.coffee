@@ -44,3 +44,6 @@ $(document).ready ->
 		value = $(this).data('enablevalue')
 		effectorName = $(this).data('effector')
 		enableObjectIf($(this), value, effectorName)
+
+$(document).ready ->
+	$('.timefield').mask('99:99 aa')

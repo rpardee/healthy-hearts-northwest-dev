@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803201610) do
+ActiveRecord::Schema.define(version: 20150804203327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150803201610) do
     t.integer  "partner_id",                     null: false
     t.integer  "practice_id",                    null: false
     t.date     "schedule_dt",                    null: false
-    t.time     "schedule_tm",                    null: false
+    t.time     "schedule_tm"
     t.integer  "contact_type",       default: 0, null: false
     t.integer  "outcome",            default: 0, null: false
     t.date     "outcome_dt"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20150803201610) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -75,6 +74,10 @@ ActiveRecord::Schema.define(version: 20150803201610) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.string   "current_partner"
+    t.boolean  "ehr_extractor",              default: false
+    t.boolean  "ehr_helper",                 default: false
+    t.boolean  "ehr_cqm",                    default: false
+    t.string   "role_other"
   end
 
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
@@ -129,6 +132,8 @@ ActiveRecord::Schema.define(version: 20150803201610) do
     t.integer  "interest_why_not"
     t.string   "interest_why_not_other"
     t.string   "current_partner"
+    t.string   "parent_organization"
+    t.integer  "interest_contact_month"
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree
