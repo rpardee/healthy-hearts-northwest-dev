@@ -11,16 +11,19 @@ class Partner < ActiveRecord::Base
   has_many :practices, dependent: :destroy
 
   has_many :events, dependent: :destroy do
-
     def appointments
       self.where("schedule_dt >= ?", Date.today)
     end
-
   end
 
   enum role: {
     "(no role)" => 0,
-    "recruiter" => 1
+    "Recruiter Standard" => 1,
+    "Recruiter Admin" => 2
   }
+
+  def admin?
+    role == 2
+  end
 
 end

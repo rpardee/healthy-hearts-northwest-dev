@@ -2,7 +2,7 @@
 
 <h2>
   Home for
-  <span id='selectData'><%= select_tag "partners", options_for_select(Partner.order("name").collect { |p| [p.name, p.id] }, selected: @partner.id) %></span>
+  <span id='selectData'><%= select_tag "partners", options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: @partner.id) %></span>
   <span id="displayData" data-partner-id="<%= @partner.id %>" title="Click to change" rel="tooltip"><%= @partner.name %></span>
 </h2>
 

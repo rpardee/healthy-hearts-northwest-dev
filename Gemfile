@@ -4,6 +4,9 @@ gem 'devise', '~> 3.5.1'
 gem 'american_date', '~> 1.1.0'
 gem 'rails_12factor', group: :production
 
+# Authorization
+gem 'pundit', '~> 1.0.1'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 # Use postgresql as the database for Active Record
