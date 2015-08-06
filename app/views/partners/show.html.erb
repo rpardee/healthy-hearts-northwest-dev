@@ -1,47 +1,17 @@
 <%= render 'layouts/header' %>
 
-<h2>
-  Home for
-  <span id='selectData'><%= select_tag "partners", options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: @partner.id) %></span>
-  <span id="displayData" data-partner-id="<%= @partner.id %>" title="Click to change" rel="tooltip"><%= @partner.name %></span>
-</h2>
+<%= render 'home_for' %>
 
 <div id='left-2'>
   <div id='openPopupForm'>
-    <h3 title="Upcming Activities" rel="tooltip">Upcoming Activity Snapshot
+    <h3 title="Upcoming Activities" rel="tooltip">Upcoming Activity Snapshot
       <a class='addButton' title="Add New Activity" rel="tooltip">
         <%= image_tag("plus-blue.png", size: "15x15") %>
       </a>
     </h3>
   </div>
   <%= render partial: 'layouts/event_new_popup' %>
-
-  <% if @partner.events.appointments.any? %>
-    <table class='typical enable-data-table'>
-    <thead>
-        <tr>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Assigned<br />Recruiter</th>
-          <th>Practice</th>
-          <th>Mode</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @partner.events.appointments.order("schedule_dt, schedule_tm").each do |e| %>
-          <tr>
-            <td><%= link_to e.schedule_dt.try(:strftime, "%Y-%m-%d"), edit_partner_event_path(@partner, e) %></td>
-            <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
-            <td><%= e.partner.name %></td>
-            <td><%= e.practice.name %></td>
-            <td><%= Event::CONTACT_TYPE_VALS.key(e.contact_type) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p> No activities currently scheduled. </p>
-  <% end %>
+  <%= render 'activity_snapshot_single' %>
 </div>
 
 <div id='right-2'>
@@ -49,33 +19,7 @@
   <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Add New Practice"), new_partner_practice_path(@partner), class: 'addButton', title: 'Add New Practice', rel: 'tooltip' %>
 
   <span class='clearfix'>&nbsp;</span>
-
-  <% if @partner.practices.any? %>
-    <table class='typical enable-data-table'>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Contact</th>
-          <th>Last Event</th>
-          <th>Status</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @partner.practices.each do |p| %>
-          <tr>
-            <td><%= link_to p.name, edit_partner_practice_path(@partner, p) %></td>
-            <td><%= p.personnels.primary_contact %></td>
-            <td><%= p.events.last_contact %></td>
-            <td><%= p.status %></td>
-            <td><%= link_to "View Activities", practice_events_path(p) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p> No practices associated with this partner. </p>
-  <% end %>
+  <%= render 'practice_snapshot_single' %>
 </div>
 
 <div class='clearfix'></div>

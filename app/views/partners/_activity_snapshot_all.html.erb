@@ -1,0 +1,26 @@
+<% if @appointments.any? %>
+  <table class='typical enable-data-table'>
+  <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Assigned<br />Recruiter</th>
+        <th>Practice</th>
+        <th>Mode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @appointments.order("schedule_dt, schedule_tm").each do |e| %>
+        <tr>
+          <td><%= link_to e.schedule_dt.try(:strftime, "%Y-%m-%d"), edit_partner_event_path(e.partner, e) %></td>
+          <td><%= e.schedule_tm.try(:strftime, "%l:%M %p") %></td>
+          <td><%= e.partner.name %></td>
+          <td><%= e.practice.name %></td>
+          <td><%= Event::CONTACT_TYPE_VALS.key(e.contact_type) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p> No activities currently scheduled. </p>
+<% end %>

@@ -5,7 +5,14 @@ class PartnersController < ApplicationController
   # GET /partners
   # GET /partners.json
   def index
-    @partners = Partner.all
+    # Set these to display proper data
+    @partners = policy_scope(Partner).all
+    @practices = policy_scope(Practice).all
+    @appointments = policy_scope(Event).where('schedule_dt >= ?', Date.today)
+    # This populates the Partner Name dropdown
+    @partner = Partner.new(id: 0, name: 'ALL')
+    # Required for New Event quick add
+    @event = Event.new
   end
 
   # GET /partners/1

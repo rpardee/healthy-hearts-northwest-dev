@@ -11,7 +11,10 @@ $(document).on('click', '#displayData', ( ->
 # Update Partner change
 updateDisplay = () ->
 	partnerId = $('#selectData option:selected').val()
-	window.location.href = '/partners/'.concat(partnerId)
+	if partnerId == '0'
+		window.location.href = '/partners'
+	else
+		window.location.href = '/partners/'.concat(partnerId)
 
 updateDisplayOriginal = () ->
 	$('#displayData').text($('#data-select option:selected').text())

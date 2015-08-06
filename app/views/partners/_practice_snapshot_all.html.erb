@@ -1,0 +1,26 @@
+<% if @practices.any? %>
+  <table class='typical enable-data-table'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Last Event</th>
+        <th>Status</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @practices.each do |p| %>
+        <tr>
+          <td><%= link_to p.name, edit_partner_practice_path(p.partner_id, p) %></td>
+          <td><%= p.personnels.primary_contact %></td>
+          <td><%= p.events.last_contact %></td>
+          <td><%= p.status %></td>
+          <td><%= link_to "View Activities", practice_events_path(p) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p> No practices associated with this partner. </p>
+<% end %>

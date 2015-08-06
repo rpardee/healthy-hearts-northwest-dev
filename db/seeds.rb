@@ -15,10 +15,12 @@ end
 
 sites = Site.create([{ name: 'ORPRN' }, { name: 'Qualis' }])
 
-partner1 = Partner.new(site_id: sites.first.id, name: 'Marcelina Hilpert', email: 'marcelina@ghc.org', password: 'password', password_confirmation: 'password')
+partner1 = Partner.new(site_id: sites.first.id, name: 'Marcelina Hilpert', email: 'marcelina@orprn.org', password: 'password', password_confirmation: 'password')
 partner1.save!
 partner2 = Partner.new(site_id: sites.second.id, name: 'Luther Brock', email: 'luther@ghc.org', password: 'password', password_confirmation: 'password')
 partner2.save!
+partner3 = Partner.new(site_id: sites.second.id, name: 'Stefan Daniella', email: 'stefan@qualis.org', password: 'password', password_confirmation: 'password')
+partner3.save!
 
 practices = Practice.create! ([
 	{ partner_id: partner1.id, name: 'Bigger Practice',
@@ -26,6 +28,9 @@ practices = Practice.create! ([
 		url: 'http://www.microsoft.com' },
 	{ partner_id: partner2.id, name: 'Smaller Clinic',
 		address: '200 Main St, Smallville, USA', phone: '1-800-888-5555',
+		url: 'http://www.google.com' },
+	{ partner_id: partner2.id, name: 'Middling Medical',
+		address: '300 Main St, Midtown, USA', phone: '1-800-888-5555',
 		url: 'http://www.google.com' }
 ])
 

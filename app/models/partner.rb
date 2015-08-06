@@ -23,7 +23,7 @@ class Partner < ActiveRecord::Base
   }
 
   def admin?
-    role == 2
+    role == "Recruiter Admin"
   end
 
 end

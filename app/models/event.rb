@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
 	belongs_to :partner
 	belongs_to :practice
 
-	validates_presence_of :schedule_dt, :schedule_tm
+	validates_presence_of :schedule_dt
 
 	def appointment
 		self.schedule_dt >= Date.today
