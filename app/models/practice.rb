@@ -1,7 +1,8 @@
 class Practice < ActiveRecord::Base
 	belongs_to :partner
-
 	validates_presence_of :name
+
+	has_paper_trail
 
 	has_many :personnels, dependent: :destroy do
 		def primary_contact

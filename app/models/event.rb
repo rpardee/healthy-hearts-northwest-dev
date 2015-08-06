@@ -1,8 +1,9 @@
 class Event < ActiveRecord::Base
 	belongs_to :partner
 	belongs_to :practice
-
 	validates_presence_of :schedule_dt
+
+	has_paper_trail
 
 	def appointment
 		self.schedule_dt >= Date.today

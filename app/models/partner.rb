@@ -4,8 +4,9 @@ class Partner < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :lockable, :timeoutable
-
   validates_presence_of :name
+
+  has_paper_trail
 
   belongs_to :site
   has_many :practices, dependent: :destroy

@@ -1,7 +1,8 @@
 class Personnel < ActiveRecord::Base
 	belongs_to :practice
-
 	validates_presence_of :name
+
+	has_paper_trail
 
 	def best_contact
 		if phone1_best == true
