@@ -3,7 +3,7 @@ class Practice < ActiveRecord::Base
 	validates_presence_of :name, :prac_state
 	has_paper_trail
 
-	has_many :personnels, dependent: :destroy do
+	has_many :personnels, dependent: :delete_all do
 		def primary_contact
 			personnel = self.where("role = ?", Personnel::ROLE_VALS["Primary site contact"]).first
 			if personnel.nil?
@@ -16,7 +16,7 @@ class Practice < ActiveRecord::Base
 	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
 		:allow_destroy => true
 
-	has_many :events, dependent: :destroy do
+	has_many :events, dependent: :delete_all do
 		def last_contact
 			event = self.order("schedule_dt").last
 			if event.nil?
