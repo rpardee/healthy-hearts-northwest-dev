@@ -9,9 +9,9 @@ class Partner < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :site
-  has_many :practices, dependent: :delete_all
+  has_many :practices, dependent: :destroy
 
-  has_many :events, dependent: :delete_all do
+  has_many :events, dependent: :destroy do
     def appointments
       self.where("schedule_dt >= ?", Date.today)
     end
