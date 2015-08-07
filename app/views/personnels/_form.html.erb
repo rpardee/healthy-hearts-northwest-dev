@@ -20,7 +20,11 @@
     </tr>
     <tr>
       <td><%= f.label :role %></td>
-      <td colspan='2'><%= f.text_field :role %></td>
+      <td colspan='2'><%= f.select :role, Personnel::ROLE_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#personnel_role_other', :enablevalue => 99 }} %></td>
+    </tr>
+    <tr class='disabled-question'>
+      <td><%= f.label :role_other, "Specify" %></td>
+      <td><%= f.text_field :role_other %></td>
     </tr>
     <tr>
       <td><%= f.label :phone1, "Phone 1" %></td>

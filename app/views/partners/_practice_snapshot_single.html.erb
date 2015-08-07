@@ -3,9 +3,10 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Contact</th>
-        <th>Last Event</th>
+        <th>Primary<br />Contact</th>
+        <th>Last<br />Activity</th>
         <th>Status</th>
+        <th>Parent<br />Organization</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -16,6 +17,7 @@
           <td><%= p.personnels.primary_contact %></td>
           <td><%= p.events.last_contact %></td>
           <td><%= p.status %></td>
+          <td><%= p.parent_organization %></td>
           <td><%= link_to "View Activities", practice_events_path(p) %></td>
         </tr>
       <% end %>

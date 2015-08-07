@@ -8,6 +8,7 @@ class EventsController < ApplicationController
     @events = Event.all
     @event = Event.new
     @practice = Practice.where(id: params[:practice_id]).first
+    @practice_id = @practice.id
     @partner = @practice.partner
   end
 

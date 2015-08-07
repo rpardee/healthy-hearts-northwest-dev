@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806213758) do
+ActiveRecord::Schema.define(version: 20150807150549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20150806213758) do
     t.time     "schedule_tm"
     t.integer  "contact_type",       default: 0, null: false
     t.integer  "outcome",            default: 0, null: false
-    t.date     "outcome_dt"
     t.text     "description"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
@@ -37,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150806213758) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
+    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false

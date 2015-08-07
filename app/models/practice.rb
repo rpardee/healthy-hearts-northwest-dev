@@ -169,4 +169,17 @@ class Practice < ActiveRecord::Base
 		"Somewhat dissatisfied" => 3,
 		"Very dissatisfied" => 4
 	}
+
+	INTEREST_CONTACT_MONTH_VALS = {
+		"Aug 2015" => 8,
+		"Sep 2015" => 9,
+		"Oct 2015" => 10,
+		"Nov 2015" => 11,
+		"Dec 2015" => 12,
+		"Jan 2016" => 1,
+		"Feb 2016" => 2,
+		"Mar 2016" => 3,
+		"Apr 2016" => 4,
+		"May 2016" => 5,
+	}
 end

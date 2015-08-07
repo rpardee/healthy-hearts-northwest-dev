@@ -1,9 +1,8 @@
 <%= render 'layouts/header' %>
 
-<h1> Activities for <%= @practice.name %> </h1>
+<h1> Activities for <%= link_to @practice.name, edit_partner_practice_path(@partner, @practice) %> </h1>
 
 <div>
-
   <div id='openPopupForm'>
     <h3>Activities
       <a class='addButton' title="Add New Activity" rel="tooltip">
