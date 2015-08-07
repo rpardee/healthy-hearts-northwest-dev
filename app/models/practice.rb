@@ -1,7 +1,6 @@
 class Practice < ActiveRecord::Base
 	belongs_to :partner
-	validates_presence_of :name
-
+	validates_presence_of :name, :prac_state
 	has_paper_trail
 
 	has_many :personnels, dependent: :destroy do
@@ -30,19 +29,26 @@ class Practice < ActiveRecord::Base
 		def appointments
 			self.where("schedule_dt >= ?", Date.today)
 		end
+
+		def enrolled
+			self.exists?(["outcome = ?", Event::OUTCOME_VALS["Enrolled/PAL returned"]])
+		end
 	end
 
 	def status
 		if interest_yn == 2 then
 			"Refused"
-		elsif primary_care.blank? or elig_phys_fte.blank? or prac_ehr_mu.blank?
-			"Interested (Eligibility TBD)"
-		elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr_mu == 1
-			"Eligible"
-		elsif primary_care == 2 or elig_phys_fte > 10 or prac_ehr_mu == 2
-			"Ineligible"
+		elsif interest_yn == 1 then
+		#	if primary_care.blank? or elig_phys_fte.blank? or prac_ehr_mu.blank?
+			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank?
+				"Interested (Eligibility TBD)"
+			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1
+				"Interested & Eligible"
+			else
+				"Ineligible"
+			end
 		else
-			"(Status Error)"
+			"(Unknown)"
 		end
 	end
 
@@ -62,6 +68,12 @@ class Practice < ActiveRecord::Base
 		"No" => 2,
 		"Maybe" => 3,
 		"Unknown" => 4
+	}
+
+	PRAC_STATE_VALS = {
+		"ID" => 1,
+		"OR" => 2,
+		"WA" => 3
 	}
 
 	RECRUITMENT_SOURCE_VALS = {
@@ -113,13 +125,13 @@ class Practice < ActiveRecord::Base
 	# All Yes, Mediare options are coded as "1" per the evaluator doco
 	# The original coding is included in comments below
 	ELIG_ACO_VALS = {
-		"Yes, a Medicare Pioneer ACO" => 1,
-		"Yes, Medicare Shared Saving Program ACO" => 2, # 1
-		"Yes, Medicare Advance Payment ACO" => 3,				# 1
-		"Yes, a commercial ACO" => 4,										# 2
-		"Yes, another type of ACO" => 5,								# 3
-		"Medicaid ACO" => 6,														# 4
-		"No" => 0																				# 5
+		"Yes, a Medicare Pioneer ACO (SKIP to Q8)" => 1,
+		"Yes, Medicare Shared Saving Program ACO (SKIP to Q8)" => 2,	# 1
+		"Yes, Medicare Advance Payment ACO (SKIP to Q8)" => 3,				# 1
+		"Yes, a commercial ACO (SKIP to Q8)" => 4,										# 2
+		"Yes, another type of ACO (SKIP to Q8)" => 5,									# 3
+		"Medicaid ACO (SKIP to Q8)" => 6,															# 4
+		"No" => 0																											# 5
 	}
 
 	PRAC_EHR_VALS = {
@@ -150,10 +162,10 @@ class Practice < ActiveRecord::Base
 
 	PRAC_MU_STAGE1_VALS = {
 		"Yes, we have applied and receive payments" => 1,
-		"Yes, we already applied" => 2,
-		"Yes, we intend to apply" => 3,
-		"Uncertain if we will apply" => 4,
-		"No, we will not apply" => 5
+		"Yes, we already applied (SKIP to Q6)" => 2,
+		"Yes, we intend to apply (SKIP to Q6)" => 3,
+		"Uncertain if we will apply (SKIP to Q6)" => 4,
+		"No, we will not apply (SKIP to Q6)" => 5
 	}
 
 	PRAC_EHR_PERSON_EXTRACTDATA_VALS = {
@@ -161,6 +173,21 @@ class Practice < ActiveRecord::Base
 		"Someone else in the office" => 2,
 		"A consultant/service on retainer" => 3,
 		"Other" => 9
+	}
+
+	PRAC_EHR_EXTRACTDATA_VALS = {
+		"Yes" => 1,
+		"No (SKIP to Q9)" => 2
+	}
+
+	PRAC_IT_SUPPORT_VALS = {
+		"Yes" => 1,
+		"No (SKIP to Q11)" => 2
+	}
+
+	PRAC_CQM_VALS = {
+		"Yes" => 1,
+		"No (SKIP to Q17)" => 2
 	}
 
 	SATISFIED1234_VALS = {

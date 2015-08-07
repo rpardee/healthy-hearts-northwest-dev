@@ -25,13 +25,13 @@ partner3.save!
 practices = Practice.create! ([
 	{ partner_id: partner1.id, name: 'Bigger Practice',
 		address: '100 Main St, Big City, USA', phone: '1-800-555-5555',
-		url: 'http://www.microsoft.com' },
+		url: 'http://www.microsoft.com', prac_state: 2 },
 	{ partner_id: partner2.id, name: 'Smaller Clinic',
 		address: '200 Main St, Smallville, USA', phone: '1-800-888-5555',
-		url: 'http://www.google.com' },
+		url: 'http://www.google.com', prac_state: 3 },
 	{ partner_id: partner2.id, name: 'Middling Medical',
 		address: '300 Main St, Midtown, USA', phone: '1-800-888-5555',
-		url: 'http://www.google.com' }
+		url: 'http://www.google.com', prac_state: 3 }
 ])
 
 Event.create ([

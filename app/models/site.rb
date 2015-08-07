@@ -6,4 +6,5 @@ class Site < ActiveRecord::Base
 		"ORPRN" => 1,
 		"Qualis" => 2
 	}
+
 end

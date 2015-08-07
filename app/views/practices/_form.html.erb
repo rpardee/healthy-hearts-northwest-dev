@@ -54,6 +54,8 @@
       <tr>
         <td><%= f.label :address %></td>
         <td><%= f.text_field :address, size: 40 %></td>
+        <td><%= f.label :prac_state, "State" %></td>
+        <td><%= f.select :prac_state, Practice::PRAC_STATE_VALS, include_blank: true %></td>
       </tr>
       <tr>
         <td><%= f.label :phone %></td>
@@ -195,6 +197,11 @@
   <div class='box'>
     <a name='assessment'></a>
     <p class='title'>EHR Assessment</p>
+    <div> RECRUITER INSTRUCTIONS:<br />
+      The first person with whom you speak may not know the answers to all
+      of these questions. If so, please note who they think will know the
+      answers.
+    </div>
     <table class='space'>
       <tr>
         <td><%= f.label :prac_ehr_yr, "1. In which year did you install your current EHR system?" %></td>
@@ -229,7 +236,7 @@
       <tr>
         <td><%= f.label :prac_ehr_extractdata, "6. Does your practice have someone who is able to extract data from the EHR for purposes of quality reporting?" %></td>
         <td>
-          <%= f.select :prac_ehr_extractdata, Practice::YN12_VALS, include_blank: true  %>
+          <%= f.select :prac_ehr_extractdata, Practice::PRAC_EHR_EXTRACTDATA_VALS, include_blank: true  %>
         </td>
       </tr>
       <tr>
@@ -244,15 +251,15 @@
       </tr>
       <tr>
         <td> 8. What is the name and contact information of the person responsible for extracting data from the EHR for quality reporting?</td>
-        <td>(Please enter this information in the Staff List)</td>
+        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %>)</td>
       </tr>
       <tr>
         <td><%= f.label :prac_it_support, "9. Does your practice have a Health IT support person who can help with EHR problems when they arise?" %></td>
-        <td><%= f.select :prac_it_support, Practice::YN12_VALS, include_blank: true  %></td>
+        <td><%= f.select :prac_it_support, Practice::PRAC_IT_SUPPORT_VALS, include_blank: true  %></td>
       </tr>
       <tr class='toggle-enable'>
         <td>10. What is the name and contact information of the support person responsible for helping with EHR problems?</td>
-        <td>(Please enter this information in the Staff List)</td>
+        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %>)</td>
       </tr>
       <tr>
         <td><%= f.label :prac_ehr_vendor, "11. If your EHR vendor helps extract data and CQMs, are there restriction (e.g., a contract saying they own data) that prevent you from sharing or adapting?" %></td>
@@ -264,15 +271,16 @@
       </tr>
       <tr>
         <td><%= f.label :prac_cqm, "13. Is your practice able to generate clinical quality measures (CQM) from the EHR?" %></td>
-        <td><%= f.select :prac_cqm, Practice::YN12_VALS, include_blank: true  %></td>
+        <td><%= f.select :prac_cqm, Practice::PRAC_CQM_VALS, include_blank: true  %></td>
       </tr>
       <tr>
         <td>14. Who generates CQM reports in your practice?</td>
-        <td>(Please enter this information in the Staff List)</td>
+        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %>)</td>
       </tr>
       <tr>
         <td><%= f.label :prac_cqm_submit, "15. Have you or are you soon going to submit CQM reports through the Physician Quality Reporting System (PQRS)?" %></td>
-        <td><%= f.select :prac_cqm_submit, Practice::YN12_VALS, include_blank: true  %></td>
+        <!-- Yes, the lookup for this is also PRAC_CQM_VALS -->
+        <td><%= f.select :prac_cqm_submit, Practice::PRAC_CQM_VALS, include_blank: true  %></td>
       </tr>
       <tr>
         <td><%= f.label :prac_cqm_who, "16. Through whom do you or will you report? (Examples include CMS, professional societies, state organizations" %></td>

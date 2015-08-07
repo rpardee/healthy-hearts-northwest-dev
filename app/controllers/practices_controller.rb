@@ -89,7 +89,7 @@ class PracticesController < ApplicationController
         :elig_aco, :elig_aco_apply, :interest_why, :interest_expect,
         :interest_challenge, :recruitment_source, :recruitment_source_referral,
         :prac_ehr_mu_yr, :interest_yn, :interest_why_not, :interest_why_not_other,
-        :interest_contact_month,
+        :interest_contact_month, :prac_state,
         personnels_attributes: [:id, :_destroy, :name, :role, :role_other, :phone1,
           :phone1_best, :phone2, :phone2_best, :email1, :email1_best,
           :email2, :email2_best, :ehr_extractor, :ehr_helper, :ehr_cqm])

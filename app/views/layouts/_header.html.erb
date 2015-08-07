@@ -3,8 +3,12 @@
 		<%= link_to image_tag("HHNW_logo_grayscale_reverse_rgb.png", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner), title: "Home", rel: "tooltip" %>
 		<div class='signout'>
 			<%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %><br /><br />
-			<!-- This will be Practices with any Event of 7 -->
-			Recruited: <%= Event.where(outcome: 7).count %>/10
+			<% if current_partner.site.id == Site.where(name: "Qualis").first.id %>
+				Recruited: <%= thermometer("WA") %><br />
+				Recruited: <%= thermometer("ID") %>
+			<% elsif current_partner.site.id == Site.where(name: "ORPRN").first.id %>
+				Recruited: <%= thermometer("OR") %>
+			<% end %>
 		</div>
 	<% else %>
 		<%= link_to image_tag("HHNW_logo_grayscale_reverse_rgb.png", size: "228x86", alt: "Link to Home Page"), root_path %>
