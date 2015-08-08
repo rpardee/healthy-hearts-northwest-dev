@@ -37,7 +37,7 @@ practices = Practice.create! ([
 Event.create ([
 	{ partner_id: partner1.id, practice_id: practices.first.id,
 		schedule_dt: '2015-01-01', schedule_tm: '14:00:00', contact_type: 1,
-		outcome: 1, outcome_dt: '2015-01-02', description: 'First meeting' },
+		outcome: 1, description: 'First meeting' },
 	{ partner_id: partner2.id, practice_id: practices.second.id,
 		schedule_dt: '2016-01-01', schedule_tm: '15:00:00', contact_type: 2,
 		outcome: 0, description: 'Second meeting' }
