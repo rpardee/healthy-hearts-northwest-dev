@@ -36,19 +36,33 @@ class Practice < ActiveRecord::Base
 	end
 
 	def status
-		if interest_yn == 2 then
+		if interest_yn == 2
 			"Refused"
-		elsif interest_yn == 1 then
-		#	if primary_care.blank? or elig_phys_fte.blank? or prac_ehr_mu.blank?
-			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank?
+		elsif primary_care == 2 or elig_phys_fte > 10 or prac_ehr == 2 or
+			prac_ehr == 3 or prac_ehr_mu == 2
+			"Ineligible"
+		elsif interest_yn == 1
+			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or
+				prac_ehr == 4 or prac_ehr_mu.blank?
 				"Interested (Eligibility TBD)"
-			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1
+			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and
+				prac_ehr_mu == 1
 				"Interested & Eligible"
 			else
-				"Ineligible"
+				"Interested (Status Problem)"
+			end
+		elsif interest_yn.blank?
+			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or
+				prac_ehr_mu.blank?
+				"Interest/Eligibility TBD"
+			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and
+				prac_ehr_mu == 1
+				"Eligible (Interest TBD)"
+			else
+				"Interest TBD (Status Problem)"
 			end
 		else
-			"(Unknown)"
+			"(Status Problem)"
 		end
 	end
 
@@ -137,7 +151,8 @@ class Practice < ActiveRecord::Base
 	PRAC_EHR_VALS = {
 		"Yes, all electronic" => 1,
 		"Yes, part paper and part electronic" => 2,
-		"No" => 3
+		"No" => 3,
+		"Unknown" => 4
 	}
 
 	PRAC_EHRNAME_VALS = {
@@ -161,23 +176,29 @@ class Practice < ActiveRecord::Base
 	}
 
 	PRAC_MU_STAGE1_VALS = {
-		"Yes, we have applied and receive payments" => 1,
-		"Yes, we already applied (SKIP to Q6)" => 2,
-		"Yes, we intend to apply (SKIP to Q6)" => 3,
-		"Uncertain if we will apply (SKIP to Q6)" => 4,
-		"No, we will not apply (SKIP to Q6)" => 5
+		"Yes" => 1,
+		"No, we did not apply (SKIP to Q6)" => 2,
+		"Uncertain (SKIP to Q6)" => 3
 	}
 
 	PRAC_EHR_PERSON_EXTRACTDATA_VALS = {
-		"Me" => 1,
-		"Someone else in the office" => 2,
-		"A consultant/service on retainer" => 3,
+		"A clinician or staff person in the practice" => 1,
+		"A consultant/service on retainer to the practice" => 2,
+		"An IT service provider within the health system or organization" => 3,
 		"Other" => 9
 	}
 
 	PRAC_EHR_EXTRACTDATA_VALS = {
 		"Yes" => 1,
 		"No (SKIP to Q9)" => 2
+	}
+
+	PRAC_EHR_VENDOR_VALS = {
+		"Yes, and there are restrictions to sharing & customization" => 1,
+		"Yes, and there are no restrictions" => 2,
+		"No" => 3,
+		"Not applicable" => 4,
+		"Don't know" => 8
 	}
 
 	PRAC_IT_SUPPORT_VALS = {
@@ -187,7 +208,7 @@ class Practice < ActiveRecord::Base
 
 	PRAC_CQM_VALS = {
 		"Yes" => 1,
-		"No (SKIP to Q17)" => 2
+		"No (SKIP to Q15)" => 2
 	}
 
 	SATISFIED1234_VALS = {

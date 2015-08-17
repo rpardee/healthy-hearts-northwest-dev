@@ -28,14 +28,16 @@
       <td>Best Contact? <%= f.check_box :email2_best %></td>
     </tr>
     <tr>
-      <td>EHR<br /> Duties:</td>
-      <td colspan="6" style="vertical-align: bottom;">
-        <%= f.label :ehr_extractor, "Extract Data" %>
-        <%= f.check_box :ehr_extractor %>
-        <%= f.label :ehr_helper, "Help with Problems" %>
-        <%= f.check_box :ehr_helper %>
-        <%= f.label :ehr_cqm, "CQM Reports" %>
-        <%= f.check_box :ehr_cqm %>
+      <td colspan='7'>
+        <table>
+          <tr>
+            <td>EHR Duties:</td>
+            <td><%= f.label :ehr_extractor, "Configure & Write EHR Reports" %></td>
+            <td><%= f.check_box :ehr_extractor %></td>
+            <td><%= f.label :ehr_helper, "Help with EHR Problems" %></td>
+            <td><%= f.check_box :ehr_helper %></td>
+          </tr>
+        </table>
       </td>
     </tr>
     <tr>

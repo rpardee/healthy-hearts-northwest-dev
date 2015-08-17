@@ -133,11 +133,11 @@
         <td><%= f.select :primary_care, Practice::YN12_VALS, include_blank: true %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_phys_count, "2. Number of MDs at street address of practice" %></td>
+        <td><%= f.label :elig_phys_count, "2. Number of clinicians (MD, DO, NP, PA) at street address of practice" %></td>
         <td><%= f.text_field :elig_phys_count, size: 5 %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_phys_fte, "3. Number of combined MD FTE at street address of practice" %></td>
+        <td><%= f.label :elig_phys_fte, "3. Number of combined clinician (MD, DO, NP, PA) FTE at street address of practice" %></td>
         <td><%= f.text_field :elig_phys_fte, size: 5 %></td>
       </tr>
       <tr>
@@ -145,7 +145,8 @@
         <td><%= f.select :prac_ehr, Practice::PRAC_EHR_VALS, include_blank: true %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr_mu, "5. Is your current system Certified to meet Meaningful Use as defined by Health and Human Services/ONC?" %></td>
+        <td><%= f.label :prac_ehr_mu, "5. Is your current system Certified to meet Meaningful Use as defined by Health and Human Services/Office of the National Coordinator for Health Information
+          Technology (ONC)?" %></td>
         <td><%= f.select :prac_ehr_mu, Practice::YN12_VALS, include_blank: true %></td>
       </tr>
       <tr>
@@ -180,7 +181,7 @@
         <td><%= f.select :elig_specialty, Practice::ELIG_SPECIALTY_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_pcmh, "5. Is your practice PCMH recognized or accredited?" %></td>
+        <td><%= f.label :elig_pcmh, "5. Is your practice recognized or accredited as a patient-centered medical home (PCMH)?" %></td>
         <td><%= f.select :elig_pcmh, Practice::YN12_VALS, include_blank: true  %></td>
       </tr>
       <tr>
@@ -214,15 +215,17 @@
         </td>
       </tr>
       <tr class='disabled-question'>
-        <td><%= f.label :prac_ehrname_other, "Please specify" %></td>
+        <td><%= f.label :prac_ehrname_other, "2b. Please specify" %></td>
         <td><%= f.text_field :prac_ehrname_other %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehrversion, "3. What version of your EHR system are you currently using?" %></td>
+        <td><%= f.label :prac_ehrversion, "3. What version of your EHR system are you currently using? You should be able to find the
+          software version on the log-in screen." %></td>
         <td><%= f.text_field :prac_ehrversion %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_mu_stage1, '4. Medicare and Medicaid offer incentives to practices that demonstrate "meaninful use of health IT." At your practice, are there plans to apply for Stage 1 of these incentive payments?' %></td>
+        <td><%= f.label :prac_mu_stage1, '4. Medicare and Medicaid offer incentives to practices that demonstrate "meaningful use of health IT." Did your practice apply for Stage 1 of these incentive
+          payments?' %></td>
         <td>
           <%= f.select :prac_mu_stage1, Practice::PRAC_MU_STAGE1_VALS, include_blank: true  %>
         </td>
@@ -230,17 +233,19 @@
       <tr>
         <td><%= f.label :prac_mu_stage2, "5. Are there plans to apply for Stage 2 incentive payments?" %></td>
         <td>
-          <%= f.select :prac_mu_stage2, Practice::YNM123_VALS, include_blank: true  %>
+          <%= f.select :prac_mu_stage2, Practice::YNMU1234_VALS, include_blank: true  %>
         </td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr_extractdata, "6. Does your practice have someone who is able to extract data from the EHR for purposes of quality reporting?" %></td>
+        <td><%= f.label :prac_ehr_extractdata, "6. Does your practice have someone who can configure or write quality reports from the
+          EHR/EMR?" %></td>
         <td>
           <%= f.select :prac_ehr_extractdata, Practice::PRAC_EHR_EXTRACTDATA_VALS, include_blank: true  %>
         </td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr_person_extractdata, "7. Who is the person responsible for extracting data from the EHR for purposes of quality reporting?" %></td>
+        <td><%= f.label :prac_ehr_person_extractdata, "7. Who is the person primarily responsible for configuring and writing quality reports
+          from the EHR/EMR?" %></td>
         <td>
           <%= f.select :prac_ehr_person_extractdata, Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_prac_ehr_person_extractdata_other', :enablevalue => 9 } }   %>
         </td>
@@ -250,8 +255,9 @@
         <td><%= f.text_field :prac_ehr_person_extractdata_other %></td>
       </tr>
       <tr>
-        <td> 8. What is the name and contact information of the person responsible for extracting data from the EHR for quality reporting?</td>
-        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %>)</td>
+        <td> 8. What is the name and contact information of the person responsible for configuring and writing quality reports from
+        the EHR/EMR?</td>
+        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %> as "Configure & Write EHR Reports.")</td>
       </tr>
       <tr>
         <td><%= f.label :prac_it_support, "9. Does your practice have a Health IT support person who can help with EHR problems when they arise?" %></td>
@@ -259,39 +265,31 @@
       </tr>
       <tr class='toggle-enable'>
         <td>10. What is the name and contact information of the support person responsible for helping with EHR problems?</td>
-        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %>)</td>
+        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %> as "Help with EHR Problems.")</td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr_vendor, "11. If your EHR vendor helps extract data and CQMs, are there restriction (e.g., a contract saying they own data) that prevent you from sharing or adapting?" %></td>
-        <td><%= f.select :prac_ehr_vendor, Practice::YN12_VALS, include_blank: true  %></td>
+        <td><%= f.label :prac_ehr_vendor, "11. Does your EHR vendor help extract data and clinical quality measures?" %></td>
+        <td><%= f.select :prac_ehr_vendor, Practice::PRAC_EHR_VENDOR_VALS, include_blank: true  %></td>
       </tr>
       <tr>
         <td><%= f.label :prac_share_healthinfo, "12. Do you share any patient health information (e.g., lab results, imaging reports, problem lists, medication lists) electronically (not with fax) with any other providers, including hospitals, ambulatory providers or labs?" %></td>
         <td><%= f.select :prac_share_healthinfo, Practice::YN12_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_cqm, "13. Is your practice able to generate clinical quality measures (CQM) from the EHR?" %></td>
-        <td><%= f.select :prac_cqm, Practice::PRAC_CQM_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td>14. Who generates CQM reports in your practice?</td>
-        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %>)</td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_cqm_submit, "15. Have you or are you soon going to submit CQM reports through the Physician Quality Reporting System (PQRS)?" %></td>
+        <td><%= f.label :prac_cqm_submit, "13. Have you or are you soon going to submit CQM reports through the Physician Quality Reporting System (PQRS)?" %></td>
         <!-- Yes, the lookup for this is also PRAC_CQM_VALS -->
         <td><%= f.select :prac_cqm_submit, Practice::PRAC_CQM_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_cqm_who, "16. Through whom do you or will you report? (Examples include CMS, professional societies, state organizations" %></td>
-        <td><%= f.text_area :prac_cqm_who, :cols => 30, :rows => 3, :limit => 200 %></td>
+        <td><%= f.label :prac_cqm_who, "14. Through whom do you or will you report? (Examples include CMS, professional societies, state organizations" %></td>
+        <td><%= f.text_area :prac_cqm_who, :cols => 40, :rows => 3, :limit => 200 %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_ehr_satisfaction, "17. Overall, how satisfied or dissatisfied are you with your EHR system?" %></td>
+        <td><%= f.label :prac_ehr_satisfaction, "15. Overall, how satisfied or dissatisfied are you with your EHR system?" %></td>
         <td><%= f.select :prac_ehr_satisfaction, Practice::SATISFIED1234_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_new_ehr, "18. At your practice are there plans for installing a new EHR system within the next 18 months?" %></td>
+        <td><%= f.label :prac_new_ehr, "16. At your practice are there plans for installing a new EHR system within the next 18 months?" %></td>
         <td><%= f.select :prac_new_ehr, Practice::YNMU1234_VALS, include_blank: true  %></td>
       </tr>
     </table>
