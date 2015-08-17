@@ -38,26 +38,20 @@ class Practice < ActiveRecord::Base
 	def status
 		if interest_yn == 2
 			"Refused"
-		elsif primary_care == 2 or prac_ehr == 2 or
-			prac_ehr == 3 or prac_ehr_mu == 2
-			or elig_phys_fte > 10
+		elsif primary_care == 2 or prac_ehr == 2 or prac_ehr == 3 or prac_ehr_mu == 2 or elig_phys_fte > 10
 			"Ineligible"
 		elsif interest_yn == 1
-			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or
-				prac_ehr == 4 or prac_ehr_mu.blank?
+			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or prac_ehr == 4 or prac_ehr_mu.blank?
 				"Interested (Eligibility TBD)"
-			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and
-				prac_ehr_mu == 1
+			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
 				"Interested & Eligible"
 			else
 				"Interested (Status Problem)"
 			end
 		elsif interest_yn.blank?
-			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or
-				prac_ehr_mu.blank?
+			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or prac_ehr_mu.blank?
 				"Interest/Eligibility TBD"
-			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and
-				prac_ehr_mu == 1
+			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
 				"Eligible (Interest TBD)"
 			else
 				"Interest TBD (Status Problem)"
