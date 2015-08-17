@@ -38,8 +38,9 @@ class Practice < ActiveRecord::Base
 	def status
 		if interest_yn == 2
 			"Refused"
-		elsif primary_care == 2 or elig_phys_fte > 10 or prac_ehr == 2 or
+		elsif primary_care == 2 or prac_ehr == 2 or
 			prac_ehr == 3 or prac_ehr_mu == 2
+			or elig_phys_fte > 10
 			"Ineligible"
 		elsif interest_yn == 1
 			if primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or
