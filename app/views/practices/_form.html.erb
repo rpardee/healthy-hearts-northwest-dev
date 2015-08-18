@@ -69,10 +69,6 @@
         <td><%= f.label :email, "Email" %></td>
         <td><%= f.text_field :email, size: 40 %></td>
       </tr>
-      <tr>
-        <td><%= f.label :npi, "NPI#" %></td>
-        <td><%= f.text_field :npi, size: 40 %></td>
-      </tr>
     </table>
   </div>
 
@@ -133,12 +129,12 @@
         <td><%= f.select :primary_care, Practice::YN12_VALS, include_blank: true %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_phys_count, "2. Number of clinicians (MD, DO, NP, PA) at street address of practice" %></td>
-        <td><%= f.text_field :elig_phys_count, size: 5 %></td>
+        <td><%= f.label :number_clinicians, "2. Number of clinicians (MD, DO, NP, PA) at street address of practice" %></td>
+        <td><%= f.text_field :number_clinicians, size: 5 %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_phys_fte, "3. Number of combined clinician (MD, DO, NP, PA) FTE at street address of practice" %></td>
-        <td><%= f.text_field :elig_phys_fte, size: 5 %></td>
+        <td><%= f.label :fte_clinicians, "3. Number of combined clinician (MD, DO, NP, PA) FTE at street address of practice" %></td>
+        <td><%= f.text_field :fte_clinicians, size: 5 %></td>
       </tr>
       <tr>
         <td><%= f.label :prac_ehr, "4. Does your practice use an electronic health record (EHR) system? Do not include billing record systems." %></td>
@@ -161,36 +157,94 @@
     <p class='title'>Practice Characteristics</p>
     <table class='space'>
       <tr>
-        <td><%= f.label :elig_ownership, "1. Which of the following describes your practice's ownership? (Choose one)" %></td>
-        <td><%= f.select :elig_ownership, Practice::ELIG_OWNERSHIP_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_elig_ownership_other', :enablevalue => 99 } }   %></td>
+        <td colspan='2'>1. Which of the following best describes your practice's ownership? (Check all that apply.)</td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_clinician, "Clinician-owned solo or group practice" %></td>
+        <td><%= f.check_box :prac_own_clinician %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_hosp, "Hospital/health system howned" %></td>
+        <td><%= f.check_box :prac_own_hosp %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_hmo, "Health maintentance organization (e.g., Kaiser Permanente)" %></td>
+        <td><%= f.check_box :prac_own_hmo %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_fqhc, "Federally Qualified Health Center or Look-Alike" %></td>
+        <td><%= f.check_box :prac_own_fqhc %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_nonfed, "Non-federal government clinic (e.g., state, county, city, public health clinic, etc.)" %></td>
+        <td><%= f.check_box :prac_own_nonfed %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_academic, "Academic health center/faculty practice" %></td>
+        <td><%= f.check_box :prac_own_academic %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_fed, "Federal (military, Veterans Administration, Dept of Defense)" %></td>
+        <td><%= f.check_box :prac_own_fed %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_rural, "Rural Health Clinic" %></td>
+        <td><%= f.check_box :prac_own_rural %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_ihs, "Indian Health Service" %></td>
+        <td><%= f.check_box :prac_own_ihs %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_own_other, "Other" %></td>
+        <td><%= f.check_box :prac_own_other, { }, { class: 'enable-control', data: { :effector => '#practice_prac_own_other_specify', :enablevalue => 1 } } %></td>
       </tr>
       <tr class='disabled-question'>
-        <td><%= f.label :elig_ownership_other, "Specify" %></td>
-        <td><%= f.text_field :elig_ownership_other  %></td>
+        <td><%= f.label :prac_own_other_specify, "Specify" %></td>
+        <td><%= f.text_field :prac_own_other_specify  %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_ownership_years, "2. How many years has this practice been under the current ownership? (Please round to the nearest year and enter 0 if this year has been under the current ownership for less than one year)" %></td>
-        <td><%= f.text_field :elig_ownership_years, size: 5  %></td>
+        <td><%= f.label :prac_own_yrs, "2. How many years has this practice been under the current ownership? (Please round to the nearest year and enter 0 if this year has been under the current ownership for less than one year)" %></td>
+        <td><%= f.text_field :prac_own_yrs, size: 5  %></td>
       </tr>
       <tr>
         <td><%= f.label :elig_clinic_count, "3. What is the total number of primary care clinics operated by parent organization?" %></td>
         <td><%= f.text_field :elig_clinic_count, size: 5  %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_specialty, "4. Which of the following describes your practice's specialty mix?" %></td>
-        <td><%= f.select :elig_specialty, Practice::ELIG_SPECIALTY_VALS, include_blank: true  %></td>
+        <td><%= f.label :prac_spec_mix, "4. Which of the following describes your practice's specialty mix?" %></td>
+        <td><%= f.select :prac_spec_mix, Practice::PRAC_SPEC_MIX_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_pcmh, "5. Is your practice recognized or accredited as a patient-centered medical home (PCMH)?" %></td>
-        <td><%= f.select :elig_pcmh, Practice::YN12_VALS, include_blank: true  %></td>
+        <td><%= f.label :prac_pcmh, "5. Is your practice recognized or accredited as a patient-centered medical home (PCMH)?" %></td>
+        <td><%= f.select :prac_pcmh, Practice::YN12_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td><%= f.label :elig_aco, "6. Is your practice part of an accountable care organization (ACO)?" %></td>
-        <td><%= f.select :elig_aco, Practice::ELIG_ACO_VALS, include_blank: true  %></td>
+        <td colspan='2'>Is your practice part of an accountable care organization (ACO)? (Check all that apply.)</td>
       </tr>
-      <tr>
-        <td><%= f.label :elig_aco_apply, "7. Is your practice part of an organization applying to be an ACO?" %></td>
-        <td><%= f.select :elig_aco_apply, Practice::YN12_VALS, include_blank: true  %></td>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_aco_medicaid, "Yes, Medicaid ACO" %></td>
+        <td><%= f.check_box :prac_aco_medicaid %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_aco_medicare, "Yes, Medicare ACO (Pioneer, Shared Savings Plan or Advance Payment" %></td>
+        <td><%= f.check_box :prac_aco_medicare %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_aco_commercial, "Yes, Private/Commercial ACO" %></td>
+        <td><%= f.check_box :prac_aco_commercial %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_aco_other, "Yes, Another type of ACO" %></td>
+        <td><%= f.check_box :prac_aco_other %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_aco_none, "No, not part of an ACO" %></td>
+        <td><%= f.check_box :prac_aco_none %></td>
+      </tr>
+      <tr class='subquestion'>
+        <td><%= f.label :prac_aco_dk, "Don't know" %></td>
+        <td><%= f.check_box :prac_aco_dk %></td>
       </tr>
     </table>
   </div>

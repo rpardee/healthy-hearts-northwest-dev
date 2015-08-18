@@ -18,13 +18,12 @@ class Partner < ActiveRecord::Base
   end
 
   enum role: {
-    "(no role)" => 0,
-    "Recruiter Standard" => 1,
-    "Recruiter Admin" => 2
+    :ghri_staff => 1,
+    :recruiter_standard => 2
   }
 
   def admin?
-    role == "Recruiter Admin"
+    role == "ghri_staff"
   end
 
 end

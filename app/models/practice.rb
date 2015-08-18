@@ -37,21 +37,21 @@ class Practice < ActiveRecord::Base
 
 	def status
 		if interest_yn.blank?
-			if primary_care == 2 || prac_ehr == 2 || prac_ehr == 3 || prac_ehr_mu == 2 or (elig_phys_fte.present? and elig_phys_fte > 10)
+			if primary_care == 2 || prac_ehr == 2 || prac_ehr == 3 || prac_ehr_mu == 2 or (fte_clinicians.present? and fte_clinicians > 10)
 				"Ineligible"
-			elsif primary_care.blank? or elig_phys_fte.blank? or prac_ehr.blank? or prac_ehr_mu.blank?
+			elsif primary_care.blank? or fte_clinicians.blank? or prac_ehr.blank? or prac_ehr_mu.blank?
 				"Interest/Eligibility TBD"
-			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
+			elsif primary_care == 1 and fte_clinicians <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
 				"Eligible (Interest TBD)"
 			else
 				"Interest TBD (Status Problem)"
 			end
 		elsif interest_yn == 1
-			if primary_care == 2 || prac_ehr == 2 || prac_ehr == 3 || prac_ehr_mu == 2 or (elig_phys_fte.present? and elig_phys_fte > 10)
+			if primary_care == 2 || prac_ehr == 2 || prac_ehr == 3 || prac_ehr_mu == 2 or (fte_clinicians.present? and fte_clinicians > 10)
 				"Interested (Eligibility TBD)"
-			elsif primary_care == 2 or prac_ehr == 2 or prac_ehr == 3 or prac_ehr_mu == 2 or elig_phys_fte > 10
+			elsif primary_care == 2 or prac_ehr == 2 or prac_ehr == 3 or prac_ehr_mu == 2 or fte_clinicians > 10
 				"Ineligible"
-			elsif primary_care == 1 and elig_phys_fte <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
+			elsif primary_care == 1 and fte_clinicians <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
 				"Interested & Eligible"
 			else
 				"Interested (Status Problem)"
@@ -108,27 +108,7 @@ class Practice < ActiveRecord::Base
 		"Other (specify)" => 99
 	}
 
-	# "Other" is 16 in original coding
-	ELIG_OWNERSHIP_VALS = {
-		"Private solo or group practice" => 1,
-		"Freestanding urgent care center" => 2,
-		"Hospital owned" => 3,
-		"Health system owned" => 4,
-		"Industrial outpatient facility" => 5,
-		"Mental health center" => 6,
-		"Non-federal government clinic (e.g., state, county, city, etc.)" => 7,
-		"Federally Qualified Health Center or Look-Alike" => 8,
-		"Rural Health Clinic" => 9,
-		"Indian Health Service" => 10,
-		"Institutional setting (school-based, nursing home, prison)" => 11,
-		"Academic health center / faculty practice" => 12,
-		"Health maintenance organization (e.g., Kaiser Permanente)" => 13,
-		"Federal (Military, Veterans Administration, Department of Defense)" => 14,
-		"Public Health Service" => 15,
-		"Other" => 99
-	}
-
-	ELIG_SPECIALTY_VALS = {
+	PRAC_SPEC_MIX_VALS = {
 		"Single-specialty" => 1,
 		"Multi-specialty" => 2
 	}

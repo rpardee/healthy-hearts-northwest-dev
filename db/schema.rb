@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807194850) do
+ActiveRecord::Schema.define(version: 20150818150143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150807194850) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
   end
 
   add_index "partners", ["email"], name: "index_partners_on_email", unique: true, using: :btree
@@ -82,15 +83,14 @@ ActiveRecord::Schema.define(version: 20150807194850) do
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
 
   create_table "practices", force: :cascade do |t|
-    t.integer  "partner_id",                        null: false
-    t.string   "name",                              null: false
+    t.integer  "partner_id",                                        null: false
+    t.string   "name",                                              null: false
     t.string   "address"
     t.string   "phone"
     t.string   "url"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.string   "email"
-    t.string   "npi"
     t.integer  "recruitment_source"
     t.string   "recruitment_source_referral"
     t.integer  "prac_ehr_yr"
@@ -111,16 +111,14 @@ ActiveRecord::Schema.define(version: 20150807194850) do
     t.string   "prac_cqm_who"
     t.integer  "prac_ehr_satisfaction"
     t.integer  "prac_new_ehr"
-    t.integer  "elig_phys_count"
-    t.float    "elig_phys_fte"
-    t.integer  "elig_ownership"
-    t.string   "elig_ownership_other"
-    t.integer  "elig_ownership_years"
+    t.integer  "number_clinicians"
+    t.float    "fte_clinicians"
+    t.string   "prac_own_other_specify"
+    t.integer  "prac_own_yrs"
     t.integer  "elig_clinic_count"
-    t.integer  "elig_specialty"
-    t.integer  "elig_pcmh"
-    t.integer  "elig_aco"
-    t.integer  "elig_aco_apply"
+    t.integer  "prac_spec_mix"
+    t.integer  "prac_pcmh"
+    t.integer  "prac_aco_join_medicaid"
     t.text     "interest_why"
     t.text     "interest_expect"
     t.text     "interest_challenge"
@@ -134,6 +132,24 @@ ActiveRecord::Schema.define(version: 20150807194850) do
     t.string   "parent_organization"
     t.integer  "interest_contact_month"
     t.integer  "prac_state"
+    t.boolean  "prac_own_clinician",                default: false
+    t.boolean  "prac_own_hosp",                     default: false
+    t.boolean  "prac_own_hmo",                      default: false
+    t.boolean  "prac_own_fqhc",                     default: false
+    t.boolean  "prac_own_nonfed",                   default: false
+    t.boolean  "prac_own_academic",                 default: false
+    t.boolean  "prac_own_fed",                      default: false
+    t.boolean  "prac_own_rural",                    default: false
+    t.boolean  "prac_own_ihs",                      default: false
+    t.boolean  "prac_own_other",                    default: false
+    t.boolean  "prac_aco_medicaid",                 default: false
+    t.boolean  "prac_aco_medicare",                 default: false
+    t.boolean  "prac_aco_commercial",               default: false
+    t.boolean  "prac_aco_other",                    default: false
+    t.boolean  "prac_aco_none",                     default: false
+    t.boolean  "prac_aco_dk",                       default: false
+    t.integer  "prac_aco_join_medicare"
+    t.integer  "prac_aco_join_commercial"
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree

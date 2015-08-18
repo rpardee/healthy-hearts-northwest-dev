@@ -1,6 +1,6 @@
 <%= render 'layouts/header' %>
 
-<h1>New Activity for <%= @practice.name %></h1>
+<h1>New Activity for <%= @practice.name if @practice  %></h1>
 
 <%= render 'form' %>
 

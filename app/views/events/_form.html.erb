@@ -16,12 +16,14 @@
     <%= @event.schedule_tm.try(:strftime, "%l:%M %p") %>
   </h3>
 
-  <%= f.hidden_field :practice_id, value: @practice_id %>
-
   <table class='space'>
     <tr>
+      <td><%= f.label :practice_id, "Practice" %></td>
+      <td><%= f.select :practice_id, options_for_select(policy_scope(Practice).order("name").collect { |p| [p.name, p.id] }, selected: @practice_id) %></td>
+    </tr>
+    <tr>
       <td><%= f.label :partner_id, "Assigned Recruiter" %></td>
-      <td><%= f.select :partner_id, options_for_select(Partner.order("name").collect { |p| [p.name, p.id] }, selected: @partner_id) %></td>
+      <td><%= f.select :partner_id, options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: @partner_id) %></td>
     </tr>
     <tr>
       <td><%= f.label :contact_type, "Mode" %></td>

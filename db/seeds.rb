@@ -13,13 +13,26 @@ ActiveRecord::Base.connection.disable_referential_integrity do
 	Partner.delete_all
 end
 
-sites = Site.create([{ name: 'ORPRN' }, { name: 'Qualis' }])
+sites = Site.create([{ name: 'ORPRN' }, { name: 'Qualis' }, { name: 'GHRI' }])
 
-partner1 = Partner.new(site_id: sites.first.id, name: 'Marcelina Hilpert', email: 'marcelina@orprn.org', password: 'password', password_confirmation: 'password')
+Partner.create(site_id: sites.third.id, name: 'Christopher Mack', email: 'mack.c@ghc.org',
+	password: 'password', password_confirmation: 'password', role: 1)
+Partner.create(site_id: sites.third.id, name: 'Tali Klima', email: 'mack.c@ghc.org',
+	password: 'password', password_confirmation: 'password', role: 1)
+Partner.create(site_id: sites.third.id, name: 'Erika Holden', email: 'mack.c@ghc.org',
+	password: 'password', password_confirmation: 'password', role: 1)
+Partner.create(site_id: sites.third.id, name: 'Leah Tuzzio', email: 'mack.c@ghc.org',
+	password: 'password', password_confirmation: 'password', role: 1)
+
+# Dummy data below
+partner1 = Partner.new(site_id: sites.first.id, name: 'Marcelina Hilpert', email: 'marcelina@orprn.org',
+	password: 'password', password_confirmation: 'password', role: 2)
 partner1.save!
-partner2 = Partner.new(site_id: sites.second.id, name: 'Luther Brock', email: 'luther@ghc.org', password: 'password', password_confirmation: 'password')
+partner2 = Partner.new(site_id: sites.second.id, name: 'Luther Brock', email: 'luther@ghc.org',
+	password: 'password', password_confirmation: 'password', role: 2)
 partner2.save!
-partner3 = Partner.new(site_id: sites.second.id, name: 'Stefan Daniella', email: 'stefan@qualis.org', password: 'password', password_confirmation: 'password')
+partner3 = Partner.new(site_id: sites.second.id, name: 'Stefan Daniella', email: 'stefan@qualis.org',
+	password: 'password', password_confirmation: 'password', role: 2)
 partner3.save!
 
 practices = Practice.create! ([
