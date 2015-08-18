@@ -207,4 +207,23 @@ class Practice < ActiveRecord::Base
 		"Apr 2016" => 4,
 		"May 2016" => 5,
 	}
+
+	PRAC_ACO_JOIN_MEDICAID_VALS = {
+		"Yes" => 1,
+		"No" => 2,
+		"Already contracting with a Medicaid ACO" => 3
+	}
+
+	PRAC_ACO_JOIN_MEDICARE_VALS = {
+		"Yes" => 1,
+		"No" => 2,
+		"Already contracting with a Medicare ACO" => 3
+	}
+
+	PRAC_ACO_JOIN_COMMERCIAL_VALS = {
+		"Yes" => 1,
+		"No" => 2,
+		"Already contracting with a private/commercial ACO" => 3,
+		"Already contracting with at least one private/commercial ACO but plan to join additional" => 4
+	}
 end

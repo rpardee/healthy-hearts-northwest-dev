@@ -246,6 +246,20 @@
         <td><%= f.label :prac_aco_dk, "Don't know" %></td>
         <td><%= f.check_box :prac_aco_dk %></td>
       </tr>
+      <tr>
+        <td><%= f.label :prac_aco_join_medicaid, "7. Do you plan on newly joining or newly
+          contracting with a Medicaid ACO or ACO-type arrangement in the next 12 months?" %></td>
+        <td><%= f.select :prac_aco_join_medicaid, Practice::PRAC_ACO_JOIN_MEDICAID_VALS, include_blank: true  %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_aco_join_medicaid, "8. If you are not part of a Medicare ACO, do you plan on newly joining or newly contracting with a Medicare ACO (Pioneer or Shared Savings Plan) in the next 12 months?" %></td>
+        <td><%= f.select :prac_aco_join_medicaid, Practice::PRAC_ACO_JOIN_MEDICARE_VALS, include_blank: true  %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_aco_join_commercial, "9. Do you plan on newly joining or newly
+          contracting with a private/commercial ACO or ACO-type arrangement in the next 12 months?" %></td>
+        <td><%= f.select :prac_aco_join_commercial, Practice::PRAC_ACO_JOIN_COMMERCIAL_VALS, include_blank: true  %></td>
+      </tr>
     </table>
   </div>
 
