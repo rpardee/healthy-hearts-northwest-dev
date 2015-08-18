@@ -17,11 +17,11 @@ sites = Site.create([{ name: 'ORPRN' }, { name: 'Qualis' }, { name: 'GHRI' }])
 
 Partner.create(site_id: sites.third.id, name: 'Christopher Mack', email: 'mack.c@ghc.org',
 	password: 'password', password_confirmation: 'password', role: 1)
-Partner.create(site_id: sites.third.id, name: 'Tali Klima', email: 'mack.c@ghc.org',
+Partner.create(site_id: sites.third.id, name: 'Tali Klima', email: 'klima.t@ghc.org',
 	password: 'password', password_confirmation: 'password', role: 1)
-Partner.create(site_id: sites.third.id, name: 'Erika Holden', email: 'mack.c@ghc.org',
+Partner.create(site_id: sites.third.id, name: 'Erika Holden', email: 'holden.e@ghc.org',
 	password: 'password', password_confirmation: 'password', role: 1)
-Partner.create(site_id: sites.third.id, name: 'Leah Tuzzio', email: 'mack.c@ghc.org',
+Partner.create(site_id: sites.third.id, name: 'Leah Tuzzio', email: 'tuzzio.l@ghc.org',
 	password: 'password', password_confirmation: 'password', role: 1)
 
 # Dummy data below
