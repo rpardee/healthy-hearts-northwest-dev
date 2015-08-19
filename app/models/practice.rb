@@ -31,7 +31,17 @@ class Practice < ActiveRecord::Base
 		end
 
 		def enrolled
-			self.exists?(["outcome = ?", Event::OUTCOME_VALS["Enrolled/PAL returned"]])
+			self.exists?(:outcome_pal_returned => true)
+		end
+	end
+
+	def pal_status
+		if self.events.exists?(:outcome_pal_returned => true)
+			"Returned"
+		elsif self.events.exists?(:outcome_pal_sent => true)
+			"Sent"
+		else
+			""
 		end
 	end
 

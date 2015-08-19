@@ -21,6 +21,7 @@
           <th>Assigned<br />Recruiter</th>
           <th>Mode</th>
           <th>Outcome</th>
+          <th>Key Actions</th>
           <th>Notes</th>
         </tr>
       </thead>
@@ -32,6 +33,7 @@
             <td><%= e.partner.name %></td>
             <td><%= Event::CONTACT_TYPE_VALS.key(e.contact_type) %></td>
             <td><%= Event::OUTCOME_VALS.key(e.outcome) %></td>
+            <td><%= e.key_actions %></td>
             <td><%= truncate(e.description, length: 75) %></td>
           </tr>
         <% end %>

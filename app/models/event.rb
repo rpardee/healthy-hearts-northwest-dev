@@ -9,6 +9,16 @@ class Event < ActiveRecord::Base
 		self.schedule_dt >= Date.today
 	end
 
+	def key_actions
+		key_actions = ""
+		key_actions += "Enrolled*" if outcome_pal_returned == true
+		key_actions += "PAL Sent*" if outcome_pal_sent == true
+		key_actions += "EHR Complete*" if outcome_complete_ehr == true
+		key_actions += "Practice Characteristics Complete*" if outcome_complete_characteristics == true
+		key_actions = key_actions.gsub(/(\w)(\*)(\w)/, '\1 - \3')
+		key_actions.gsub(/\*$/, '')
+	end
+
 	CONTACT_TYPE_VALS = {
 		"(no contact)" => 0,
 		"Phone" => 1,
@@ -19,17 +29,15 @@ class Event < ActiveRecord::Base
 	}
 
 	OUTCOME_VALS = {
-		"Pending" => 0,
+		"" => 0,
 		"Received recruitment materials" => 1,
 		"Left voicemail message" => 2,
 		"Conversation complete" => 3,
-		"Site visit scheduled" => 4,
-		"Site visit completed" => 5,
-		"PAL sent" => 6,
-		"Enrolled/PAL returned" => 7,
-		"Practice characteristics complete" => 8,
-		"EHR assessment complete" => 9,
-		"All questions complete" => 10
+		"Activity cancelled" => 4,
+		"Recruitment site visit scheduled" => 5,
+		"Recruitment site visit completed" => 6,
+		"Welcome site visit scheduled" => 7,
+		"Welcome site visit completed" => 8,
 	}
 
 end
