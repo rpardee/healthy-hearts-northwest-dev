@@ -5,7 +5,7 @@ class Practice < ActiveRecord::Base
 
 	has_many :personnels, dependent: :destroy do
 		def primary_contact
-			personnel = self.where("role = ?", Personnel::ROLE_VALS["Primary site contact"]).first
+			personnel = self.where(:site_contact_primary => true).first
 			if personnel.nil?
 				primary_contact = "(none)"
 			else

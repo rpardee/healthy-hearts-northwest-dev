@@ -26,6 +26,14 @@
       <td><%= f.select :partner_id, options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: @partner_id) %></td>
     </tr>
     <tr>
+      <td><%= f.label :schedule_dt, "Scheduled Date" %></td>
+      <td><%= f.text_field :schedule_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y"), class: 'datepicker' %> mm/dd/yyyy</td>
+    </tr>
+    <tr>
+      <td><%= f.label :schedule_tm, "Scheduled Time" %></td>
+      <td><%= f.text_field :schedule_tm, value: @event.schedule_tm.try(:strftime, "%I:%M %p"), class: 'timefield' %> hh:mm MM</td>
+    </tr>
+    <tr>
       <td><%= f.label :contact_type, "Mode" %></td>
       <td><%= f.select :contact_type, Event::CONTACT_TYPE_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#event_contact_type_other', :enablevalue => 9 } } %></td>
     </tr>
@@ -34,12 +42,27 @@
       <td><%= f.text_field :contact_type_other %></td>
     </tr>
     <tr>
-      <td><%= f.label :schedule_dt, "Scheduled Date" %></td>
-      <td><%= f.text_field :schedule_dt, value: @event.schedule_dt.try(:strftime, "%m/%d/%Y"), class: 'datepicker' %> mm/dd/yyyy</td>
-    </tr>
-    <tr>
-      <td><%= f.label :schedule_tm, "Scheduled Time" %></td>
-      <td><%= f.text_field :schedule_tm, value: @event.schedule_tm.try(:strftime, "%I:%M %p"), class: 'timefield' %> hh:mm MM</td>
+      <td>Key Actions:</td>
+      <td>
+        <table>
+          <tr>
+            <td><%= f.label :outcome_pal_sent, "PAL sent" %></td>
+            <td><%= f.check_box :outcome_pal_sent %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :outcome_pal_returned, "Enrolled/PAL returned" %></td>
+            <td><%= f.check_box :outcome_pal_returned %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :outcome_complete_ehr, "EHR assessment complete" %></td>
+            <td><%= f.check_box :outcome_complete_ehr %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :outcome_complete_characteristics, "Practice characteristics complete" %></td>
+            <td><%= f.check_box :outcome_complete_characteristics %></td>
+          </tr>
+        </table>
+      </td>
     </tr>
     <tr>
       <td><%= f.label :outcome %></td>

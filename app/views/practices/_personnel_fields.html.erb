@@ -31,6 +31,21 @@
       <td colspan='7'>
         <table>
           <tr>
+            <td>H2N Roles:</td>
+            <td><%= f.label :site_contact_primary, "Primary Site Contact" %></td>
+            <td><%= f.check_box :site_contact_primary %></td>
+            <td><%= f.label :site_contact_secondary, "Secondary Site Contact" %></td>
+            <td><%= f.check_box :site_contact_secondary %></td>
+            <td><%= f.label :site_contact_champion, "QI Champion" %></td>
+            <td><%= f.check_box :site_contact_champion %></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan='7'>
+        <table>
+          <tr>
             <td>EHR Duties:</td>
             <td><%= f.label :ehr_extractor, "Configure & Write EHR Reports" %></td>
             <td><%= f.check_box :ehr_extractor %></td>

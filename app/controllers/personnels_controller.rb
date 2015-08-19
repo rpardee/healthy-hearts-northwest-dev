@@ -76,6 +76,7 @@ class PersonnelsController < ApplicationController
       params[:personnel].permit(:practice_id, :name, :role, :role_other,
         :phone1, :phone1_best, :phone2, :phone2_best,
         :email1, :email1_best, :email2, :email2_best,
-        :ehr_extractor, :ehr_helper, :ehr_cqm)
+        :ehr_extractor, :ehr_helper, :ehr_cqm,
+        :site_contact_primary, :site_contact_secondary, :site_contact_champion)
     end
 end

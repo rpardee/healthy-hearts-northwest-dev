@@ -20,9 +20,9 @@ class Personnel < ActiveRecord::Base
 
 	ROLE_VALS = {
 		"Practice manager" => 1,
-		"Primary site contact" => 2,
+		# "Primary site contact" => 2,
 		"Primary clinician" => 3,
-		"Secondary site contact" => 4,
+		# "Secondary site contact" => 4,
 		"Front desk" => 5,
 		"IT manager" => 6,
 		"Physician" => 7,

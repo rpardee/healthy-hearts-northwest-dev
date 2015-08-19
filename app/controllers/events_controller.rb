@@ -87,6 +87,9 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params[:event].permit(:practice_id, :partner_id, :schedule_dt,
-        :schedule_tm, :contact_type, :contact_type_other, :outcome, :outcome_dt, :description)
+        :schedule_tm, :contact_type, :contact_type_other, :outcome,
+        :outcome_dt, :description,
+        :outcome_pal_sent, :outcome_pal_returned, :outcome_complete_ehr,
+        :outcome_complete_characteristics)
     end
 end
