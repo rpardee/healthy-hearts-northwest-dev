@@ -21,7 +21,7 @@
       <li><%= link_to "Characteristics", "#characteristics" %></li>
       <li><%= link_to "EHR Assessment", "#assessment" %></li><br />
       <li><%= link_to "Back", :back %></li>
-      <li><%= f.submit "Save!" %></li>
+      <li><%= f.submit "Save!", class: "button-important" %></li>
     </ul>
   </nav>
 </div>
@@ -164,11 +164,11 @@
         <td><%= f.check_box :prac_own_clinician %></td>
       </tr>
       <tr class='subquestion'>
-        <td><%= f.label :prac_own_hosp, "Hospital/health system howned" %></td>
+        <td><%= f.label :prac_own_hosp, "Hospital/health system owned" %></td>
         <td><%= f.check_box :prac_own_hosp %></td>
       </tr>
       <tr class='subquestion'>
-        <td><%= f.label :prac_own_hmo, "Health maintentance organization (e.g., Kaiser Permanente)" %></td>
+        <td><%= f.label :prac_own_hmo, "Health maintenance organization (e.g., Kaiser Permanente)" %></td>
         <td><%= f.check_box :prac_own_hmo %></td>
       </tr>
       <tr class='subquestion'>
@@ -204,7 +204,7 @@
         <td><%= f.text_field :prac_own_other_specify  %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_own_yrs, "2. How many years has this practice been under the current ownership? (Please round to the nearest year and enter 0 if this year has been under the current ownership for less than one year)" %></td>
+        <td><%= f.label :prac_own_yrs, "2. How many years has this practice been under the current ownership? (Please round to the nearest year and enter 0 if this practice has been under the current ownership for less than one year)" %></td>
         <td><%= f.text_field :prac_own_yrs, size: 5  %></td>
       </tr>
       <tr>
@@ -220,14 +220,14 @@
         <td><%= f.select :prac_pcmh, Practice::YN12_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td colspan='2'>Is your practice part of an accountable care organization (ACO)? (Check all that apply.)</td>
+        <td colspan='2'>6. Is your practice part of an accountable care organization (ACO)? (Check all that apply.)</td>
       </tr>
       <tr class='subquestion'>
         <td><%= f.label :prac_aco_medicaid, "Yes, Medicaid ACO" %></td>
         <td><%= f.check_box :prac_aco_medicaid %></td>
       </tr>
       <tr class='subquestion'>
-        <td><%= f.label :prac_aco_medicare, "Yes, Medicare ACO (Pioneer, Shared Savings Plan or Advance Payment" %></td>
+        <td><%= f.label :prac_aco_medicare, "Yes, Medicare ACO (Pioneer, Shared Savings Plan or Advance Payment)" %></td>
         <td><%= f.check_box :prac_aco_medicare %></td>
       </tr>
       <tr class='subquestion'>
@@ -283,7 +283,7 @@
         </td>
       </tr>
       <tr class='disabled-question'>
-        <td><%= f.label :prac_ehrname_other, "2b. Please specify" %></td>
+        <td><%= f.label :prac_ehrname_other, "Please specify" %></td>
         <td><%= f.text_field :prac_ehrname_other %></td>
       </tr>
       <tr>
@@ -349,7 +349,7 @@
         <td><%= f.select :prac_cqm_submit, Practice::PRAC_CQM_VALS, include_blank: true  %></td>
       </tr>
       <tr>
-        <td><%= f.label :prac_cqm_who, "14. Through whom do you or will you report? (Examples include CMS, professional societies, state organizations" %></td>
+        <td><%= f.label :prac_cqm_who, "14. Through whom do you or will you report? (Examples include CMS, professional societies, state organizations.)" %></td>
         <td><%= f.text_area :prac_cqm_who, :cols => 40, :rows => 3, :limit => 200 %></td>
       </tr>
       <tr>

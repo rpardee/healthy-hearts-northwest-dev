@@ -35,7 +35,10 @@ enableObjectIf = (selectorObject, value, effectorName) ->
 
 $(document).ready ->
 	$('.enable-control').each (index, element) =>
-		value = $(element).data('enablevalue')
+		if $(element).is("input")
+			value = +$(element).prop("checked")
+		else
+			value = $(element).data('enablevalue')
 		effectorName = $(element).data('effector')
 		enableObjectIf($(element), value, effectorName)
 

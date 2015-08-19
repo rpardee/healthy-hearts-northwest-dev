@@ -11,23 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818150143) do
+ActiveRecord::Schema.define(version: 20150819152150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
-    t.integer  "partner_id",                     null: false
-    t.integer  "practice_id",                    null: false
-    t.date     "schedule_dt",                    null: false
+    t.integer  "partner_id",                                       null: false
+    t.integer  "practice_id",                                      null: false
+    t.date     "schedule_dt",                                      null: false
     t.time     "schedule_tm"
-    t.integer  "contact_type",       default: 0, null: false
-    t.integer  "outcome",            default: 0, null: false
+    t.integer  "contact_type",                     default: 0,     null: false
+    t.integer  "outcome",                          default: 0,     null: false
     t.text     "description"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "current_partner"
     t.string   "contact_type_other"
+    t.boolean  "outcome_pal_sent",                 default: false
+    t.boolean  "outcome_pal_returned",             default: false
+    t.boolean  "outcome_complete_ehr",             default: false
+    t.boolean  "outcome_complete_characteristics", default: false
   end
 
   add_index "events", ["partner_id"], name: "index_events_on_partner_id", using: :btree
@@ -60,36 +64,39 @@ ActiveRecord::Schema.define(version: 20150818150143) do
   add_index "partners", ["unlock_token"], name: "index_partners_on_unlock_token", unique: true, using: :btree
 
   create_table "personnels", force: :cascade do |t|
-    t.integer  "practice_id",                                null: false
-    t.string   "name",                                       null: false
+    t.integer  "practice_id",                                       null: false
+    t.string   "name",                                              null: false
     t.integer  "role"
-    t.string   "phone1",          limit: 20
-    t.boolean  "phone1_best",                default: false, null: false
-    t.string   "phone2",          limit: 20
-    t.boolean  "phone2_best",                default: false, null: false
-    t.string   "email1",          limit: 20
-    t.boolean  "email1_best",                default: false, null: false
-    t.string   "email2",          limit: 20
-    t.boolean  "email2_best",                default: false, null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.string   "phone1",                 limit: 20
+    t.boolean  "phone1_best",                       default: false, null: false
+    t.string   "phone2",                 limit: 20
+    t.boolean  "phone2_best",                       default: false, null: false
+    t.string   "email1",                 limit: 20
+    t.boolean  "email1_best",                       default: false, null: false
+    t.string   "email2",                 limit: 20
+    t.boolean  "email2_best",                       default: false, null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.string   "current_partner"
-    t.boolean  "ehr_extractor",              default: false
-    t.boolean  "ehr_helper",                 default: false
-    t.boolean  "ehr_cqm",                    default: false
+    t.boolean  "ehr_extractor",                     default: false
+    t.boolean  "ehr_helper",                        default: false
+    t.boolean  "ehr_cqm",                           default: false
     t.string   "role_other"
+    t.boolean  "site_contact_primary",              default: false
+    t.boolean  "site_contact_secondary",            default: false
+    t.boolean  "site_contact_champion",             default: false
   end
 
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
 
   create_table "practices", force: :cascade do |t|
-    t.integer  "partner_id",                                        null: false
-    t.string   "name",                                              null: false
+    t.integer  "partner_id",                                                   null: false
+    t.string   "name",                                                         null: false
     t.string   "address"
     t.string   "phone"
     t.string   "url"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.string   "email"
     t.integer  "recruitment_source"
     t.string   "recruitment_source_referral"
@@ -132,24 +139,25 @@ ActiveRecord::Schema.define(version: 20150818150143) do
     t.string   "parent_organization"
     t.integer  "interest_contact_month"
     t.integer  "prac_state"
-    t.boolean  "prac_own_clinician",                default: false
-    t.boolean  "prac_own_hosp",                     default: false
-    t.boolean  "prac_own_hmo",                      default: false
-    t.boolean  "prac_own_fqhc",                     default: false
-    t.boolean  "prac_own_nonfed",                   default: false
-    t.boolean  "prac_own_academic",                 default: false
-    t.boolean  "prac_own_fed",                      default: false
-    t.boolean  "prac_own_rural",                    default: false
-    t.boolean  "prac_own_ihs",                      default: false
-    t.boolean  "prac_own_other",                    default: false
-    t.boolean  "prac_aco_medicaid",                 default: false
-    t.boolean  "prac_aco_medicare",                 default: false
-    t.boolean  "prac_aco_commercial",               default: false
-    t.boolean  "prac_aco_other",                    default: false
-    t.boolean  "prac_aco_none",                     default: false
-    t.boolean  "prac_aco_dk",                       default: false
+    t.boolean  "prac_own_clinician",                           default: false
+    t.boolean  "prac_own_hosp",                                default: false
+    t.boolean  "prac_own_hmo",                                 default: false
+    t.boolean  "prac_own_fqhc",                                default: false
+    t.boolean  "prac_own_nonfed",                              default: false
+    t.boolean  "prac_own_academic",                            default: false
+    t.boolean  "prac_own_fed",                                 default: false
+    t.boolean  "prac_own_rural",                               default: false
+    t.boolean  "prac_own_ihs",                                 default: false
+    t.boolean  "prac_own_other",                               default: false
+    t.boolean  "prac_aco_medicaid",                            default: false
+    t.boolean  "prac_aco_medicare",                            default: false
+    t.boolean  "prac_aco_commercial",                          default: false
+    t.boolean  "prac_aco_other",                               default: false
+    t.boolean  "prac_aco_none",                                default: false
+    t.boolean  "prac_aco_dk",                                  default: false
     t.integer  "prac_aco_join_medicare"
     t.integer  "prac_aco_join_commercial"
+    t.string   "zip_code",                          limit: 10
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree
