@@ -58,6 +58,10 @@
         <td><%= f.select :prac_state, Practice::PRAC_STATE_VALS, include_blank: true %></td>
       </tr>
       <tr>
+        <td><%= f.label :zip_code, "ZIP Code" %></td>
+        <td><%= f.text_field :zip_code %></td>
+      </tr>
+      <tr>
         <td><%= f.label :phone %></td>
         <td><%= f.text_field :phone %></td>
       </tr>
