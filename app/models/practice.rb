@@ -137,8 +137,7 @@ class Practice < ActiveRecord::Base
 	PRAC_EHR_VALS = {
 		"Yes, all electronic" => 1,
 		"Yes, part paper and part electronic" => 2,
-		"No" => 3,
-		"Unknown" => 4
+		"No" => 3
 	}
 
 	PRAC_EHRNAME_VALS = {
@@ -233,6 +232,6 @@ class Practice < ActiveRecord::Base
 		"Yes" => 1,
 		"No" => 2,
 		"Already contracting with a private/commercial ACO" => 3,
-		"Already contracting with at least one private/commercial ACO but plan to join additional" => 4
+		"Already contracting but plan to join ... (see below)*" => 4
 	}
 end

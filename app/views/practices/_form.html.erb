@@ -262,7 +262,9 @@
       <tr>
         <td><%= f.label :prac_aco_join_commercial, "9. Do you plan on newly joining or newly
           contracting with a private/commercial ACO or ACO-type arrangement in the next 12 months?" %></td>
-        <td><%= f.select :prac_aco_join_commercial, Practice::PRAC_ACO_JOIN_COMMERCIAL_VALS, include_blank: true  %></td>
+        <td><%= f.select :prac_aco_join_commercial, Practice::PRAC_ACO_JOIN_COMMERCIAL_VALS, include_blank: true  %><br />
+          <sup>*</sup>Already contracting with at least one Private/Commercial ACO but plan to join additional
+          Private/Commercial ACO arrangements.</td>
       </tr>
     </table>
   </div>
