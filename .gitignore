@@ -12,3 +12,6 @@
 !/log/.keep
 /tmp
 .env
+
+# Ignore the seed data
+/db/seeds.db
