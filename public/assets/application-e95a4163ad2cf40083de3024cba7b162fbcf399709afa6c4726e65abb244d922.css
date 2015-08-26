@@ -1,0 +1,1830 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+
+
+
+
+ */
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*!
+ * jQuery UI CSS Framework 1.11.4
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/category/theming/
+ *
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/
+ */
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
+
+
+
+/* Component containers
+----------------------------------*/
+
+.ui-widget {
+	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
+	font-size: 1.1em/*{fsDefault}*/;
+}
+.ui-widget .ui-widget {
+	font-size: 1em;
+}
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
+	font-size: 1em;
+}
+.ui-widget-content {
+	border: 1px solid #aaaaaa/*{borderColorContent}*/;
+	background: #ffffff/*{bgColorContent}*/ url(/assets/jquery-ui/ui-bg_flat_75_ffffff_40x100-39ab7ccd9f4e82579da78a9241265df288d8eb65dbbd7cf48aed2d0129887df5.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/;
+	color: #222222/*{fcContent}*/;
+}
+.ui-widget-content a {
+	color: #222222/*{fcContent}*/;
+}
+.ui-widget-header {
+	border: 1px solid #aaaaaa/*{borderColorHeader}*/;
+	background: #cccccc/*{bgColorHeader}*/ url(/assets/jquery-ui/ui-bg_highlight-soft_75_cccccc_1x100-54270656df079c4da5182629a080fc633b6f84b87985eb016d25a560e2c38d4a.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/;
+	color: #222222/*{fcHeader}*/;
+	font-weight: bold;
+}
+.ui-widget-header a {
+	color: #222222/*{fcHeader}*/;
+}
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+	border: 1px solid #d3d3d3/*{borderColorDefault}*/;
+	background: #e6e6e6/*{bgColorDefault}*/ url(/assets/jquery-ui/ui-bg_glass_75_e6e6e6_1x400-ddf5dd4e0ef2b185e8bb0af7b6e90ebe74a84384cb4700658e76e754c8bfe550.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/;
+	font-weight: normal/*{fwDefault}*/;
+	color: #555555/*{fcDefault}*/;
+}
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {
+	color: #555555/*{fcDefault}*/;
+	text-decoration: none;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+	border: 1px solid #999999/*{borderColorHover}*/;
+	background: #dadada/*{bgColorHover}*/ url(/assets/jquery-ui/ui-bg_glass_75_dadada_1x400-c108f5cbf2dd9ec07a26530695ddd95e1664597ce6c056ae44c162cc2e28cec4.png)/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/;
+	font-weight: normal/*{fwDefault}*/;
+	color: #212121/*{fcHover}*/;
+}
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited,
+.ui-state-focus a,
+.ui-state-focus a:hover,
+.ui-state-focus a:link,
+.ui-state-focus a:visited {
+	color: #212121/*{fcHover}*/;
+	text-decoration: none;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+	border: 1px solid #aaaaaa/*{borderColorActive}*/;
+	background: #ffffff/*{bgColorActive}*/ url(/assets/jquery-ui/ui-bg_glass_65_ffffff_1x400-f0e6cd91b837d5c5644d026e5ffeccd907953317cd5c0f689901733afda260b2.png)/*{bgImgUrlActive}*/ 50%/*{bgActiveXPos}*/ 50%/*{bgActiveYPos}*/ repeat-x/*{bgActiveRepeat}*/;
+	font-weight: normal/*{fwDefault}*/;
+	color: #212121/*{fcActive}*/;
+}
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+	color: #212121/*{fcActive}*/;
+	text-decoration: none;
+}
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	border: 1px solid #fcefa1/*{borderColorHighlight}*/;
+	background: #fbf9ee/*{bgColorHighlight}*/ url(/assets/jquery-ui/ui-bg_glass_55_fbf9ee_1x400-691597e8a40a891ea94d3589976ecfc33e6145c49422443b00ac2b5a0022964c.png)/*{bgImgUrlHighlight}*/ 50%/*{bgHighlightXPos}*/ 50%/*{bgHighlightYPos}*/ repeat-x/*{bgHighlightRepeat}*/;
+	color: #363636/*{fcHighlight}*/;
+}
+.ui-state-highlight a,
+.ui-widget-content .ui-state-highlight a,
+.ui-widget-header .ui-state-highlight a {
+	color: #363636/*{fcHighlight}*/;
+}
+.ui-state-error,
+.ui-widget-content .ui-state-error,
+.ui-widget-header .ui-state-error {
+	border: 1px solid #cd0a0a/*{borderColorError}*/;
+	background: #fef1ec/*{bgColorError}*/ url(/assets/jquery-ui/ui-bg_glass_95_fef1ec_1x400-f6f1c1bedf1a0f37cfef81d12f5f012869d1ee7c984775a569827a1784d34f5c.png)/*{bgImgUrlError}*/ 50%/*{bgErrorXPos}*/ 50%/*{bgErrorYPos}*/ repeat-x/*{bgErrorRepeat}*/;
+	color: #cd0a0a/*{fcError}*/;
+}
+.ui-state-error a,
+.ui-widget-content .ui-state-error a,
+.ui-widget-header .ui-state-error a {
+	color: #cd0a0a/*{fcError}*/;
+}
+.ui-state-error-text,
+.ui-widget-content .ui-state-error-text,
+.ui-widget-header .ui-state-error-text {
+	color: #cd0a0a/*{fcError}*/;
+}
+.ui-priority-primary,
+.ui-widget-content .ui-priority-primary,
+.ui-widget-header .ui-priority-primary {
+	font-weight: bold;
+}
+.ui-priority-secondary,
+.ui-widget-content .ui-priority-secondary,
+.ui-widget-header .ui-priority-secondary {
+	opacity: .7;
+	filter:Alpha(Opacity=70); /* support: IE8 */
+	font-weight: normal;
+}
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+	opacity: .35;
+	filter:Alpha(Opacity=35); /* support: IE8 */
+	background-image: none;
+}
+.ui-state-disabled .ui-icon {
+	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */
+}
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon {
+	width: 16px;
+	height: 16px;
+}
+.ui-icon,
+.ui-widget-content .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_222222_256x240-57adb0d65f4e91dacfee975d9574422bee7486c8a182d60133728c672f2cdbbc.png)/*{iconsContent}*/;
+}
+.ui-widget-header .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_222222_256x240-57adb0d65f4e91dacfee975d9574422bee7486c8a182d60133728c672f2cdbbc.png)/*{iconsHeader}*/;
+}
+.ui-state-default .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_888888_256x240-ea2e29625de3463465e93b002b065f5833e05b97f7a052b1c141e754d62e1a8b.png)/*{iconsDefault}*/;
+}
+.ui-state-hover .ui-icon,
+.ui-state-focus .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_454545_256x240-07460e843c3e59aaadbb34231e699e856a2980753c7a47b66447da5d9f93fb7f.png)/*{iconsHover}*/;
+}
+.ui-state-active .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_454545_256x240-07460e843c3e59aaadbb34231e699e856a2980753c7a47b66447da5d9f93fb7f.png)/*{iconsActive}*/;
+}
+.ui-state-highlight .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_2e83ff_256x240-20f8c6667afc48aa433ee9eb6d8a0584bdbd6b4a4a9091ff1e6b3adb31e63bd9.png)/*{iconsHighlight}*/;
+}
+.ui-state-error .ui-icon,
+.ui-state-error-text .ui-icon {
+	background-image: url(/assets/jquery-ui/ui-icons_cd0a0a_256x240-1e32c6dbf5d3fd342f27a78aa881550d6412aa207f48468724a6a15402b6041b.png)/*{iconsError}*/;
+}
+
+/* positioning */
+.ui-icon-blank { background-position: 16px 16px; }
+.ui-icon-carat-1-n { background-position: 0 0; }
+.ui-icon-carat-1-ne { background-position: -16px 0; }
+.ui-icon-carat-1-e { background-position: -32px 0; }
+.ui-icon-carat-1-se { background-position: -48px 0; }
+.ui-icon-carat-1-s { background-position: -64px 0; }
+.ui-icon-carat-1-sw { background-position: -80px 0; }
+.ui-icon-carat-1-w { background-position: -96px 0; }
+.ui-icon-carat-1-nw { background-position: -112px 0; }
+.ui-icon-carat-2-n-s { background-position: -128px 0; }
+.ui-icon-carat-2-e-w { background-position: -144px 0; }
+.ui-icon-triangle-1-n { background-position: 0 -16px; }
+.ui-icon-triangle-1-ne { background-position: -16px -16px; }
+.ui-icon-triangle-1-e { background-position: -32px -16px; }
+.ui-icon-triangle-1-se { background-position: -48px -16px; }
+.ui-icon-triangle-1-s { background-position: -64px -16px; }
+.ui-icon-triangle-1-sw { background-position: -80px -16px; }
+.ui-icon-triangle-1-w { background-position: -96px -16px; }
+.ui-icon-triangle-1-nw { background-position: -112px -16px; }
+.ui-icon-triangle-2-n-s { background-position: -128px -16px; }
+.ui-icon-triangle-2-e-w { background-position: -144px -16px; }
+.ui-icon-arrow-1-n { background-position: 0 -32px; }
+.ui-icon-arrow-1-ne { background-position: -16px -32px; }
+.ui-icon-arrow-1-e { background-position: -32px -32px; }
+.ui-icon-arrow-1-se { background-position: -48px -32px; }
+.ui-icon-arrow-1-s { background-position: -64px -32px; }
+.ui-icon-arrow-1-sw { background-position: -80px -32px; }
+.ui-icon-arrow-1-w { background-position: -96px -32px; }
+.ui-icon-arrow-1-nw { background-position: -112px -32px; }
+.ui-icon-arrow-2-n-s { background-position: -128px -32px; }
+.ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
+.ui-icon-arrow-2-e-w { background-position: -160px -32px; }
+.ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
+.ui-icon-arrowstop-1-n { background-position: -192px -32px; }
+.ui-icon-arrowstop-1-e { background-position: -208px -32px; }
+.ui-icon-arrowstop-1-s { background-position: -224px -32px; }
+.ui-icon-arrowstop-1-w { background-position: -240px -32px; }
+.ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+.ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
+.ui-icon-arrowthick-1-e { background-position: -32px -48px; }
+.ui-icon-arrowthick-1-se { background-position: -48px -48px; }
+.ui-icon-arrowthick-1-s { background-position: -64px -48px; }
+.ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
+.ui-icon-arrowthick-1-w { background-position: -96px -48px; }
+.ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
+.ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
+.ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
+.ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
+.ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
+.ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
+.ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
+.ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
+.ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
+.ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
+.ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
+.ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
+.ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
+.ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
+.ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
+.ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
+.ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
+.ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
+.ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
+.ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
+.ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
+.ui-icon-arrow-4 { background-position: 0 -80px; }
+.ui-icon-arrow-4-diag { background-position: -16px -80px; }
+.ui-icon-extlink { background-position: -32px -80px; }
+.ui-icon-newwin { background-position: -48px -80px; }
+.ui-icon-refresh { background-position: -64px -80px; }
+.ui-icon-shuffle { background-position: -80px -80px; }
+.ui-icon-transfer-e-w { background-position: -96px -80px; }
+.ui-icon-transferthick-e-w { background-position: -112px -80px; }
+.ui-icon-folder-collapsed { background-position: 0 -96px; }
+.ui-icon-folder-open { background-position: -16px -96px; }
+.ui-icon-document { background-position: -32px -96px; }
+.ui-icon-document-b { background-position: -48px -96px; }
+.ui-icon-note { background-position: -64px -96px; }
+.ui-icon-mail-closed { background-position: -80px -96px; }
+.ui-icon-mail-open { background-position: -96px -96px; }
+.ui-icon-suitcase { background-position: -112px -96px; }
+.ui-icon-comment { background-position: -128px -96px; }
+.ui-icon-person { background-position: -144px -96px; }
+.ui-icon-print { background-position: -160px -96px; }
+.ui-icon-trash { background-position: -176px -96px; }
+.ui-icon-locked { background-position: -192px -96px; }
+.ui-icon-unlocked { background-position: -208px -96px; }
+.ui-icon-bookmark { background-position: -224px -96px; }
+.ui-icon-tag { background-position: -240px -96px; }
+.ui-icon-home { background-position: 0 -112px; }
+.ui-icon-flag { background-position: -16px -112px; }
+.ui-icon-calendar { background-position: -32px -112px; }
+.ui-icon-cart { background-position: -48px -112px; }
+.ui-icon-pencil { background-position: -64px -112px; }
+.ui-icon-clock { background-position: -80px -112px; }
+.ui-icon-disk { background-position: -96px -112px; }
+.ui-icon-calculator { background-position: -112px -112px; }
+.ui-icon-zoomin { background-position: -128px -112px; }
+.ui-icon-zoomout { background-position: -144px -112px; }
+.ui-icon-search { background-position: -160px -112px; }
+.ui-icon-wrench { background-position: -176px -112px; }
+.ui-icon-gear { background-position: -192px -112px; }
+.ui-icon-heart { background-position: -208px -112px; }
+.ui-icon-star { background-position: -224px -112px; }
+.ui-icon-link { background-position: -240px -112px; }
+.ui-icon-cancel { background-position: 0 -128px; }
+.ui-icon-plus { background-position: -16px -128px; }
+.ui-icon-plusthick { background-position: -32px -128px; }
+.ui-icon-minus { background-position: -48px -128px; }
+.ui-icon-minusthick { background-position: -64px -128px; }
+.ui-icon-close { background-position: -80px -128px; }
+.ui-icon-closethick { background-position: -96px -128px; }
+.ui-icon-key { background-position: -112px -128px; }
+.ui-icon-lightbulb { background-position: -128px -128px; }
+.ui-icon-scissors { background-position: -144px -128px; }
+.ui-icon-clipboard { background-position: -160px -128px; }
+.ui-icon-copy { background-position: -176px -128px; }
+.ui-icon-contact { background-position: -192px -128px; }
+.ui-icon-image { background-position: -208px -128px; }
+.ui-icon-video { background-position: -224px -128px; }
+.ui-icon-script { background-position: -240px -128px; }
+.ui-icon-alert { background-position: 0 -144px; }
+.ui-icon-info { background-position: -16px -144px; }
+.ui-icon-notice { background-position: -32px -144px; }
+.ui-icon-help { background-position: -48px -144px; }
+.ui-icon-check { background-position: -64px -144px; }
+.ui-icon-bullet { background-position: -80px -144px; }
+.ui-icon-radio-on { background-position: -96px -144px; }
+.ui-icon-radio-off { background-position: -112px -144px; }
+.ui-icon-pin-w { background-position: -128px -144px; }
+.ui-icon-pin-s { background-position: -144px -144px; }
+.ui-icon-play { background-position: 0 -160px; }
+.ui-icon-pause { background-position: -16px -160px; }
+.ui-icon-seek-next { background-position: -32px -160px; }
+.ui-icon-seek-prev { background-position: -48px -160px; }
+.ui-icon-seek-end { background-position: -64px -160px; }
+.ui-icon-seek-start { background-position: -80px -160px; }
+/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
+.ui-icon-seek-first { background-position: -80px -160px; }
+.ui-icon-stop { background-position: -96px -160px; }
+.ui-icon-eject { background-position: -112px -160px; }
+.ui-icon-volume-off { background-position: -128px -160px; }
+.ui-icon-volume-on { background-position: -144px -160px; }
+.ui-icon-power { background-position: 0 -176px; }
+.ui-icon-signal-diag { background-position: -16px -176px; }
+.ui-icon-signal { background-position: -32px -176px; }
+.ui-icon-battery-0 { background-position: -48px -176px; }
+.ui-icon-battery-1 { background-position: -64px -176px; }
+.ui-icon-battery-2 { background-position: -80px -176px; }
+.ui-icon-battery-3 { background-position: -96px -176px; }
+.ui-icon-circle-plus { background-position: 0 -192px; }
+.ui-icon-circle-minus { background-position: -16px -192px; }
+.ui-icon-circle-close { background-position: -32px -192px; }
+.ui-icon-circle-triangle-e { background-position: -48px -192px; }
+.ui-icon-circle-triangle-s { background-position: -64px -192px; }
+.ui-icon-circle-triangle-w { background-position: -80px -192px; }
+.ui-icon-circle-triangle-n { background-position: -96px -192px; }
+.ui-icon-circle-arrow-e { background-position: -112px -192px; }
+.ui-icon-circle-arrow-s { background-position: -128px -192px; }
+.ui-icon-circle-arrow-w { background-position: -144px -192px; }
+.ui-icon-circle-arrow-n { background-position: -160px -192px; }
+.ui-icon-circle-zoomin { background-position: -176px -192px; }
+.ui-icon-circle-zoomout { background-position: -192px -192px; }
+.ui-icon-circle-check { background-position: -208px -192px; }
+.ui-icon-circlesmall-plus { background-position: 0 -208px; }
+.ui-icon-circlesmall-minus { background-position: -16px -208px; }
+.ui-icon-circlesmall-close { background-position: -32px -208px; }
+.ui-icon-squaresmall-plus { background-position: -48px -208px; }
+.ui-icon-squaresmall-minus { background-position: -64px -208px; }
+.ui-icon-squaresmall-close { background-position: -80px -208px; }
+.ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
+.ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
+.ui-icon-grip-solid-vertical { background-position: -32px -224px; }
+.ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
+.ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+.ui-icon-grip-diagonal-se { background-position: -80px -224px; }
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Corner radius */
+.ui-corner-all,
+.ui-corner-top,
+.ui-corner-left,
+.ui-corner-tl {
+	border-top-left-radius: 4px/*{cornerRadius}*/;
+}
+.ui-corner-all,
+.ui-corner-top,
+.ui-corner-right,
+.ui-corner-tr {
+	border-top-right-radius: 4px/*{cornerRadius}*/;
+}
+.ui-corner-all,
+.ui-corner-bottom,
+.ui-corner-left,
+.ui-corner-bl {
+	border-bottom-left-radius: 4px/*{cornerRadius}*/;
+}
+.ui-corner-all,
+.ui-corner-bottom,
+.ui-corner-right,
+.ui-corner-br {
+	border-bottom-right-radius: 4px/*{cornerRadius}*/;
+}
+
+/* Overlays */
+.ui-widget-overlay {
+	background: #aaaaaa/*{bgColorOverlay}*/ url(/assets/jquery-ui/ui-bg_flat_0_aaaaaa_40x100-9a8492a580bf85d3e98ae8861fbd45567e5a1f83eeafcf9574da0399d5f602ab.png)/*{bgImgUrlOverlay}*/ 50%/*{bgOverlayXPos}*/ 50%/*{bgOverlayYPos}*/ repeat-x/*{bgOverlayRepeat}*/;
+	opacity: .3/*{opacityOverlay}*/;
+	filter: Alpha(Opacity=30)/*{opacityFilterOverlay}*/; /* support: IE8 */
+}
+.ui-widget-shadow {
+	margin: -8px/*{offsetTopShadow}*/ 0 0 -8px/*{offsetLeftShadow}*/;
+	padding: 8px/*{thicknessShadow}*/;
+	background: #aaaaaa/*{bgColorShadow}*/ url(/assets/jquery-ui/ui-bg_flat_0_aaaaaa_40x100-9a8492a580bf85d3e98ae8861fbd45567e5a1f83eeafcf9574da0399d5f602ab.png)/*{bgImgUrlShadow}*/ 50%/*{bgShadowXPos}*/ 50%/*{bgShadowYPos}*/ repeat-x/*{bgShadowRepeat}*/;
+	opacity: .3/*{opacityShadow}*/;
+	filter: Alpha(Opacity=30)/*{opacityFilterShadow}*/; /* support: IE8 */
+	border-radius: 8px/*{cornerRadiusShadow}*/;
+}
+/*!
+ * jQuery UI CSS Framework 1.11.4
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/category/theming/
+ */
+/*
+
+ */
+
+/* Layout helpers
+----------------------------------*/
+
+.ui-helper-hidden {
+	display: none;
+}
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+.ui-helper-reset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	line-height: 1.3;
+	text-decoration: none;
+	font-size: 100%;
+	list-style: none;
+}
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+.ui-helper-clearfix:after {
+	clear: both;
+}
+.ui-helper-clearfix {
+	min-height: 0; /* support: IE7 */
+}
+.ui-helper-zfix {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	opacity: 0;
+	filter:Alpha(Opacity=0); /* support: IE8 */
+}
+
+.ui-front {
+	z-index: 100;
+}
+
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-disabled {
+	cursor: default !important;
+}
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+/*!
+ * jQuery UI Datepicker 1.11.4
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/datepicker/#theming
+ */
+/*
+
+
+ */
+
+.ui-datepicker {
+	width: 17em;
+	padding: .2em .2em 0;
+	display: none;
+}
+.ui-datepicker .ui-datepicker-header {
+	position: relative;
+	padding: .2em 0;
+}
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+	position: absolute;
+	top: 2px;
+	width: 1.8em;
+	height: 1.8em;
+}
+.ui-datepicker .ui-datepicker-prev-hover,
+.ui-datepicker .ui-datepicker-next-hover {
+	top: 1px;
+}
+.ui-datepicker .ui-datepicker-prev {
+	left: 2px;
+}
+.ui-datepicker .ui-datepicker-next {
+	right: 2px;
+}
+.ui-datepicker .ui-datepicker-prev-hover {
+	left: 1px;
+}
+.ui-datepicker .ui-datepicker-next-hover {
+	right: 1px;
+}
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span {
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -8px;
+	top: 50%;
+	margin-top: -8px;
+}
+.ui-datepicker .ui-datepicker-title {
+	margin: 0 2.3em;
+	line-height: 1.8em;
+	text-align: center;
+}
+.ui-datepicker .ui-datepicker-title select {
+	font-size: 1em;
+	margin: 1px 0;
+}
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+	width: 45%;
+}
+.ui-datepicker table {
+	width: 100%;
+	font-size: .9em;
+	border-collapse: collapse;
+	margin: 0 0 .4em;
+}
+.ui-datepicker th {
+	padding: .7em .3em;
+	text-align: center;
+	font-weight: bold;
+	border: 0;
+}
+.ui-datepicker td {
+	border: 0;
+	padding: 1px;
+}
+.ui-datepicker td span,
+.ui-datepicker td a {
+	display: block;
+	padding: .2em;
+	text-align: right;
+	text-decoration: none;
+}
+.ui-datepicker .ui-datepicker-buttonpane {
+	background-image: none;
+	margin: .7em 0 0 0;
+	padding: 0 .2em;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+.ui-datepicker .ui-datepicker-buttonpane button {
+	float: right;
+	margin: .5em .2em .4em;
+	cursor: pointer;
+	padding: .2em .6em .3em .6em;
+	width: auto;
+	overflow: visible;
+}
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+	float: left;
+}
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi {
+	width: auto;
+}
+.ui-datepicker-multi .ui-datepicker-group {
+	float: left;
+}
+.ui-datepicker-multi .ui-datepicker-group table {
+	width: 95%;
+	margin: 0 auto .4em;
+}
+.ui-datepicker-multi-2 .ui-datepicker-group {
+	width: 50%;
+}
+.ui-datepicker-multi-3 .ui-datepicker-group {
+	width: 33.3%;
+}
+.ui-datepicker-multi-4 .ui-datepicker-group {
+	width: 25%;
+}
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+	border-left-width: 0;
+}
+.ui-datepicker-multi .ui-datepicker-buttonpane {
+	clear: left;
+}
+.ui-datepicker-row-break {
+	clear: both;
+	width: 100%;
+	font-size: 0;
+}
+
+/* RTL support */
+.ui-datepicker-rtl {
+	direction: rtl;
+}
+.ui-datepicker-rtl .ui-datepicker-prev {
+	right: 2px;
+	left: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-next {
+	left: 2px;
+	right: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-prev:hover {
+	right: 1px;
+	left: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-next:hover {
+	left: 1px;
+	right: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane {
+	clear: right;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane button {
+	float: left;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
+.ui-datepicker-rtl .ui-datepicker-group {
+	float: right;
+}
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+	border-right-width: 0;
+	border-left-width: 1px;
+}
+/*
+ * Table styles
+ */
+/* line 5, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable {
+  width: 100%;
+  margin: 0 auto;
+  clear: both;
+  border-collapse: separate;
+  border-spacing: 0;
+  /*
+   * Header and footer styles
+   */
+  /*
+   * Body styles
+   */
+}
+
+/* line 18, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th,
+table.dataTable tfoot th {
+  font-weight: bold;
+}
+
+/* line 22, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th,
+table.dataTable thead td {
+  padding: 10px 18px;
+  border-bottom: 1px solid #111;
+}
+
+/* line 27, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th:active,
+table.dataTable thead td:active {
+  outline: none;
+}
+
+/* line 31, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tfoot th,
+table.dataTable tfoot td {
+  padding: 10px 18px 6px 18px;
+  border-top: 1px solid #111;
+}
+
+/* line 36, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+  cursor: pointer;
+  *cursor: hand;
+}
+
+/* line 42, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+/* line 50, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead .sorting {
+  /*background-image: url("../images/sort_both.png");*/
+  background-image: url("/assets/sort_both-3e016c23ae51417382b640ae2d19eb48047532c37ad53894bd185586559ccffb.png");
+}
+
+/* line 54, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead .sorting_asc {
+  /*background-image: url("../images/sort_asc.png");*/
+  background-image: url("/assets/sort_asc-595704c3f3cf4cb65c7d9c8508a99e7480e150095473faed31a07c21b13389b8.png");
+}
+
+/* line 58, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead .sorting_desc {
+  /*background-image: url("../images/sort_desc.png");*/
+  background-image: url("/assets/sort_desc-d08ed0e21f187dd309030d465224da8085119a15a17d616ba0e477bb50c6f10d.png");
+}
+
+/* line 62, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead .sorting_asc_disabled {
+  /*background-image: url("../images/sort_asc_disabled.png");*/
+  background-image: url("/assets/sort_asc_disabled-a65b8f4f84d6427a81c360282fc5394d51bf99dada5f159e6aa0fce3c396825c.png");
+}
+
+/* line 66, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead .sorting_desc_disabled {
+  /*background-image: url("../images/sort_desc_disabled.png");*/
+  background-image: url("/assets/sort_desc_disabled-6c0f0c1b21ef6807057afc8ddc1a925d1dbd21cb11e9270ec84ff4ac40d9a3fa.png");
+}
+
+/* line 70, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody tr {
+  background-color: #ffffff;
+}
+
+/* line 73, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody tr.selected {
+  background-color: #B0BED9;
+}
+
+/* line 76, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody th,
+table.dataTable tbody td {
+  padding: 8px 10px;
+}
+
+/* line 80, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+  border-top: 1px solid #ddd;
+}
+
+/* line 83, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.row-border tbody tr:first-child th,
+table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th,
+table.dataTable.display tbody tr:first-child td {
+  border-top: none;
+}
+
+/* line 88, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+/* line 92, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.cell-border tbody tr th:first-child,
+table.dataTable.cell-border tbody tr td:first-child {
+  border-left: 1px solid #ddd;
+}
+
+/* line 96, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.cell-border tbody tr:first-child th,
+table.dataTable.cell-border tbody tr:first-child td {
+  border-top: none;
+}
+
+/* line 100, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+  background-color: #f9f9f9;
+}
+
+/* line 103, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected {
+  background-color: #abb9d3;
+}
+
+/* line 106, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+  background-color: whitesmoke;
+}
+
+/* line 109, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
+  background-color: #a9b7d1;
+}
+
+/* line 112, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.order-column tbody tr > .sorting_1,
+table.dataTable.order-column tbody tr > .sorting_2,
+table.dataTable.order-column tbody tr > .sorting_3, table.dataTable.display tbody tr > .sorting_1,
+table.dataTable.display tbody tr > .sorting_2,
+table.dataTable.display tbody tr > .sorting_3 {
+  background-color: #f9f9f9;
+}
+
+/* line 119, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.order-column tbody tr.selected > .sorting_1,
+table.dataTable.order-column tbody tr.selected > .sorting_2,
+table.dataTable.order-column tbody tr.selected > .sorting_3, table.dataTable.display tbody tr.selected > .sorting_1,
+table.dataTable.display tbody tr.selected > .sorting_2,
+table.dataTable.display tbody tr.selected > .sorting_3 {
+  background-color: #acbad4;
+}
+
+/* line 126, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+  background-color: #f1f1f1;
+}
+
+/* line 129, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.odd > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd > .sorting_2 {
+  background-color: #f3f3f3;
+}
+
+/* line 132, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.odd > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd > .sorting_3 {
+  background-color: whitesmoke;
+}
+
+/* line 135, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.odd.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_1 {
+  background-color: #a6b3cd;
+}
+
+/* line 138, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.odd.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_2 {
+  background-color: #a7b5ce;
+}
+
+/* line 141, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.odd.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_3 {
+  background-color: #a9b6d0;
+}
+
+/* line 144, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+  background-color: #f9f9f9;
+}
+
+/* line 147, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.even > .sorting_2, table.dataTable.order-column.stripe tbody tr.even > .sorting_2 {
+  background-color: #fbfbfb;
+}
+
+/* line 150, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.even > .sorting_3, table.dataTable.order-column.stripe tbody tr.even > .sorting_3 {
+  background-color: #fdfdfd;
+}
+
+/* line 153, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.even.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_1 {
+  background-color: #acbad4;
+}
+
+/* line 156, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.even.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_2 {
+  background-color: #adbbd6;
+}
+
+/* line 159, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr.even.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_3 {
+  background-color: #afbdd8;
+}
+
+/* line 162, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr:hover > .sorting_1, table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
+  background-color: #eaeaea;
+}
+
+/* line 165, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr:hover > .sorting_2, table.dataTable.order-column.hover tbody tr:hover > .sorting_2 {
+  background-color: #ebebeb;
+}
+
+/* line 168, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr:hover > .sorting_3, table.dataTable.order-column.hover tbody tr:hover > .sorting_3 {
+  background-color: #eeeeee;
+}
+
+/* line 171, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr:hover.selected > .sorting_1, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_1 {
+  background-color: #a1aec7;
+}
+
+/* line 174, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr:hover.selected > .sorting_2, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_2 {
+  background-color: #a2afc8;
+}
+
+/* line 177, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.display tbody tr:hover.selected > .sorting_3, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_3 {
+  background-color: #a4b2cb;
+}
+
+/* line 180, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.no-footer {
+  border-bottom: 1px solid #111;
+}
+
+/* line 183, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.nowrap th, table.dataTable.nowrap td {
+  white-space: nowrap;
+}
+
+/* line 186, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.compact thead th,
+table.dataTable.compact thead td {
+  padding: 4px 17px 4px 4px;
+}
+
+/* line 190, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.compact tfoot th,
+table.dataTable.compact tfoot td {
+  padding: 4px;
+}
+
+/* line 194, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable.compact tbody th,
+table.dataTable.compact tbody td {
+  padding: 4px;
+}
+
+/* line 198, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable th.dt-left,
+table.dataTable td.dt-left {
+  text-align: left;
+}
+
+/* line 202, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable th.dt-center,
+table.dataTable td.dt-center,
+table.dataTable td.dataTables_empty {
+  text-align: center;
+}
+
+/* line 207, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable th.dt-right,
+table.dataTable td.dt-right {
+  text-align: right;
+}
+
+/* line 211, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable th.dt-justify,
+table.dataTable td.dt-justify {
+  text-align: justify;
+}
+
+/* line 215, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable th.dt-nowrap,
+table.dataTable td.dt-nowrap {
+  white-space: nowrap;
+}
+
+/* line 219, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th.dt-head-left,
+table.dataTable thead td.dt-head-left,
+table.dataTable tfoot th.dt-head-left,
+table.dataTable tfoot td.dt-head-left {
+  text-align: left;
+}
+
+/* line 225, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th.dt-head-center,
+table.dataTable thead td.dt-head-center,
+table.dataTable tfoot th.dt-head-center,
+table.dataTable tfoot td.dt-head-center {
+  text-align: center;
+}
+
+/* line 231, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th.dt-head-right,
+table.dataTable thead td.dt-head-right,
+table.dataTable tfoot th.dt-head-right,
+table.dataTable tfoot td.dt-head-right {
+  text-align: right;
+}
+
+/* line 237, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th.dt-head-justify,
+table.dataTable thead td.dt-head-justify,
+table.dataTable tfoot th.dt-head-justify,
+table.dataTable tfoot td.dt-head-justify {
+  text-align: justify;
+}
+
+/* line 243, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable thead th.dt-head-nowrap,
+table.dataTable thead td.dt-head-nowrap,
+table.dataTable tfoot th.dt-head-nowrap,
+table.dataTable tfoot td.dt-head-nowrap {
+  white-space: nowrap;
+}
+
+/* line 249, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody th.dt-body-left,
+table.dataTable tbody td.dt-body-left {
+  text-align: left;
+}
+
+/* line 253, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody th.dt-body-center,
+table.dataTable tbody td.dt-body-center {
+  text-align: center;
+}
+
+/* line 257, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody th.dt-body-right,
+table.dataTable tbody td.dt-body-right {
+  text-align: right;
+}
+
+/* line 261, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody th.dt-body-justify,
+table.dataTable tbody td.dt-body-justify {
+  text-align: justify;
+}
+
+/* line 265, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable tbody th.dt-body-nowrap,
+table.dataTable tbody td.dt-body-nowrap {
+  white-space: nowrap;
+}
+
+/* line 270, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+table.dataTable,
+table.dataTable th,
+table.dataTable td {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/*
+ * Control feature layout
+ */
+/* line 281, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper {
+  position: relative;
+  clear: both;
+  *zoom: 1;
+  zoom: 1;
+}
+
+/* line 287, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_length {
+  float: left;
+}
+
+/* line 290, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+  text-align: right;
+}
+
+/* line 294, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+}
+
+/* line 297, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_info {
+  clear: both;
+  float: left;
+  padding-top: 0.755em;
+}
+
+/* line 302, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_paginate {
+  float: right;
+  text-align: right;
+  padding-top: 0.25em;
+}
+
+/* line 307, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  *cursor: hand;
+  color: #333 !important;
+  border: 1px solid transparent;
+}
+
+/* line 320, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #333 !important;
+  border: 1px solid #cacaca;
+  background-color: white;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #dcdcdc));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, white 0%, #dcdcdc 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -moz-linear-gradient(top, white 0%, #dcdcdc 100%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(top, white 0%, #dcdcdc 100%);
+  /* IE10+ */
+  background: -o-linear-gradient(top, white 0%, #dcdcdc 100%);
+  /* Opera 11.10+ */
+  background: linear-gradient(to bottom, white 0%, #dcdcdc 100%);
+  /* W3C */
+}
+
+/* line 337, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  cursor: default;
+  color: #666 !important;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* line 344, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: white !important;
+  border: 1px solid #111;
+  background-color: #585858;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #111));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #585858 0%, #111 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -moz-linear-gradient(top, #585858 0%, #111 100%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(top, #585858 0%, #111 100%);
+  /* IE10+ */
+  background: -o-linear-gradient(top, #585858 0%, #111 100%);
+  /* Opera 11.10+ */
+  background: linear-gradient(to bottom, #585858 0%, #111 100%);
+  /* W3C */
+}
+
+/* line 361, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  outline: none;
+  background-color: #2b2b2b;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2b2b2b), color-stop(100%, #0c0c0c));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -moz-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  /* IE10+ */
+  background: -o-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  /* Opera 11.10+ */
+  background: linear-gradient(to bottom, #2b2b2b 0%, #0c0c0c 100%);
+  /* W3C */
+  box-shadow: inset 0 0 3px #111;
+}
+
+/* line 378, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_paginate .ellipsis {
+  padding: 0 1em;
+}
+
+/* line 381, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 40px;
+  margin-left: -50%;
+  margin-top: -25px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: white;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, rgba(255, 255, 255, 0.9)), color-stop(75%, rgba(255, 255, 255, 0.9)), color-stop(100%, rgba(255, 255, 255, 0)));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  /* IE10+ */
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  /* Opera 11.10+ */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+  /* W3C */
+}
+
+/* line 406, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+  color: #333;
+}
+
+/* line 413, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_scroll {
+  clear: both;
+}
+
+/* line 416, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+  *margin-top: -1px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* line 420, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody th > div.dataTables_sizing,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody td > div.dataTables_sizing {
+  height: 0;
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* line 427, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #111;
+}
+
+/* line 430, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper.no-footer div.dataTables_scrollHead table,
+.dataTables_wrapper.no-footer div.dataTables_scrollBody table {
+  border-bottom: none;
+}
+
+/* line 434, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+.dataTables_wrapper:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 443, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_paginate {
+    float: none;
+    text-align: center;
+  }
+
+  /* line 448, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+  .dataTables_wrapper .dataTables_paginate {
+    margin-top: 0.5em;
+  }
+}
+@media screen and (max-width: 640px) {
+  /* line 453, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter {
+    float: none;
+    text-align: center;
+  }
+
+  /* line 458, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/jquery.dataTables.css.scss */
+  .dataTables_wrapper .dataTables_filter {
+    margin-top: 0.5em;
+  }
+}
+/* line 13, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+body {
+  background-color: white;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 10px;
+  padding: 10px;
+}
+
+/* line 23, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+p, ol, ul, td {
+  font-family: arial, verdana, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 29, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+h1, h2, h3, h4, h5, h6 {
+  color: #00BCD9;
+}
+
+/* line 33, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+table.typical {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+/* line 36, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+table.typical tr:nth-of-type(odd) {
+  background-color: #EFBD47;
+}
+/* line 39, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+table.typical th {
+  background-color: #F7911D;
+  font-size: 15.6px;
+  line-height: 21.6px;
+}
+/* line 44, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+table.typical td, table.typical th {
+  padding: 5px;
+}
+
+/* line 50, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+table.space td, table.space th {
+  padding: 5px;
+  vertical-align: top;
+}
+
+/* line 56, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+div.box {
+  border: 1px black solid;
+  padding: 1% 3% 2% 3%;
+  background-color: #D1D2D4;
+}
+/* line 60, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+div.box p {
+  color: #4479BA;
+  font-weight: bold;
+  font-size: 19.5px;
+  line-height: 27px;
+}
+
+/* line 68, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+div#nav-section {
+  width: 15%;
+  float: left;
+}
+
+/* line 74, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav ul {
+  list-style: none;
+}
+/* line 77, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav li {
+  background: #4479BA;
+  margin: 10px 0px;
+  border-radius: 10px;
+}
+/* line 82, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav a {
+  color: #FFFFFF;
+  padding: 10px 15px;
+  text-decoration: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  display: block;
+}
+/* line 95, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav a:visited {
+  color: #FFFFFF;
+}
+/* line 98, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav a:hover, nav a:focus {
+  background: #356094;
+  border: solid 1px #2A4E77;
+}
+/* line 102, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav a:active {
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+  background: #2E5481;
+  border: solid 1px #203E5F;
+}
+/* line 109, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav input {
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #4479BA;
+  padding: 10px 15px;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  display: block;
+}
+/* line 122, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav input:hover, nav input:focus {
+  background: #356094;
+  border: solid 1px #2A4E77;
+}
+/* line 126, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+nav input:active {
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+  background: #2E5481;
+  border: solid 1px #203E5F;
+}
+
+/* line 135, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+div#nav-right {
+  float: right;
+  width: 80%;
+}
+
+/* line 140, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+h1 {
+  font-size: 2em;
+  line-height: 200%;
+  padding-bottom: 5px;
+}
+
+/* line 145, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+h2 {
+  font-size: 1.5em;
+  line-height: 150%;
+  padding-bottom: 5px;
+}
+
+/* line 150, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+h3 {
+  font-size: 1.17em;
+  line-height: 117%;
+  padding-bottom: 5px;
+}
+
+/* line 155, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+h4 {
+  font-size: 1.12em;
+  line-height: 112%;
+}
+
+/* line 159, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+h5 {
+  font-size: 0.83em;
+  line-height: 83%;
+}
+
+/* line 163, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+h6 {
+  font-size: 0.67em;
+  line-height: 67%;
+}
+
+/* line 168, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+/* line 174, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+a {
+  color: #000;
+}
+/* line 176, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+a:visited {
+  color: #666;
+}
+/* line 179, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+/* line 185, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+div {
+  margin: 5px;
+}
+/* line 187, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+/* line 192, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#notice {
+  color: green;
+}
+
+/* line 196, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#alert {
+  color: red;
+}
+
+/* line 200, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 206, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+/* line 213, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+/* line 223, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+/* line 229, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.image-background {
+  background: #FFFFFF;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 235, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.image-background .horiz-center {
+  width: 95%;
+  margin-left: auto;
+  margin-righ: auto;
+}
+/* line 241, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.image-background img {
+  vertical-align: middle;
+  padding-right: 10px;
+}
+
+/* line 247, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+header {
+  background: #AD122A;
+  height: 10%;
+  margin-bottom: 15px;
+}
+
+/* line 253, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+footer {
+  padding: 10px;
+  clear: both;
+  width: 100%;
+}
+
+/* line 259, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#left-13 {
+  float: left;
+  width: 30%;
+}
+
+/* line 264, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#right-23 {
+  float: right;
+  width: 65%;
+}
+
+/* line 269, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#left-2 {
+  float: left;
+  width: 45%;
+}
+
+/* line 274, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#right-2 {
+  float: right;
+  width: 45%;
+}
+
+/* line 279, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.float-left {
+  float: left;
+  margin-right: 20px;
+}
+
+/* line 284, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.signout {
+  float: right;
+  margin-left: 20px;
+  padding-right: 20px;
+  color: #FFFFFF;
+}
+/* line 289, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.signout a {
+  color: #FFFFFF;
+}
+
+/* line 294, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.clearfix {
+  clear: both;
+}
+
+/* line 298, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.extraTopSpace {
+  margin-top: 15px;
+}
+
+/* line 302, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+a.addButton {
+  margin-left: 5%;
+}
+
+/* line 306, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#popupForm {
+  position: absolute;
+  background-color: #D1D2D4;
+  border: 1px solid #AD122A;
+  display: none;
+  left: 50px;
+  top: 100px;
+  z-index: 1000;
+  font-weight: bold;
+  padding: 25px 25px 12px;
+  width: 40%;
+}
+/* line 318, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#popupForm h3 {
+  color: #FFFFFF;
+}
+/* line 320, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#popupForm #closePopupForm {
+  height: 15px;
+  width: 15px;
+  padding: 1px;
+  position: absolute;
+  right: 17px;
+  top: 17px;
+}
+
+/* line 330, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.popupForm-large {
+  width: 50%;
+}
+
+/* line 334, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+#selectData {
+  display: none;
+}
+
+/* line 339, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+.disabled-question label {
+  margin-left: 20px;
+}
+
+/* line 345, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+tr.subquestion td label {
+  margin-left: 50px;
+}
+
+/* line 348, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/scaffolds.scss */
+input.button-important {
+  background-color: green;
+}
+/* line 4, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/mains.scss */
+#front-page {
+  background-color: #AD122A;
+  color: #D1D2D4;
+  font-family: arial, verdana, helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+}
+/* line 11, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/mains.scss */
+#front-page h1 {
+  font-family: arial, verdana, helvetica, sans-serif;
+  font-size: 48px;
+  line-height: 64px;
+  padding: 30px;
+}
+/* line 19, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/mains.scss */
+#front-page p {
+  font-family: arial, verdana, helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  padding: 30px;
+}
+/* line 26, h:/Documents/Apps/healthy-hearts-northwest-dev/app/assets/stylesheets/mains.scss */
+#front-page a {
+  color: #92D7E7;
+}
