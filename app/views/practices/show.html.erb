@@ -56,7 +56,7 @@
         </tr>
         <tr>
           <td><%= f.label :role %></td>
-          <td><%= f.select :role, Personnel.roles.keys, include_blank: true %></td>
+          <td><%= f.select :role, Personnel::ROLE_VALS, include_blank: true %></td>
         </tr>
         <tr>
           <td><%= f.label :phone1, "Phone 1" %></td>
