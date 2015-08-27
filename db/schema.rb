@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819152150) do
+ActiveRecord::Schema.define(version: 20150827182843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "events", force: :cascade do |t|
     t.integer  "partner_id",                                       null: false
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150819152150) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
   end
 
   add_index "partners", ["email"], name: "index_partners_on_email", unique: true, using: :btree
@@ -63,27 +65,27 @@ ActiveRecord::Schema.define(version: 20150819152150) do
   add_index "partners", ["unlock_token"], name: "index_partners_on_unlock_token", unique: true, using: :btree
 
   create_table "personnels", force: :cascade do |t|
-    t.integer  "practice_id",                                       null: false
-    t.string   "name",                                              null: false
+    t.integer  "practice_id",                                        null: false
+    t.string   "name",                                               null: false
     t.integer  "role"
     t.string   "phone1",                 limit: 20
-    t.boolean  "phone1_best",                       default: false, null: false
+    t.boolean  "phone1_best",                        default: false, null: false
     t.string   "phone2",                 limit: 20
-    t.boolean  "phone2_best",                       default: false, null: false
-    t.string   "email1",                 limit: 20
-    t.boolean  "email1_best",                       default: false, null: false
-    t.string   "email2",                 limit: 20
-    t.boolean  "email2_best",                       default: false, null: false
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.boolean  "phone2_best",                        default: false, null: false
+    t.string   "email1",                 limit: 255
+    t.boolean  "email1_best",                        default: false, null: false
+    t.string   "email2",                 limit: 255
+    t.boolean  "email2_best",                        default: false, null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.string   "current_partner"
-    t.boolean  "ehr_extractor",                     default: false
-    t.boolean  "ehr_helper",                        default: false
-    t.boolean  "ehr_cqm",                           default: false
+    t.boolean  "ehr_extractor",                      default: false
+    t.boolean  "ehr_helper",                         default: false
+    t.boolean  "ehr_cqm",                            default: false
     t.string   "role_other"
-    t.boolean  "site_contact_primary",              default: false
-    t.boolean  "site_contact_secondary",            default: false
-    t.boolean  "site_contact_champion",             default: false
+    t.boolean  "site_contact_primary",               default: false
+    t.boolean  "site_contact_secondary",             default: false
+    t.boolean  "site_contact_champion",              default: false
   end
 
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
