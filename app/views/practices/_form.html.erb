@@ -54,6 +54,10 @@
       <tr>
         <td><%= f.label :address %></td>
         <td><%= f.text_field :address, size: 40 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :city, "City" %></td>
+        <td><%= f.text_field :city, size: 40 %></td>
         <td><%= f.label :prac_state, "State" %></td>
         <td><%= f.select :prac_state, Practice::PRAC_STATE_VALS, include_blank: true %></td>
       </tr>
