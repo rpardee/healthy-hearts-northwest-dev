@@ -36,7 +36,7 @@ Partner.create([
 		password: 'explain ought enjoy nor', password_confirmation: 'explain ought enjoy nor', role: 1 }
 ])
 Partner.create([
-	{ id: 100, site_id: sites.second.id, name: '(not assigned)', email: 'na@ohsu.edu',
+	{ id: 100, site_id: sites.second.id, name: '(not assigned: ORPRN)', email: 'na@ohsu.edu',
 		password: 'ay0xF52XhsXN7HHh0XH1', password_confirmation: 'ay0xF52XhsXN7HHh0XH1', role: 2 },
 	{ id: 101, site_id: sites.second.id, name: 'LeAnn Michaels', email: 'michaell@ohsu.edu',
 		password: 'problem shown sweet waste', password_confirmation: 'problem shown sweet waste', role: 2 },
@@ -56,7 +56,7 @@ Partner.create([
 		password: 'tie shade like broke', password_confirmation: 'tie shade like broke', role: 2 }
 ])
 Partner.create([
-	{ id: 200, site_id: sites.third.id, name: '(not assigned)', email: 'na@qualishealth.org',
+	{ id: 200, site_id: sites.third.id, name: '(not assigned: Qualis)', email: 'na@qualishealth.org',
 		password: 'qekpUNPM6cS1pUZxTkgg', password_confirmation: 'qekpUNPM6cS1pUZxTkgg', role: 2 },
 	{ id: 201, site_id: sites.third.id, name: 'Ross Howell', email: 'rossh@qualishealth.org',
 		password: 'toward wore that east', password_confirmation: 'toward wore that east', role: 2 },

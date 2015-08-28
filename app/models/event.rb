@@ -38,6 +38,8 @@ class Event < ActiveRecord::Base
 		"Recruitment site visit completed" => 6,
 		"Welcome site visit scheduled" => 7,
 		"Welcome site visit completed" => 8,
+		"Phone meeting scheduled" => 9,
+		"Site visit" => 10
 	}
 
 end
