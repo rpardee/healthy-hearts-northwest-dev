@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 	include Pundit
+  before_filter :configure_permitted_parameters, if: :devise_controller?
 
 	helper_method :current_user
 	def current_user
@@ -13,6 +14,12 @@ class ApplicationController < ActionController::Base
   protected
   def after_sign_in_path_for(resource)
     partner_path(current_partner)
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update) { |u|
+      u.permit(:password, :password_confirmation, :current_password)
+    }
   end
 
 end

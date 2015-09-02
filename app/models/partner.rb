@@ -6,6 +6,8 @@ class Partner < ActiveRecord::Base
          :lockable, :timeoutable
   validates_presence_of :name
 
+  validate :password_complexity
+
   has_paper_trail
 
   belongs_to :site
@@ -24,6 +26,13 @@ class Partner < ActiveRecord::Base
 
   def admin?
     role == "ghri_staff"
+  end
+
+  private
+  def password_complexity
+    if password.present? and not password.match(/^(?=.*[a-zA-z])(?=.*[\d@%& \!\.\$\^\*\(\)\+\?])/)
+      errors.add :password, "must include at least one letter and one digit or special character"
+    end
   end
 
 end
