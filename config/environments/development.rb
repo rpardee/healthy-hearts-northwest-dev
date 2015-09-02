@@ -14,10 +14,21 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Configuration suggested by Devise gem
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # More setup for Devise
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address        => 'smtp.mailgun.org',
+    :port           => 587,
+    :domain         => 'healthy-hearts-northwest-dev.herokuapp.com',
+    :authentication => :plain,
+    :user_name      => 'postmaster@appc41b0d8d43e743389759583cfabc19a7.mailgun.org',
+    :password       => '07061130e9490ed95e94de6f9b32f416'
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

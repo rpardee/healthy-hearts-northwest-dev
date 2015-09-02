@@ -2,7 +2,8 @@
 	<% if partner_signed_in? %>
 		<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner), title: "Home", rel: "tooltip" %>
 		<div class='signout'>
-			<%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %><br /><br />
+			<%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %><br />
+			<%= link_to "Change password", new_partner_password_path(current_partner) %><br /><br />
 			<% if current_partner.site.id == Site.where(name: "Qualis").first.id %>
 				Recruited: <%= thermometer("WA") %><br />
 				Recruited: <%= thermometer("ID") %>
