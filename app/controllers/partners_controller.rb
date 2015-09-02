@@ -20,7 +20,7 @@ class PartnersController < ApplicationController
   def show
     # @appointments = @partner.events.where(:appointment => true)
     @event = Event.new
-    if @partner.site.id = 0 then
+    if @partner.site.id == 0 then
       @selected_partner_id = 0
     else
       @selected_partner_id = @partner.id

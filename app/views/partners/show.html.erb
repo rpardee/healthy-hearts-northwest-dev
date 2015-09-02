@@ -19,7 +19,11 @@
   <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Add New Practice"), new_partner_practice_path(@partner), class: 'addButton', title: 'Add New Practice', rel: 'tooltip' %>
 
   <span class='clearfix'>&nbsp;</span>
-  <%= render 'practice_snapshot_single' %>
+  <% if @selected_partner_id == 0 %>
+    <%= render 'practice_snapshot_all' %>
+  <% else %>
+    <%= render 'practice_snapshot_single' %>
+  <% end %>
 </div>
 
 <div class='clearfix'></div>

@@ -1,4 +1,4 @@
-<% if @practices.any? %>
+<% if policy_scope(Practice).all.any? %>
   <table class='typical enable-data-table'>
     <thead>
       <tr>
@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @practices.each do |p| %>
+      <% policy_scope(Practice).all.each do |p| %>
         <tr>
           <td><%= link_to p.name, edit_partner_practice_path(@partner, p) %></td>
           <td><%= p.personnels.primary_contact %></td>

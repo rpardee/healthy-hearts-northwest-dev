@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827182843) do
+ActiveRecord::Schema.define(version: 20150828194351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "events", force: :cascade do |t|
     t.integer  "partner_id",                                       null: false
@@ -40,7 +41,6 @@ ActiveRecord::Schema.define(version: 20150827182843) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150827182843) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
   end
 
   add_index "partners", ["email"], name: "index_partners_on_email", unique: true, using: :btree
@@ -158,6 +159,7 @@ ActiveRecord::Schema.define(version: 20150827182843) do
     t.integer  "prac_aco_join_medicare"
     t.integer  "prac_aco_join_commercial"
     t.string   "zip_code",                          limit: 10
+    t.string   "city",                              limit: 50
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree
