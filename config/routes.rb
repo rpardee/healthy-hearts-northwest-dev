@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'mains#index'
+  as :partner do
+    get 'partners', :to => 'partners#show', :as => :partner_root
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
