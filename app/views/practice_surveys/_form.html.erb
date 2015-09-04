@@ -1,0 +1,89 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this practice_survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='survey-instruction'>
+  <p>
+    Please complete the following survey, which is designed to collect information about your practice for the Healthy Hearts Quality Improvement study.  The information you provide will be used to design an individualized coaching plan for your practice, so please be as candid and thorough as possible.
+  </p>
+  <p>
+    We suggest you designate an Office Manager to complete this survey. We strongly encourage you to consult with others in your practice (for example, Lead Clinician, Medical Director, Billing Manager) to obtain accurate information for this survey.
+  </p>
+  <p>
+    If you cannot complete the entire survey at one time, you may close your browser and use the unique link sent to your practice to continue at another time.  All of the information that you previously entered will be saved.
+  </p>
+  <p>
+    Thank you for your time, effort, and insights!
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Although we understand that you will probably consult with others to answer various questions in the survey, please indicate who was primarily responsible for completing this survey.
+    </p>
+    <table class='survey-question-table'>
+      <tr>
+        <td><%= f.label :name_survey_completer, "Your name:" %></td>
+        <td><%= f.text_field :name_survey_completer, :size => 50 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :role_survey_completer, "Role in practice:" %></td>
+        <td><%= f.text_field :role_survey_completer, :size => 50 %></td>
+      </tr>
+    </table>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please estimate the total number of patient visits over a typical week at your practice.
+    </p>
+    <p>
+      <%= f.label :pat_visits_week, "Provide number of visits per week:" %></td>
+      <%= f.text_field :pat_visits_week, :size => 5 %></td>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Do the clinicians at your practice have their own panel for patients for whom they are responsible?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :pat_panel, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please estimate the average patient panel size for a full-time clinician in your practice.
+    </p>
+    <p>
+      <%= f.label :pat_panel_sz, "Provide average panel size:" %></td>
+      <%= f.text_field :pat_panel_sz, :size => 5 %></td>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      On average, how many patients does a full-time clinician see on a typical day?
+    </p>
+    <p>
+      <%= f.label :prov_visits_day, "Provide average number of patients:" %></td>
+      <%= f.text_field :prov_visits_day, :size => 5 %></td>
+    </p>
+  </li>
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue" %>
+  </div>
+<% end %>

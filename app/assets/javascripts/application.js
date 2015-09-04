@@ -14,6 +14,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui/datepicker
+//= require jquery-ui/progressbar
 //= require jquery.dataTables.js
 //= require jquery.sticky.js
 //= require jquery.maskedinput.js

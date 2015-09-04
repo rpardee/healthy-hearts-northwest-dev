@@ -10,10 +10,12 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
+ * require_self
  *= require reset.css
  *= require jquery-ui/datepicker
+ *= require jquery-ui/progressbar
  *= require jquery.dataTables.css.scss
  *= require scaffolds.scss
  *= require mains.scss
+ *= require practice_surveys.scss
  */

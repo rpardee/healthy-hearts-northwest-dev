@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828194351) do
+ActiveRecord::Schema.define(version: 20150903211158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,22 @@ ActiveRecord::Schema.define(version: 20150828194351) do
   end
 
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
+
+  create_table "practice_surveys", force: :cascade do |t|
+    t.integer  "practice_id",           null: false
+    t.string   "survey_key"
+    t.integer  "last_page_saved"
+    t.string   "name_survey_completer", null: false
+    t.string   "role_survey_completer"
+    t.float    "pat_visits_week"
+    t.integer  "pat_panel"
+    t.float    "pat_panel_sz"
+    t.float    "prov_visits_day"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "practice_surveys", ["practice_id"], name: "index_practice_surveys_on_practice_id", using: :btree
 
   create_table "practices", force: :cascade do |t|
     t.integer  "partner_id",                                                   null: false
@@ -184,5 +200,6 @@ ActiveRecord::Schema.define(version: 20150828194351) do
   add_foreign_key "events", "practices"
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
+  add_foreign_key "practice_surveys", "practices"
   add_foreign_key "practices", "partners"
 end

@@ -1,4 +1,5 @@
 <!-- NOT BEING USED -->
+<div id='wrapper'>
 <%= render 'layouts/header' %>
 
 <h2>
@@ -25,6 +26,7 @@
   <tr>
     <td> Outcome Date </td>
     <td> <%= @event.outcome_dt.try(:strftime, "%B %e, %Y") %></td>
+  </tr>
   <tr>
     <td>Notes</td>
     <td><%= @event.description %></td>
@@ -34,3 +36,4 @@
 <div class='clearfix'></div>
 
 <%= link_to "Back", :back %>
+</div>

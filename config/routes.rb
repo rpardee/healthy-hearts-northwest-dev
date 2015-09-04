@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :partners
   resource :mains, only: :index
+  resources :practice_surveys
 
   resources :sites do
     resources :partners

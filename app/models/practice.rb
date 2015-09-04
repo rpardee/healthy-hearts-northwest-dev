@@ -1,5 +1,6 @@
 class Practice < ActiveRecord::Base
 	belongs_to :partner
+	has_one :practice_survey
 	validates_presence_of :name, :prac_state
 	has_paper_trail
 
