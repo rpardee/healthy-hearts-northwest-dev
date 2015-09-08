@@ -2,9 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
-	$( "#progressbar" ).progressbar({
-	  value: $( "#progress-value-set" ).data( 'progress-value' )
+$(document).ready ->
+	$("#progressbar").progressbar({
+		value: parseInt($("#complete-percentage").html())
 	});
-
-$( "#progress-value" ).val($( "#progress-value-set" ).data( 'progress-value' ))

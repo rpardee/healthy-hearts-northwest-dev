@@ -1,9 +1,8 @@
 <div id='survey'>
 	<div id='survey-content'>
-		<span id='progress-value-set' data-progress-value='0'></span>
 
-		<%= render partial: 'layouts/practice_survey_header' %>
-		<%= render 'form' %>
+		<%= render partial: 'header' %>
+		<%= render "#{@form_page}" %>
 
 	</div>
 	<footer>&nbsp;</footer>

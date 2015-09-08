@@ -1,6 +1,9 @@
-<h1>Editing Practice Survey</h1>
+<div id='survey'>
+	<div id='survey-content'>
 
-<%= render 'form' %>
+		<%= render partial: 'header' %>
+		<%= render "#{@form_page}" %>
 
-<%= link_to 'Show', @practice_survey %> |
-<%= link_to 'Back', practice_surveys_path %>
+	</div>
+	<footer>&nbsp;</footer>
+</div>

@@ -15,16 +15,21 @@ class PracticeSurveysController < ApplicationController
   # GET /practice_surveys/new
   def new
     @practice_survey = PracticeSurvey.new
+    @form_page = "form_page_1"
+    @complete_percentage = 0
   end
 
   # GET /practice_surveys/1/edit
   def edit
+    @form_page = "form_page_2"
+    @complete_percentage = 10
   end
 
   # POST /practice_surveys
   # POST /practice_surveys.json
   def create
     @practice_survey = PracticeSurvey.new(practice_survey_params)
+    @practice_survey.practice_id = params[:survey_key][3..7]
     @practice_survey.last_page_saved = 1
 
     respond_to do |format|
@@ -41,6 +46,7 @@ class PracticeSurveysController < ApplicationController
   # PATCH/PUT /practice_surveys/1
   # PATCH/PUT /practice_surveys/1.json
   def update
+    @practice_survey.last_page_saved = 2
     respond_to do |format|
       if @practice_survey.update(practice_survey_params)
         format.html { redirect_to @practice_survey, notice: 'Practice survey was successfully updated.' }
@@ -70,6 +76,7 @@ class PracticeSurveysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def practice_survey_params
-      params[:practice_survey]
+      params[:practice_survey].permit(:name_survey_completer, :role_survey_completer,
+        :pat_visits_week, :pat_panel, :pat_panel_sz, :prov_visits_day)
     end
 end

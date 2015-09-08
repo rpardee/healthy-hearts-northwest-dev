@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903211158) do
+ActiveRecord::Schema.define(version: 20150908215134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "events", force: :cascade do |t|
     t.integer  "partner_id",                                       null: false
@@ -40,7 +41,6 @@ ActiveRecord::Schema.define(version: 20150903211158) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150903211158) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
   end
 
   add_index "partners", ["email"], name: "index_partners_on_email", unique: true, using: :btree
@@ -90,17 +91,42 @@ ActiveRecord::Schema.define(version: 20150903211158) do
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
 
   create_table "practice_surveys", force: :cascade do |t|
-    t.integer  "practice_id",           null: false
+    t.integer  "practice_id",            null: false
     t.string   "survey_key"
     t.integer  "last_page_saved"
-    t.string   "name_survey_completer", null: false
+    t.string   "name_survey_completer",  null: false
     t.string   "role_survey_completer"
     t.float    "pat_visits_week"
     t.integer  "pat_panel"
     t.float    "pat_panel_sz"
     t.float    "prov_visits_day"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "prac_race_white"
+    t.integer  "prac_race_black"
+    t.integer  "prac_race_aian"
+    t.integer  "prac_race_asian"
+    t.integer  "prac_race_pi"
+    t.integer  "prac_race_other"
+    t.integer  "prac_race_unk"
+    t.integer  "prac_race_nocoll"
+    t.integer  "prac_ethnicity_h"
+    t.integer  "prac_ethnicity_nh"
+    t.integer  "prac_ethnicity_unk"
+    t.integer  "prac_ethnicity_nocoll"
+    t.integer  "prac_pat_age_lt17"
+    t.integer  "prac_pat_age_18to39"
+    t.integer  "prac_pat_age_40to59"
+    t.integer  "prac_pat_age_60to75"
+    t.integer  "prac_pat_age_76andover"
+    t.integer  "prac_payor_medicare"
+    t.integer  "prac_payor_medicaid"
+    t.integer  "prac_payor_dual"
+    t.integer  "prac_payor_commercial"
+    t.integer  "prac_payor_noins"
+    t.integer  "prac_payor_other"
+    t.integer  "prac_payor_specify"
+    t.integer  "prac_under_ser"
   end
 
   add_index "practice_surveys", ["practice_id"], name: "index_practice_surveys_on_practice_id", using: :btree

@@ -1,0 +1,104 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='survey-instruction'>
+  <p>
+    Now we would like you to answer a few questions about your practice's patient. For race, ethnicity and age, this information should be provided <u>only</u> if the data was patient self-reported and calculated using the Electronic Health Record (EHR)/Practice Management System (PMS). Please do not use estimates.
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please give the percentage of your patients in the following categories:
+    </p>
+    <table class='survey-question-table'>
+      <tr>
+        <td><%= f.label :prac_race_white, "White:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_white, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_black, "Black/African American:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_black, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_AIAN, "American Indian or Alaska Native:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_AIAN, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_asian, "Asian:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_asian, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_PI, "Native Hawaiian or Other Pacific Islander:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_PI, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_other, "Some Other Race/Mixed Race:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_other, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_unk, "Percent Unknown:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_unk, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td id="calculated_race">0%</td>
+      </tr>
+    </table>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please estimate the total number of patient visits over a typical week at your practice.
+    </p>
+    <p>
+      <%= f.label :pat_visits_week, "Provide number of visits per week:" %></td>
+      <%= f.text_field :pat_visits_week, :size => 5 %></td>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Do the clinicians at your practice have their own panel for patients for whom they are responsible?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :pat_panel, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please estimate the average patient panel size for a full-time clinician in your practice.
+    </p>
+    <p>
+      <%= f.label :pat_panel_sz, "Provide average panel size:" %></td>
+      <%= f.text_field :pat_panel_sz, :size => 5 %></td>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      On average, how many patients does a full-time clinician see on a typical day?
+    </p>
+    <p>
+      <%= f.label :prov_visits_day, "Provide average number of patients:" %></td>
+      <%= f.text_field :prov_visits_day, :size => 5 %></td>
+    </p>
+  </li>
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+  </div>
+<% end %>

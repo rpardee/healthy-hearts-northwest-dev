@@ -1,6 +1,6 @@
 class PracticeSurvey < ActiveRecord::Base
 	belongs_to :practice
-	validates_presence_of :name_respondent
+	validates_presence_of :name_survey_completer
 
 	# Use :survey_key as the id parameter for the survey
 	def to_param
