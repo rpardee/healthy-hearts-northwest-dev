@@ -25,6 +25,7 @@ class PracticeSurveysController < ApplicationController
   # POST /practice_surveys.json
   def create
     @practice_survey = PracticeSurvey.new(practice_survey_params)
+    @practice_survey.last_page_saved = 1
 
     respond_to do |format|
       if @practice_survey.save

@@ -1,13 +1,10 @@
 <div id='survey'>
-<div id='survey-content'>
-	<h1>
-		Practice Survey
-	</h1>
+	<div id='survey-content'>
+		<span id='progress-value-set' data-progress-value='0'></span>
 
-	<div id='progressbar'></div>
+		<%= render partial: 'layouts/practice_survey_header' %>
+		<%= render 'form' %>
 
-	<%= render 'form' %>
-
-</div>
-<footer>Practice Survey again</footer>
+	</div>
+	<footer>&nbsp;</footer>
 </div>

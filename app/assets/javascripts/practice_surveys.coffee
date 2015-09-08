@@ -4,5 +4,7 @@
 
 $ ->
 	$( "#progressbar" ).progressbar({
-	  value: 37
+	  value: $( "#progress-value-set" ).data( 'progress-value' )
 	});
+
+$( "#progress-value" ).val($( "#progress-value-set" ).data( 'progress-value' ))

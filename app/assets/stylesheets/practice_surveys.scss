@@ -12,12 +12,28 @@ $base-font-size: 18px;
 	padding: 0;
 	background-color: $black;
 
-	h1 {
-		color: $tan;
+	#survey-header {
+		width: 100%;
+		margin: 0 auto;
 		background-color: $blue;
-		margin: 10px 15px 10px 15px;
+		overflow: hidden;
+		color: $tan;
+		padding: 10px 0 10px 0;
 		font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
-		font-size: 40px;
+		h1 {
+			float: left;
+			margin-left: 10px;
+			width: 40%;
+			font-size: 40px;
+			color: $tan;
+			font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
+		}
+		#progressbar-box {
+			float: right;
+			width: 45%;
+			margin-right: 10px;
+			.ui-progressbar { background-color: $tan; color: tan; }
+		}
 	}
 
 	#survey-content {
