@@ -14,9 +14,21 @@ class PracticeSurveysController < ApplicationController
 
   # GET /practice_surveys/new
   def new
-    @practice_survey = PracticeSurvey.new
-    @form_page = "form_page_1"
-    @complete_percentage = 0
+    # If survey_key is valid and exists in database, redirect to edit
+    re_survey_key = /\w{2}\d{6}\w{2}/
+    if re_survey_key.match(params[:survey_key])
+      existing_survey = PracticeSurvey.where({ survey_key: params[:survey_key] })
+      if existing_survey.exists?
+        Rails.logger.debug("HERE")
+        redirect_to edit_practice_survey_path(existing_survey.first)
+      else
+        @practice_survey = PracticeSurvey.new
+        @form_page = "form_page_1"
+        @complete_percentage = 0
+      end
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /practice_surveys/1/edit
@@ -48,7 +60,12 @@ class PracticeSurveysController < ApplicationController
     respond_to do |format|
       if @practice_survey.update(practice_survey_params)
         if params['commit']
-          format.html { redirect_to edit_practice_survey_path(@practice_survey), notice: 'Practice survey was successfully updated.' }
+          if @practice_survey.last_page_saved = PracticeSurvey::MAX_SURVEY_PAGES
+            redirect_location = practice_survey_thanks_path
+          else
+            redirect_location = edit_practice_survey_path(@practice_survey)
+          end
+          format.html { redirect_to redirect_location, notice: 'Practice survey was successfully updated.' }
           format.json { render :show, status: :ok, location: @practice_survey }
         else
           @practice_survey.update_attribute('last_page_saved', @practice_survey.last_page_saved - 2)
