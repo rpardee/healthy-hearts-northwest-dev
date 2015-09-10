@@ -26,7 +26,6 @@ class AddPracticeSurveyFields < ActiveRecord::Migration
   		t.integer :prac_payor_other
   		t.integer :prac_payor_specify
   		t.integer :prac_under_ser
-
   	end
   end
 end

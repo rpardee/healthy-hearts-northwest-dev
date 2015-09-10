@@ -12,6 +12,11 @@ $base-font-size: 18px;
 	padding: 0;
 	background-color: $black;
 
+	input[name="return"] {
+		color: $blue;
+		float: right;
+	}
+
 	#survey-header {
 		width: 100%;
 		margin: 0 auto;

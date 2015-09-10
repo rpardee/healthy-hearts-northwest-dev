@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   devise_for :partners
   resource :mains, only: :index
-  resources :practice_surveys
+  resources :practice_surveys do
+    get 'page2_display', on: :member
+    put 'page2_update', on: :member
+  end
 
   resources :sites do
     resources :partners

@@ -1,0 +1,179 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 3 %>
+
+  <div class='survey-instruction'>
+  <p>
+    Now we would like you to answer a few questions about your practice's patient. For race, ethnicity and age, this information should be provided <u>only</u> if the data was patient self-reported and calculated using the Electronic Health Record (EHR)/Practice Management System (PMS). Please do not use estimates.
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please give the percentage of your patients in the following categories:
+    </p>
+    <table class='survey-question-table'>
+      <tr>
+        <td><%= f.label :prac_race_white, "White:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_white, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_black, "Black/African American:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_black, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_aian, "American Indian or Alaska Native:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_aian, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_asian, "Asian:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_asian, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_pi, "Native Hawaiian or Other Pacific Islander:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_pi, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_other, "Some Other Race/Mixed Race:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_other, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_unk, "Percent Unknown:" %></td>
+        <td class="calculate_race"><%= f.text_field :prac_race_unk, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td id="calculated_race">0%</td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_race_nocoll, "Our practice does not collect this information from patients:" %></td>
+        <td><%= f.collection_radio_buttons :prac_race_nocoll, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+    </table>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please give the percentage of your patients in the following categories:
+    </p>
+    <table class='survey-question-table'>
+      <tr>
+        <td><%= f.label :prac_ethnicity_h, "Hispanic or Latino:" %></td>
+        <td class="calculate_ethnicity"><%= f.text_field :prac_ethnicity_h, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_ethnicity_nh, "Non-Hispanic or non-Latino:" %></td>
+        <td class="calculate_ethnicity"><%= f.text_field :prac_ethnicity_nh, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_ethnicity_unk, "Percent Unknown:" %></td>
+        <td class="calculate_ethnicity"><%= f.text_field :prac_ethnicity_unk, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td id="calculated_ethnicity">0%</td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_ethnicity_nocoll, "Our practice does not collect this information from patients:" %></td>
+        <td><%= f.collection_radio_buttons :prac_ethnicity_nocoll, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+    </table>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please give the percentage of your patients in the following age categories:
+    </p>
+    <table class='survey-question-table'>
+      <tr>
+        <td><%= f.label :prac_pat_age_lt17, "0-17:" %></td>
+        <td class="calculate_age"><%= f.text_field :prac_pat_age_lt17, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_pat_age_18to39, "18-39:" %></td>
+        <td class="calculate_age"><%= f.text_field :prac_pat_age_18to39, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_pat_age_40to59, "40-59:" %></td>
+        <td class="calculate_age"><%= f.text_field :prac_pat_age_40to59, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_pat_age_60to75, "60-75:" %></td>
+        <td class="calculate_age"><%= f.text_field :prac_pat_age_60to75, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_pat_age_76andover, "76 and over:" %></td>
+        <td class="calculate_age"><%= f.text_field :prac_pat_age_76andover, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td id="calculated_age">0%</td>
+      </tr>
+    </table>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please give the percentage of your patients in the following payer categories:
+    </p>
+    <table class='survey-question-table'>
+      <tr>
+        <td><%= f.label :prac_payor_medicare, "Medicare only:" %></td>
+        <td class="calculate_payor"><%= f.text_field :prac_payor_medicare, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_payor_medicaid, "Medicaid only:" %></td>
+        <td class="calculate_payor"><%= f.text_field :prac_payor_medicaid, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_payor_dual, "Dual Medicare and Medicaid:" %></td>
+        <td class="calculate_payor"><%= f.text_field :prac_payor_dual, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_payor_commercial, "Private or commercial:" %></td>
+        <td class="calculate_payor"><%= f.text_field :prac_payor_commercial, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_payor_noins, "No insurance:" %></td>
+        <td class="calculate_payor"><%= f.text_field :prac_payor_noins, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :prac_payor_other, "Other:" %></td>
+        <td class="calculate_payor"><%= f.text_field :prac_payor_other, :size => 5 %></td>
+        <td><%= f.label :prac_payor_specify, "Please specify:" %></td>
+        <td><%= f.text_field :prac_payor_specify %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td id="calculated_payor">0%</td>
+      </tr>
+    </table>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Has your practice been designated as a medically underserved
+      area (MUA) or mudically underserved population (MUP) by the Health Resources and
+      Service Administration (HRSA)?
+      <%= f.collection_radio_buttons :prac_under_ser, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

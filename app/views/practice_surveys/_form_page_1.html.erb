@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+  <%= f.hidden_field :survey_key, :value => params[:survey_key] %>
+  <%= f.hidden_field :last_page_saved, :value => 1 %>
+
   <div class='survey-instruction'>
   <p>
     Please complete the following survey, which is designed to collect information about your practice for the Healthy Hearts Quality Improvement study.  The information you provide will be used to design an individualized coaching plan for your practice, so please be as candid and thorough as possible.
@@ -26,7 +29,7 @@
   </p>
   </div>
 
-  <ol>
+  <ul>
   <li class='survey-question'>
     <p class='survey-question-title'>
       Although we understand that you will probably consult with others to answer various questions in the survey, please indicate who was primarily responsible for completing this survey.
@@ -42,46 +45,7 @@
       </tr>
     </table>
   </li>
-
-  <li class='survey-question'>
-    <p class='survey-question-title'>
-      Please estimate the total number of patient visits over a typical week at your practice.
-    </p>
-    <p>
-      <%= f.label :pat_visits_week, "Provide number of visits per week:" %></td>
-      <%= f.text_field :pat_visits_week, :size => 5 %></td>
-    </p>
-  </li>
-
-  <li class='survey-question'>
-    <p class='survey-question-title'>
-      Do the clinicians at your practice have their own panel for patients for whom they are responsible?
-    </p>
-    <p>
-      <%= f.collection_radio_buttons :pat_panel, PracticeSurvey::YN12_VALS, "last", "first" %>
-    </p>
-  </li>
-
-  <li class='survey-question'>
-    <p class='survey-question-title'>
-      Please estimate the average patient panel size for a full-time clinician in your practice.
-    </p>
-    <p>
-      <%= f.label :pat_panel_sz, "Provide average panel size:" %></td>
-      <%= f.text_field :pat_panel_sz, :size => 5 %></td>
-    </p>
-  </li>
-
-  <li class='survey-question'>
-    <p class='survey-question-title'>
-      On average, how many patients does a full-time clinician see on a typical day?
-    </p>
-    <p>
-      <%= f.label :prov_visits_day, "Provide average number of patients:" %></td>
-      <%= f.text_field :prov_visits_day, :size => 5 %></td>
-    </p>
-  </li>
-  </ol>
+  </ul>
 
   <div class="actions">
     <%= f.submit "Save & Continue >>" %>
