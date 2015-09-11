@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908215134) do
+ActiveRecord::Schema.define(version: 20150910232312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "events", force: :cascade do |t|
     t.integer  "partner_id",                                       null: false
@@ -40,7 +41,6 @@ ActiveRecord::Schema.define(version: 20150908215134) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150908215134) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
   end
 
   add_index "partners", ["email"], name: "index_partners_on_email", unique: true, using: :btree
@@ -90,17 +91,17 @@ ActiveRecord::Schema.define(version: 20150908215134) do
   add_index "personnels", ["practice_id"], name: "index_personnels_on_practice_id", using: :btree
 
   create_table "practice_surveys", force: :cascade do |t|
-    t.integer  "practice_id",            null: false
+    t.integer  "practice_id",                        null: false
     t.string   "survey_key"
     t.integer  "last_page_saved"
-    t.string   "name_survey_completer",  null: false
+    t.string   "name_survey_completer",              null: false
     t.string   "role_survey_completer"
     t.float    "pat_visits_week"
     t.integer  "pat_panel"
     t.float    "pat_panel_sz"
     t.float    "prov_visits_day"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "prac_race_white"
     t.integer  "prac_race_black"
     t.integer  "prac_race_aian"
@@ -126,6 +127,108 @@ ActiveRecord::Schema.define(version: 20150908215134) do
     t.integer  "prac_payor_other"
     t.integer  "prac_payor_specify"
     t.integer  "prac_under_ser"
+    t.integer  "cpcq_strat_info_skills"
+    t.integer  "cpcq_strat_oplead_rolemdl"
+    t.integer  "cpcq_strat_sys_change"
+    t.integer  "cpcq_strat_red_barr"
+    t.integer  "cpcq_org_teams"
+    t.integer  "cpcq_use_nonclinician"
+    t.integer  "cpcq_authorize"
+    t.integer  "cpcq_periodic_measurement"
+    t.integer  "cpcq_reporting_measurement"
+    t.integer  "cpcq_goals"
+    t.integer  "cpcq_customize"
+    t.integer  "cpcq_rapid_cycles"
+    t.integer  "cpcq_design_care_clinician"
+    t.integer  "cpcq_design_care_process"
+    t.integer  "cpcq_priority"
+    t.integer  "cqm_ivd"
+    t.integer  "cqm_bp"
+    t.integer  "cqm_statin"
+    t.integer  "cqm_smokcess"
+    t.integer  "prac_cqm_prac"
+    t.integer  "prac_cqm_prov"
+    t.integer  "prac_ehr_labs"
+    t.integer  "prac_ehr_race_doc"
+    t.integer  "prac_ehr_race_rpt"
+    t.integer  "prac_ehr_age_doc"
+    t.integer  "prac_ehr_age_rpt"
+    t.integer  "prac_ehr_rpt_nonstd"
+    t.integer  "prac_ehr_rpt_hist"
+    t.integer  "prac_ehr_rpt_conf"
+    t.integer  "prac_ehr_rpt_trust"
+    t.integer  "prac_ehr_rpt_fee"
+    t.integer  "prac_ehr_satisfaction_survey"
+    t.integer  "prac_public_reporting"
+    t.integer  "prac_discuss_data"
+    t.integer  "prac_qual_report_data"
+    t.integer  "prac_qual_report_rec"
+    t.integer  "prac_qual_report_healthsystem"
+    t.integer  "prac_qual_report_hie"
+    t.integer  "prac_qual_report_primarycare"
+    t.integer  "prac_qual_report_hospnetwor"
+    t.integer  "prac_qual_report_external"
+    t.integer  "prac_qual_report_pbrn"
+    t.integer  "sna_freq"
+    t.integer  "sna_helpful"
+    t.integer  "sna_difference"
+    t.integer  "prac_registry_ivd"
+    t.integer  "prac_registry_hyp"
+    t.integer  "prac_registry_chol"
+    t.integer  "prac_registry_diab"
+    t.integer  "prac_registry_prev"
+    t.integer  "prac_registry_risk"
+    t.integer  "prac_registry_none"
+    t.integer  "prac_prev_guidelines_none"
+    t.integer  "prac_prev_guidelines_posted"
+    t.integer  "prac_prev_guidelines_agreed"
+    t.integer  "prac_prev_guidelines_orders"
+    t.integer  "prac_prev_guidelines_ehrprompts"
+    t.integer  "prac_chronic_guidelines_none"
+    t.integer  "prac_chronic_guidelines_posted"
+    t.integer  "prac_chronic_guidelines_agreed"
+    t.integer  "prac_chronic_guidelines_orders"
+    t.integer  "prac_chronic_guidelines_ehrprompts"
+    t.integer  "demo_prog_sim"
+    t.integer  "demo_prog_cpci"
+    t.integer  "demo_prog_tcpi"
+    t.integer  "demo_prog_chw"
+    t.integer  "demo_prog_pcmh"
+    t.integer  "demo_prog_mh_collab"
+    t.integer  "demo_prog_mh_riskred"
+    t.integer  "demo_prog_other"
+    t.string   "demo_prog_specify"
+    t.integer  "prac_income_satisf"
+    t.integer  "prac_income_quality"
+    t.integer  "prac_income_perform"
+    t.integer  "prac_perform_quality"
+    t.integer  "prac_perform_resources"
+    t.integer  "prac_revenue"
+    t.integer  "prac_incentives_geographic"
+    t.integer  "prac_incentives_primarycare"
+    t.integer  "prac_incentives_carecoord"
+    t.integer  "prac_incentives_other"
+    t.string   "prac_incentives_specify"
+    t.integer  "number_clinstaff"
+    t.integer  "fte_clinstaff"
+    t.integer  "number_offstaff"
+    t.integer  "fte_offstaff"
+    t.integer  "number_psychol"
+    t.integer  "fte_psychol"
+    t.integer  "number_sw"
+    t.integer  "fte_sw"
+    t.integer  "number_pharma"
+    t.integer  "fte_pharma"
+    t.integer  "number_other"
+    t.integer  "fte_other"
+    t.integer  "person_consult_front_office"
+    t.integer  "person_consult_back_office"
+    t.integer  "person_consult_office_manager"
+    t.integer  "person_consult_nurse"
+    t.integer  "person_consult_ma"
+    t.integer  "person_consult_clinician"
+    t.integer  "person_consult_other"
+    t.string   "person_consult_other_specify"
   end
 
   add_index "practice_surveys", ["practice_id"], name: "index_practice_surveys_on_practice_id", using: :btree

@@ -1,0 +1,89 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 7 %>
+
+  <div class='survey-instruction'>
+  <p>
+    Now, we would like you to answer some questions about how your practice externally reports on clinical quality measures and how your practice payment may be adjusted according to performance on the measures.
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Are data on the clinical quality of care provided by your practice or its clinicians publicly reported by health plans or other external entities?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_public_reporting, PracticeSurvey::YNDK128_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      During meetings in your practice, how often &ndash; if ever &ndash; are these data or reports about clinical quality from health plans or other external entities discussed?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_discuss_data, PracticeSurvey::DISCUSS_DATA_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Does your practice work with the following organizations/networks to support capture of EHR/Electronic Medical Record (EMR) data used to report clinical quality measures? (Mark all that apply)
+    </p>
+    <p>
+      <table>
+        <tr>
+          <td><%= f.label :prac_qual_report_data, "Clinical data warehouse" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_data, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_qual_report_rec, "Regional extension center" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_rec, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_qual_report_healthsystem, "Health system practice network" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_healthsystem, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_qual_report_hie, "Health information exchange" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_hie, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_qual_report_primarycare, "Primary care association" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_primarycare, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_qual_report_hospnetwor, "Hospital network" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_hospnetwor, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_qual_report_external, "External consulting group" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_external, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_qual_report_pbrn, "Practice-based research network" %></td>
+          <td><%= f.collection_radio_buttons :prac_qual_report_pbrn, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+      </table>
+    </p>
+  </li>
+
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

@@ -1,0 +1,84 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 5 %>
+
+  <div class='survey-instruction'>
+  <p>
+    For each clinical quality measure (CQM) listed below, please choose one option regarding your practice's ability to generate electronic data.
+  </p>
+  <p>
+    If you click on the “Definitions table,” you will see how each CQM is defined.  Please take a few moments to review these definitions before completing the next four questions.
+  </p>
+  </div>
+
+  <ul>
+  <li class='survey-question'>
+    <table class='survey-question-table'>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Currently able<br />to generate data</th>
+        <th>It is feasible</th>
+        <th>It is feasible<br /> with workflow modifications/<br />changes to EHR</th>
+        <th>It is not feasible</th>
+        <th>I don't know</th>
+      </tr>
+      <tr>
+        <td><%= f.label :cqm_ivd, "NQF 0068 Ischemic Vascular Disease (IVD): Use of Aspirin or Another Antithrombotic:" %></td>
+        <% [1, 2, 3, 4, 8].each do |val| %>
+          <td><%= f.radio_button :cqm_ivd, val %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td><%= f.label :cqm_bp, "NQF 0018 Controlling High Blood Pressure:" %></td>
+        <% [1, 2, 3, 4, 8].each do |val| %>
+          <td><%= f.radio_button :cqm_bp, val %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td><%= f.label :cqm_statin, "NQF N/A Statin Therapy for the Prevention and Treatment of Cardiovascular Disease:" %></td>
+        <% [1, 2, 3, 4, 8].each do |val| %>
+          <td><%= f.radio_button :cqm_statin, val %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td><%= f.label :cqm_smokcess, "NQF 0028 Preventive Care and Screening: Tobacco Use: Screening and Cessation Intervention:" %></td>
+        <% [1, 2, 3, 4, 8].each do |val| %>
+          <td><%= f.radio_button :cqm_smokcess, val %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :prac_cqm_prac, "Can your practice (or larger organization) report the above quality measures at the practice level?" %></td>
+        <td colspan='5'>
+          <%= f.collection_radio_buttons(:prac_cqm_prac, PracticeSurvey::YN12_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :prac_cqm_prov, "Can your practice (or larger organization) report the above quality measures by clinician (MD, DO, NP, PA)?" %></td>
+        <td colspan='5'>
+          <%= f.collection_radio_buttons(:prac_cqm_prov, PracticeSurvey::YN12_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </li>
+  </ul>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

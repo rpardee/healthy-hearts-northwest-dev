@@ -1,0 +1,68 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 12 %>
+
+  <div class='survey-instruction'>
+  <p>
+    Please provide the number of practice members and their combined FTE for each of the following type of staff:
+  </p>
+  </div>
+
+  <ul>
+  <li class='survey-question'>
+    <table class='survey-question-table'>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Number<br />of Staff</th>
+        <th>FTE<br />of Staff</th>
+      </tr>
+      <tr>
+        <td>Clinical Staff (those providing direct patient care, e.g., RN, LPN, MA, CMA)</td>
+        <td><%= f.text_field :number_clinstaff, :size => 5 %></td>
+        <td><%= f.text_field :fte_clinstaff, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Office staff (those supporting practice operations and NOT involved directly in patient care, e.g., receptionists, billing staff, data analyst, etc.)</td>
+        <td><%= f.text_field :number_offstaff, :size => 5 %></td>
+        <td><%= f.text_field :fte_offstaff, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Psychologist</td>
+        <td><%= f.text_field :number_psychol, :size => 5 %></td>
+        <td><%= f.text_field :fte_psychol, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Social worker or Licensed Social Worker</td>
+        <td><%= f.text_field :number_sw, :size => 5 %></td>
+        <td><%= f.text_field :fte_sw, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>PharmD or Pharmacist</td>
+        <td><%= f.text_field :number_pharma, :size => 5 %></td>
+        <td><%= f.text_field :fte_pharma, :size => 5 %></td>
+      </tr>
+      <tr>
+        <td>Other</td>
+        <td><%= f.text_field :number_other, :size => 5 %></td>
+        <td><%= f.text_field :fte_other, :size => 5 %></td>
+      </tr>
+    </table>
+  </li>
+  </ul>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

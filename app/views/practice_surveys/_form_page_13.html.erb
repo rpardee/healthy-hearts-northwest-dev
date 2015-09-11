@@ -1,0 +1,81 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 13 %>
+
+  <div class='survey-instruction'>
+  <p>
+    You are almost done with the survey.  We just need a few bits of information from you.
+  </p>
+  </div>
+
+  <ul>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please indicate others in the practice that you consulted with to complete this survey? (Check all that apply) (Mark all that apply)
+    </p>
+    <table class='survey-question-table'>
+      <tr>
+        <td><%= f.label :person_consult_front_office, "Front office staff" %></td>
+        <td><%= f.collection_radio_buttons :person_consult_front_office, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :person_consult_back_office, "Back office staff" %></td>
+        <td><%= f.collection_radio_buttons :person_consult_back_office, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :person_consult_office_manager, "Office manager" %></td>
+        <td><%= f.collection_radio_buttons :person_consult_office_manager, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :person_consult_nurse, "Nurse" %></td>
+        <td><%= f.collection_radio_buttons :person_consult_nurse, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :person_consult_ma, "Medical assistant" %></td>
+        <td><%= f.collection_radio_buttons :person_consult_ma, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :person_consult_clinician, "Clinician (MD, DO, NP, PA)" %></td>
+        <td><%= f.collection_radio_buttons :person_consult_clinician, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :person_consult_other, "Other" %></td>
+        <td><%= f.collection_radio_buttons :person_consult_other, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :person_consult_other_specify, "Please specify" %></td>
+        <td><%= f.text_field :person_consult_other_specify %></td>
+      </tr>
+    </table>
+  </li>
+
+  <li>
+    <p>After the initial visit with your Practice Facilitator, all members of your practice’s staff will be asked to complete a short survey about their perspectives on quality improvement at your practice.  It is important that we are able to reach all of your staff, including clinical and non-clinical staff and those who work full-time or less than full-time.</p>
+
+    <p>Please send us a list of these individuals that includes everyone’s (1) name, (2) role at the practice, and (3) their complete email address.</p>
+
+    <p>Click here to see an example of the file we are requesting.  You can save and complete it with your practice’s information, or send us a different file that you have created (for instance, in Microsoft Word).</p>
+
+    <p>Please send the file to this email address: xxx@xxx.xxx or click here [opens message with our address].</p>
+
+    <p>If we do not receive your list in the next week, we will contact you to find other ways of sending us this information.  Thank you for your help.</p>
+
+  </li>
+  </ul>
+
+  <div class="actions">
+    <%= f.submit "Save & Finish >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

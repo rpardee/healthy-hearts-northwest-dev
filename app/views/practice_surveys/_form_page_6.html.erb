@@ -1,0 +1,134 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 6 %>
+
+  <div class='survey-instruction'>
+  <p>
+    The following questions ask about your Electronic Health Record (EHR) and clinical quality measure (CQM) reports.
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Is your practice able to incorporate clinical lab-test results into EHR as structured data (i.e., data recorded in discrete fields and not in text fields)?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_labs, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Is your practice documenting the race or ethnicity of your patients in your EHR?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_race_doc, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      If yes, have you ever produced a CQM report broken up by race or ethnicity?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_race_rpt, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Is your practice documenting the age of your patients in your EHR?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_age_doc, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      If yes, have you ever produced a CQM report broken up by age groups?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_age_rpt, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Has your practice ever run a CQM report that was NOT a standard report provided by your EHR vendor?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_rpt_nonstd, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Can you generate reports for historical periods (for example, last quarter or year)?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_rpt_hist, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Rate your confidence generating CQM reports in your practice.
+    </p>
+    <p>
+      <% (1..10).each do |item| %>
+        <%= f.radio_button :prac_ehr_rpt_conf, item %> <%= item %>
+      <% end %><br />
+      1=Not at all confident ... 10=Extremely confident
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      When you have CQM reports for your practice, how much do you trust the data contained in them?
+    </p>
+    <p>
+      <% (1..5).each do |item| %>
+        <%= f.radio_button :prac_ehr_rpt_trust, item %> <%= item %>
+      <% end %><br />
+      1=No trust at all ... 5=Complete trust
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      If you contact your vendor for help producing CQM reports, is there an additional fee?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_rpt_fee, PracticeSurvey::YN12_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Overall, how satisfied or dissatisfied are you with your EHR system?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_ehr_satisfaction_survey, PracticeSurvey::SATISFIED14_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

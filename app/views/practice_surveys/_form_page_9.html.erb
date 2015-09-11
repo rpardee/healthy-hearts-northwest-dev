@@ -1,0 +1,127 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 9 %>
+
+  <div class='survey-instruction'>
+  <p>
+    Next, we would like to understand how your practice uses registries and clinical guidelines for cardiovascular disease prevention. Please consult with the lead clinician at your practice to answer these questions.
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please indicate the categories of patients for which your practice uses a registry or receives reports that identify services due, gaps in care, or track progress: (Mark all that apply)
+    </p>
+    <p>
+      <table>
+        <tr>
+          <td><%= f.label :prac_registry_ivd, "Ischemic vascular disease" %></td>
+          <td><%= f.collection_radio_buttons :prac_registry_ivd, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_registry_hyp, "Hypertension" %></td>
+          <td><%= f.collection_radio_buttons :prac_registry_hyp, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_registry_chol, "High cholesterol" %></td>
+          <td><%= f.collection_radio_buttons :prac_registry_chol, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_registry_diab, "Diabetes" %></td>
+          <td><%= f.collection_radio_buttons :prac_registry_diab, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_registry_prev, "Prevention services" %></td>
+          <td><%= f.collection_radio_buttons :prac_registry_prev, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_registry_risk, "High risk (high utilization) patients " %></td>
+          <td><%= f.collection_radio_buttons :prac_registry_risk, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_registry_none, "We do not use registries or receive such reports" %></td>
+          <td><%= f.collection_radio_buttons :prac_registry_none, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+      </table>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please identify how your practice uses clinical guidelines for <b>cardiovascular disease prevention</b> (for example, use of aspirin or antithrombotics for those with ischemic vascular disease or smoking cessation counseling): (Mark all that apply)
+    </p>
+    <p>
+      <table>
+        <tr>
+          <td><%= f.label :prac_prev_guidelines_none, "Practice does not follow specific guidelines" %></td>
+          <td><%= f.collection_radio_buttons :prac_prev_guidelines_none, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_prev_guidelines_posted, "Guidelines are posted or have been distributed" %></td>
+          <td><%= f.collection_radio_buttons :prac_prev_guidelines_posted, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_prev_guidelines_agreed, "Clinicians have agreed to use specific guidelines" %></td>
+          <td><%= f.collection_radio_buttons :prac_prev_guidelines_agreed, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_prev_guidelines_orders, "Practice uses standing orders" %></td>
+          <td><%= f.collection_radio_buttons :prac_prev_guidelines_orders, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_prev_guidelines_ehrprompts, "Practice uses EHR provider guideline-based prompts and reminders" %></td>
+          <td><%= f.collection_radio_buttons :prac_prev_guidelines_ehrprompts, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+      </table>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Please identify how your practice uses clinical guidelines for <b>management of patients at risk for cardiovascular disease</b> (e.g., statin use among those at risk):  (Mark all that apply)
+    </p>
+    <p>
+      <table>
+        <tr>
+          <td><%= f.label :prac_chronic_guidelines_none, "Practice does not follow specific guidelines" %></td>
+          <td><%= f.collection_radio_buttons :prac_chronic_guidelines_none, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_chronic_guidelines_posted, "Guidelines are posted or have been distributed" %></td>
+          <td><%= f.collection_radio_buttons :prac_chronic_guidelines_posted, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_chronic_guidelines_agreed, "Clinicians have agreed to use specific guidelines" %></td>
+          <td><%= f.collection_radio_buttons :prac_chronic_guidelines_agreed, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_chronic_guidelines_orders, "Practice uses standing orders" %></td>
+          <td><%= f.collection_radio_buttons :prac_chronic_guidelines_orders, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_chronic_guidelines_ehrprompts, "Practice uses EHR provider guideline-based prompts and reminders" %></td>
+          <td><%= f.collection_radio_buttons :prac_chronic_guidelines_ehrprompts, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+      </table>
+    </p>
+  </li>
+
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

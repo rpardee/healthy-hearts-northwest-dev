@@ -1,0 +1,113 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 11 %>
+
+  <div class='survey-instruction'>
+  <p>
+    During the past year, did your practice or individual clinicians in your practice receive additional revenue or payments from a health plan, public payer, or health system based on measurement of performance on the following measures:
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Measures of patient satisfaction
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_income_satisf, PracticeSurvey::YNDK128_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Measures of clinical quality
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_income_quality, PracticeSurvey::YNDK128_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Measurement of your performance of adoption or use of information technology
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_income_perform, PracticeSurvey::YNDK128_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Over the past 12 months, did your practice receive better contracts (for example, better payment, preferred status) with health plans for its performance on measurements of patient satisfaction and/or clinical quality?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_perform_quality, PracticeSurvey::YNDK128_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Over the past 12 months, did your practice or the individual clinicians in your practice receive additional income from health plans based on efficient utilization of resources?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :prac_perform_resources, PracticeSurvey::YNDK128_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      What percent of your practice’s annual revenue did these additional payments for efficient utilization of resources constitute?
+    </p>
+    <p>
+      HOLD - DATA SPECIFICATION CONFLICT
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      Over the past 12 months has your practice received the following forms of bonus or incentive payments? (Mark all that apply)
+    </p>
+    <p>
+      <table>
+        <tr>
+          <td><%= f.label :prac_incentives_geographic, "Geographic health care professional shortage area" %></td>
+          <td><%= f.collection_radio_buttons :prac_incentives_geographic, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_incentives_primarycare, "Medicare primary care incentive payment " %></td>
+          <td><%= f.collection_radio_buttons :prac_incentives_primarycare, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_incentives_carecoord, "Medicare care coordination payment" %></td>
+          <td><%= f.collection_radio_buttons :prac_incentives_carecoord, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_incentives_other, "Other" %></td>
+          <td><%= f.collection_radio_buttons :prac_incentives_other, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_incentives_specify, "Please specify" %></td>
+          <td><%= f.text_area :prac_incentives_specify, cols: 50, rows: 3 %></td>
+        </tr>
+      </table>
+    </p>
+  </li>
+
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

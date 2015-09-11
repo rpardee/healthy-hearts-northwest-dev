@@ -1,0 +1,70 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 8 %>
+
+  <div class='survey-instruction'>
+  <p>
+    The following questions may be answered differently by different members of your practice.  Therefore, please consult with your practice’s Office Manager, QI team, and Lead Physician or Medical Director in order to answer these questions about your <b>entire practice</b>.
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      In general, how often do you have discussions with other practices about quality improvement efforts?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :sna_freq, PracticeSurvey::RARELY13_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      On average, how helpful have these discussions been for your quality improvement efforts?
+    </p>
+    <p>
+      <%= f.collection_radio_buttons :sna_helpful, PracticeSurvey::HELPFUL13_VALS, "last", "first" %>
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      NESTED ADVICE SECTION
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      NESTED DISCUSS SECTION
+    </p>
+  </li>
+
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      What is the difference &ndash; if any &ndash; between the individuals who you go to for advice and those with whom you discuss quality improvement?
+    </p>
+    <p>
+      <%= f.text_area :sna_difference, cols: 100, rows: 5 %>
+    </p>
+  </li>
+
+
+
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

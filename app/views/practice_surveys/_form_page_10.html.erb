@@ -1,0 +1,75 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 10 %>
+
+  <div class='survey-instruction'>
+  <p>
+    Now we would like to know about Quality Improvement initiatives (other than Healthy Hearts) that you have been offered.
+  </p>
+  </div>
+
+  <ol>
+  <li class='survey-question'>
+    <p class='survey-question-title'>
+      At present or within the past 12 months, has your practice participated in any of the following payment or quality demonstration programs? (Mark all that apply)
+    </p>
+    <p>
+      <table>
+        <tr>
+          <td><%= f.label :demo_prog_sim, "SIM (State Innovation Models initiative)" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_sim, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_cpci, "CPCI (Comprehensive Primary Care Initiative)" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_cpci, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_tcpi, "TCPI (Transforming Clinical Practice Initiative) - Support and Alignment Network (SAM)" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_tcpi, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_chw, "CHW (Community Health Worker) training program" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_chw, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_pcmh, "BC/BS PCMH program" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_pcmh, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_mh_collab, "ASTHO's Million Hearts State Learning Collaborative" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_mh_collab, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_mh_riskred, "Million Hearts: Cardiovascular Disease Risk Reduction Model" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_mh_riskred, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_other, "Other" %></td>
+          <td><%= f.collection_radio_buttons :demo_prog_other, PracticeSurvey::YN12_VALS, "last", "first" %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :demo_prog_specify, "Please specify" %></td>
+          <td><%= f.text_field :demo_prog_specify %></td>
+        </tr>
+      </table>
+    </p>
+  </li>
+
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

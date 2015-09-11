@@ -1,0 +1,156 @@
+<%= form_for(@practice_survey) do |f| %>
+  <% if @practice_survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice_survey.errors.count, "error") %> prohibited this Practice Survey from being saved:</h2>
+
+      <ul>
+      <% @practice_survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :last_page_saved, :value => 4 %>
+
+  <div class='survey-instruction'>
+  <p>
+    We would like to learn about the strategies that your practice uses to improve cardiovascular preventive care (e.g., prescribing aspirin for patients at risk for ischemic vascular disease, providing tobacco cessation services for smokers, appropriately managing hypertension, and prescribing statins for high risk patients). <b>These questions should be completed by a senior member of the practice who has good insights into the clinical operations of the practice, such as a lead clinician or an office manager</b>.
+  </p>
+  <p>
+    Indicate the extent to which you agree or disagree that your practice has used the following <b>strategies to improve cardiovascular preventive care</b>:
+  </p>
+  </div>
+
+  <ul>
+  <li class='survey-question'>
+    <table class='survey-question-table'>
+      <tr>
+        <td class="toplabel" style="width: 60%;"><%= f.label :cpcq_strat_info_skills, "Providing information and skills-training:" %></td>
+        <td class="checkboxgroup" style="width: 40%">
+          <%= f.collection_radio_buttons(:cpcq_strat_info_skills, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_strat_oplead_rolemdl, "Using opinion leaders, role modeling, or other vehicles to encourage support for changes:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_strat_oplead_rolemdl, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_strat_sys_change, "Changing or creating systems in the practice that make it easier to provide high quality care:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_strat_sys_change, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_strat_red_barr, "Removal or reduction of barriers to better quality of care:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_strat_red_barr, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_org_teams, "Using teams focused on accomplishing the change process for improved care:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_org_teams, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_use_nonclinician, "Delegating to non-clinician staff the responsibility to carry out aspects of care that are normally the responsibility of physicians:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_use_nonclinician, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_authorize, "Providing to those who are charged with implementing improved care the power to authorize and make the desired changes:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_authorize, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_periodic_measurement, "Periodic measurement of care quality for assessing compliance with any new approach to care:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_periodic_measurement, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_reporting_measurement, "Reporting measurements of practice performance on cardiovascular disease prevention measures (such as aspirin for patients at risk for ischemic vascular disease) for comparison with their peers:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_reporting_measurement, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_goals, "Setting goals and benchmarking rates of performance quality on cardiovascular disease prevention measures at least yearly:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_goals, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_customize, "Customizing the implementation of cardiovascular disease prevention care changes to the practice:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_customize, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_rapid_cycles, "Using rapid cycling, piloting, pre-testing, or other vehicles for reducing the risk of negative results for introducing organization-wide change in care:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_rapid_cycles, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_design_care_clinician, "Deliberately designing care improvements so as to make clinician participation less work than before:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_design_care_clinician, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="toplabel"><%= f.label :cpcq_design_care_process, "Deliberately designing care improvements to make the care process more beneficial to the patient:" %></td>
+        <td class="checkboxgroup">
+          <%= f.collection_radio_buttons(:cpcq_design_care_process, PracticeSurvey::LIKERT15_VALS, "last", "first") do |b| %>
+            <%= b.label { b.radio_button + b.text } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= f.label :cpcq_priority, "Consider all of the priorities your practice has over the next year. On a scale from 1 to 10 where one is the highest priority and 10 is the lowest, what is the priority that your practice’s leadership places on improving cardiovascular disease preventive care?:" %></td>
+        <td style="text-align: center;">
+          <% (1..10).each do |item| %>
+            <%= f.radio_button :cpcq_priority, item %> <%= item %>
+          <% end %><br />
+          high priority ... low priority
+        </td>
+      </tr>
+    </table>
+  </ol>
+
+  <div class="actions">
+    <%= f.submit "Save & Continue >>" %>
+    <%= f.submit "<< Save & Go Back", name: "return" %>
+  </div>
+<% end %>

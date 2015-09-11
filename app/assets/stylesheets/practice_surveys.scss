@@ -17,6 +17,16 @@ $base-font-size: 18px;
 		float: right;
 	}
 
+	td.toplabel {
+		vertical-align: top;
+	}
+	td.checkboxgroup {
+		display: inline-block;
+		label {
+			display: block;
+		}
+	}
+
 	#survey-header {
 		width: 100%;
 		margin: 0 auto;
