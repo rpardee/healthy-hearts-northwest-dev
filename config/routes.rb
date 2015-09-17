@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ivcontacts
   devise_for :partners
 
   resource :mains, only: :index

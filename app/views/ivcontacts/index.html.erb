@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ivcontacts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ivcontacts.each do |ivcontact| %>
+      <tr>
+        <td><%= link_to 'Show', ivcontact %></td>
+        <td><%= link_to 'Edit', edit_ivcontact_path(ivcontact) %></td>
+        <td><%= link_to 'Destroy', ivcontact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ivcontact', new_ivcontact_path %>

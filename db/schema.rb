@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910232312) do
+ActiveRecord::Schema.define(version: 20150916210806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "events", force: :cascade do |t|
     t.integer  "partner_id",                                       null: false
@@ -38,9 +37,117 @@ ActiveRecord::Schema.define(version: 20150910232312) do
   add_index "events", ["partner_id"], name: "index_events_on_partner_id", using: :btree
   add_index "events", ["practice_id"], name: "index_events_on_practice_id", using: :btree
 
+  create_table "ivcontacts", force: :cascade do |t|
+    t.integer  "contact_type"
+    t.integer  "contact_specific"
+    t.date     "contact_dt"
+    t.integer  "contact_mode"
+    t.integer  "contact_duration"
+    t.text     "contact_comments"
+    t.boolean  "topic_ehr_vendor"
+    t.boolean  "topic_3rdparty_vendor"
+    t.boolean  "topic_custom_query"
+    t.boolean  "topic_validate_data"
+    t.boolean  "topic_meaningful_use"
+    t.boolean  "topic_cqm_report"
+    t.boolean  "topic_data_error"
+    t.boolean  "topic_coding"
+    t.boolean  "topic_hit_display"
+    t.boolean  "topic_reminder"
+    t.boolean  "topic_pcmha"
+    t.boolean  "topic_abcs"
+    t.boolean  "topic_brainstorm"
+    t.boolean  "topic_observe_flow"
+    t.boolean  "topic_share"
+    t.boolean  "topic_connect"
+    t.boolean  "topic_resource"
+    t.boolean  "topic_planning"
+    t.boolean  "topic_workflow"
+    t.boolean  "topic_roles"
+    t.boolean  "topic_qi_support"
+    t.boolean  "topic_consensus"
+    t.boolean  "topic_review_data"
+    t.boolean  "topic_qi_display"
+    t.boolean  "topic_huddle"
+    t.boolean  "topic_leadership"
+    t.boolean  "topic_other"
+    t.string   "topic_other_specify"
+    t.integer  "milestone_evidence_progress"
+    t.integer  "milestone_evidence_active"
+    t.text     "milestone_evidence_discussed"
+    t.integer  "milestone_data_progress"
+    t.integer  "milestone_data_active"
+    t.text     "milestone_data_discussed"
+    t.integer  "milestone_qi_progress"
+    t.integer  "milestone_qi_active"
+    t.text     "milestone_qi_discussed"
+    t.integer  "milestone_atrisk_progress"
+    t.integer  "milestone_atrisk_active"
+    t.text     "milestone_atrisk_discussed"
+    t.integer  "milestone_task_progress"
+    t.integer  "milestone_task_active"
+    t.text     "milestone_task_discussed"
+    t.integer  "milestone_selfmgmt_progress"
+    t.integer  "milestone_selfmgmt_active"
+    t.text     "milestone_selfmgmt_discussed"
+    t.integer  "milestone_community_progress"
+    t.integer  "milestone_community_active"
+    t.text     "milestone_community_discussed"
+    t.integer  "gyr"
+    t.text     "gyr_notes"
+    t.integer  "tier"
+    t.integer  "pcqm_1"
+    t.integer  "pcqm_2"
+    t.integer  "pcqm_3"
+    t.integer  "pcqm_4"
+    t.integer  "pcqm_5"
+    t.integer  "pcqm_6"
+    t.integer  "pcqm_7"
+    t.integer  "pcqm_8"
+    t.integer  "pcqm_9"
+    t.integer  "pcqm_10"
+    t.integer  "pcqm_11"
+    t.integer  "pcqm_12"
+    t.integer  "pcqm_13"
+    t.integer  "pcqm_14"
+    t.integer  "pcqm_15"
+    t.integer  "pcqm_16"
+    t.integer  "pcqm_17"
+    t.integer  "pcqm_18"
+    t.integer  "pcqm_19"
+    t.integer  "pcqm_20"
+    t.integer  "pcqm_21"
+    t.integer  "pcqm_22"
+    t.integer  "pcqm_23"
+    t.integer  "pcqm_24"
+    t.integer  "pcqm_25"
+    t.integer  "pcqm_26"
+    t.integer  "pcqm_27"
+    t.integer  "pcqm_28"
+    t.integer  "pcqm_29"
+    t.integer  "pcqm_30"
+    t.integer  "pcqm_31"
+    t.integer  "pcqm_32"
+    t.integer  "pcqm_33"
+    t.integer  "pcqm_34"
+    t.integer  "pcqm_35"
+    t.integer  "pcqm_36"
+    t.integer  "prac_change_ehr"
+    t.integer  "prac_change_newlocation"
+    t.integer  "prac_change_lost_clin"
+    t.integer  "prac_change_lost_om"
+    t.integer  "prac_change_boughtover"
+    t.integer  "prac_change_billing"
+    t.integer  "prac_change_other"
+    t.text     "prac_change_specify"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
+    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -56,7 +163,6 @@ ActiveRecord::Schema.define(version: 20150910232312) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.integer  "role"
   end
 
   add_index "partners", ["email"], name: "index_partners_on_email", unique: true, using: :btree
@@ -303,6 +409,7 @@ ActiveRecord::Schema.define(version: 20150910232312) do
     t.integer  "prac_aco_join_commercial"
     t.string   "zip_code",                          limit: 10
     t.string   "city",                              limit: 50
+    t.integer  "coach_id"
   end
 
   add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree
