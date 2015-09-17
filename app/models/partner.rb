@@ -4,15 +4,14 @@ class Partner < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :lockable, :timeoutable
-  validates_presence_of :name
-
-  validate :password_complexity
-
   has_paper_trail
 
-  belongs_to :site
-  has_many :practices, dependent: :destroy
+  validates_presence_of :name
+  validate :password_complexity
 
+  belongs_to :site
+  has_many :ivcontacts
+  has_and_belongs_to_many :practices
   has_many :events, dependent: :destroy do
     def appointments
       self.where("schedule_dt >= ?", Date.today)
@@ -21,7 +20,8 @@ class Partner < ActiveRecord::Base
 
   enum role: {
     :ghri_staff => 1,
-    :recruiter_standard => 2
+    :standard => 2,
+    :supervisor => 3
   }
 
   def admin?

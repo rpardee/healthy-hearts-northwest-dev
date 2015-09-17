@@ -1,8 +1,10 @@
 class Practice < ActiveRecord::Base
-	belongs_to :partner
-	has_one :practice_survey
-	validates_presence_of :name, :prac_state
 	has_paper_trail
+	validates_presence_of :name, :prac_state
+
+	has_many :ivcontacts
+	has_and_belongs_to_many :partners
+	has_one :practice_survey
 
 	has_many :personnels, dependent: :destroy do
 		def primary_contact
@@ -34,6 +36,14 @@ class Practice < ActiveRecord::Base
 		def enrolled
 			self.exists?(:outcome_pal_returned => true)
 		end
+	end
+
+	def recruiter
+		self.partners.where("recruiter = true").first
+	end
+
+	def coach
+		self.partners.where("coach = true").first
 	end
 
 	def pal_status

@@ -22,17 +22,18 @@ class PracticesController < ApplicationController
 
   # GET /practices/1/edit
   def edit
+    @recruiter_id = @practice.recruiter.id
   end
 
   # POST /practices
   # POST /practices.json
   def create
     @practice = Practice.new(practice_params)
-    @practice.current_partner = current_partner.name
+    # @practice.current_partner = current_partner.name
 
     respond_to do |format|
       if @practice.save
-        format.html { redirect_to partner_path(params[:practice][:partner_id]), notice: 'Practice was successfully created.' }
+        format.html { redirect_to partner_path(current_partner), notice: 'Practice was successfully created.' }
         format.json { render :show, status: :created, location: @practice }
       else
         format.html { render :new }
@@ -44,10 +45,13 @@ class PracticesController < ApplicationController
   # PATCH/PUT /practices/1
   # PATCH/PUT /practices/1.json
   def update
-    @practice.current_partner = current_partner.name
+    # @practice.current_partner = current_partner.name
+    @partner = Partner.find(params[:recruiter_partner])
+    @practice.partners.destroy_all
+    @practice.partners << @partner
     respond_to do |format|
       if @practice.update(practice_params)
-        format.html { redirect_to partner_path(params[:practice][:partner_id]), notice: 'Practice was successfully updated.' }
+        format.html { redirect_to partner_path(current_partner), notice: 'Practice was successfully updated.' }
         format.json { render :show, status: :ok, location: @practice }
       else
         format.html { render :edit }

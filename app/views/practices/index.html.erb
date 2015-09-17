@@ -1,7 +1,10 @@
 <div id='wrapper'>
 <%= render 'layouts/header' %>
 
-<h1>Listing Practices</h1>
+<h1>All Practices</h1>
+
+<p>I'll probably want to display a Recruiter column for Recruiters,
+ a Coach column for coaches, and both for admins. </p>
 
 <table>
   <thead>
@@ -14,8 +17,8 @@
     <% @practices.each do |practice| %>
       <tr>
         <td><%= practice.name %></td>
+        <td><%= practice.partner.name %></td>
         <td><%= link_to 'Edit', edit_practice_path(practice) %></td>
-        <td><%= link_to 'Destroy', practice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

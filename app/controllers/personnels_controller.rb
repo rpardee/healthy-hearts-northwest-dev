@@ -25,12 +25,13 @@ class PersonnelsController < ApplicationController
   # POST /personnels.json
   def create
     @personnel = Personnel.new(personnel_params)
-    partner_id = Practice.find(@personnel.practice_id).partner_id
-    @personnel.current_partner = current_partner.name
+    # partner_id = Practice.find(@personnel.practice_id).partner_id
+    # @personnel.current_partner = current_partner.name
 
     respond_to do |format|
       if @personnel.save
-        format.html { redirect_to partner_practice_path(partner_id, @personnel.practice_id), notice: 'Personnel was successfully added.' }
+        # format.html { redirect_to partner_practice_path(partner_id, @personnel.practice_id), notice: 'Personnel was successfully added.' }
+        format.html { redirect_to partner_path(current_partner), notice: 'Personnel was successfully added.' }
         format.json { render :show, status: :created, location: @personnel }
       else
         format.html { render :new }
@@ -42,11 +43,12 @@ class PersonnelsController < ApplicationController
   # PATCH/PUT /personnels/1
   # PATCH/PUT /personnels/1.json
   def update
-    partner_id = Practice.find(@personnel.practice_id).partner_id
-    @personnel.current_partner = current_partner.name
+    # partner_id = Practice.find(@personnel.practice_id).partner_id
+    # @personnel.current_partner = current_partner.name
     respond_to do |format|
       if @personnel.update(personnel_params)
-        format.html { redirect_to partner_practice_path(partner_id, @personnel.practice_id), notice: 'Personnel was successfully updated.' }
+        # format.html { redirect_to partner_practice_path(partner_id, @personnel.practice_id), notice: 'Personnel was successfully updated.' }
+        format.html { redirect_to partner_path(current_partner), notice: 'Personnel was successfully updated.' }
         format.json { render :show, status: :ok, location: @personnel }
       else
         format.html { render :edit }

@@ -1,6 +1,7 @@
 class PracticeSurvey < ActiveRecord::Base
 	belongs_to :practice
 	validates_presence_of :name_survey_completer
+  has_paper_trail
 
 	MAX_SURVEY_PAGES = 13
 

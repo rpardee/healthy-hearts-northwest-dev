@@ -105,6 +105,5 @@ class CreateIvcontacts < ActiveRecord::Migration
     	t.text :prac_change_specify
       t.timestamps null: false
     end
-  	add_column :practices, :coach_id, :integer
   end
 end

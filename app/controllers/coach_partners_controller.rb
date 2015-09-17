@@ -1,0 +1,2 @@
+class CoachPartnersController < PartnersController
+end

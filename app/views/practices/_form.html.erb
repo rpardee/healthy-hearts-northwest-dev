@@ -40,8 +40,8 @@
         <td><%= f.text_field :parent_organization, size: 40 %></td>
       </tr>
       <tr>
-        <td><%= f.label :partner_id, "Primary Recruiter" %></td>
-        <td><%= f.select :partner_id, options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @practice.partner_id || @partner_id) %></td>
+        <td><%= label_tag "recruiter_partner", "Primary Recruiter" %></td>
+        <td><%= select_tag "recruiter_partner", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @recruiter_id) %></td>
       </tr>
       <tr>
         <td><%= f.label :recruitment_source, "Recruitment Source" %></td>

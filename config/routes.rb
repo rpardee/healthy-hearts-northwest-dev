@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     resources :events
     resources :practices
   end
+  resources :coach_partners do
+    resources :practices
+  end
   resources :practices do
     resources :events
     resources :personnels

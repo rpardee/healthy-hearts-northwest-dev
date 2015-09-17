@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916210806) do
+ActiveRecord::Schema.define(version: 20150917175233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,12 +163,22 @@ ActiveRecord::Schema.define(version: 20150916210806) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.boolean  "recruiter"
+    t.boolean  "coach"
   end
 
   add_index "partners", ["email"], name: "index_partners_on_email", unique: true, using: :btree
   add_index "partners", ["reset_password_token"], name: "index_partners_on_reset_password_token", unique: true, using: :btree
   add_index "partners", ["site_id"], name: "index_partners_on_site_id", using: :btree
   add_index "partners", ["unlock_token"], name: "index_partners_on_unlock_token", unique: true, using: :btree
+
+  create_table "partners_practices", id: false, force: :cascade do |t|
+    t.integer "partner_id"
+    t.integer "practice_id"
+  end
+
+  add_index "partners_practices", ["partner_id"], name: "index_partners_practices_on_partner_id", using: :btree
+  add_index "partners_practices", ["practice_id"], name: "index_partners_practices_on_practice_id", using: :btree
 
   create_table "personnels", force: :cascade do |t|
     t.integer  "practice_id",                                        null: false
@@ -340,7 +350,6 @@ ActiveRecord::Schema.define(version: 20150916210806) do
   add_index "practice_surveys", ["practice_id"], name: "index_practice_surveys_on_practice_id", using: :btree
 
   create_table "practices", force: :cascade do |t|
-    t.integer  "partner_id",                                                   null: false
     t.string   "name",                                                         null: false
     t.string   "address"
     t.string   "phone"
@@ -409,10 +418,7 @@ ActiveRecord::Schema.define(version: 20150916210806) do
     t.integer  "prac_aco_join_commercial"
     t.string   "zip_code",                          limit: 10
     t.string   "city",                              limit: 50
-    t.integer  "coach_id"
   end
-
-  add_index "practices", ["partner_id"], name: "index_practices_on_partner_id", using: :btree
 
   create_table "sites", force: :cascade do |t|
     t.string   "name",       null: false
@@ -436,5 +442,4 @@ ActiveRecord::Schema.define(version: 20150916210806) do
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
   add_foreign_key "practice_surveys", "practices"
-  add_foreign_key "practices", "partners"
 end
