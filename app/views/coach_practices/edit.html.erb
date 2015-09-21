@@ -1,0 +1,15 @@
+<div id='wrapper'>
+<%= render 'layouts/header' %>
+
+<div id='left-2'>
+	<h1>Editing <%= @practice.name %></h1>
+</div>
+
+<div id='right-2'>
+	<h1>Coach: <%= @practice.coach.name if @practice.coach %></h1><br />
+</div>
+
+<div class='clearfix'></div>
+
+<%= render 'form' %>
+</div>

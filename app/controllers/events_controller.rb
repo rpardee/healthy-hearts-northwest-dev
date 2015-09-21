@@ -9,7 +9,7 @@ class EventsController < ApplicationController
     @event = Event.new
     @practice = Practice.where(id: params[:practice_id]).first
     @practice_id = @practice.id
-    @partner = @practice.recruiter
+    @recruiter_id = @practice.recruiter.id if @practice.recruiter
   end
 
   # GET /events/1
@@ -23,25 +23,21 @@ class EventsController < ApplicationController
     @practice_id = params[:practice_id]
     @practice = Practice.where(id: @practice_id).first
     @recruiter_id = @practice.recruiter.id if @practice.recruiter
-    Rails.logger.debug("Practice is #{@practice.name}")
-    Rails.logger.debug("Recruiter is #{@practice.recruiter}")
   end
 
   # GET /events/1/edit
   def edit
     @practice_id = @event.practice_id
     @practice = Practice.where(id: @practice_id).first
-    @partner = @practice.recruiter
-    Rails.logger.debug("Practice is #{@practice.name}")
-    Rails.logger.debug("Recruiter is #{@practice.recruiter}")
+    @recruiter_id = @practice.recruiter.id if @practice.recruiter
   end
 
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
-    @practice_id = @event.practice_id
-    @practice = Practice.where(id: @practice_id).first
+    # @practice_id = @event.practice_id
+    # @practice = Practice.find(@practice_id).first
     # @event.current_partner = current_partner.name
 
     respond_to do |format|
@@ -58,8 +54,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    @practice_id = @event.practice_id
-    @practice = Practice.where(id: @practice_id).first
+    # @practice_id = @event.practice_id
+    # @practice = Practice.where(id: @practice_id).first
     # @event.current_partner = current_partner.name
     respond_to do |format|
       if @event.update(event_params)

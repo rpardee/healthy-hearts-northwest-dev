@@ -57,16 +57,9 @@ class PracticeSurveysController < ApplicationController
   # PATCH/PUT /practice_surveys/1.json
   def update
     respond_to do |format|
-            Rails.logger.debug("Before update: #{@practice_survey.last_page_saved}")
       if @practice_survey.update(practice_survey_params)
-            Rails.logger.debug("After update: #{@practice_survey.last_page_saved}")
         if params['commit']
-            Rails.logger.debug("After commit param: #{@practice_survey.last_page_saved}")
           if @practice_survey.last_page_saved == PracticeSurvey::MAX_SURVEY_PAGES
-            Rails.logger.debug("HIT LAST PAGE")
-            Rails.logger.debug("Last Page Saved: #{@practice_survey.last_page_saved}")
-            Rails.logger.debug("Max Survey Pages: #{PracticeSurvey::MAX_SURVEY_PAGES}")
-            Rails.logger.debug("Hit last page")
             redirect_location = practice_survey_thanks_path
           else
             redirect_location = edit_practice_survey_path(@practice_survey)

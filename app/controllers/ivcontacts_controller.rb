@@ -69,6 +69,29 @@ class IvcontactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ivcontact_params
-      params[:ivcontact]
+      params[:ivcontact].permit(:contact_type, :contact_specific, :contact_dt, :contact_mode,
+        :contact_duration, :contact_comments, :topic_ehr_vendor, :topic_3rdparty_vendor,
+        :topic_custom_query, :topic_validate_data, :topic_meaningful_use, :topic_cqm_report,
+        :topic_data_error, :topic_coding, :topic_hit_display, :topic_reminder, :topic_pcmha,
+        :topic_abcs, :topic_brainstorm, :topic_observe_flow, :topic_share, :topic_connect,
+        :topic_resource, :topic_planning, :topic_workflow, :topic_roles, :topic_qi_support,
+        :topic_consensus, :topic_review_data, :topic_qi_display, :topic_huddle,
+        :topic_leadership, :topic_other, :topic_other_specify, :milestone_evidence_progress,
+        :milestone_evidence_active, :milestone_evidence_discussed, :milestone_data_progress,
+        :milestone_data_active, :milestone_data_discussed, :milestone_qi_progress,
+        :milestone_qi_active, :milestone_qi_discussed, :milestone_atrisk_progress,
+        :milestone_atrisk_active, :milestone_atrisk_discussed, :milestone_task_progress,
+        :milestone_task_active, :milestone_task_discussed, :milestone_selfmgmt_progress,
+        :milestone_selfmgmt_active, :milestone_selfmgmt_discussed,
+        :milestone_community_progress, :milestone_community_active,
+        :milestone_community_discussed, :gyr, :gyr_notes, :tier,
+        :pcqm_1, :pcqm_2, :pcqm_3, :pcqm_4, :pcqm_5, :pcqm_6, :pcqm_7, :pcqm_8, :pcqm_9,
+        :pcqm_10, :pcqm_11, :pcqm_12, :pcqm_13, :pcqm_14, :pcqm_15, :pcqm_16, :pcqm_17,
+        :pcqm_18, :pcqm_19, :pcqm_20, :pcqm_21, :pcqm_22, :pcqm_23, :pcqm_24, :pcqm_25,
+        :pcqm_26, :pcqm_27, :pcqm_28, :pcqm_29, :pcqm_30, :pcqm_31, :pcqm_32, :pcqm_33,
+        :pcqm_34, :pcqm_35, :pcqm_36,
+        :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
+        :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
+        :prac_change_other, :prac_change_specify)
     end
 end

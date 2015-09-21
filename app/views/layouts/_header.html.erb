@@ -1,14 +1,25 @@
 <header>
 	<% if partner_signed_in? %>
-		<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner), title: "Home", rel: "tooltip" %>
+		<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner), title: "Home", rel: "tooltip" %>Link to Partner or Coach
 		<div class='signout'>
 			<%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %><br />
-			<%= link_to "Change password", edit_partner_registration_path %><br /><br />
+			<%= link_to "Change password", edit_partner_registration_path %><br />
 			<% if current_partner.site.id == Site.where(name: "Qualis").first.id %>
+				<br />
 				Recruited: <%= thermometer("WA") %><br />
 				Recruited: <%= thermometer("ID") %>
 			<% elsif current_partner.site.id == Site.where(name: "ORPRN").first.id %>
+				<br />
 				Recruited: <%= thermometer("OR") %>
+			<% end %>
+			<% if current_partner.admin? %>
+				<br />
+				<%= link_to "System Users List", list_partners_path %>
+			<% end %>
+			<% if current_partner.recruiter && current_partner.coach %>
+				<br />
+				Link to Recruiter View
+				Link to Coach View
 			<% end %>
 		</div>
 	<% else %>

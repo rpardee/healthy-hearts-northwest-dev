@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :ivcontacts
   devise_for :partners
+  devise_scope :partners do
+    get  'partners/admin_new' => 'partners#admin_new'
+    post 'partners/admin_create' => 'partners#admin_create'
+  end
 
   resource :mains, only: :index
   get 'practice_survey_thanks', to: 'mains#practice_survey_thanks'
@@ -14,9 +18,11 @@ Rails.application.routes.draw do
   resources :partners do
     resources :events
     resources :practices
+    get 'list', on: :collection
   end
-  resources :coach_partners do
-    resources :practices
+  resources :coach_practices do
+    resources :ivcontacts
+    get 'list', on: :collection
   end
   resources :practices do
     resources :events

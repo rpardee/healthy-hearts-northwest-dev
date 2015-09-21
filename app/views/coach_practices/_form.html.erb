@@ -1,0 +1,31 @@
+<%= form_for(@practice, as: :practice, url: coach_practice_path(@practice), method: :patch) do |f| %>
+  <% if @practice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice.errors.count, "error") %> prohibited this practice from being saved:</h2>
+
+      <ul>
+      <% @practice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :name %>
+
+  <div>
+    <%= label_tag "coach_partner", "Primary Coach: " %>
+    <%= select_tag "coach_partner", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
+  </div>
+
+  3. Action Items will go here<br />
+      * Scheduled site visits thus far completed<br />
+      * Action items for practice<br />
+      * Follow-up for coach.<br />
+     Just upcoming at first.<br />
+     Also allow historical data to be displayed.<br />
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

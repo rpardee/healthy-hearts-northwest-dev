@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20150917175233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "events", force: :cascade do |t|
     t.integer  "partner_id",                                       null: false
@@ -147,7 +148,6 @@ ActiveRecord::Schema.define(version: 20150917175233) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20150917175233) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
     t.boolean  "recruiter"
     t.boolean  "coach"
   end

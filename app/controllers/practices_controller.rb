@@ -22,7 +22,7 @@ class PracticesController < ApplicationController
 
   # GET /practices/1/edit
   def edit
-    @recruiter_id = @practice.recruiter.id
+    @recruiter_id = @practice.recruiter.id if @practice.recruiter
   end
 
   # POST /practices
@@ -78,7 +78,7 @@ class PracticesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def practice_params
-      params[:practice].permit(:name, :partner_id, :address, :phone, :url,
+      params[:practice].permit(:name, :address, :phone, :url,
         :primary_care, :email, :parent_organization,
         :prac_ehr_yr, :prac_ehr, :prac_ehrname, :prac_ehrversion,
         :prac_ehrname_other, :prac_ehr_mu, :prac_mu_stage1, :prac_mu_stage2,

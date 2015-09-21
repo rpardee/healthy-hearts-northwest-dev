@@ -18,15 +18,19 @@ class Partner < ActiveRecord::Base
     end
   end
 
-  enum role: {
-    :ghri_staff => 1,
-    :standard => 2,
-    :supervisor => 3
-  }
-
   def admin?
-    role == "ghri_staff"
+    role == 1
   end
+
+  def supervisor?
+    role == 1 || role == 2
+  end
+
+  ROLE_VALS = {
+    "GHRI Staff" => 1,
+    "Standard Access" => 2,
+    "Supervisor Access" => 3
+  }
 
   private
   def password_complexity
