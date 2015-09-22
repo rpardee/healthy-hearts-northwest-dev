@@ -33,6 +33,21 @@ h1, h2, h3, h4, h5, h6 {
   color: $dark-blue;
 }
 
+div.boxed {
+  border: 1px solid $dark-blue;
+  margin-bottom: 15px;
+  padding: 15px;
+  h1, h2, h3, h4 {
+    padding-bottom: 5px;
+  }
+  table {
+    margin-top: 10px;
+    caption {
+      font-weight: bold;
+    }
+  }
+}
+
 table.typical {
   border: 1px solid black;
   border-collapse: collapse;
@@ -62,6 +77,21 @@ table.lined {
   th, td {
     border: 1px dotted black;
   }
+}
+
+table.fulltext {
+  textarea {
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
+       -moz-box-sizing: border-box; /* FF1+ */
+            box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+  }
+}
+
+table.background-orange {
+  background-color: orange;
 }
 
 div.box {

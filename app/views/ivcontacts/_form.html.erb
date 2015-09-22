@@ -16,8 +16,7 @@
       <td><%= f.label :contact_type, "Type of Contact" %></td>
       <td><%= f.select :contact_type, grouped_options_for_select(
         'Required monthly contact' => [['Required in-person visit', 1], ['Required phone call', 2]],
-        'Other contact' => [['Ad-hoc contact', 9]]
-        ) %></td>
+        'Other contact' => [['Ad-hoc contact', 9]]), include_blank: true %></td>
     </tr>
     <tr>
       <td><%= f.label :contact_specific, "Which In-Person Contact?" %></td>
@@ -37,7 +36,8 @@
     </tr>
   </table>
 
-  <h4>Topics</h4>
+  <div class='boxed'>
+  <h3>Topics Discussed</h3>
   <table class='space lined'>
     <tr>
       <th colspan='3'>HIT-specific</th>
@@ -196,12 +196,14 @@
       </td>
     </tr>
   </table>
+  </div>
 
   <br />
-  <table class='space lined'>
-    <caption>H2N Milestones</caption>
+  <div id='ivcontact-milestone' class='boxed'>
+  <h3>H2N Milestones </h3>
+  <table class='space lined fulltext'>
     <tr>
-      <th>Milestone</th>
+      <th width="50%">Milestone</th>
       <th>Progress</th>
       <th>Is practice actively<br />doing PDSA testing?</th>
       <th>Currently active PDSA cycles<br />discussed in visit/on call</th>
@@ -218,7 +220,8 @@
         end
         %>
       </td>
-      <td><%= f.text_area :milestone_evidence_discussed, rows: 5 %></td>
+      <td><%= f.text_area :milestone_evidence_discussed %></td>
+    </tr>
     <tr>
       <td>Utilize reliable, robust data to understand and improve ABCS measures</td>
       <td><%=
@@ -226,14 +229,14 @@
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
-      </td>>
+      </td>
       <td><%=
         f.collection_radio_buttons :milestone_data_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
-      <td><%= f.text_area :milestone_data_discussed, rows: 5 %></td>
+      <td><%= f.text_area :milestone_data_discussed %></td>
     </tr>
     <tr>
       <td>Establish a regular QI process involving cross-functional teams (QI, care team, huddles, all staff)</td>
@@ -242,14 +245,14 @@
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
-      </td>>
+      </td>
       <td><%=
         f.collection_radio_buttons :milestone_qi_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
-      <td><%= f.text_area :milestone_qi_discussed, rows: 5 %></td>
+      <td><%= f.text_area :milestone_qi_discussed %></td>
     </tr>
     <tr>
       <td>Identify at-risk patients for prevention outreach</td>
@@ -258,14 +261,14 @@
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
-      </td>>
+      </td>
       <td><%=
         f.collection_radio_buttons :milestone_atrisk_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
-      <td><%= f.text_area :milestone_atrisk_discussed, rows: 5 %></td>
+      <td><%= f.text_area :milestone_atrisk_discussed %></td>
     </tr>
     <tr>
       <td>Define roles and responsibilities across the care team to identify and manage ABCS populations</td>
@@ -274,14 +277,14 @@
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
-      </td>>
+      </td>
       <td><%=
         f.collection_radio_buttons :milestone_task_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
-      <td><%= f.text_area :milestone_task_discussed, rows: 5 %></td>
+      <td><%= f.text_area :milestone_task_discussed %></td>
     </tr>
     <tr>
       <td>Deepen patient self-management support for action planning around ABCS</td>
@@ -290,14 +293,14 @@
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
-      </td>>
+      </td>
       <td><%=
         f.collection_radio_buttons :milestone_selfmgmt_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
-      <td><%= f.text_area :milestone_selfmgmt_discussed, rows: 5 %></td>
+      <td><%= f.text_area :milestone_selfmgmt_discussed %></td>
     </tr>
     <tr>
       <td>Develop robust linkages to smoking cessation, CDSMP and other evidence-based community resources</td>
@@ -306,24 +309,26 @@
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
-      </td>>
+      </td>
       <td><%=
         f.collection_radio_buttons :milestone_community_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
           b.label { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
-      <td><%= f.text_area :milestone_community_discussed, rows: 5 %></td>
+      <td><%= f.text_area :milestone_community_discussed %></td>
     </tr>
   </table>
+  </div>
 
-  <div>
+  <div class='boxed'>
+    <h3>Green-Yellow-Red Assessment</h3>
     <p> What is your assessment of this practice's progress or capacity for change based on their activities in the previous month? Mark as green, yellow or red using the category definitions provided below. To the right of your assessment, indicate the activities or situations on which you are basing your rating.</p>
-    <table class='space'>
+    <table class='space lined'>
       <tr>
-        <th style='background-color: green;'>Green</th>
-        <th style='background-color: yellow;'>Yellow</th>
-        <th style='background-color: red;'>Red</th>
+        <th width="33%" style='background-color: green;'>Green</th>
+        <th width="33%" style='background-color: yellow;'>Yellow</th>
+        <th width="33%" style='background-color: red;'>Red</th>
       </tr>
       <tr>
         <td>This site is actively engaged in the project and successfully using QI methods to improve care around the ABCS measures. They appreciate encouragement and occasional support, but their needs are minimal.</td>
@@ -332,17 +337,19 @@
       </tr>
       <tr>
         <td>
+          <%= f.label :gyr, "Assessment:" %>
           <%= f.select :gyr, Ivcontact::GYR_VALS, include_blank: true %>
         </td>
         <td colspan='2'>
           <%= f.label :gyr_notes, "Activities or Situations for Rating" %><br />
-          <%= f.text_area :gyr_notes, cols: 60, rows: 3 %>
+          <%= f.text_area :gyr_notes, cols: 60, rows: 2 %>
         </td>
       </tr>
     </table>
   </div>
 
-  <div>
+  <div class='boxed'>
+    <h3>Tiering</h3>
     <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Plase this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
     <table class='space lined'>
       <tr>
@@ -390,7 +397,7 @@
     </table>
   </div>
 
-  <div>
+  <div class='boxed'>
     <h3>Patient-Centered Medical Home Assessment</h3>
 
     <table class='lined space background-orange'>
@@ -1454,9 +1461,9 @@
   </div>
 
   <div>
+    <h3>Disruptions to Practice</h3>
     <p> Have there been any of the following major changes in this practice in the <span>last 12 months</span><span>last 3 months</span>?</p>
-    <caption>Disruptions to Practice</caption>
-    <table class='lined space'>
+    <table class='lined space fulltext'>
       <tr>
         <td><%= f.label :prac_change_ehr, "Implemented a new or different Electronic Health Record (EHR)" %></td>
         <td><%= f.check_box :prac_change_ehr %></td>
@@ -1487,7 +1494,7 @@
       </tr>
       <tr>
         <td><%= f.label :prac_change_specify, "Please specify:" %></td>
-        <td><%= f.text_area :prac_change_specify, cols: 60, rows: 3 %></td>
+        <td><%= f.text_area :prac_change_specify %></td>
       </tr>
     </table>
   </div>
