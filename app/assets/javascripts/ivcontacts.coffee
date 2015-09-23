@@ -3,14 +3,25 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 updateContactType = (contact_type_field) ->
-	alert parseInt($(contact_type_field).val())
 	v = parseInt($(contact_type_field).val())
 	if v == 1  				# Required/in-person
-		$('#ivcontact-milestone').removeAttr('disabled')
+		$('#ivcontact-milestone').show()
+		$('#ivcontact-gyr').show()
+		$('#ivcontact-tier').show()
+		$('#ivcontact-pcmha').show()
+		$('#ivcontact-disruption').show()
 	else if v == 2  	# Required/monthly call
-		$('#ivcontact-milestone').removeAttr('disabled')
+		$('#ivcontact-milestone').show()
+		$('#ivcontact-gyr').show()
+		$('#ivcontact-tier').hide()
+		$('#ivcontact-pcmha').hide()
+		$('#ivcontact-disruption').hide()
 	else							# Ad-hoc contact/blank
-		$('#ivcontact-milestone').attr('disabled', true)
+		$('#ivcontact-milestone').hide()
+		$('#ivcontact-gyr').hide()
+		$('#ivcontact-tier').hide()
+#		$('#ivcontact-pcmha').hide()
+		$('#ivcontact-disruption').hide()
 
 $(document).ready ->
 	updateContactType('#ivcontact_contact_type')

@@ -91,7 +91,28 @@ table.fulltext {
 }
 
 table.background-orange {
-  background-color: orange;
+  background-color: lighten(orange, 35%);
+}
+table.background-pink {
+  background-color: lighten(pink, 10%);
+}
+table.background-blue {
+  background-color: lighten(#00008B, 70%);
+}
+table.background-lightpurple {
+  background-color: lighten(#9370DB, 25%);
+}
+table.background-darkpurple {
+  background-color: lighten(#6A5ACD, 30%);
+}
+table.background-green {
+  background-color: lighten(#6B8E23, 40%);
+}
+table.background-teal {
+  background-color: lighten(teal, 60%);
+}
+table.background-brown {
+  background-color: lighten(#A0522D, 40%);
 }
 
 div.box {

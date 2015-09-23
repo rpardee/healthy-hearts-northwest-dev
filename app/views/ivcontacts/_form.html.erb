@@ -38,7 +38,7 @@
 
   <div class='boxed'>
   <h3>Topics Discussed</h3>
-  <table class='space lined'>
+  <table class='space lined background-lightpurple'>
     <tr>
       <th colspan='3'>HIT-specific</th>
     </tr>
@@ -97,7 +97,7 @@
     </tr>
   </table>
   <br />
-  <table class='space lined'>
+  <table class='space lined background-darkpurple'>
     <tr>
       <th colspan='3'>Study-specific</th>
     </tr>
@@ -201,7 +201,7 @@
   <br />
   <div id='ivcontact-milestone' class='boxed'>
   <h3>H2N Milestones </h3>
-  <table class='space lined fulltext'>
+  <table class='space lined fulltext background-pink'>
     <tr>
       <th width="50%">Milestone</th>
       <th>Progress</th>
@@ -321,7 +321,7 @@
   </table>
   </div>
 
-  <div class='boxed'>
+  <div id='ivcontact-gyr' class='boxed'>
     <h3>Green-Yellow-Red Assessment</h3>
     <p> What is your assessment of this practice's progress or capacity for change based on their activities in the previous month? Mark as green, yellow or red using the category definitions provided below. To the right of your assessment, indicate the activities or situations on which you are basing your rating.</p>
     <table class='space lined'>
@@ -348,10 +348,10 @@
     </table>
   </div>
 
-  <div class='boxed'>
+  <div id='ivcontact-tier' class='boxed'>
     <h3>Tiering</h3>
     <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Plase this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
-    <table class='space lined'>
+    <table class='space lined background-green'>
       <tr>
         <th>&nbsp;</th>
         <th>STARTING<br />0-25%</th>
@@ -397,7 +397,7 @@
     </table>
   </div>
 
-  <div class='boxed'>
+  <div id='ivcontact-pcmha' class='boxed'>
     <h3>Patient-Centered Medical Home Assessment</h3>
 
     <table class='lined space background-orange'>
@@ -757,7 +757,7 @@
       </tr>
     </table>
 
-    <table class='lined space background-purple'>
+    <table class='lined space background-lightpurple'>
       <caption>PART 4: CONTINUOUS & TEAM-BASED HEALING RELATIONSHIPS</caption>
       <tr>
         <th>Items</th>
@@ -848,7 +848,7 @@
         </td>
       </tr>
 
-    <table class='lined space background-purple'>
+    <table class='lined space background-darkpurple'>
       <caption>PART 5: ORGANIZED, EVIDENCE-BASED CARE</caption>
       <tr>
         <th>Items</th>
@@ -1460,10 +1460,10 @@
     </table>
   </div>
 
-  <div>
+  <div id='ivcontact-disruption'>
     <h3>Disruptions to Practice</h3>
     <p> Have there been any of the following major changes in this practice in the <span>last 12 months</span><span>last 3 months</span>?</p>
-    <table class='lined space fulltext'>
+    <table class='lined space fulltext background-orange'>
       <tr>
         <td><%= f.label :prac_change_ehr, "Implemented a new or different Electronic Health Record (EHR)" %></td>
         <td><%= f.check_box :prac_change_ehr %></td>
