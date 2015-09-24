@@ -43,7 +43,8 @@ class Practice < ActiveRecord::Base
 	end
 
 	def coach
-		self.partners.find(coach_id) if coach_id
+		# self.partners.find(coach_id) if coach_id
+		Partner.find(self.coach_id) if coach_id
 	end
 
 	def pal_status

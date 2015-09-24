@@ -24,7 +24,7 @@
 						<% if current_partner.recruiter %>
 							<%= link_to "Recruiter View", partner_path(current_partner) %>
 						<% else %>
-							nbsp;
+							&nbsp;
 						<% end %>
 					</td>
 					<td><%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %></td>
@@ -42,7 +42,13 @@
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><%= link_to "System Users List", list_partners_path %></td>
+					<td>
+						<% if current_partner.admin? %>
+							<%= link_to "System Users List", list_partners_path %>
+						<% else %>
+							&nbsp;
+						<% end %>
+					</td>
 					<td>&nbsp;</td>
 				</tr>
 			</table>
