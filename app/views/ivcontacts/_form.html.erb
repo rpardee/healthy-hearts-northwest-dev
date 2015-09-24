@@ -1,7 +1,7 @@
 <%= form_for(@ivcontact) do |f| %>
   <% if @ivcontact.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@ivcontact.errors.count, "error") %> prohibited this ivcontact from being saved:</h2>
+      <h2><%= pluralize(@ivcontact.errors.count, "error") %> prohibited this IV Contact from being saved:</h2>
 
       <ul>
       <% @ivcontact.errors.full_messages.each do |message| %>
@@ -10,6 +10,8 @@
       </ul>
     </div>
   <% end %>
+
+  <%= f.hidden_field :practice_id, value: @practice_id %>
 
   <table class='space'>
     <tr>

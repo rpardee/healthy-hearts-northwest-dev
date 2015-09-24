@@ -2,16 +2,14 @@
 <%= render 'layouts/header' %>
 <p id="notice"><%= notice %></p>
 
-<h1>Coach View</h1>
-
-<h2> Limit this to the current coach </h2>
+<h1>Coach View for <%= @coach.name %></h1>
 
 <table class='typical enable-data-table'>
   <thead>
     <tr>
       <th>Practice</th>
-      <th>Coach</th>
       <th>New Contact</th>
+      <th>New Action Item</th>
     </tr>
   </thead>
 
@@ -19,8 +17,8 @@
     <% @practices.each do |practice| %>
       <tr>
         <td><%= link_to practice.name, edit_coach_practice_path(practice) %></td>
-        <td><%= practice.coach.name if practice.coach %></td>
-        <td><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Contact"), new_coach_practice_event_path(practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %>
+        <td align=center><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Contact"), new_coach_practice_ivcontact_path(practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %></td>
+        <td align=center>link_to new_action_item </td>
       </tr>
     <% end %>
   </tbody>

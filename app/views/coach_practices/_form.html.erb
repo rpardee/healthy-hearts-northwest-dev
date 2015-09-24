@@ -11,19 +11,57 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :name %>
-
   <div>
-    <%= label_tag "coach_partner", "Primary Coach: " %>
-    <%= select_tag "coach_partner", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
+    <%= label_tag "coach_id", "Primary Coach: " %>
+    <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
   </div>
 
-  3. Action Items will go here<br />
-      * Scheduled site visits thus far completed<br />
-      * Action items for practice<br />
-      * Follow-up for coach.<br />
-     Just upcoming at first.<br />
-     Also allow historical data to be displayed.<br />
+  <div>Add New IV Contact</div>
+
+  <div>
+    <h3>Scheduled Site Visits</h3>
+    <table class='lined space'>
+      <tr>
+        <td>Visit</td>
+        <td>Date</td>
+      </tr>
+      <tr>
+        <td>Baseline</td>
+        <td><%= @visit1.try(:contact_dt) || "&mdash;".html_safe %></td>
+      </tr>
+      <tr>
+        <td>Quarter 2</td>
+        <td><%= @visit2.try(:contact_dt) || "&mdash;".html_safe %></td>
+      </tr>
+      <tr>
+        <td>Quarter 3</td>
+        <td><%= @visit3.try(:contact_dt) || "&mdash;".html_safe %></td>
+      </tr>
+      <tr>
+        <td>Quarter 4</td>
+        <td><%= @visit4.try(:contact_dt) || "&mdash;".html_safe %></td>
+      </tr>
+      <tr>
+        <td>Quarter 5</td>
+        <td><%= @visit5.try(:contact_dt) || "&mdash;".html_safe %></td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    Current action items.
+    Current coach follow-ups.
+  </div>
+
+  <div>
+    Display this optionally:
+    Historical action items.
+    Historical coach follow-ups.
+  </div>
+
+  <div>
+    Historical ivcontacts
+  </div>
 
   <div class="actions">
     <%= f.submit %>

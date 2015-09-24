@@ -15,20 +15,22 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts/new
   def new
     @ivcontact = Ivcontact.new
+    @practice_id = params[:coach_practice_id]
   end
 
   # GET /ivcontacts/1/edit
   def edit
+    @practice_id = params[:coach_practice_id]
   end
 
   # POST /ivcontacts
   # POST /ivcontacts.json
   def create
     @ivcontact = Ivcontact.new(ivcontact_params)
-
+    @coach = Practice.find(@ivcontact.practice_id).coach
     respond_to do |format|
       if @ivcontact.save
-        format.html { redirect_to @ivcontact, notice: 'Ivcontact was successfully created.' }
+        format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully created.' }
         format.json { render :show, status: :created, location: @ivcontact }
       else
         format.html { render :new }
@@ -40,9 +42,10 @@ class IvcontactsController < ApplicationController
   # PATCH/PUT /ivcontacts/1
   # PATCH/PUT /ivcontacts/1.json
   def update
+    @coach = Practice.find(@ivcontact.practice_id).coach
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
-        format.html { redirect_to @ivcontact, notice: 'Ivcontact was successfully updated.' }
+        format.html { redirect_to list_coach_practice(@coach), notice: 'IV Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @ivcontact }
       else
         format.html { render :edit }
@@ -92,6 +95,6 @@ class IvcontactsController < ApplicationController
         :pcqm_34, :pcqm_35, :pcqm_36,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify)
+        :prac_change_other, :prac_change_specify, :practice_id)
     end
 end

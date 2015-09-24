@@ -43,7 +43,7 @@ class Practice < ActiveRecord::Base
 	end
 
 	def coach
-		self.partners.where("coach = true").first
+		self.partners.find(coach_id) if coach_id
 	end
 
 	def pal_status
