@@ -20,7 +20,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-gyr').hide()
 		$('#ivcontact-tier').hide()
-#		$('#ivcontact-pcmha').hide()
+		$('#ivcontact-pcmha').hide()
 		$('#ivcontact-disruption').hide()
 
 $(document).ready ->

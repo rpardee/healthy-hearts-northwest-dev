@@ -1,26 +1,51 @@
 <header>
 	<% if partner_signed_in? %>
-		<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner), title: "Home", rel: "tooltip" %>Link to Partner or Coach
+		<% if current_partner.recruiter %>
+			<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), partner_path(current_partner), title: "Home", rel: "tooltip" %>
+		<% elsif current_partner.coach %>
+			<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), list_coach_practice_path(current_partner), title: "Home", rel: "tooltip" %>
+		<% else %>
+			<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), root_path %>
+		<% end %>
 		<div class='signout'>
-			<%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %><br />
-			<%= link_to "Change password", edit_partner_registration_path %><br />
-			<% if current_partner.site.id == Site.where(name: "Qualis").first.id %>
-				<br />
-				Recruited: <%= thermometer("WA") %><br />
-				Recruited: <%= thermometer("ID") %>
-			<% elsif current_partner.site.id == Site.where(name: "ORPRN").first.id %>
-				<br />
-				Recruited: <%= thermometer("OR") %>
-			<% end %>
-			<% if current_partner.admin? %>
-				<br />
-				<%= link_to "System Users List", list_partners_path %>
-			<% end %>
-			<% if current_partner.recruiter && current_partner.coach %>
-				<br />
-				Link to Recruiter View
-				Link to Coach View
-			<% end %>
+			<table class='space'>
+				<tr>
+					<td>
+						<% if current_partner.site_id == Site.where(name: "Qualis").first.id %>
+							Recruited: <%= thermometer("WA") %><br />
+							Recruited: <%= thermometer("ID") %>
+						<% elsif current_partner.site.id == Site.where(name: "ORPRN").first.id %>
+							Recruited: <%= thermometer("OR") %>
+						<% else %>
+							&nbsp;
+						<% end %>
+					</td>
+					<td>
+						<% if current_partner.recruiter %>
+							<%= link_to "Recruiter View", partner_path(current_partner) %>
+						<% else %>
+							nbsp;
+						<% end %>
+					</td>
+					<td><%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<% if current_partner.coach %>
+							<%= link_to "Coach View", list_coach_practice_path(current_partner) %>
+						<% else %>
+							&nbsp;
+						<% end %>
+					</td>
+					<td><%= link_to "Change password", edit_partner_registration_path %></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><%= link_to "System Users List", list_partners_path %></td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
 		</div>
 	<% else %>
 		<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), root_path %>
