@@ -12,8 +12,17 @@
   <% end %>
 
   <div>
-    <%= label_tag "coach_id", "Primary Coach: " %>
-    <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
+    <table style="width: 100%;">
+      <tr>
+        <td>
+          <%= label_tag "coach_id", "Primary Coach: " %>
+          <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
+        </td>
+        <td>
+          <%= link_to "New Intervention Contact", new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
+        </td>
+      </tr>
+    </table>
   </div>
 
   <div>Add New IV Contact</div>
@@ -64,6 +73,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit %><br />
+    <%= link_to "Back", :back %>
   </div>
 <% end %>

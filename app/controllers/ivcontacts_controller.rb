@@ -30,7 +30,7 @@ class IvcontactsController < ApplicationController
     @coach = Practice.find(@ivcontact.practice_id).coach
     respond_to do |format|
       if @ivcontact.save
-        format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully created.' }
+        format.html { redirect_to list_coach_practice_path(@coach.id), notice: 'IV Contact was successfully created.' }
         format.json { render :show, status: :created, location: @ivcontact }
       else
         format.html { render :new }
