@@ -1,5 +1,6 @@
 class IvcontactsController < ApplicationController
   before_action :set_ivcontact, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_partner!
 
   # GET /ivcontacts
   # GET /ivcontacts.json
@@ -16,11 +17,13 @@ class IvcontactsController < ApplicationController
   def new
     @ivcontact = Ivcontact.new
     @practice_id = params[:coach_practice_id]
+    @practice_name = Practice.find(@practice_id).name
   end
 
   # GET /ivcontacts/1/edit
   def edit
     @practice_id = params[:coach_practice_id]
+    @practice_name = Practice.find(@practice_id).name
   end
 
   # POST /ivcontacts

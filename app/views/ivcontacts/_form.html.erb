@@ -18,9 +18,13 @@
       <td><%= f.label :contact_type, "Type of Contact" %></td>
       <td><%= f.select :contact_type, grouped_options_for_select(
         'Required monthly contact' => [['Required in-person visit', 1], ['Required phone call', 2]],
-        'Other contact' => [['Ad-hoc contact', 9]]), include_blank: true %></td>
+        'Other contact' => [['Other contact', 9]]), include_blank: true %></td>
     </tr>
-    <tr>
+    <tr id='ivcontact-contactmode' style="display: none;">
+      <td><%= f.label :contact_mode, "Contact Method" %></td>
+      <td><%= f.select :contact_mode, Ivcontact::CONTACT_MODE_VALS, include_blank: true %></td>
+    </tr>
+    <tr id='ivcontact-contactspecific'>
       <td><%= f.label :contact_specific, "Which In-Person Contact?" %></td>
       <td><%= f.select :contact_specific, Ivcontact::CONTACT_SPECIFIC_VALS, include_blank: true %></td>
     </tr>
@@ -39,162 +43,157 @@
   </table>
 
   <div class='boxed'>
-  <h3>Topics Discussed</h3>
+  <h3>Topics Discussed:  Check all topics that apply</h3>
   <table class='space lined background-lightpurple'>
     <tr>
       <th colspan='3'>HIT-specific</th>
     </tr>
     <tr>
       <th>EHR data extraction</th>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
       <td>
-        <%= f.label :topic_ehr_vendor, "Working with EHR vendor" %>
-        <%= f.check_box :topic_ehr_vendor %>
-      </td>
-      <td>
-        <%= f.label :topic_validate_data, "Validate data" %>
         <%= f.check_box :topic_validate_data %>
+        <%= f.label :topic_validate_data, "Validate data" %>
       </td>
       <td>
-        <%= f.label :topic_data_error, "Data errors" %>
         <%= f.check_box :topic_data_error %>
+        <%= f.label :topic_data_error, "Data errors" %>
       </td>
     </tr>
     <tr>
       <td>
-        <%= f.label :topic_3rdparty_vendor, "Working with 3rd party vendor" %>
-        <%= f.check_box :topic_3rdparty_vendor %>
+        <%= f.check_box :topic_ehr_vendor %>
+        <%= f.label :topic_ehr_vendor, "Work with EHR vendor" %>
       </td>
       <td>
-        <%= f.label :topic_meaningful_use, "Meaningful use" %>
         <%= f.check_box :topic_meaningful_use %>
+        <%= f.label :topic_meaningful_use, "Meaningful Use" %>
       </td>
       <td>
-        <%= f.label :topic_coding, "Coding/IT needs" %>
         <%= f.check_box :topic_coding %>
-      </td>
-    </tr>
-      <td>
-        <%= f.label :topic_custom_query, "Working on custom queries" %>
-        <%= f.check_box :topic_custom_query %>
-      </td>
-      <td>
-        <%= f.label :topic_cqm_report, "Generating clinical quality measure reports" %>
-        <%= f.check_box :topic_cqm_report %>
-      </td>
-      <td>
-        <%= f.label :topic_hit_display, "Create data displays" %>
-        <%= f.check_box :topic_hit_display %>
+        <%= f.label :topic_coding, "Coding/IT needs" %>
       </td>
     </tr>
     <tr>
-      <td colspan='2'>&nbsp;</td>
       <td>
-        <%= f.label :topic_reminder, "Point of care reminders" %>
+        <%= f.check_box :topic_3rdparty_vendor %>
+        <%= f.label :topic_3rdparty_vendor, "Work with 3rd party vendor" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_cqm_report %>
+        <%= f.label :topic_cqm_report, "Generate clinical quality measure reports" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_hit_display %>
+        <%= f.label :topic_hit_display, "Create data displays" %>
+      </td>
+    </tr>
+      <td>
+        <%= f.check_box :topic_custom_query %>
+        <%= f.label :topic_custom_query, "Work on custom queries" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_abcs %>
+        <%= f.label :topic_abcs, "Submit ABCS measures to study team" %>
+      </td>
+      <td>
         <%= f.check_box :topic_reminder %>
+        <%= f.label :topic_reminder, "Point of care reminders" %>
       </td>
     </tr>
   </table>
   <br />
   <table class='space lined background-darkpurple'>
     <tr>
-      <th colspan='3'>Study-specific</th>
-    </tr>
-    <tr>
-      <td></td>
-      <th colspan='2'>QI Processes</th>
+      <th colspan='4'>QI Processes</th>
     </tr>
     <tr>
       <td>
-        <%= f.label :topic_pcmha, "Review/collect PCMH-A" %>
-        <%= f.check_box :topic_pcmha %>
+        <%= f.check_box :topic_self_assessment %>
+        <%= f.label :topic_self_assessment, "Review/collect Self-Assessment Survey" %>
       </td>
       <td>
-        <%= f.label :topic_brainstorm, "Brainstorming ideas" %>
         <%= f.check_box :topic_brainstorm %>
+        <%= f.label :topic_brainstorm, "Brainstorm ideas" %>
       </td>
       <td>
-        <%= f.label :topic_roles, "Identify roles/responsibilities" %>
         <%= f.check_box :topic_roles %>
+        <%= f.label :topic_roles, "Identify roles/responsibilities" %>
       </td>
     </tr>
     <tr>
       <td>
-        <%= f.label :topic_abcs, "Submit ABCS measures to study team" %>
-        <%= f.check_box :topic_abcs %>
+        <%= f.check_box :topic_share %>
+        <%= f.label :topic_share, "Share best practices from another site" %>
       </td>
       <td>
-        <%= f.label :topic_observe_flow, "Observe team/clinic flow" %>
         <%= f.check_box :topic_observe_flow %>
+        <%= f.label :topic_observe_flow, "Observe team/clinic flow" %>
       </td>
       <td>
-        <%= f.label :topic_qi_support, "Provide QI meeting support" %>
         <%= f.check_box :topic_qi_support %>
+        <%= f.label :topic_qi_support, "Provide QI meeting support" %>
       </td>
     </tr>
-      <td>&nbsp;</td>
       <td>
-        <%= f.label :topic_cqm_report, "Generating clinical quality measure reports" %>
-        <%= f.check_box :topic_cqm_report %>
-      </td>
-      <td>
-        <%= f.label :topic_consensus, "Facilitate a consensus decision" %>
-        <%= f.check_box :topic_consensus %>
-      </td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td>
-        <%= f.label :topic_connect, "Connect practice to another practice" %>
-        <%= f.check_box :topic_connect %>
-      </td>
-      <td>
-        <%= f.label :topic_review_data, "Review data" %>
-        <%= f.check_box :topic_review_data %>
-      </td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td>
-        <%= f.label :topic_resource, "Supply a tool or resource to support work" %>
-        <%= f.check_box :topic_resource %>
-      </td>
-      <td>
-        <%= f.label :topic_qi_display, "Data displays/run-charts" %>
-        <%= f.check_box :topic_qi_display %>
-      </td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td>
-        <%= f.label :topic_planning, "Discuss PDSA cycles or action planning" %>
         <%= f.check_box :topic_planning %>
+        <%= f.label :topic_planning, "Discuss PDSA cycles or action planning" %>
       </td>
       <td>
-        <%= f.label :topic_huddle, "Huddles" %>
-        <%= f.check_box :topic_huddle %>
+        <%= f.check_box :topic_cqm_report %>
+        <%= f.label :topic_cqm_report, "Generate clinical quality measure reports" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_consensus %>
+        <%= f.label :topic_consensus, "Facilitate a consensus decision" %>
       </td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
       <td>
-        <%= f.label :topic_workflow, "Support workflow design" %>
         <%= f.check_box :topic_workflow %>
+        <%= f.label :topic_workflow, "Support workflow design" %>
       </td>
       <td>
-        <%= f.label :topic_leadership, "Leadership meeting" %>
-        <%= f.check_box :topic_leadership %>
+        <%= f.check_box :topic_connect %>
+        <%= f.label :topic_connect, "Connect practice to another practice" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_review_data %>
+        <%= f.label :topic_review_data, "Review data" %>
       </td>
     </tr>
     <tr>
-      <td colspan='3'>
-        <%= f.label :topic_other, "Other" %>
+      <td>
+        <%= f.check_box :topic_leadership %>
+        <%= f.label :topic_leadership, "Leadership meeting" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_resource %>
+        <%= f.label :topic_resource, "Supply a tool or resource to support work" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_qi_display %>
+        <%= f.label :topic_qi_display, "Data displays/run-charts" %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.check_box :topic_huddle %>
+        <%= f.label :topic_huddle, "Huddles" %>
+      </td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
         <%= f.check_box :topic_other %>
-        <%= f.label :topic_other_specify, "Specify:" %>
-        <%= f.text_field :topic_other_specify, size: 60 %>
+        <%= f.label :topic_other, "Other" %>
+      </td>
+      <td colspan='2'>
+        <span id='ivcontact-topicotherspecify'>
+          <%= f.label :topic_other_specify, "Specify:" %>
+          <%= f.text_field :topic_other_specify, size: 50 %>
+        </span>
+        &nbsp;
       </td>
     </tr>
   </table>
@@ -202,7 +201,8 @@
 
   <br />
   <div id='ivcontact-milestone' class='boxed'>
-  <h3>H2N Milestones </h3>
+  <h3>H2N High Leverage Changes</h3>
+  <p>Please rate this practice's progress on <u>every high leverage change</u> listed below.</p>
   <table class='space lined fulltext background-pink'>
     <tr>
       <th width="50%">Milestone</th>
@@ -273,7 +273,7 @@
       <td><%= f.text_area :milestone_atrisk_discussed %></td>
     </tr>
     <tr>
-      <td>Define roles and responsibilities across the care team to identify and manage ABCS populations</td>
+      <td>Define roles and responsibilities (tasks) across the care team to identify and manage ABCS populations</td>
       <td><%=
         f.collection_radio_buttons :milestone_task_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
           b.label { b.radio_button + b.text } + tag("br")
@@ -337,29 +337,113 @@
         <td>This site is engaged, but their progress or capacity to move forward is hindered by current situations. They require additional support and closer monitoring to assess and manage progress.</td>
         <td>This site has barriers or issues that are currently impeding progress or the capacity to move forward. They need close monitoring or support.</td>
       </tr>
-      <tr>
-        <td>
-          <%= f.label :gyr, "Assessment:" %>
-          <%= f.select :gyr, Ivcontact::GYR_VALS, include_blank: true %>
-        </td>
-        <td colspan='2'>
-          <%= f.label :gyr_notes, "Activities or Situations for Rating" %><br />
-          <%= f.text_area :gyr_notes, cols: 60, rows: 2 %>
-        </td>
-      </tr>
     </table>
+    <br />
+    <p>
+      <%= f.label :gyr, "Assessment:" %>
+      <%= f.select :gyr, Ivcontact::GYR_VALS, include_blank: true %>
+    </p>
+    <p>
+      <%= f.label :gyr_notes, "Activities or Situations for Rating" %>
+      <%= f.text_area :gyr_notes, cols: 60, rows: 2 %>
+    </p>
+  </div>
+
+  <div id='tier1' style="display: none;">
+    <dl>
+      <dt>LEADERSHIP/RESOURCES</dt>
+      <dd>&bull; Vacancies or transitions have led to limited/lack of capacity for H2N work</dd>
+      <dd>&bull; Has not prioritized making changes around H2N milestones</dd>
+    </dl><br />
+    <dl>
+      <dt>RESOURCES</dt>
+      <dd>&bull; Capacity for change is challenged due to limited resources and competing priorities</dd>
+      <dd>&bull; Financial instability &ndash; no real financial support or resources</dd>
+    </dl><br />
+    <dl>
+      <dt>DATA/QI</dt>
+      <dd>&bull; Data reporting and collection is not established</dd>
+    </dl><br />
+    <dl>
+      <dt>CONGRUENCE with H2N CONTENT</dt>
+      <dd>&bull; Site has limited autonomy to implement changes due to ownership or collective bargaining constraints</dd>
+      <dd>&bull; Operate under traditional medical model</dd>
+    </dl><br />
+    <dl>
+      <dt>OTHER DISTINGUISHING CHARACTERISTICS</dt>
+      <dd>&bull; Poor staff morale</dd>
+      <dd>&bull; Lack of incentives</dd>
+      <dd>&bull; Time intensive for coach/facilitator</dd>
+    </dl>
+  </div>
+
+  <div id='tier2' style="display: none;">
+    <dl>
+      <dt>LEADERSHIP/RESOURCES</dt>
+      <dd>&bull; Vacancies or transitions have led to limited/lack of capacity for H2N work</dd>
+      <dd>&bull; Leaders have given initial prioritization to H2N but resources are limited</dd>
+      <dd>&bull; Leadership exists at some, but not all, levels of the practice</dd>
+    </dl><br />
+    <dl>
+      <dt>DATA/QI</dt>
+      <dd>&bull; Building capacity and QI infrastructure</dd>
+    </dl><br />
+    <dl>
+      <dt>CONGRUENCE with H2N CONTENT</dt>
+      <dd>&bull; Getting only the basic practices on first 5 milestones</dd>
+      <dd>&bull; Emerging team practice models; role, licensure, FTE/Pop</dd>
+    </dl>
+  </div>
+
+  <div id='tier3' style="display: none;">
+    <dl>
+      <dt>LEADERSHIP/RESOURCES</dt>
+      <dd>&bull; Leadership has given significant prioritization to H2N and starting to align H2N with organizational goals</dd>
+      <dd>&bull; No standard management practices throughout organization/still vulnerable to turnover</dd>
+    </dl><br />
+    <dl>
+      <dt>DATA/QI</dt>
+      <dd>&bull; Beginning to demonstrate use of data in an actionable way to improve practice and patient care</dd>
+    </dl><br />
+    <dl>
+      <dt>CONGRUENCE with H2N CONTENT</dt>
+      <dd>&bull; Advancing practice and policies in place on first 5 milestones</dd>
+      <dd>&bull; Designing and testing changes around the last two "advanced" milestones</dd>
+    </dl>
+  </div>
+
+  <div id='tier4' style="display: none;">
+    <dl>
+      <dt>LEADERSHIP/RESOURCES</dt>
+      <dd>&bull; Leadership is fully engaged and has demonstrated alignment of H2N and practice goals</dd>
+      <dd>&bull; More standard work in place</dd>
+    </dl><br />
+    <dl>
+      <dt>DATA/QI</dt>
+      <dd>&bull; Using data in an actionable way to improve practice/care for patients</dd>
+      <dd>&bull; Stronger foundational QI structure</dd>
+    </dl><br />
+    <dl>
+      <dt>CONGRUENCE with H2N CONTENT</dt>
+      <dd>&bull; Full implementation of first 5 milestones</dd>
+      <dd>&bull; Stronger foundational QI structure</dd>
+    </dl><br />
+    <dl>
+      <dt>OTHER DISTINGUISHING CHARACTERISTICS</dt>
+      <dd>&bull; Practice sees how H2N concepts like proactive care, team-care and QI can be applied to other areas of the organization</dd>
+    </dl>
   </div>
 
   <div id='ivcontact-tier' class='boxed'>
-    <h3>Tiering</h3>
-    <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Plase this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
-    <table class='space lined background-green'>
-      <tr>
+    <h3>Tiering Tool</h3>
+    <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Please this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
+    <table id='tier-tooltip' class='space lined background-green'>
+      <tr title="Click column heading to view description">
         <th>&nbsp;</th>
-        <th>STARTING<br />0-25%</th>
-        <th>LIMITED PRACTICE CHANGES;<br />NEED TO BUILD CAPACITY<br />26-50%</th>
-        <th>MAKING MANY PRACTICE CHANGES<br />51-75%</th>
-        <th>MANAGING MULTI-DIMENSIONAL CHANGE<br />76-100%</th>
+        <th id='ivcontact-tier1'>STARTING<br />0-25</th>
+        <th id='ivcontact-tier2'>LIMITED PRACTICE CHANGES;<br />NEED TO BUILD CAPACITY<br />26-50</th>
+        <th id='ivcontact-tier3'>MAKING MANY PRACTICE CHANGES<br />51-75</th>
+        <th id='ivcontact-tier4'>MANAGING MULTI-DIMENSIONAL CHANGE<br />76-100</th>
       </tr>
       <tr align='center'>
         <td>Baseline/Quarter 1</td>
@@ -400,1071 +484,584 @@
   </div>
 
   <div id='ivcontact-pcmha' class='boxed'>
-    <h3>Patient-Centered Medical Home Assessment</h3>
+    <h3>Practice Self-Assessment Survey</h3>
 
     <table class='lined space background-orange'>
-      <caption>PART 1. ENGAGED LEADERSHIP</caption>
       <tr>
         <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
+        <th colspan='4'>Lowest ... Highest</th>
       </tr>
       <tr align="center">
-        <td> 1. Executive leaders </td>
+        <td>1. Comprehensive, guideline-based information on prevention or chronic illness treatment</td>
         <td>
-          ...are focused on short-term business priorities.<br />
+          ...is not readily available in practice.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_1, item %> <%= item %>
+            <%= f.radio_button :pcmha_1, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...visibly support and create an infrastructure for quality improvement, but do not commit resources.<br />
+          ...is available but does not influence care.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_1, item %> <%= item %>
+            <%= f.radio_button :pcmha_1, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...allocate resources and actively reward quality improvement initiatives.<br />
+          ...is available to the team and is integrated into care protocols and/or reminders.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_1, item %> <%= item %>
+            <%= f.radio_button :pcmha_1, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...support continuous learning throughout the organization, review and act upon quality data, and have a long-term strategy and funding commitment to explore, implement and spread quality improvement initiatives.<br />
+          ...guides the creation of tailored, individual-level data that is available at the time of the visit.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_1, item %> <%= item %>
+            <%= f.radio_button :pcmha_1, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>2. Clinical leaders </td>
+        <td>2. Performance measures </td>
         <td>
-          ...intermittently focus on improving quality.<br />
+          ...are not available for the clinical site.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_2, item %> <%= item %>
+            <%= f.radio_button :pcmha_2, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...have developed a vision for quality improvement, but no consistent process for getting there.<br />
+          ...are available for the clinical site, but are limited in scope..<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_2, item %> <%= item %>
+            <%= f.radio_button :pcmha_2, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are committed to a quality improvement process, and sometimes engage teams in implementation and problem solving.<br />
+          ...are comprehensive &ndash; including clinical, operational, and patient experience measures &ndash; and available for the practice, but not for individual providers..<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_2, item %> <%= item %>
+            <%= f.radio_button :pcmha_2, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...consistently champion and engage clinical teams in improving patient experience of care and clinical outcomes.<br />
+          ...are comprehensive &ndash; including clinical, operational, and patient experience measures &ndash; and fed back to individual providers.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_2, item %> <%= item %>
+            <%= f.radio_button :pcmha_2, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>3. The organization's hiring and training processes</td>
+        <td>3. Reports on care processes or outcomes of care</td>
         <td>
-          ...focus only on the narrowly defined functions and requirements of each position..<br />
+          ...are not routinely available to practice teams. <br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_3, item %> <%= item %>
+            <%= f.radio_button :pcmha_3, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...reflect how potential hires will affect the culture and participate in quality improvement activities.<br />
+          ...are routinely provided as feedback to practice teams but not reported externally.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_3, item %> <%= item %>
+            <%= f.radio_button :pcmha_3, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...place a priority on the ability of new and existing staff to improve care and create a patient-centered culture.<br />
+          ...are routinely provided as feedback to practice teams, and reported externally (e.g., to patients, other teams or external agencies) but with team identities masked.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_3, item %> <%= item %>
+            <%= f.radio_button :pcmha_3, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...support and sustain improvements in care through training and incentives focused on rewarding patient-centered care.<br />
+          ...are routinely provided as feedback to practice teams, and transparently reported externally to patients, other teams and external agencies.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_3, item %> <%= item %>
+            <%= f.radio_button :pcmha_3, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
         <td>4. The responsibility for conducting quality improvement activities</td>
         <td>
-          ...are focused on short-term business priorities.<br />
+          ...is not assigned by leadership to any specific group.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_4, item %> <%= item %>
+            <%= f.radio_button :pcmha_4, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...visibly support and create an infrastructure for quality improvement, but do not commit resources<br />
+          ...is assigned to a group without committed resources.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_4, item %> <%= item %>
+            <%= f.radio_button :pcmha_4, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...allocate resources and actively reward quality improvement initiatives.<br />
+          ...is assigned to an organized quality improvement group who receive dedicated resources.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_4, item %> <%= item %>
+            <%= f.radio_button :pcmha_4, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...support continuous learning throughout the organization, review and act upon quality data, and have a long-term strategy and funding commitment to explore, implement and spread quality improvement initiatives.<br />
+          ...is shared by all staff, from leadership to team members, and is made explicit through protected time to meet and specific resources to engage in QI.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_4, item %> <%= item %>
+            <%= f.radio_button :pcmha_4, item %> <%= item %>
           <% end %>
         </td>
-      </tr>
-    </table>
-
-    <table class='lined space background-pink'>
-      <caption>PART 2: QUALITY IMPROVEMENT (QI) STRATEGY</caption>
-      <tr>
-        <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
       </tr>
       <tr align="center">
         <td>5. Quality improvement activities</td>
         <td>
           ...are not organized or supported consistently.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_5, item %> <%= item %>
+            <%= f.radio_button :pcmha_5, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...are conducted on an ad hoc basis in reaction to specific problems.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_5, item %> <%= item %>
+            <%= f.radio_button :pcmha_5, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...are based on a proven improvement strategy in reaction to specific problems.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_5, item %> <%= item %>
+            <%= f.radio_button :pcmha_5, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...are based on a proven improvement strategy and used continuously in meeting organizational goals.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_5, item %> <%= item %>
+            <%= f.radio_button :pcmha_5, item %> <%= item %>
           <% end %>
         </td>
       </tr>
-      <tr align="center">
-        <td>6. Performance measures </td>
-        <td>
-          ...are not available for the clinical site.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_6, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are available for the clinical site, but are limited in scope..<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_6, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are comprehensive—&mdash; including clinical, operational, and patient experience measures—&mdash; and available for the practice, but not for individual providers..<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_6, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are comprehensive—including clinical, operational, and patient experience measures—and fed back to individual providers.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_6, item %> <%= item %>
-          <% end %>
-        </td>
+    </table>
+
+    <table class='lined space background-pink'>
+      <tr>
+        <th>Items</th>
+        <th colspan='4'>Lowest ... Highest</th>
       </tr>
       <tr align="center">
-        <td>7. Quality improvement activities are conducted by</td>
+        <td>6. Quality improvement activities are conducted by</td>
         <td>
           ...a centralized committee or department.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_7, item %> <%= item %>
+            <%= f.radio_button :pcmha_6, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...topic-specific QI committees. <br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_7, item %> <%= item %>
+            <%= f.radio_button :pcmha_6, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...all practice teams supported by a QI infrastructure.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_7, item %> <%= item %>
+            <%= f.radio_button :pcmha_6, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...practice teams supported by a QI infrastructure with meaningful involvement of patients and families.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_7, item %> <%= item %>
+            <%= f.radio_button :pcmha_6, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>8. An Electronic Health Record that supports Meaningful Use</td>
+        <td>7. Registry or panel-level data</td>
         <td>
-          ...is not present or is being implemented.<br />
+          ...are not available to assess or manage care for practice populations. <br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_8, item %> <%= item %>
+            <%= f.radio_button :pcmha_7, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...is in place and is being used to capture clinical data.<br />
+          ...are available to assess and manage care for practice populations, but only on an ad hoc basis.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_8, item %> <%= item %>
+            <%= f.radio_button :pcmha_7, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...is used routinely during patient encounters to provide clinical decision support and to share data with patients.<br />
+          ...are regularly available to assess and manage care for practice populations, but only for a limited number of diseases and risk states.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_8, item %> <%= item %>
+            <%= f.radio_button :pcmha_7, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...is also used routinely to support population management and quality improvement efforts.<br />
+          ...are regularly available to assess and manage care for practice populations, across a comprehensive set of diseases and risk states.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_8, item %> <%= item %>
+            <%= f.radio_button :pcmha_7, item %> <%= item %>
+          <% end %>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>8. Registries on individual patients</td>
+        <td>
+          ...are not available to practice teams for pre-visit planning or patient outreach.<br />
+          <% (1..3).each do |item| %>
+            <%= f.radio_button :pcmha_8, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...are available to practice teams but are not routinely used for pre-visit planning or patient outreach.<br />
+          <% (4..6).each do |item| %>
+            <%= f.radio_button :pcmha_8, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...are available to practice teams and routinely used for pre-visit planning or patient outreach, but only for a limited number of diseases and risk states.<br />
+          <% (7..9).each do |item| %>
+            <%= f.radio_button :pcmha_8, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...are available to practice teams and routinely used for pre-visit planning and patient outreach, across a comprehensive set of diseases and risk states.<br />
+          <% (10..12).each do |item| %>
+            <%= f.radio_button :pcmha_8, item %> <%= item %>
+          <% end %>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>9. A standard method or tool(s) to stratify patients by risk level</td>
+        <td>
+          ...is not available.<br />
+          <% (1..3).each do |item| %>
+            <%= f.radio_button :pcmha_9, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is available but not consistently used to stratify all patients.<br />
+          <% (4..6).each do |item| %>
+            <%= f.radio_button :pcmha_9, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is available and is consistently used to stratify all patients but is inconsistenly integrated into all aspects of care delivery.<br />
+          <% (7..9).each do |item| %>
+            <%= f.radio_button :pcmha_9, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is available, consistenly used to stratify all patients and is integrated into all aspects of care delivery.<br />
+          <% (10..12).each do |item| %>
+            <%= f.radio_button :pcmha_9, item %> <%= item %>
+          <% end %>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>10. Visits </td>
+        <td>
+          ...largely focus on acute problems of patient. <br />
+          <% (1..3).each do |item| %>
+            <%= f.radio_button :pcmha_10, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...are organized around acute problems but with attention to ongoing illness and prevention needs if time permits.<br />
+          <% (4..6).each do |item| %>
+            <%= f.radio_button :pcmha_10, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...are organized around acute problems but with attention to ongoing illness and prevention needs if time permits. The practice also uses subpopulation reports to proactively call groups of patients in for planned care visits.<br />
+          <% (7..9).each do |item| %>
+            <%= f.radio_button :pcmha_10, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...are organized to address both acute and planned care needs. Tailored guideline-based information is used in team huddles to ensure all outstanding patient needs are met at each encounter.<br />
+          <% (10..12).each do |item| %>
+            <%= f.radio_button :pcmha_10, item %> <%= item %>
           <% end %>
         </td>
       </tr>
     </table>
 
     <table class='lined space background-blue'>
-      <caption>PART 3: EMPANELMENT</caption>
       <tr>
         <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
+        <th colspan='3'>Lowest ... Highest</th>
       </tr>
       <tr align="center">
-        <td>9. Patients</td>
+        <td>11. Non-physician practice team members</td>
         <td>
-          ...are not assigned to specific practice panels.<br />
+          ...play a limited role in providing clinical care.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_9, item %> <%= item %>
+            <%= f.radio_button :pcmha_11, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are assigned to specific practice panels but panel assignments are not routinely used by the practice for administrative or other purposes.<br />
+          ...are primarily tasked with managing patient flow and triage.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_9, item %> <%= item %>
+            <%= f.radio_button :pcmha_11, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are assigned to specific practice panels and panel assignments are routinely used by the practice mainly for scheduling purposes.<br />
+          ...provide some clinical services such as assessment or self-management support. <br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_9, item %> <%= item %>
+            <%= f.radio_button :pcmha_11, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are assigned to specific practice panels and panel assignments are routinely used for scheduling purposes and are continuously monitored to balance supply and demand.<br />
+          ...perform key clinical service roles that match their abilities and credentials. <br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_9, item %> <%= item %>
+            <%= f.radio_button :pcmha_11, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>10. Registry or panel-level data</td>
+        <td>12. The practice</td>
         <td>
-          ...are not available to assess or manage care for practice populations. <br />
+          ...does not have an organized approach to identify or meet the training needs for providers and other staff.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_10, item %> <%= item %>
+            <%= f.radio_button :pcmha_12, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are available to assess and manage care for practice populations, but only on an ad hoc basis.<br />
+          ...routinely assesses training needs and ensures that staff are appropriately trained for their roles and responsibilities.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_10, item %> <%= item %>
+            <%= f.radio_button :pcmha_12, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are regularly available to assess and manage care for practice populations, but only for a limited number of diseases and risk states.<br />
+          ...routinely assesses training needs, ensures that staff are appropriately trained for their roles and responsibilities, and provides some cross training to permit staffing flexibility. <br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_10, item %> <%= item %>
+            <%= f.radio_button :pcmha_12, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are regularly available to assess and manage care for practice populations, across a comprehensive set of diseases and risk states.<br />
+          ...routinely assesses training needs, ensures that staff are appropriately trained for their roles and responsibilities, and provides cross training to ensure that patient needs are consistently met.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_10, item %> <%= item %>
+            <%= f.radio_button :pcmha_12, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>11. Registries on individual patients</td>
+        <td>13. Care plans</td>
         <td>
-          ...are not available to practice teams for pre-visit planning or patient outreach.<br />
+          ...are not routinely developed or recorded. <br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_11, item %> <%= item %>
+            <%= f.radio_button :pcmha_13, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are available to practice teams but are not routinely used for pre-visit planning or patient outreach.<br />
+          ...are developed and recorded but reflect providers' priorities only.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_11, item %> <%= item %>
+            <%= f.radio_button :pcmha_13, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are available to practice teams and routinely used for pre-visit planning or patient outreach, but only for a limited number of diseases and risk states.<br />
+          ...are developed collaboratively with patients and families and include self-management and clinical goals, but they are not routinely recorded or used to guide subsequent care.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_11, item %> <%= item %>
+            <%= f.radio_button :pcmha_13, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are available to practice teams and routinely used for pre-visit planning and patient outreach, across a comprehensive set of diseases and risk states.<br />
+          ...are developed collaboratively, include self-management and clinical management goals, are routinely recorded, and guide care at every subsequent point of service. <br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_11, item %> <%= item %>
+            <%= f.radio_button :pcmha_13, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>12. Reports on care processes or outcomes of care</td>
+        <td>14. Clinical care management services for high-risk patients</td>
         <td>
-          ...are not routinely available to practice teams. <br />
+          ...are not available.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_12, item %> <%= item %>
+            <%= f.radio_button :pcmha_14, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are routinely provided as feedback to practice teams but not reported externally.<br />
+          ...are provided by external care managers with limited connection to practice. <br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_12, item %> <%= item %>
+            <%= f.radio_button :pcmha_14, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are routinely provided as feedback to practice teams, and reported externally (e.g., to patients, other teams or external agencies) but with team identities masked.<br />
+          ...are provided by external care managers who regularly communicate with the care team.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_12, item %> <%= item %>
+            <%= f.radio_button :pcmha_14, item %> <%= item %>
           <% end %>
         </td>
         <td>
-          ...are routinely provided as feedback to practice teams, and transparently reported externally to patients, other teams and external agencies.<br />
+          ...are systematically provided by the care manager functioning as a member of the practice team, regardless of location.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_12, item %> <%= item %>
+            <%= f.radio_button :pcmha_14, item %> <%= item %>
+          <% end %>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>15. Assessing patient and family values and preferences</td>
+        <td>
+          ...is not done.<br />
+          <% (1..3).each do |item| %>
+            <%= f.radio_button :pcmha_15, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is done, but not used in planning and organizing care.<br />
+          <% (4..6).each do |item| %>
+            <%= f.radio_button :pcmha_15, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is done and providers incorporate it in planning and organizing care on an ad hoc basis.<br />
+          <% (7..9).each do |item| %>
+            <%= f.radio_button :pcmha_15, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is systematically done and incorporated in planning and organizing care.<br />
+          <% (10..12).each do |item| %>
+            <%= f.radio_button :pcmha_15, item %> <%= item %>
           <% end %>
         </td>
       </tr>
     </table>
 
     <table class='lined space background-lightpurple'>
-      <caption>PART 4: CONTINUOUS & TEAM-BASED HEALING RELATIONSHIPS</caption>
       <tr>
         <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
+        <th colspan='4'>Lowest ... Highest</th>
       </tr>
       <tr align="center">
-        <td>13. Patients are encouraged to see their paneled provider and practice team</td>
-        <td>
-          ...only at the patient's request.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_13, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...by the practice team, but is not a priority in appointment scheduling.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_13, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...by the practice team and is a priority in appointment scheduling, but patients commonly see other providers because of limited availability or other issues.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_13, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...by the practice team, is a priority in appointment scheduling, and patients usually see their own provider or practice team.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_13, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>14. Non-physician practice team members</td>
-        <td>
-          ...play a limited role in providing clinical care.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_14, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are primarily tasked with managing patient flow and triage.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_14, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...provide some clinical services such as assessment or self-management support. <br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_14, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...perform key clinical service roles that match their abilities and credentials. <br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_14, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>15. The practice</td>
-        <td>
-          ...does not have an organized approach to identify or meet the training needs for providers and other staff.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_15, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...routinely assesses training needs and ensures that staff are appropriately trained for their roles and responsibilities.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_15, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...routinely assesses training needs, ensures that staff are appropriately trained for their roles and responsibilities, and provides some cross training to permit staffing flexibility. <br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_15, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...routinely assesses training needs, ensures that staff are appropriately trained for their roles and responsibilities, and provides cross training to ensure that patient needs are consistently met.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_15, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-
-    <table class='lined space background-darkpurple'>
-      <caption>PART 5: ORGANIZED, EVIDENCE-BASED CARE</caption>
-      <tr>
-        <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
-      </tr>
-      <tr align="center">
-        <td>16. Comprehensive, guideline-based information on prevention or chronic illness treatment</td>
-        <td>
-          ...…is not readily available in practice.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_16, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is available but does not influence care.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_16, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is available to the team and is integrated into care protocols and/or reminders.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_16, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...guides the creation of tailored, individual-level data that is available at the time of the visit.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_16, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>17. Visits </td>
-        <td>
-          ...largely focus on acute problems of patient. <br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_17, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are organized around acute problems but with attention to ongoing illness and prevention needs if time permits.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_17, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are organized around acute problems but with attention to ongoing illness and prevention needs if time permits. The practice also uses subpopulation reports to proactively call groups of patients in for planned care visits.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_17, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are organized to address both acute and planned care needs. Tailored guideline-based information is used in team huddles to ensure all outstanding patient needs are met at each encounter.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_17, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>18. Care plans</td>
-        <td>
-          ...are not routinely developed or recorded. <br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_18, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are developed and recorded but reflect providers' priorities only.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_18, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are developed collaboratively with patients and families and include self-management and clinical goals, but they are not routinely recorded or used to guide subsequent care.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_18, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are developed collaboratively, include self-management and clinical management goals, are routinely recorded, and guide care at every subsequent point of service. <br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_18, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>19. Clinical care management services for high-risk patients</td>
-        <td>
-          ...are not available.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_19, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are provided by external care managers with limited connection to practice. <br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_19, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are provided by external care managers who regularly communicate with the care team.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_19, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are systematically provided by the care manager functioning as a member of the practice team, regardless of location.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_19, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>20. Behavioral health outcomes (such as improvement in depression symptoms)</td>
-        <td>
-          ...are not measured.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_20, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are measured but not tracked.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_20, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are measured and tracked on an individual patient-level.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_20, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are measured and tracked on a population-level for the entire organization with regular review and quality improvement efforts employed to optimize outcomes.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_20, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-    </table>
-
-    <table class='lined space background-green'>
-      <caption>PART 6: PATIENT-CENTERED INTERACTIONS</caption>
-      <tr>
-        <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
-      </tr>
-      <tr align="center">
-        <td>21. Assessing patient and family values and preferences</td>
-        <td>
-          ...is not done.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_21, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is done, but not used in planning and organizing care.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_21, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is done and providers incorporate it in planning and organizing care on an ad hoc basis.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_21, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is systematically done and incorporated in planning and organizing care.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_21, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>22. Involving patients in decision-making and care</td>
+        <td>16. Involving patients in decision-making and care</td>
         <td>
           ...is not a priority.<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_22, item %> <%= item %>
+            <%= f.radio_button :pcmha_16, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...is accomplished by provision of patient education materials or referrals to classes. <br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_22, item %> <%= item %>
+            <%= f.radio_button :pcmha_16, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...is supported and documented by practice teams.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_22, item %> <%= item %>
+            <%= f.radio_button :pcmha_16, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...is systematically supported by practice teams trained in decision-making techniques.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_22, item %> <%= item %>
+            <%= f.radio_button :pcmha_16, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>23. Patient comprehension of verbal and written materials</td>
-        <td>
-          ...is not assessed.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_23, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is assessed and accomplished by ensuring that materials are at a level and language that patients understand.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_23, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is assessed and accomplished by hiring multi-lingual staff, and ensuring that both materials and communications are at a level and language that patients understand. <br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_23, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is supported at an organizational level by translation services, hiring multi-lingual staff, and training staff in health literacy and communication techniques (such as closing the loop) ensuring that patients know what to do to manage conditions at home.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_23, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>24. Self-management support</td>
+        <td>17. Self-management support</td>
         <td>
           ...is limited to the distribution of information (pamphlets, booklets).<br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_24, item %> <%= item %>
+            <%= f.radio_button :pcmha_17, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...is accomplished by referral to self-management classes or educators.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_24, item %> <%= item %>
+            <%= f.radio_button :pcmha_17, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...is provided by goal setting and action planning with members of the practice team.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_24, item %> <%= item %>
+            <%= f.radio_button :pcmha_17, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...is provided by members of the practice team trained in patient empowerment and problem-solving methodologies.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_24, item %> <%= item %>
+            <%= f.radio_button :pcmha_17, item %> <%= item %>
           <% end %>
         </td>
       </tr>
       <tr align="center">
-        <td>25. The principles of patient-centered care</td>
-        <td>
-          ...are included in the organization's vision and mission statement. <br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_25, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are a key organizational priority and included in training and orientation.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_25, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are explicit in job descriptions and performance metrics for all staff.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_25, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are consistently used to guide organizational changes and measure system performance as well as care interactions at the practice level.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_25, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>26. Measurement of patient-centered interactions</td>
-        <td>
-          ...is not done or is accomplished using a survey administered sporadically at the organization level.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_26, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is accomplished through patient representation on boards and regularly soliciting patient input through surveys.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_26, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is accomplished by getting frequent input from patients and families using a variety of methods such as point of care surveys, focus groups, and ongoing patient advisory groups.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_26, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is accomplished by getting frequent and actionable input from patients and families on all care delivery issues, and incorporating their feedback in quality improvement activities.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_26, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-    </table>
-
-    <table class='lined space background-teal'>
-      <caption>PART 7: ENHANCED ACCESS</caption>
-      <tr>
-        <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
-      </tr>
-      <tr align="center">
-        <td>27. Appointment systems</td>
-        <td>
-          ...are limited to a single office visit type. <br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_27, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...provide some flexibility in scheduling different visit lengths.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_27, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...provide flexibility and include capacity for same day visits.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_27, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are flexible and can accommodate customized visit lengths, same day visits, scheduled follow-up, and multiple provider visits.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_27, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>28. Contacting the practice team during regular business hours</td>
-        <td>
-          ...is difficult.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_28, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...relies on the practice's ability to respond to telephone messages.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_28, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is accomplished by staff responding by telephone within the same day.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_28, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is accomplished by providing a patient a choice between email and phone interaction, utilizing systems which are monitored for timeliness.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_28, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>29. After-hours access</td>
-        <td>
-          ...is not available or limited to an answering machine.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_29, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is available from a coverage arrangement without a standardized communication protocol back to the practice for urgent problems.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_29, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is provided by coverage arrangement that shares necessary patient data and provides a summary to the practice.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_29, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is available via the patient's choice of email, phone or in-person directly from the practice team or a provider closely in contact with the team and patient information.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_29, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>30. A patient's insurance coverage issues</td>
-        <td>
-          ...are the responsibility of the patient to resolve.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_30, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are addressed by the practice's billing department.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_30, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are discussed with the patient prior to or during the visit.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_30, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are viewed as a shared responsibility for the patient and an assigned member of the practice to resolve together.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_30, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-    </table>
-
-    <table class='lined space background-brown'>
-      <caption>PART 8: CARE COORDINATION</caption>
-      <tr>
-        <th>Items</th>
-        <th>Level D</th>
-        <th>Level C</th>
-        <th>Level B</th>
-        <th>Level A</th>
-      </tr>
-      <tr align="center">
-        <td>31. Medical and surgical specialty services</td>
-        <td>
-          ...are difficult to obtain reliably.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_31, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are available from community specialists but are neither timely nor convenient.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_31, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are available from community specialists and are generally timely and convenient.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_31, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are readily available from specialists who are members of the care team or who work in an organization with which the practice has a referral protocol or agreement.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_31, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>32. Behavioral health services</td>
-        <td>
-          ...are difficult to obtain reliably.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_32, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are available from mental health specialists but are neither timely nor convenient.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_32, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are available from community specialists and are generally timely and convenient. <br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_32, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...are readily available from behavioral health specialists who are on-site members of the care team or who work in a community organization with which the practice has a referral protocol or agreement.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_32, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>33. Patients in need of specialty care, hospital care, or supportive community-based resources</td>
-        <td>
-          ...cannot reliably obtain needed referrals to partners with whom the practice has a relationship.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_33, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...obtain needed referrals to partners with whom the practice has a relationship.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_33, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...obtain needed referrals to partners with whom the practice has a relationship and relevant information is communicated in advance.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_33, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...obtain needed referrals to partners with whom the practice has a relationship, relevant information is communicated in advance, and timely follow-up after the visit occurs. <br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_33, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>34. Follow-up by the primary care practice with patients seen in the Emergency Room or hospital</td>
-        <td>
-          ...generally does not occur because the information is not available to the primary care team.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_34, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...occurs only if the ER or hospital alerts the primary care practice.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_34, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...occurs because the primary care practice makes proactive efforts to identify patients.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_34, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is done routinely because the primary care practice has arrangements in place with the ER and hospital to both track these patients and ensure that follow-up is completed within a few days.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_34, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>35. Linking patients to supportive community-based resources</td>
-        <td>
-          ...is not done systematically.<br />
-          <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_35, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is limited to providing patients a list of identified community resources in an accessible format.<br />
-          <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_35, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is accomplished through a designated staff person or resource responsible for connecting patients with community resources.<br />
-          <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_35, item %> <%= item %>
-          <% end %>
-        </td>
-        <td>
-          ...is accomplished through active coordination between the health system, community service agencies and patients and accomplished by a designated staff person.<br />
-          <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_35, item %> <%= item %>
-          <% end %>
-        </td>
-      </tr>
-      <tr align="center">
-        <td>36. Test results and care plans</td>
+        <td>18. Test results and care plans</td>
         <td>
           ...are not communicated to patients. <br />
           <% (1..3).each do |item| %>
-            <%= f.radio_button :pcqm_36, item %> <%= item %>
+            <%= f.radio_button :pcmha_18, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...are communicated to patients based on an ad hoc approach.<br />
           <% (4..6).each do |item| %>
-            <%= f.radio_button :pcqm_36, item %> <%= item %>
+            <%= f.radio_button :pcmha_18, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...are systematically communicated to patients in a way that is convenient to the practice.<br />
           <% (7..9).each do |item| %>
-            <%= f.radio_button :pcqm_36, item %> <%= item %>
+            <%= f.radio_button :pcmha_18, item %> <%= item %>
           <% end %>
         </td>
         <td>
           ...are systematically communicated to patients in a variety of ways that are convenient to patients.<br />
           <% (10..12).each do |item| %>
-            <%= f.radio_button :pcqm_36, item %> <%= item %>
+            <%= f.radio_button :pcmha_18, item %> <%= item %>
+          <% end %>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>19. Patients in need of specialty care, hospital care, or supportive community-based resources</td>
+        <td>
+          ...cannot reliably obtain needed referrals to partners with whom the practice has a relationship.<br />
+          <% (1..3).each do |item| %>
+            <%= f.radio_button :pcmha_19, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...obtain needed referrals to partners with whom the practice has a relationship.<br />
+          <% (4..6).each do |item| %>
+            <%= f.radio_button :pcmha_19, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...obtain needed referrals to partners with whom the practice has a relationship and relevant information is communicated in advance.<br />
+          <% (7..9).each do |item| %>
+            <%= f.radio_button :pcmha_19, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...obtain needed referrals to partners with whom the practice has a relationship, relevant information is communicated in advance, and timely follow-up after the visit occurs. <br />
+          <% (10..12).each do |item| %>
+            <%= f.radio_button :pcmha_19, item %> <%= item %>
+          <% end %>
+        </td>
+      </tr>
+      <tr align="center">
+        <td>20. Linking patients to supportive community-based resources</td>
+        <td>
+          ...is not done systematically.<br />
+          <% (1..3).each do |item| %>
+            <%= f.radio_button :pcmha_20, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is limited to providing patients a list of identified community resources in an accessible format.<br />
+          <% (4..6).each do |item| %>
+            <%= f.radio_button :pcmha_20, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is accomplished through a designated staff person or resource responsible for connecting patients with community resources.<br />
+          <% (7..9).each do |item| %>
+            <%= f.radio_button :pcmha_20, item %> <%= item %>
+          <% end %>
+        </td>
+        <td>
+          ...is accomplished through active coordination between the health system, community service agencies and patients and accomplished by a designated staff person.<br />
+          <% (10..12).each do |item| %>
+            <%= f.radio_button :pcmha_20, item %> <%= item %>
           <% end %>
         </td>
       </tr>
     </table>
   </div>
 
-  <div id='ivcontact-disruption'>
+  <div id='ivcontact-disruption' class='boxed'>
     <h3>Disruptions to Practice</h3>
-    <p> Have there been any of the following major changes in this practice in the <span>last 12 months</span><span>last 3 months</span>?</p>
+    <div id='ivcontact-disruption-warning'>
+      <h2>Note: The "Which In-Person Contact" question has not been answered.</h2>
+      <h3>Please answer that above to allow the following questions to display properly.</h3>
+    </div>
+    <p> Have there been any of the following major changes in this practice in the <span id='ivcontact-disruption-12'>last 12 months</span><span id='ivcontact-disruption-3'>last 3 months</span>?</p>
     <table class='lined space fulltext background-orange'>
       <tr>
         <td><%= f.label :prac_change_ehr, "Implemented a new or different Electronic Health Record (EHR)" %></td>
@@ -1494,9 +1091,9 @@
         <td><%= f.label :prac_change_other, "Other" %></td>
         <td><%= f.check_box :prac_change_other %></td>
       </tr>
-      <tr>
+      <tr id='ivcontact-pracchangespecify'>
         <td><%= f.label :prac_change_specify, "Please specify:" %></td>
-        <td><%= f.text_area :prac_change_specify %></td>
+        <td><%= f.text_area :prac_change_specify, rows: 3, cols: 50 %></td>
       </tr>
     </table>
   </div>

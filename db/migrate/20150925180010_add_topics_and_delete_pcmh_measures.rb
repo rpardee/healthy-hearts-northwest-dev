@@ -1,0 +1,41 @@
+class AddTopicsAndDeletePcmhMeasures < ActiveRecord::Migration
+  def change
+  	rename_column :ivcontacts, :topic_pcmha, :topic_self_assessment
+  	rename_column :ivcontacts, :pcqm_1, :pcmha_1
+  	rename_column :ivcontacts, :pcqm_2, :pcmha_2
+  	rename_column :ivcontacts, :pcqm_3, :pcmha_3
+  	rename_column :ivcontacts, :pcqm_4, :pcmha_4
+  	rename_column :ivcontacts, :pcqm_5, :pcmha_5
+  	rename_column :ivcontacts, :pcqm_6, :pcmha_6
+  	rename_column :ivcontacts, :pcqm_7, :pcmha_7
+  	rename_column :ivcontacts, :pcqm_8, :pcmha_8
+  	rename_column :ivcontacts, :pcqm_9, :pcmha_9
+  	rename_column :ivcontacts, :pcqm_10, :pcmha_10
+  	rename_column :ivcontacts, :pcqm_11, :pcmha_11
+  	rename_column :ivcontacts, :pcqm_12, :pcmha_12
+  	rename_column :ivcontacts, :pcqm_13, :pcmha_13
+  	rename_column :ivcontacts, :pcqm_14, :pcmha_14
+  	rename_column :ivcontacts, :pcqm_15, :pcmha_15
+  	rename_column :ivcontacts, :pcqm_16, :pcmha_16
+  	rename_column :ivcontacts, :pcqm_17, :pcmha_17
+  	rename_column :ivcontacts, :pcqm_18, :pcmha_18
+  	rename_column :ivcontacts, :pcqm_19, :pcmha_19
+  	rename_column :ivcontacts, :pcqm_20, :pcmha_20
+  	remove_column :ivcontacts, :pcqm_21, :integer
+  	remove_column :ivcontacts, :pcqm_22, :integer
+  	remove_column :ivcontacts, :pcqm_23, :integer
+  	remove_column :ivcontacts, :pcqm_24, :integer
+  	remove_column :ivcontacts, :pcqm_25, :integer
+  	remove_column :ivcontacts, :pcqm_26, :integer
+  	remove_column :ivcontacts, :pcqm_27, :integer
+  	remove_column :ivcontacts, :pcqm_28, :integer
+  	remove_column :ivcontacts, :pcqm_29, :integer
+  	remove_column :ivcontacts, :pcqm_30, :integer
+  	remove_column :ivcontacts, :pcqm_31, :integer
+  	remove_column :ivcontacts, :pcqm_32, :integer
+  	remove_column :ivcontacts, :pcqm_33, :integer
+  	remove_column :ivcontacts, :pcqm_34, :integer
+  	remove_column :ivcontacts, :pcqm_35, :integer
+  	remove_column :ivcontacts, :pcqm_36, :integer
+  end
+end

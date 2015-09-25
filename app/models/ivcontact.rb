@@ -4,9 +4,17 @@ class Ivcontact < ActiveRecord::Base
   has_paper_trail
 
   CONTACT_TYPE_VALS = {
-  	"Required in-person visit" => 1,
-  	"Required phone call" => 2,
-  	"Other contact" => 9
+    "Required in-person visit" => 1,
+    "Required phone call" => 2,
+    "Other contact" => 9
+  }
+
+  CONTACT_MODE_VALS = {
+  	"In-person" => 1,
+    "Phone" => 2,
+    "Email" => 3,
+  	"Text" => 4,
+  	"Other" => 9
   }
 
   CONTACT_SPECIFIC_VALS = {
