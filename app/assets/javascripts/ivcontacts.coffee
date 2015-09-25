@@ -53,13 +53,14 @@ updateDisruptionTime = (contact_specific_field) ->
 		$('#ivcontact-disruption-warning').show()
 
 updateCheckbox = (checkbox_id, appear_id) ->
-	if document.getElementById(checkbox_id).checked
-		$(appear_id).show()
-	else
-		$(appear_id).hide()
+	if document.getElementById(checkbox_id)
+		if document.getElementById(checkbox_id).checked
+			$(appear_id).show()
+		else
+			$(appear_id).hide()
 
 $(document).ready ->
-#	updateContactType('#ivcontact_contact_type')
+	updateContactType('#ivcontact_contact_type')
 	updateDisruptionTime('#ivcontact_contact_specific')
 	updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 	updateCheckbox('ivcontact_prac_change_other', '#ivcontact-pracchangespecify')
