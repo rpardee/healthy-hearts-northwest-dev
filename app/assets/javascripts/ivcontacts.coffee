@@ -12,6 +12,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').show()
 		$('#ivcontact-contactmode').hide()
 		$('#ivcontact-contactspecific').show()
+		$('#ivcontact_contact_specific').val($('#contact_specific_calculated').val())
 	else if v == 2  	# Required/monthly call
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-gyr').show()
@@ -20,6 +21,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').hide()
 		$('#ivcontact-contactspecific').hide()
+		$('#ivcontact_contact_specific').val(0)
 	else if v == 9		# Ad-hoc contact/blank
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-gyr').hide()
@@ -28,6 +30,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 		$('#ivcontact-contactspecific').hide()
+		$('#ivcontact_contact_specific').val(0)
 	else							# Blank
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-gyr').hide()
@@ -36,6 +39,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').hide()
 		$('#ivcontact-contactspecific').hide()
+		$('#ivcontact_contact_specific').val(0)
 
 updateDisruptionTime = (contact_specific_field) ->
 	v = parseInt($(contact_specific_field).val())
@@ -59,29 +63,29 @@ updateCheckbox = (checkbox_id, appear_id) ->
 		else
 			$(appear_id).hide()
 
-$(document).ready ->
+$(document).on "page:change", ->
 	updateContactType('#ivcontact_contact_type')
 	updateDisruptionTime('#ivcontact_contact_specific')
 	updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 	updateCheckbox('ivcontact_prac_change_other', '#ivcontact-pracchangespecify')
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('#ivcontact_contact_type').on 'change',  ->
 		updateContactType('#ivcontact_contact_type')
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('#ivcontact_contact_specific').on 'change',  ->
 		updateDisruptionTime('#ivcontact_contact_specific')
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('#ivcontact_topic_other').on 'click',  ->
 		updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('#ivcontact_prac_change_other').on 'click',  ->
 		updateCheckbox('ivcontact_prac_change_other', '#ivcontact-pracchangespecify')
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('#ivcontact-tier1').on 'click', ->
 		$('#tier1').dialog(
 			closeText: "",
@@ -107,5 +111,5 @@ $(document).ready ->
 		)
 		$('#tier4').dialog('open')
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('#tier-tooltip').tooltip();

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Coach Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coach_items.each do |coach_item| %>
+      <tr>
+        <td><%= link_to 'Show', coach_item %></td>
+        <td><%= link_to 'Edit', edit_coach_item_path(coach_item) %></td>
+        <td><%= link_to 'Destroy', coach_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Coach item', new_coach_item_path %>

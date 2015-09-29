@@ -84,6 +84,28 @@ class Practice < ActiveRecord::Base
 		end
 	end
 
+  def next_inperson_contact
+  	last_contact = Ivcontact.where(practice_id: self.id).maximum(:contact_specific)
+  	if last_contact.nil?
+  		return 1
+  	else
+  		return last_contact.to_i + 1
+  	end
+  end
+
+  def get_inperson_visit(visitnum)
+  	Ivcontact.where(practice_id: self.id, contact_specific: visitnum).first
+  end
+
+  def tier_value(visitnum)
+    contact = get_inperson_visit(visitnum)
+    if contact.nil?
+      return 0
+    else
+      return contact.tier
+    end
+  end
+
 	YN12_VALS = {
 		"Yes" => 1,
 		"No" => 2

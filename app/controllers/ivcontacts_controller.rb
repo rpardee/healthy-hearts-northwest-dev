@@ -17,7 +17,9 @@ class IvcontactsController < ApplicationController
   def new
     @ivcontact = Ivcontact.new
     @practice_id = params[:coach_practice_id]
-    @practice_name = Practice.find(@practice_id).name
+    @practice = Practice.find(@practice_id)
+    @practice_name = @practice.name
+    @contact_specific = @practice.next_inperson_contact
   end
 
   # GET /ivcontacts/1/edit

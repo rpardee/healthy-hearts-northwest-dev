@@ -10,7 +10,7 @@ $(document).on('click', '#closePopupForm', ( ->
 	$('#popupForm').fadeOut 'fast'
 ))
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('table.enable-data-table')
 		.addClass("compact hover stripe")
 		.dataTable( {
@@ -19,10 +19,10 @@ $(document).ready ->
 			stateSave: true
 		})
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('input.datepicker').datepicker()
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('nav').sticky({ topSpacing: 50 })
 
 enableObjectIf = (selectorObject, value, effectorName) ->
@@ -33,7 +33,7 @@ enableObjectIf = (selectorObject, value, effectorName) ->
 	else
 		$(effector).attr('disabled', true)
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('.enable-control').each (index, element) =>
 		if $(element).is("input")
 			value = +$(element).prop("checked")
@@ -42,11 +42,11 @@ $(document).ready ->
 		effectorName = $(element).data('effector')
 		enableObjectIf($(element), value, effectorName)
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('.enable-control').on 'change',  ->
 		value = $(this).data('enablevalue')
 		effectorName = $(this).data('effector')
 		enableObjectIf($(this), value, effectorName)
 
-$(document).ready ->
+$(document).on "page:change", ->
 	$('.timefield').mask('99:99 aa')

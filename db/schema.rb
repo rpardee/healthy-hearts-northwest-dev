@@ -11,11 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925180010) do
+ActiveRecord::Schema.define(version: 20150929181455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
+
+  create_table "coach_items", force: :cascade do |t|
+    t.integer  "item_type"
+    t.date     "add_dt"
+    t.boolean  "complete"
+    t.date     "complete_dt"
+    t.text     "notes"
+    t.integer  "practice_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.integer  "partner_id",                                       null: false

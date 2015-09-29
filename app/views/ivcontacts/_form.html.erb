@@ -12,6 +12,8 @@
   <% end %>
 
   <%= f.hidden_field :practice_id, value: @practice_id %>
+  <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
+  <%= f.hidden_field :contact_specific %>
 
   <table class='space'>
     <tr>
@@ -25,8 +27,8 @@
       <td><%= f.select :contact_mode, Ivcontact::CONTACT_MODE_VALS, include_blank: true %></td>
     </tr>
     <tr id='ivcontact-contactspecific'>
-      <td><%= f.label :contact_specific, "Which In-Person Contact?" %></td>
-      <td><%= f.select :contact_specific, Ivcontact::CONTACT_SPECIFIC_VALS, include_blank: true %></td>
+      <td>In-person Contact:</td>
+      <td><%= Ivcontact::CONTACT_SPECIFIC_VALS.key(@contact_specific) %></td>
     </tr>
     <tr>
       <td><%= f.label :contact_dt, "Date of Contact" %></td>
@@ -445,41 +447,23 @@
         <th id='ivcontact-tier3'>MAKING MANY PRACTICE CHANGES<br />51-75</th>
         <th id='ivcontact-tier4'>MANAGING MULTI-DIMENSIONAL CHANGE<br />76-100</th>
       </tr>
-      <tr align='center'>
-        <td>Baseline/Quarter 1</td>
-        <td><%= f.radio_button :tier, 1 %></td>
-        <td><%= f.radio_button :tier, 2 %></td>
-        <td><%= f.radio_button :tier, 3 %></td>
-        <td><%= f.radio_button :tier, 4 %></td>
-      </tr>
-      <tr align='center'>
-        <td>Quarter 2</td>
-        <td><%= f.radio_button :tier, 1 %></td>
-        <td><%= f.radio_button :tier, 2 %></td>
-        <td><%= f.radio_button :tier, 3 %></td>
-        <td><%= f.radio_button :tier, 4 %></td>
-      </tr>
-      <tr align='center'>
-        <td>Quarter 3</td>
-        <td><%= f.radio_button :tier, 1 %></td>
-        <td><%= f.radio_button :tier, 2 %></td>
-        <td><%= f.radio_button :tier, 3 %></td>
-        <td><%= f.radio_button :tier, 4 %></td>
-      </tr>
-      <tr align='center'>
-        <td>Quarter 4</td>
-        <td><%= f.radio_button :tier, 1 %></td>
-        <td><%= f.radio_button :tier, 2 %></td>
-        <td><%= f.radio_button :tier, 3 %></td>
-        <td><%= f.radio_button :tier, 4 %></td>
-      </tr>
-      <tr align='center'>
-        <td>Quarter 5</td>
-        <td><%= f.radio_button :tier, 1 %></td>
-        <td><%= f.radio_button :tier, 2 %></td>
-        <td><%= f.radio_button :tier, 3 %></td>
-        <td><%= f.radio_button :tier, 4 %></td>
-      </tr>
+      <% for t in 1..5 %>
+        <tr align='center'>
+          <td><%= Ivcontact::CONTACT_SPECIFIC_VALS.key(t) %></td>
+          <% if t == @contact_specific %>
+            <td><%= f.radio_button :tier, 1 %></td>
+            <td><%= f.radio_button :tier, 2 %></td>
+            <td><%= f.radio_button :tier, 3 %></td>
+            <td><%= f.radio_button :tier, 4 %></td>
+          <% else %>
+            <% varname = "tier_#{t}" %>
+            <td><%= radio_button_tag varname, 1, @practice.tier_value(t) == 1, disabled: true %></td>
+            <td><%= radio_button_tag varname, 2, @practice.tier_value(t) == 2, disabled: true %></td>
+            <td><%= radio_button_tag varname, 3, @practice.tier_value(t) == 3, disabled: true %></td>
+            <td><%= radio_button_tag varname, 4, @practice.tier_value(t) == 4, disabled: true %></td>
+          <% end %>
+        </tr>
+      <% end %>
     </table>
   </div>
 

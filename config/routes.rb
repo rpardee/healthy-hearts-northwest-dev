@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :coach_items
   resources :ivcontacts
 
   devise_for :partners

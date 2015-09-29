@@ -19,11 +19,11 @@ class CoachPracticesController < ApplicationController
   # GET /coach_practices/1/edit
   def edit
     @coach_id = @practice.coach.id if @practice.coach
-    @visit1 = Ivcontact.where(practice_id: @practice.id, contact_specific: 1).first
-    @visit2 = Ivcontact.where(practice_id: @practice.id, contact_specific: 2).first
-    @visit3 = Ivcontact.where(practice_id: @practice.id, contact_specific: 3).first
-    @visit4 = Ivcontact.where(practice_id: @practice.id, contact_specific: 4).first
-    @visit5 = Ivcontact.where(practice_id: @practice.id, contact_specific: 5).first
+    @visit1 = @practice.get_inperson_visit(1)
+    @visit2 = @practice.get_inperson_visit(2)
+    @visit3 = @practice.get_inperson_visit(3)
+    @visit4 = @practice.get_inperson_visit(4)
+    @visit5 = @practice.get_inperson_visit(5)
   end
 
   # PATCH/PUT /coach_practices/1
