@@ -112,4 +112,13 @@ $(document).on "page:change", ->
 		$('#tier4').dialog('open')
 
 $(document).on "page:change", ->
-	$('#tier-tooltip').tooltip();
+	$('#tier-tooltip').tooltip()
+
+$(document).on "page:change", ->
+	$("#personnel-wrapper").on 'click', '.delete-ivcontact-personnel-button', ->
+		$(this).parents(".deletable").remove()
+
+$(document).on "page:change", ->
+	$("#add-ivcontact-personnel-button").on 'click', ->
+		content = $("#add-ivcontact-personnel-content").html()
+		$("#add-ivcontact-personnel-wrapper").before(content)

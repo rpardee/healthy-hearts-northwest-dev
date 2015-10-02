@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @partner.practices.includes(:event, :personnel).each do |p| %>
+      <% @partner.practices.each do |p| %>
         <tr>
           <td><%= link_to p.name, edit_practice_path(p) %></td>
           <td><%= p.personnels.primary_contact %></td>

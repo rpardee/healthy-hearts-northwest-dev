@@ -15,6 +15,10 @@
   <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
   <%= f.hidden_field :contact_specific %>
 
+  EDIT ISSUES:
+   * Type of Contact not display underlying data
+   * Questions about contact_specific being updated on edit
+
   <table class='space'>
     <tr>
       <td><%= f.label :contact_type, "Type of Contact" %></td>
@@ -25,10 +29,6 @@
     <tr id='ivcontact-contactmode' style="display: none;">
       <td><%= f.label :contact_mode, "Contact Method" %></td>
       <td><%= f.select :contact_mode, Ivcontact::CONTACT_MODE_VALS, include_blank: true %></td>
-    </tr>
-    <tr id='ivcontact-contactspecific'>
-      <td>In-person Contact:</td>
-      <td><%= Ivcontact::CONTACT_SPECIFIC_VALS.key(@contact_specific) %></td>
     </tr>
     <tr>
       <td><%= f.label :contact_dt, "Date of Contact" %></td>
@@ -43,6 +43,23 @@
       <td><%= f.text_area :contact_comments, :rows => 3, :cols => 60 %></td>
     </tr>
   </table>
+
+  <div id='add-ivcontact-personnel-content' style="display: none;">
+    <table class='space deletable'>
+      <tr>
+        <td>Attendee:</td>
+        <td><%= select_tag 'ivcontact[personnels][]', options_for_select(@personnel_list.map {|p| [p.name, p.id]}) %></td>
+        <td><button class='delete-ivcontact-personnel-button' type='button'>Delete</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id='personnel-wrapper' class='box'>
+    <p class='title'>Title for Personnel</p>
+    <div id='add-ivcontact-personnel-wrapper'>
+      <button id='add-ivcontact-personnel-button' type='button'>Add Staff Member</button>
+    </div>
+  </div>
 
   <div class='boxed'>
   <h3>Topics Discussed:  Check all topics that apply</h3>
@@ -442,10 +459,10 @@
     <table id='tier-tooltip' class='space lined background-green'>
       <tr title="Click column heading to view description">
         <th>&nbsp;</th>
-        <th id='ivcontact-tier1'>STARTING<br />0-25</th>
-        <th id='ivcontact-tier2'>LIMITED PRACTICE CHANGES;<br />NEED TO BUILD CAPACITY<br />26-50</th>
-        <th id='ivcontact-tier3'>MAKING MANY PRACTICE CHANGES<br />51-75</th>
-        <th id='ivcontact-tier4'>MANAGING MULTI-DIMENSIONAL CHANGE<br />76-100</th>
+        <th id='ivcontact-tier1'>STARTING<br /></th>
+        <th id='ivcontact-tier2'>LIMITED PRACTICE CHANGES;<br />NEED TO BUILD CAPACITY<br /></th>
+        <th id='ivcontact-tier3'>MAKING MANY PRACTICE CHANGES<br /></th>
+        <th id='ivcontact-tier4'>MANAGING MULTI-DIMENSIONAL CHANGE<br /></th>
       </tr>
       <% for t in 1..5 %>
         <tr align='center'>

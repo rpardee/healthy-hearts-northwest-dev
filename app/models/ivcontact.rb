@@ -1,6 +1,7 @@
 class Ivcontact < ActiveRecord::Base
 	belongs_to :practice
 	belongs_to :partner
+  has_and_belongs_to_many :personnels
   has_paper_trail
 
   CONTACT_TYPE_VALS = {

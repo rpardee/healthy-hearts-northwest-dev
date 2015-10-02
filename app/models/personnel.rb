@@ -1,5 +1,6 @@
 class Personnel < ActiveRecord::Base
 	belongs_to :practice
+	has_and_belongs_to_many :ivcontacts
 	validates_presence_of :name
 
 	has_paper_trail
