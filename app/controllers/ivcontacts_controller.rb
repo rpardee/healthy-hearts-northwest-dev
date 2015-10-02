@@ -20,7 +20,7 @@ class IvcontactsController < ApplicationController
     @practice = Practice.find(@practice_id)
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
-    @personnel_list = Personnel.where(practice_id: @practice.id).order("name")
+    @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
   end
 
   # GET /ivcontacts/1/edit
@@ -28,7 +28,7 @@ class IvcontactsController < ApplicationController
     @practice_id = params[:coach_practice_id]
     @practice = Practice.find(@practice_id)
     @practice_name = Practice.find(@practice_id).name
-    @personnel_list = Personnel.where(practice_id: @practice.id).order("name")
+    @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
   end
 
   # POST /ivcontacts
@@ -38,9 +38,11 @@ class IvcontactsController < ApplicationController
     @coach = Practice.find(@ivcontact.practice_id).coach
     # Remove the first (template) element and save the rest
     personnel_array = params[:ivcontact][:personnels]
-    fake = personnel_array.shift
-    personnel = Personnel.where(id: personnel_array)
-    @ivcontact.personnels << personnel
+    if !personnel_array.nil? && personnel_array.count > 1
+      fake = personnel_array.shift
+      personnel = Personnel.where(id: personnel_array)
+      @ivcontact.personnels << personnel
+    end
     respond_to do |format|
       if @ivcontact.save
         format.html { redirect_to list_coach_practice_path(@coach.id), notice: 'IV Contact was successfully created.' }
@@ -81,6 +83,14 @@ class IvcontactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ivcontact
       @ivcontact = Ivcontact.find(params[:id])
+    end
+
+    def get_personnel_list(personnel)
+      if personnel.nil?
+        Array.new
+      else
+        personnel.map {|p| [p.name, p.id]}
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -18,6 +18,7 @@
   EDIT ISSUES:
    * Type of Contact not display underlying data
    * Questions about contact_specific being updated on edit
+   * Maybe need to delete_all existing personnel
 
   <table class='space'>
     <tr>
@@ -48,7 +49,7 @@
     <table class='space deletable'>
       <tr>
         <td>Attendee:</td>
-        <td><%= select_tag 'ivcontact[personnels][]', options_for_select(@personnel_list.map {|p| [p.name, p.id]}) %></td>
+        <td><%= select_tag 'ivcontact[personnels][]', options_for_select(@personnel_list) %></td>
         <td><button class='delete-ivcontact-personnel-button' type='button'>Delete</button></td>
       </tr>
     </table>

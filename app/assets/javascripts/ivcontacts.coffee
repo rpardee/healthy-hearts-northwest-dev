@@ -122,3 +122,10 @@ $(document).on "page:change", ->
 	$("#add-ivcontact-personnel-button").on 'click', ->
 		content = $("#add-ivcontact-personnel-content").html()
 		$("#add-ivcontact-personnel-wrapper").before(content)
+
+$(document).on "page:change", ->
+	$('#new_ivcontact').validate({
+		rules: {
+			"ivcontact[contact_dt]": "required"
+		}
+	})

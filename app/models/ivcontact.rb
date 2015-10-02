@@ -4,6 +4,8 @@ class Ivcontact < ActiveRecord::Base
   has_and_belongs_to_many :personnels
   has_paper_trail
 
+  validates_presence_of :contact_dt
+
   CONTACT_TYPE_VALS = {
     "Required in-person visit" => 1,
     "Required phone call" => 2,
