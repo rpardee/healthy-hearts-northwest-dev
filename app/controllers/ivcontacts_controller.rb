@@ -20,12 +20,15 @@ class IvcontactsController < ApplicationController
     @practice = Practice.find(@practice_id)
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
+    @personnel_list = Personnel.where(practice_id: @practice.id).order("name")
   end
 
   # GET /ivcontacts/1/edit
   def edit
     @practice_id = params[:coach_practice_id]
+    @practice = Practice.find(@practice_id)
     @practice_name = Practice.find(@practice_id).name
+    @personnel_list = Personnel.where(practice_id: @practice.id).order("name")
   end
 
   # POST /ivcontacts
@@ -33,6 +36,11 @@ class IvcontactsController < ApplicationController
   def create
     @ivcontact = Ivcontact.new(ivcontact_params)
     @coach = Practice.find(@ivcontact.practice_id).coach
+    # Remove the first (template) element and save the rest
+    personnel_array = params[:ivcontact][:personnels]
+    fake = personnel_array.shift
+    personnel = Personnel.where(id: personnel_array)
+    @ivcontact.personnels << personnel
     respond_to do |format|
       if @ivcontact.save
         format.html { redirect_to list_coach_practice_path(@coach.id), notice: 'IV Contact was successfully created.' }
@@ -83,7 +91,7 @@ class IvcontactsController < ApplicationController
         :topic_data_error, :topic_coding, :topic_hit_display, :topic_reminder, :topic_pcmha,
         :topic_abcs, :topic_brainstorm, :topic_observe_flow, :topic_share, :topic_connect,
         :topic_resource, :topic_planning, :topic_workflow, :topic_roles, :topic_qi_support,
-        :topic_consensus, :topic_review_data, :topic_qi_display, :topic_huddle,
+        :topic_consensus, :topic_review_data, :topic_qi_display, :topic_huddle, :topic_self_assessment,
         :topic_leadership, :topic_other, :topic_other_specify, :milestone_evidence_progress,
         :milestone_evidence_active, :milestone_evidence_discussed, :milestone_data_progress,
         :milestone_data_active, :milestone_data_discussed, :milestone_qi_progress,

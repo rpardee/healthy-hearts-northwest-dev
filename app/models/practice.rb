@@ -3,6 +3,7 @@ class Practice < ActiveRecord::Base
 	validates_presence_of :name, :prac_state
 
 	has_many :ivcontacts
+	has_many :events
 	has_and_belongs_to_many :partners
 	has_one :practice_survey
 
