@@ -100,11 +100,13 @@ GEM
       activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
     pg (0.18.2-x86-mingw32)
+    puma (2.14.0)
     pundit (1.0.1)
       activesupport (>= 3.0.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-timeout (0.3.2)
     rails (4.2.2)
       actionmailer (= 4.2.2)
       actionpack (= 4.2.2)
@@ -194,7 +196,9 @@ DEPENDENCIES
   letter_opener (~> 1.4.1)
   paper_trail (~> 4.0.0)
   pg
+  puma (~> 2.14.0)
   pundit (~> 1.0.1)
+  rack-timeout (~> 0.3.2)
   rails (= 4.2.2)
   rails_12factor
   rollbar (~> 1.2.7)

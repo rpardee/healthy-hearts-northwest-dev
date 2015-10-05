@@ -14,6 +14,10 @@ gem 'paper_trail', '~> 4.0.0'
 # Error tracking
 gem 'rollbar', '~> 1.2.7'
 
+# Web server
+gem 'puma', '~> 2.14.0'
+gem 'rack-timeout', '~> 0.3.2'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 # Use postgresql as the database for Active Record
