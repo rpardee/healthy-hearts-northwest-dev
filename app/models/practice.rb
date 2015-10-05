@@ -7,28 +7,43 @@ class Practice < ActiveRecord::Base
 	has_and_belongs_to_many :partners
 	has_one :practice_survey
 
-	has_many :personnels, dependent: :destroy do
-		def primary_contact
-			personnel = self.where(:site_contact_primary => true).first
-			if personnel.nil?
-				primary_contact = "(none)"
-			else
-				primary_contact = personnel.name
-			end
-		end
-	end
+	has_many :personnels, dependent: :destroy
 	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
 		:allow_destroy => true
 
-	has_many :events, dependent: :destroy do
-		def last_contact
-			event = self.order("schedule_dt").last
-			if event.nil?
-				last_contact = ""
-			else
-				last_contact = event.schedule_dt.strftime("%Y-%m-%d")
-			end
+	def primary_contact
+		self.personnels.where(site_contact_primary: true).first.try(:name)
+	end
+
+	# has_many :personnels, dependent: :destroy do
+	# 	def primary_contact_x
+	# 		personnel = self.where(:site_contact_primary => true).first
+	# 		if personnel.nil?
+	# 			primary_contact = "(none)"
+	# 		else
+	# 			primary_contact = personnel.name
+	# 		end
+	# 	end
+	# end
+
+	def last_contact
+		event = Event.where(practice_id: self.id)
+		if event.exists?
+			return event.order('schedule_dt').last.schedule_dt.strftime("%Y-%m-%d")
+		else
+			return ""
 		end
+	end
+
+	has_many :events, dependent: :destroy do
+		# def last_contact_x
+		# 	event = self.order("schedule_dt").last
+		# 	if event.nil?
+		# 		last_contact = ""
+		# 	else
+		# 		last_contact = event.schedule_dt.strftime("%Y-%m-%d")
+		# 	end
+		# end
 
 		def appointments
 			self.where("schedule_dt >= ?", Date.today)

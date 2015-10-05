@@ -18,6 +18,9 @@ gem 'rollbar', '~> 1.2.7'
 gem 'puma', '~> 2.14.0'
 gem 'rack-timeout', '~> 0.3.2'
 
+# Allow jQuery to hit a CDN
+gem 'jquery-rails-cdn', '~> 1.1.1'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 # Use postgresql as the database for Active Record

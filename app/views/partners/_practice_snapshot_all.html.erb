@@ -15,8 +15,8 @@
       <% policy_scope(Practice).includes(:events, :personnels).each do |p| %>
         <tr>
           <td><%= link_to p.name, edit_practice_path(p) %></td>
-          <td><%= p.personnels.primary_contact %></td>
-          <td><%= p.events.last_contact %></td>
+          <td><%= p.primary_contact %></td>
+          <td><%= p.last_contact %></td>
           <td><%= p.status %></td>
           <td><%= p.pal_status %></td>
           <td><%= p.parent_organization %></td>

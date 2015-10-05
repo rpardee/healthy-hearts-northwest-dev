@@ -74,6 +74,8 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-rails-cdn (1.1.1)
+      jquery-rails
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
@@ -191,6 +193,7 @@ DEPENDENCIES
   devise (~> 3.5.1)
   jbuilder (~> 2.0)
   jquery-rails
+  jquery-rails-cdn (~> 1.1.1)
   jquery-turbolinks
   jquery-ui-rails
   letter_opener (~> 1.4.1)
