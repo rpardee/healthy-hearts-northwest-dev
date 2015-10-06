@@ -15,4 +15,4 @@
 *.dump
 
 # Ignore the seed data
-/db/seeds.db
+/db/seeds.rb
