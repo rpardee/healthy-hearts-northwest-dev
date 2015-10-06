@@ -16,7 +16,7 @@ gem 'rollbar', '~> 1.2.7'
 
 # Web server
 gem 'puma', '~> 2.14.0'
-gem 'rack-timeout', '~> 0.3.2'
+gem 'rack-timeout', '~> 0.3.2', group: :production
 
 # Allow jQuery to hit a CDN
 gem 'jquery-rails-cdn', '~> 1.1.1'
