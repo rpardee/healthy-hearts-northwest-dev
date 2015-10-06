@@ -1,1 +1,1 @@
-Rack::Timeout.timeout = 29  # seconds
+Rack::Timeout.timeout = 29 if Rails.env.production? # seconds
