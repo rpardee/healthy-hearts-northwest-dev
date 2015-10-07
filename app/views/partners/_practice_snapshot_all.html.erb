@@ -20,7 +20,13 @@
           <td><%= p.personnels.where(site_contact_primary: true).first.try(:name) %></td>
           <td><%= p.events.order('schedule_dt').last.try(:schedule_dt).try(:strftime, "%Y-%m-%d") %></td>
           <td><%= p.status %></td>
-          <td><%= p.pal_status %></td>
+          <td>
+            <% if p.events.exists?(outcome_pal_returned: true) %>
+              Returned
+            <% elsif p.events.exists?(outcome_pal_sent: true) %>
+              Sent
+            <% end %>
+          </td>
           <td><%= p.parent_organization %></td>
           <td><%= link_to "View Activities", practice_events_path(p) %></td>
         </tr>
