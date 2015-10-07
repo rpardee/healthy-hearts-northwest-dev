@@ -27,12 +27,7 @@ class Practice < ActiveRecord::Base
 	# end
 
 	def last_contact
-		event = Event.where(practice_id: self.id)
-		if event.exists?
-			return event.order('schedule_dt').last.schedule_dt.strftime("%Y-%m-%d")
-		else
-			return ""
-		end
+		self.events.order('schedule_dt').last.try(:schedule_dt).try(:strftime, "%Y-%m-%d")
 	end
 
 	has_many :events, dependent: :destroy do
@@ -64,9 +59,10 @@ class Practice < ActiveRecord::Base
 	end
 
 	def pal_status
-		if self.events.exists?(:outcome_pal_returned => true)
+		event_list = self.events
+		if event_list.exists?(:outcome_pal_returned => true)
 			"Returned"
-		elsif self.events.exists?(:outcome_pal_sent => true)
+		elsif event_list.exists?(:outcome_pal_sent => true)
 			"Sent"
 		else
 			""
