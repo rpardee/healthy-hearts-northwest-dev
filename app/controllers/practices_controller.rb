@@ -29,7 +29,8 @@ class PracticesController < ApplicationController
   # POST /practices.json
   def create
     @practice = Practice.new(practice_params)
-    # @practice.current_partner = current_partner.name
+    @partner = Partner.find(params[:recruiter_partner])
+    @practice.partners << @partner
 
     respond_to do |format|
       if @practice.save
@@ -45,7 +46,6 @@ class PracticesController < ApplicationController
   # PATCH/PUT /practices/1
   # PATCH/PUT /practices/1.json
   def update
-    # @practice.current_partner = current_partner.name
     @partner = Partner.find(params[:recruiter_partner])
     @practice.partners.destroy_all
     @practice.partners << @partner
