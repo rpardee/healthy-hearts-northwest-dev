@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% policy_scope(Practice.joins(:events)).each do |p| %>
+      <% policy_scope(Practice).each do |p| %>
         <tr>
           <td><%= link_to p.name, edit_practice_path(p) %></td>
           <td><%= p.primary_contact %></td>
