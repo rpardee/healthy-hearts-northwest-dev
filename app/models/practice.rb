@@ -15,31 +15,11 @@ class Practice < ActiveRecord::Base
 		self.personnels.where(site_contact_primary: true).first.try(:name)
 	end
 
-	# has_many :personnels, dependent: :destroy do
-	# 	def primary_contact_x
-	# 		personnel = self.where(:site_contact_primary => true).first
-	# 		if personnel.nil?
-	# 			primary_contact = "(none)"
-	# 		else
-	# 			primary_contact = personnel.name
-	# 		end
-	# 	end
-	# end
-
 	def last_contact
-		self.events.order('schedule_dt').last.try(:schedule_dt).try(:strftime, "%Y-%m-%d")
+		self.events.maximum(:schedule_dt).try(:strftime, "%Y-%m-%d")
 	end
 
 	has_many :events, dependent: :destroy do
-		# def last_contact_x
-		# 	event = self.order("schedule_dt").last
-		# 	if event.nil?
-		# 		last_contact = ""
-		# 	else
-		# 		last_contact = event.schedule_dt.strftime("%Y-%m-%d")
-		# 	end
-		# end
-
 		def appointments
 			self.where("schedule_dt >= ?", Date.today)
 		end

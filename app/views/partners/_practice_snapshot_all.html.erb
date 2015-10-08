@@ -12,21 +12,13 @@
       </tr>
     </thead>
     <tbody>
-      <!-- N.b., much of this exists in methods in the Practice model,
-           but it's causing an n+1 query slowdown -->
-      <% policy_scope(Practice).includes(:events, :personnels).each do |p| %>
+      <% policy_scope(Practice.joins(:events)).each do |p| %>
         <tr>
           <td><%= link_to p.name, edit_practice_path(p) %></td>
-          <td><%= p.personnels.where(site_contact_primary: true).first.try(:name) %></td>
-          <td><%= p.events.order('schedule_dt').last.try(:schedule_dt).try(:strftime, "%Y-%m-%d") %></td>
+          <td><%= p.primary_contact %></td>
+          <td><%= p.last_contact %></td>
           <td><%= p.status %></td>
-          <td>
-            <% if p.events.exists?(outcome_pal_returned: true) %>
-              Returned
-            <% elsif p.events.exists?(outcome_pal_sent: true) %>
-              Sent
-            <% end %>
-          </td>
+          <td><%= p.pal_status %></td>
           <td><%= p.parent_organization %></td>
           <td><%= link_to "View Activities", practice_events_path(p) %></td>
         </tr>

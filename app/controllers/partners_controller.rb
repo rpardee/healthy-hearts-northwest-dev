@@ -11,8 +11,8 @@ class PartnersController < ApplicationController
   # GET /partners.json
   def index
     # Set these to display proper data
-    @partners = policy_scope(Partner).all
-    @practices = policy_scope(Practice).all
+    @partners = policy_scope(Partner)
+    @practices = policy_scope(Practice)
     @appointments = policy_scope(Event).where('schedule_dt >= ?', Date.today)
     # This populates the Partner Name dropdown
     @partner = Partner.new(id: 0, name: 'ALL')
@@ -24,7 +24,6 @@ class PartnersController < ApplicationController
   # GET /partners/1.json
   def show
     @partner = Partner.find(params[:id])
-    # @appointments = @partner.events.where(:appointment => true)
     @event = Event.new
     if @partner.site.id == 0 then
       @selected_partner_id = 0

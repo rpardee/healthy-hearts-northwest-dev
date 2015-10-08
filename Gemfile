@@ -11,13 +11,6 @@ gem 'pundit', '~> 1.0.1'
 # Auditing
 gem 'paper_trail', '~> 4.0.0'
 
-# Error tracking
-gem 'rollbar', '~> 1.2.7'
-
-# Web server
-gem 'puma', '~> 2.14.0'
-gem 'rack-timeout', '~> 0.3.2', group: :production
-
 # Allow jQuery to hit a CDN
 gem 'jquery-rails-cdn', '~> 1.1.1'
 
@@ -57,6 +50,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :production do
+	# Error tracking
+	gem 'rollbar', '~> 1.2.7'
+
+	# Web server
+	gem 'puma', '~> 2.14.0'
+	gem 'rack-timeout', '~> 0.3.2'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -64,6 +66,8 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   # Email test
   gem 'letter_opener', '~> 1.4.1'
+  # Look for queries to optimize
+  gem 'bullet', '~> 4.14.7'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -41,7 +41,7 @@
       </tr>
       <tr>
         <td><%= label_tag "recruiter_partner", "Primary Recruiter" %></td>
-        <td><%= select_tag "recruiter_partner", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @recruiter_id), include_blank: true %></td>
+        <td><%= select_tag "recruiter_partner", options_for_select(policy_scope(Partner).where(recruiter: true).order("name").map{ |p| [p.name, p.id] }, selected: @recruiter_id), include_blank: true %></td>
       </tr>
       <tr>
         <td><%= f.label :recruitment_source, "Recruitment Source" %></td>

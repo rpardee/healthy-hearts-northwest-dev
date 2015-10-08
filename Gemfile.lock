@@ -43,6 +43,9 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (6.0.2)
     cocoon (1.2.6)
     coffee-rails (4.1.0)
@@ -172,6 +175,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.2.1)
@@ -185,6 +189,7 @@ PLATFORMS
 
 DEPENDENCIES
   american_date (~> 1.1.0)
+  bullet (~> 4.14.7)
   byebug
   cocoon (~> 1.2.6)
   coffee-rails (~> 4.1.0)
