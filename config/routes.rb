@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :ivcontacts
     get 'list', on: :member
   end
-  resources :practices do
+  resources :practices, except: :index do
     resources :events
     resources :personnels
   end
