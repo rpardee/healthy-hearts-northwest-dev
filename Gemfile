@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.6'
+ruby '2.1.5'
 
 gem 'devise', '~> 3.5.1'
 gem 'american_date', '~> 1.1.0'
