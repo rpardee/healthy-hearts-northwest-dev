@@ -5,6 +5,8 @@ class Event < ActiveRecord::Base
 
 	has_paper_trail
 
+	after_save :update_practice
+
 	def appointment
 		self.schedule_dt >= Date.today
 	end
@@ -41,5 +43,21 @@ class Event < ActiveRecord::Base
 		"Phone meeting scheduled" => 9,
 		"Site visit" => 10
 	}
+
+	protected
+
+	def update_practice
+		# Set the event-determined cached fields on the practice whose event this is.
+		# la_date_cached holds the date of the most recent event
+		# it corresponds to practice.last_contact
+		p = self.practice
+		p.la_date_cached = p.last_contact
+
+		# pal_status cached corresponds to pal_status
+		p.pal_status_cached = p.pal_status
+
+		p.save!
+
+	end
 
 end
