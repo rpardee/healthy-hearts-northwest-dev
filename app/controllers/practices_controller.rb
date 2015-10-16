@@ -51,11 +51,13 @@ class PracticesController < ApplicationController
     respond_to do |format|
       if @practice.update(practice_params)
         # Delete the currently associated partner
-        delete_sql = "DELETE FROM partners_practices WHERE " +
-          "partner_id = #{params[:original_recruiter]} AND practice_id = #{@practice.id};"
-        ActiveRecord::Base.connection.execute delete_sql
+        if params[:original_recruiter].present?
+          delete_sql = "DELETE FROM partners_practices WHERE " +
+            "partner_id = #{params[:original_recruiter]} AND practice_id = #{@practice.id};"
+          ActiveRecord::Base.connection.execute delete_sql
+        end
+        # Add the new associated partner (if any)
         if params[:recruiter_partner].present?
-          # Add the new associated partner (if any)
           insert_sql = "INSERT INTO partners_practices (partner_id, practice_id) " +
             "VALUES (#{params[:recruiter_partner]}, #{@practice.id});"
           ActiveRecord::Base.connection.execute insert_sql
