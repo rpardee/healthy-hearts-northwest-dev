@@ -16,7 +16,7 @@ class Practice < ActiveRecord::Base
 	end
 
 	def last_contact
-		self.events.maximum(:schedule_dt).try(:strftime, "%Y-%m-%d")
+		self.events.maximum(:schedule_dt)
 	end
 
 	has_many :events, dependent: :destroy do
