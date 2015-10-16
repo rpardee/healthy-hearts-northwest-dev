@@ -3,6 +3,9 @@ class Personnel < ActiveRecord::Base
 	has_and_belongs_to_many :ivcontacts
 	validates_presence_of :name
 
+	# Update the cached name of the practice's primary contact to speed the partners/show view.
+	after_save :update_practice
+
 	has_paper_trail
 
 	def best_contact
@@ -42,5 +45,13 @@ class Personnel < ActiveRecord::Base
 		"Pharmacist" => 20,
 		"Other" => 99
 	}
+
+protected
+
+	def update_practice
+		p = self.practice
+		p.pc_name_cached = p.primary_contact
+		p.save!
+	end
 
 end

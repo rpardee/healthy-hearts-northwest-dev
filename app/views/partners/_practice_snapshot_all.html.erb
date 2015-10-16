@@ -15,10 +15,10 @@
       <% policy_scope(Practice).each do |p| %>
         <tr>
           <td><%= link_to p.name, edit_practice_path(p) %></td>
-          <td><%= p.primary_contact %></td>
-          <td><%= p.last_contact %></td>
+          <td><%= p.pc_name_cached %></td>
+          <td><%= p.la_date_cached %></td>
           <td><%= p.status %></td>
-          <td><%= p.pal_status %></td>
+          <td><%= p.pal_status_cached %></td>
           <td><%= p.parent_organization %></td>
           <td><%= link_to "View Activities", practice_events_path(p) %></td>
         </tr>
