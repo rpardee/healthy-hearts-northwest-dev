@@ -29,8 +29,10 @@ class PracticesController < ApplicationController
   # POST /practices.json
   def create
     @practice = Practice.new(practice_params)
-    @partner = Partner.find(params[:recruiter_partner])
-    @practice.partners << @partner
+    if params[:recruiter_partner].present?
+      @partner = Partner.find(params[:recruiter_partner])
+      @practice.partners << @partner
+    end
 
     respond_to do |format|
       if @practice.save
@@ -46,9 +48,11 @@ class PracticesController < ApplicationController
   # PATCH/PUT /practices/1
   # PATCH/PUT /practices/1.json
   def update
-    @partner = Partner.find(params[:recruiter_partner])
     @practice.partners.destroy_all
-    @practice.partners << @partner
+    if params[:recruiter_partner].present?
+      @partner = Partner.find(params[:recruiter_partner])
+      @practice.partners << @partner
+    end
     respond_to do |format|
       if @practice.update(practice_params)
         format.html { redirect_to partner_path(current_partner), notice: 'Practice was successfully updated.' }
