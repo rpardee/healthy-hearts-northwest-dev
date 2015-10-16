@@ -69,8 +69,6 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   # Email test
   gem 'letter_opener', '~> 1.4.1'
-  # Look for queries to optimize
-  gem 'bullet', '~> 4.14.7'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
