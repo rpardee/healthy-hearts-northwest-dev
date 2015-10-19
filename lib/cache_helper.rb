@@ -1,12 +1,6 @@
 # Putting this here so its usable from the migration that creates the cache fields.
 
 module CacheHelper
-  def say_penus
-    3.times do
-      puts("penus")
-    end
-    puts("::giggle::")
-  end
   def reset_cache_money
     counter = 0
     Practice.all.each do |p|

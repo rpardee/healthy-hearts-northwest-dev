@@ -52,9 +52,30 @@ class Event < ActiveRecord::Base
 		# it corresponds to practice.last_contact
 		p = self.practice
 		p.la_date_cached = p.last_contact
-
 		# pal_status cached corresponds to pal_status
 		p.pal_status_cached = p.pal_status
+
+		# also set the study_id if pal_status == "Returned"
+		# 1xxxx = ID, 2xxxx = OR, 3xxxxx = WA
+		# x1xxx = ORPRN, x2xxx = Qualis
+    if p.pal_status == "Returned"
+    	counter = Counter.first
+    	counter_study_id = counter.study_id
+      counter_study_id += 1
+      counter_f = "%03d" % counter_study_id
+      if Practice::PRAC_STATE_VALS.key(p.prac_state) == "ID"
+        study_id = "12#{counter_f}"
+      elsif Practice::PRAC_STATE_VALS.key(p.prac_state) == "OR"
+        study_id = "21#{counter_f}"
+      elsif Practice::PRAC_STATE_VALS.key(p.prac_state) == "WA"
+        study_id = "32#{counter_f}"
+      else
+        Rails.logger.debug "Error: #{p.name} returned PAL but has no state set."
+      end
+      p.study_id = study_id
+      counter.study_id = counter_study_id
+      counter.save!
+    end
 
 		p.save!
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014211802) do
+ActiveRecord::Schema.define(version: 20151019225144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,12 @@ ActiveRecord::Schema.define(version: 20151014211802) do
     t.integer  "practice_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "counters", id: false, force: :cascade do |t|
+    t.integer  "study_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -427,6 +433,8 @@ ActiveRecord::Schema.define(version: 20151014211802) do
     t.string   "pc_name_cached"
     t.date     "la_date_cached"
     t.string   "pal_status_cached"
+    t.string   "study_id",                          limit: 5
+    t.boolean  "residency_training_site",                      default: false
   end
 
   create_table "sites", force: :cascade do |t|
