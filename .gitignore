@@ -16,3 +16,5 @@
 
 # Ignore the seed data
 /db/seeds.rb
+
+roy_notes.txt

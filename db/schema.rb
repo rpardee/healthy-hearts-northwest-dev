@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019225144) do
+ActiveRecord::Schema.define(version: 20151021170556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20151019225144) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
+    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -173,7 +174,6 @@ ActiveRecord::Schema.define(version: 20151019225144) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.integer  "role"
     t.boolean  "recruiter"
     t.boolean  "coach"
   end
@@ -435,7 +435,10 @@ ActiveRecord::Schema.define(version: 20151019225144) do
     t.string   "pal_status_cached"
     t.string   "study_id",                          limit: 5
     t.boolean  "residency_training_site",                      default: false
+    t.integer  "site_id"
   end
+
+  add_index "practices", ["site_id"], name: "index_practices_on_site_id", using: :btree
 
   create_table "sites", force: :cascade do |t|
     t.string   "name",       null: false
@@ -459,4 +462,5 @@ ActiveRecord::Schema.define(version: 20151019225144) do
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
   add_foreign_key "practice_surveys", "practices"
+  add_foreign_key "practices", "sites"
 end

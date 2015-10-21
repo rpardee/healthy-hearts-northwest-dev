@@ -4,8 +4,9 @@ class PracticePolicy < ApplicationPolicy
 			if user.admin?
 				scope.all
 			else
-				scope.all
+				# scope.all
 				# scope.joins(:partners).where('partners.site_id' => user.site_id)
+				scope.where('site_id' => user.site_id)
 			end
 		end
 	end

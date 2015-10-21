@@ -7,6 +7,8 @@ class Practice < ActiveRecord::Base
 	has_and_belongs_to_many :partners
 	has_one :practice_survey
 
+	belongs_to :site
+
 	has_many :personnels, dependent: :destroy
 	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
 		:allow_destroy => true
