@@ -15,4 +15,21 @@ module CacheHelper
     end
     "Finished.  Reset #{counter} cache fields on practice records total."
   end
+  def set_practice_sites
+    oregon = Practice::PRAC_STATE_VALS['OR']
+    orprn = Site.find_by_name('ORPRN').id
+    qualis = Site.find_by_name('Qualis').id
+    counter = 0
+    Practice.all.each do |p|
+      if p.prac_state == oregon
+        p.site_id = orprn
+      else
+        p.site_id = qualis
+      end
+      p.save!
+      counter += 1
+      puts("Set site_id on #{counter} practice records") if counter % 10 == 0
+    end
+    puts("Finished.  Set site_id on #{counter} practice records total.")
+  end
 end

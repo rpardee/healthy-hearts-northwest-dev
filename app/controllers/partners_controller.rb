@@ -25,6 +25,7 @@ class PartnersController < ApplicationController
   def show
     @partner = Partner.find(params[:id])
     @event = Event.new
+    # If this partner is from GHRI, set a var that the view can use to show every damn practice.
     if @partner.site.id == 0 then
       @selected_partner_id = 0
     else

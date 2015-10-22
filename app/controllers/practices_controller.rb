@@ -104,7 +104,7 @@ class PracticesController < ApplicationController
         :prac_aco_join_medicaid, :interest_why, :interest_expect,
         :interest_challenge, :recruitment_source, :recruitment_source_referral,
         :prac_ehr_mu_yr, :interest_yn, :interest_why_not, :interest_why_not_other,
-        :interest_contact_month, :prac_state, :prac_own_clinician,
+        :interest_contact_month, :prac_state, :site_id, :prac_own_clinician,
         :prac_own_hosp, :prac_own_hmo, :prac_own_fqhc, :prac_own_nonfed, :prac_own_academic,
         :prac_own_fed, :prac_own_rural, :prac_own_ihs, :prac_own_other,
         :prac_aco_medicaid, :prac_aco_medicare, :prac_aco_commercial,

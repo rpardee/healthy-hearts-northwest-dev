@@ -20,6 +20,7 @@
   <%= link_to image_tag("plus-arrow-blue.png", size: "30x15", alt: "Add New Practice"), new_practice_path, class: 'addButton', title: 'Add New Practice', rel: 'tooltip' %>
 
   <span class='clearfix'>&nbsp;</span>
+  <!-- if this partner is from GHRI, show every practice. -->
   <% if @selected_partner_id == 0 %>
     <%= render 'practice_snapshot_all' %>
   <% else %>
