@@ -11,22 +11,13 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :practice_id, value: @practice_id %>
+  <%= f.hidden_field :practice_id, value: @practice.id %>
   <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
-  <%= f.hidden_field :contact_specific %>
-
-  EDIT ISSUES:
-   * Type of Contact not display underlying data
-   * Questions about contact_specific being updated on edit
-   * Maybe need to delete_all existing personnel
 
   <table class='space'>
     <tr>
       <td><%= f.label :contact_type, "Type of Contact" %></td>
-      <td><%= f.select :contact_type, grouped_options_for_select(
-        'Required monthly contact' => [['Required in-person visit', 1], ['Required phone call', 2],
-        ['Other contact', 3]], 'Ad-hoc' => [['Other ad-hoc contact', 9]]),
-        include_blank: true %></td>
+      <td><%= f.select :contact_type, grouped_options_for_select(@grouped_options_for_contact_type, @ivcontact.contact_type), include_blank: true %></td>
     </tr>
     <tr id='ivcontact-contactmode' style="display: none;">
       <td><%= f.label :contact_mode, "Contact Method" %></td>
@@ -57,7 +48,16 @@
   </div>
 
   <div id='personnel-wrapper' class='box'>
-    <p class='title'>Title for Personnel</p>
+    <p class='title'>Attending Staff</p>
+    <% @ivcontact.personnels.each do |p| %>
+      <table class='space deletable'>
+        <tr>
+          <td>Attendee:</td>
+          <td><%= select_tag 'ivcontact[personnels][]', options_for_select(@personnel_list, selected: p.id) %></td>
+          <td><button class='delete-ivcontact-personnel-button' type='button'>Delete</button></td>
+        </tr>
+      </table>
+    <% end %>
     <div id='add-ivcontact-personnel-wrapper'>
       <button id='add-ivcontact-personnel-button' type='button'>Add Staff Member</button>
     </div>
@@ -205,9 +205,10 @@
     </tr>
   </table>
 
+  <br />
   <table class='space lined background-darkpurple' style="width: 50%;">
     <tr>
-      <th>QI Processes</th>
+      <th>Other</th>
     </tr>
     <tr>
       <td>

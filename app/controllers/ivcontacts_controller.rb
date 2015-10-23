@@ -16,36 +16,35 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts/new
   def new
     @ivcontact = Ivcontact.new
-    @practice_id = params[:coach_practice_id]
-    @practice = Practice.find(@practice_id)
+    @practice = Practice.find(params[:coach_practice_id])
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
+    set_contact_type_options
   end
 
   # GET /ivcontacts/1/edit
   def edit
-    @practice_id = params[:coach_practice_id]
-    @practice = Practice.find(@practice_id)
-    @practice_name = Practice.find(@practice_id).name
+    # @practice_id = params[:coach_practice_id]
+    @practice = Practice.find(params[:coach_practice_id])
+    @practice_name = Practice.find(@practice.id).name
+    @contact_specific = @ivcontact.contact_specific
+    # @contact_type = @ivcontact.contact_type
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
+    set_contact_type_options
   end
 
   # POST /ivcontacts
   # POST /ivcontacts.json
   def create
     @ivcontact = Ivcontact.new(ivcontact_params)
-    @coach = Practice.find(@ivcontact.practice_id).coach
-    # Remove the first (template) element and save the rest
+    @practice = Practice.find(@ivcontact.practice_id)
+    @ivcontact.contact_specific = params[:contact_type_calculated]
     personnel_array = params[:ivcontact][:personnels]
-    if !personnel_array.nil? && personnel_array.count > 1
-      fake = personnel_array.shift
-      personnel = Personnel.where(id: personnel_array)
-      @ivcontact.personnels << personnel
-    end
+    save_personnel_list(personnel_array)
     respond_to do |format|
       if @ivcontact.save
-        format.html { redirect_to list_coach_practice_path(@coach.id), notice: 'IV Contact was successfully created.' }
+        format.html { redirect_to list_coach_practice_path(@practice.coach.id), notice: 'IV Contact was successfully created.' }
         format.json { render :show, status: :created, location: @ivcontact }
       else
         format.html { render :new }
@@ -58,9 +57,14 @@ class IvcontactsController < ApplicationController
   # PATCH/PUT /ivcontacts/1.json
   def update
     @coach = Practice.find(@ivcontact.practice_id).coach
+    personnel_array = params[:ivcontact][:personnels]
+    save_personnel_list(personnel_array)
+    @ivcontact.contact_specific = params[:contact_type_calculated]
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
-        format.html { redirect_to list_coach_practice(@coach), notice: 'IV Contact was successfully updated.' }
+        Rails.logger.debug "AFTER **********"
+        Rails.logger.debug @ivcontact.contact_type
+        format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @ivcontact }
       else
         format.html { render :edit }
@@ -85,12 +89,26 @@ class IvcontactsController < ApplicationController
       @ivcontact = Ivcontact.find(params[:id])
     end
 
+    def set_contact_type_options
+      # If this is changed, also update Ivcontact::CONTACT_TYPE_VALS
+      @grouped_options_for_contact_type = { 'Required monthly contact' => [['Required in-person visit', 1],
+        ['Required phone call', 2], ['Other contact', 3]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
+    end
+
     def get_personnel_list(personnel)
       if personnel.nil?
         Array.new
       else
-        personnel.map {|p| [p.name, p.id]}
+        personnel.map {|p| ["#{p.name} - #{Personnel::ROLE_VALS.key(p.role)}", p.id]}
       end
+    end
+
+    def save_personnel_list(personnel_array)
+      # Remove the dummy record that's created to provide scaffolding for additional records
+      delete_fake = personnel_array.shift
+      @ivcontact.personnels.delete_all
+      personnel = Personnel.where(id: personnel_array)
+      @ivcontact.personnels << personnel
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -118,6 +136,7 @@ class IvcontactsController < ApplicationController
         :pcqm_34, :pcqm_35, :pcqm_36,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify, :practice_id)
+        :prac_change_other, :prac_change_specify, :practice_id, :personnels,
+        personnels_attributes: [:id, :_destroy, :name, :role, :role_other])
     end
 end

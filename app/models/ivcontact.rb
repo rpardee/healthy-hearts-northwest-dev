@@ -9,7 +9,8 @@ class Ivcontact < ActiveRecord::Base
   CONTACT_TYPE_VALS = {
     "Required in-person visit" => 1,
     "Required phone call" => 2,
-    "Other contact" => 9
+    "Other contact" => 3,
+    "Other ad-hoc" => 9
   }
 
   CONTACT_MODE_VALS = {

@@ -11,87 +11,88 @@
     </div>
   <% end %>
 
-  <div>
-    <div id='left-2'>
+  <div id='left-2'>
+    <div>
       <%= label_tag "coach_id", "Primary Coach: " %>
-      <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
+      <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p. id] }, selected: @coach_id) %>
+   </div>
+
+    <div>
+      <br />
+      <h3>Scheduled Site Visits</h3>
+      <table class='lined space'>
+        <tr>
+          <td>Visit</td>
+          <td>Date</td>
+        </tr>
+        <tr>
+          <td>Baseline</td>
+          <td><%= @visit1.try(:contact_dt) || "&mdash;".html_safe %></td>
+        </tr>
+        <tr>
+          <td>Quarter 2</td>
+          <td><%= @visit2.try(:contact_dt) || "&mdash;".html_safe %></td>
+        </tr>
+        <tr>
+          <td>Quarter 3</td>
+          <td><%= @visit3.try(:contact_dt) || "&mdash;".html_safe %></td>
+        </tr>
+        <tr>
+          <td>Quarter 4</td>
+          <td><%= @visit4.try(:contact_dt) || "&mdash;".html_safe %></td>
+        </tr>
+        <tr>
+          <td>Quarter 5</td>
+          <td><%= @visit5.try(:contact_dt) || "&mdash;".html_safe %></td>
+        </tr>
+      </table>
     </div>
-    <div id='right-2'>
-      <% if @practice.ivcontacts.any? %>
-        <table class='typical enable-data-table'>
-          <thead>
+
+    <div>
+      <br />
+      Current action items.
+      Current coach follow-ups.
+    </div>
+
+    <div>
+      <br />
+      Display this optionally:
+      Historical action items.
+      Historical coach follow-ups.
+    </div>
+
+    <div>
+      <br />
+      Historical ivcontacts
+    </div>
+  </div>
+
+  <div id='right-2'>
+    <% if @practice.ivcontacts.any? %>
+      <table class='typical enable-data-table'>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @practice.ivcontacts.each do |c| %>
             <tr>
-              <th>Date</th>
-              <th>Type</th>
+              <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
+              <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
             </tr>
-          </thead>
-          <tbody>
-            <% @practice.ivcontacts.each do |c| %>
-              <tr>
-                <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
-                <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
-      <%= link_to "New Intervention Contact", new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
-    </div>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <%= link_to "New Intervention Contact", new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
   </div>
   <div class='clearfix'></div>
 
-  <div>
-    <br />
-    <h3>Scheduled Site Visits</h3>
-    <table class='lined space'>
-      <tr>
-        <td>Visit</td>
-        <td>Date</td>
-      </tr>
-      <tr>
-        <td>Baseline</td>
-        <td><%= @visit1.try(:contact_dt) || "&mdash;".html_safe %></td>
-      </tr>
-      <tr>
-        <td>Quarter 2</td>
-        <td><%= @visit2.try(:contact_dt) || "&mdash;".html_safe %></td>
-      </tr>
-      <tr>
-        <td>Quarter 3</td>
-        <td><%= @visit3.try(:contact_dt) || "&mdash;".html_safe %></td>
-      </tr>
-      <tr>
-        <td>Quarter 4</td>
-        <td><%= @visit4.try(:contact_dt) || "&mdash;".html_safe %></td>
-      </tr>
-      <tr>
-        <td>Quarter 5</td>
-        <td><%= @visit5.try(:contact_dt) || "&mdash;".html_safe %></td>
-      </tr>
-    </table>
-  </div>
-
-  <div>
-    <br />
-    Current action items.
-    Current coach follow-ups.
-  </div>
-
-  <div>
-    <br />
-    Display this optionally:
-    Historical action items.
-    Historical coach follow-ups.
-  </div>
-
-  <div>
-    <br />
-    Historical ivcontacts
-  </div>
-
-  <div class="actions">
-    <br />
-    <%= f.submit %><br />
-    <%= link_to "Back", :back %>
-  </div>
+    <div class="actions">
+      <br />
+      <%= f.submit %><br /><br />
+      <%= link_to "Back", :back %>
+    </div>
 <% end %>

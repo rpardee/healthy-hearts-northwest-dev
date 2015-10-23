@@ -23,7 +23,7 @@ class Partner < ActiveRecord::Base
   end
 
   def supervisor?
-    role == 1 || role == 2
+    role == 1 || role == 3
   end
 
   ROLE_VALS = {

@@ -74,17 +74,13 @@ updateCheckbox = (checkbox_id, appear_id) ->
 
 $(document).on "page:change", ->
 	updateContactType('#ivcontact_contact_type')
-	updateDisruptionTime('#ivcontact_contact_specific')
+	updateDisruptionTime('#contact_specific_calculated')
 	updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 	updateCheckbox('ivcontact_prac_change_other', '#ivcontact-pracchangespecify')
 
 $(document).on "page:change", ->
 	$('#ivcontact_contact_type').on 'change',  ->
 		updateContactType('#ivcontact_contact_type')
-
-$(document).on "page:change", ->
-	$('#ivcontact_contact_specific').on 'change',  ->
-		updateDisruptionTime('#ivcontact_contact_specific')
 
 $(document).on "page:change", ->
 	$('#ivcontact_topic_other').on 'click',  ->

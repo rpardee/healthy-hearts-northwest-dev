@@ -43,15 +43,15 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<% if current_partner.admin? %>
-							<%= link_to "System Users List", list_partners_path %>
+						<% if current_partner.supervisor? %>
+							<%= link_to "Coach-Practice List", coach_practices_path %>
 						<% else %>
 							&nbsp;
 						<% end %>
 					</td>
 					<td>
 						<% if current_partner.admin? %>
-							<%= link_to "Coach-Practice List", coach_practices_path %>
+							<%= link_to "System Users List", list_partners_path %>
 						<% else %>
 							&nbsp;
 						<% end %>
