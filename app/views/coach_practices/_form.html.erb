@@ -12,36 +12,33 @@
   <% end %>
 
   <div>
-    <table style="width: 100%;">
-      <tr>
-        <td style="width: 50%;">
-          <%= label_tag "coach_id", "Primary Coach: " %>
-          <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
-        </td>
-        <td style="width: 50%; text-align: center;">
-          <% if @practice.ivcontacts.any? %>
-            <table class='typical enable-data-table'>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @practice.ivcontacts.each do |c| %>
-                  <tr>
-                    <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
-                    <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-            <%= link_to "New Intervention Contact", new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
-          <% end %>
-        </td>
-      </tr>
-    </table>
+    <div id='left-2'>
+      <%= label_tag "coach_id", "Primary Coach: " %>
+      <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p.id] }, selected: @coach_id) %>
+    </div>
+    <div id='right-2'>
+      <% if @practice.ivcontacts.any? %>
+        <table class='typical enable-data-table'>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @practice.ivcontacts.each do |c| %>
+              <tr>
+                <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
+                <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      <%= link_to "New Intervention Contact", new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
+    </div>
   </div>
+  <div class='clearfix'></div>
 
   <div>
     <br />

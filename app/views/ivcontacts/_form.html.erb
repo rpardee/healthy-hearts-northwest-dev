@@ -24,8 +24,9 @@
     <tr>
       <td><%= f.label :contact_type, "Type of Contact" %></td>
       <td><%= f.select :contact_type, grouped_options_for_select(
-        'Required monthly contact' => [['Required in-person visit', 1], ['Required phone call', 2]],
-        'Other contact' => [['Other contact', 9]]), include_blank: true %></td>
+        'Required monthly contact' => [['Required in-person visit', 1], ['Required phone call', 2],
+        ['Other contact', 3]], 'Ad-hoc' => [['Other ad-hoc contact', 9]]),
+        include_blank: true %></td>
     </tr>
     <tr id='ivcontact-contactmode' style="display: none;">
       <td><%= f.label :contact_mode, "Contact Method" %></td>
@@ -64,12 +65,19 @@
 
   <div class='boxed'>
   <h3>Topics Discussed:  Check all topics that apply</h3>
-  <table class='space lined background-lightpurple'>
+  <table class='space lined background-lightpurple' style="width: 50%;">
     <tr>
       <th colspan='3'>HIT-specific</th>
     </tr>
     <tr>
       <th>EHR data extraction</th>
+      <th colspan='2'>&nbsp;</th>
+    </tr>
+    <tr>
+      <td>
+        <%= f.check_box :topic_ehr_vendor %>
+        <%= f.label :topic_ehr_vendor, "Work with EHR vendor" %>
+      </td>
       <td>
         <%= f.check_box :topic_validate_data %>
         <%= f.label :topic_validate_data, "Validate data" %>
@@ -81,8 +89,8 @@
     </tr>
     <tr>
       <td>
-        <%= f.check_box :topic_ehr_vendor %>
-        <%= f.label :topic_ehr_vendor, "Work with EHR vendor" %>
+        <%= f.check_box :topic_3rdparty_vendor %>
+        <%= f.label :topic_3rdparty_vendor, "Work with 3rd party vendor" %>
       </td>
       <td>
         <%= f.check_box :topic_meaningful_use %>
@@ -95,8 +103,8 @@
     </tr>
     <tr>
       <td>
-        <%= f.check_box :topic_3rdparty_vendor %>
-        <%= f.label :topic_3rdparty_vendor, "Work with 3rd party vendor" %>
+        <%= f.check_box :topic_custom_query %>
+        <%= f.label :topic_custom_query, "Work on custom queries" %>
       </td>
       <td>
         <%= f.check_box :topic_cqm_report %>
@@ -107,10 +115,8 @@
         <%= f.label :topic_hit_display, "Create data displays" %>
       </td>
     </tr>
-      <td>
-        <%= f.check_box :topic_custom_query %>
-        <%= f.label :topic_custom_query, "Work on custom queries" %>
-      </td>
+    <tr>
+      <td> &nbsp; </td>
       <td>
         <%= f.check_box :topic_abcs %>
         <%= f.label :topic_abcs, "Submit ABCS measures to study team" %>
@@ -122,7 +128,7 @@
     </tr>
   </table>
   <br />
-  <table class='space lined background-darkpurple'>
+  <table class='space lined background-darkpurple' style="width: 50%;">
     <tr>
       <th colspan='4'>QI Processes</th>
     </tr>
@@ -159,12 +165,12 @@
         <%= f.label :topic_planning, "Discuss PDSA cycles or action planning" %>
       </td>
       <td>
-        <%= f.check_box :topic_cqm_report %>
-        <%= f.label :topic_cqm_report, "Generate clinical quality measure reports" %>
+        <%= f.check_box :topic_consensus %>
+        <%= f.label :topic_consensus, "Facilitate a consensus discussion" %>
       </td>
       <td>
-        <%= f.check_box :topic_consensus %>
-        <%= f.label :topic_consensus, "Facilitate a consensus decision" %>
+        <%= f.check_box :topic_huddle %>
+        <%= f.label :topic_huddle, "Huddles" %>
       </td>
     </tr>
     <tr>
@@ -196,24 +202,21 @@
       </td>
     </tr>
     <tr>
-      <td>
-        <%= f.check_box :topic_huddle %>
-        <%= f.label :topic_huddle, "Huddles" %>
-      </td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+    </tr>
+  </table>
+
+  <table class='space lined background-darkpurple' style="width: 50%;">
+    <tr>
+      <th>QI Processes</th>
     </tr>
     <tr>
       <td>
         <%= f.check_box :topic_other %>
         <%= f.label :topic_other, "Other" %>
-      </td>
-      <td colspan='2'>
         <span id='ivcontact-topicotherspecify'>
-          <%= f.label :topic_other_specify, "Specify:" %>
-          <%= f.text_field :topic_other_specify, size: 50 %>
+          &nbsp; &nbsp; &nbsp;<%= f.label :topic_other_specify, "Specify:" %>
+          <%= f.text_field :topic_other_specify, size: 60 %>
         </span>
-        &nbsp;
       </td>
     </tr>
   </table>
@@ -227,8 +230,6 @@
     <tr>
       <th width="50%">Milestone</th>
       <th>Progress</th>
-      <th>Is practice actively<br />doing PDSA testing?</th>
-      <th>Currently active PDSA cycles<br />discussed in visit/on call</th>
     </tr>
     <tr>
       <td>Embed clinical evidence on ABCS into daily work to guide care for patients</td>
@@ -236,13 +237,6 @@
           b.label { b.radio_button + b.text } + tag("br")
         end %>
       </td>
-      <td><%=
-        f.collection_radio_buttons :milestone_evidence_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
-        end
-        %>
-      </td>
-      <td><%= f.text_area :milestone_evidence_discussed %></td>
     </tr>
     <tr>
       <td>Utilize reliable, robust data to understand and improve ABCS measures</td>
@@ -252,13 +246,6 @@
         end
         %>
       </td>
-      <td><%=
-        f.collection_radio_buttons :milestone_data_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
-        end
-        %>
-      </td>
-      <td><%= f.text_area :milestone_data_discussed %></td>
     </tr>
     <tr>
       <td>Establish a regular QI process involving cross-functional teams (QI, care team, huddles, all staff)</td>
@@ -268,13 +255,6 @@
         end
         %>
       </td>
-      <td><%=
-        f.collection_radio_buttons :milestone_qi_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
-        end
-        %>
-      </td>
-      <td><%= f.text_area :milestone_qi_discussed %></td>
     </tr>
     <tr>
       <td>Identify at-risk patients for prevention outreach</td>
@@ -284,13 +264,6 @@
         end
         %>
       </td>
-      <td><%=
-        f.collection_radio_buttons :milestone_atrisk_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
-        end
-        %>
-      </td>
-      <td><%= f.text_area :milestone_atrisk_discussed %></td>
     </tr>
     <tr>
       <td>Define roles and responsibilities (tasks) across the care team to identify and manage ABCS populations</td>
@@ -300,13 +273,6 @@
         end
         %>
       </td>
-      <td><%=
-        f.collection_radio_buttons :milestone_task_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
-        end
-        %>
-      </td>
-      <td><%= f.text_area :milestone_task_discussed %></td>
     </tr>
     <tr>
       <td>Deepen patient self-management support for action planning around ABCS</td>
@@ -316,13 +282,6 @@
         end
         %>
       </td>
-      <td><%=
-        f.collection_radio_buttons :milestone_selfmgmt_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
-        end
-        %>
-      </td>
-      <td><%= f.text_area :milestone_selfmgmt_discussed %></td>
     </tr>
     <tr>
       <td>Develop robust linkages to smoking cessation, CDSMP and other evidence-based community resources</td>
@@ -332,20 +291,20 @@
         end
         %>
       </td>
-      <td><%=
-        f.collection_radio_buttons :milestone_community_active, Ivcontact::Y1N2_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
-        end
-        %>
-      </td>
-      <td><%= f.text_area :milestone_community_discussed %></td>
     </tr>
   </table>
   </div>
 
+  <div> PDSA Cycle nested stuff goes here </div>
+
   <div id='ivcontact-gyr' class='boxed'>
-    <h3>Green-Yellow-Red Assessment</h3>
-    <p> What is your assessment of this practice's progress or capacity for change based on their activities in the previous month? Mark as green, yellow or red using the category definitions provided below. To the right of your assessment, indicate the activities or situations on which you are basing your rating.</p>
+    <h3>Green-Yellow-Red Assessment of Progress</h3>
+    <p> What is your assessment of this practice's ability to continue to make progress
+      <strong>at this point in time</strong>? Your confidence in their ability to make progress
+      may be based on their activities, overall change capacity, and/or other relevant
+      internal and external factors.  Mark each site as green, yellow or red using the definitions provided, then indicate the activities or situations on which you are basing your rating.
+      (A practice will likely move back and forth throughout the initiative based on current
+      conditions and situations.)</p>
     <table class='space lined'>
       <tr>
         <th width="33%" style='background-color: green;'>Green</th>
@@ -354,8 +313,8 @@
       </tr>
       <tr>
         <td>This site is actively engaged in the project and successfully using QI methods to improve care around the ABCS measures. They appreciate encouragement and occasional support, but their needs are minimal.</td>
-        <td>This site is engaged, but their progress or capacity to move forward is hindered by current situations. They require additional support and closer monitoring to assess and manage progress.</td>
-        <td>This site has barriers or issues that are currently impeding progress or the capacity to move forward. They need close monitoring or support.</td>
+        <td>This site is engaged, but their progress is hindered by current situations/activities. They require additional support and closer monitoring to assess and manage progress.</td>
+        <td>This site has barriers or issues that are currently impeding progress. They need close monitoring or support.</td>
       </tr>
     </table>
     <br />
@@ -455,7 +414,7 @@
   </div>
 
   <div id='ivcontact-tier' class='boxed'>
-    <h3>Tiering Tool</h3>
+    <h3>Tiering Tool for Capacity</h3>
     <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Please this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
     <table id='tier-tooltip' class='space lined background-green'>
       <tr title="Click column heading to view description">
@@ -488,6 +447,7 @@
   <div id='ivcontact-pcmha' class='boxed'>
     <h3>Practice Self-Assessment Survey</h3>
 
+    <p> HLC 1: Embed clinical evidence on ABCS into daily work to guide care for patients </p>
     <table class='lined space background-orange'>
       <tr>
         <th>Items</th>
@@ -520,6 +480,11 @@
           <% end %>
         </td>
       </tr>
+    </table>
+
+    <br />
+    <p> HLC 2: Utilize reliable, robust data to understand and improve ABCS measures </p>
+    <table class='lined space background-pink'>
       <tr align="center">
         <td>2. Performance measures </td>
         <td>
@@ -574,6 +539,11 @@
           <% end %>
         </td>
       </tr>
+    </table>
+
+    <br />
+    <p>HLC 3: Establish a regular QI process involving cross-functional teams</p>
+    <table class='lined space background-blue'>
       <tr align="center">
         <td>4. The responsibility for conducting quality improvement activities</td>
         <td>
@@ -628,13 +598,6 @@
           <% end %>
         </td>
       </tr>
-    </table>
-
-    <table class='lined space background-pink'>
-      <tr>
-        <th>Items</th>
-        <th colspan='4'>Lowest ... Highest</th>
-      </tr>
       <tr align="center">
         <td>6. Quality improvement activities are conducted by</td>
         <td>
@@ -661,6 +624,15 @@
             <%= f.radio_button :pcmha_6, item %> <%= item %>
           <% end %>
         </td>
+      </tr>
+    </table>
+
+    <br />
+    <p> HLC 4: Identify at-risk patients for prevention outreach </p>
+    <table class='lined space background-lightpurple'>
+      <tr>
+        <th>Items</th>
+        <th colspan='4'>Lowest ... Highest</th>
       </tr>
       <tr align="center">
         <td>7. Registry or panel-level data</td>
@@ -772,7 +744,9 @@
       </tr>
     </table>
 
-    <table class='lined space background-blue'>
+    <br />
+    <p> HLC 5: Define roles and responsibilities (tasks) across the care team to identify and manage ABCS populations </p>
+    <table class='lined space background-orange'>
       <tr>
         <th>Items</th>
         <th colspan='3'>Lowest ... Highest</th>
@@ -885,6 +859,11 @@
           <% end %>
         </td>
       </tr>
+    </table>
+
+    <br />
+    <p> HLC 6: Deepen patient self-management support for action planning around ABCS </p>
+    <table class='lined space background-pink'>
       <tr align="center">
         <td>15. Assessing patient and family values and preferences</td>
         <td>
@@ -911,13 +890,6 @@
             <%= f.radio_button :pcmha_15, item %> <%= item %>
           <% end %>
         </td>
-      </tr>
-    </table>
-
-    <table class='lined space background-lightpurple'>
-      <tr>
-        <th>Items</th>
-        <th colspan='4'>Lowest ... Highest</th>
       </tr>
       <tr align="center">
         <td>16. Involving patients in decision-making and care</td>
@@ -973,6 +945,11 @@
           <% end %>
         </td>
       </tr>
+    </table>
+
+    <br />
+    <p> HLC 7: Develop robust linkages to smoking cession, CDSMP and other evidence-based community resources </p>
+    <table class='lined space background-blue'>
       <tr align="center">
         <td>18. Test results and care plans</td>
         <td>

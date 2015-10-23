@@ -16,8 +16,7 @@ class Ivcontact < ActiveRecord::Base
   	"In-person" => 1,
     "Phone" => 2,
     "Email" => 3,
-  	"Text" => 4,
-  	"Other" => 9
+  	"Online" => 4
   }
 
   CONTACT_SPECIFIC_VALS = {
@@ -41,9 +40,8 @@ class Ivcontact < ActiveRecord::Base
 
   PROGRESS_VALS = {
   	"Not a priority" => 1,
-  	"Starting to work on this" => 2,
-  	"Little/no progress" => 3,
-  	"Making progress" => 4,
-  	"Done/in place already" => 5
+  	"Planning, little/no progress" => 2,
+  	"Making progress" => 3,
+  	"Done/in place already" => 4
   }
 end

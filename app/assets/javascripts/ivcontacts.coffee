@@ -11,8 +11,8 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-pcmha').show()
 		$('#ivcontact-disruption').show()
 		$('#ivcontact-contactmode').hide()
-		$('#ivcontact-contactspecific').show()
-		$('#ivcontact_contact_specific').val($('#contact_specific_calculated').val())
+		# $('#ivcontact-contactspecific').show()
+		# $('#ivcontact_contact_specific').val($('#contact_specific_calculated').val())
 	else if v == 2  	# Required/monthly call
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-gyr').show()
@@ -20,8 +20,17 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-pcmha').hide()
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').hide()
-		$('#ivcontact-contactspecific').hide()
-		$('#ivcontact_contact_specific').val(0)
+		# $('#ivcontact-contactspecific').hide()
+		# $('#ivcontact_contact_specific').val(0)
+	else if v == 3  	# Required/other
+		$('#ivcontact-milestone').show()
+		$('#ivcontact-gyr').show()
+		$('#ivcontact-tier').hide()
+		$('#ivcontact-pcmha').hide()
+		$('#ivcontact-disruption').hide()
+		$('#ivcontact-contactmode').show()
+		# $('#ivcontact-contactspecific').hide()
+		# $('#ivcontact_contact_specific').val(0)
 	else if v == 9		# Ad-hoc contact/blank
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-gyr').hide()
@@ -29,8 +38,8 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-pcmha').hide()
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
-		$('#ivcontact-contactspecific').hide()
-		$('#ivcontact_contact_specific').val(0)
+		# $('#ivcontact-contactspecific').hide()
+		# $('#ivcontact_contact_specific').val(0)
 	else							# Blank
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-gyr').hide()
@@ -38,8 +47,8 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-pcmha').hide()
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').hide()
-		$('#ivcontact-contactspecific').hide()
-		$('#ivcontact_contact_specific').val(0)
+		# $('#ivcontact-contactspecific').hide()
+		# $('#ivcontact_contact_specific').val(0)
 
 updateDisruptionTime = (contact_specific_field) ->
 	v = parseInt($(contact_specific_field).val())
