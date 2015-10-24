@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ivcontact_id: 
+  description: MyText
+  test_status: 1
+  comments: MyText
+  embed_evidence: 
+  use_data: 
+  func_qi: 
+  id_at_risk: 
+  manage_pops: 
+  self_management: 
+  resource_linkages: 
+
+two:
+  ivcontact_id: 
+  description: MyText
+  test_status: 1
+  comments: MyText
+  embed_evidence: 
+  use_data: 
+  func_qi: 
+  id_at_risk: 
+  manage_pops: 
+  self_management: 
+  resource_linkages: 

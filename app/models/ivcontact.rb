@@ -1,8 +1,11 @@
 class Ivcontact < ActiveRecord::Base
 	belongs_to :practice
 	belongs_to :partner
+  has_many :high_leverage_change_tests
   has_and_belongs_to_many :personnels
   has_paper_trail
+
+  accepts_nested_attributes_for :high_leverage_change_tests, :reject_if => :all_blank, :allow_destroy => true
 
   validates_presence_of :contact_dt
 

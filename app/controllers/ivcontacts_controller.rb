@@ -11,6 +11,7 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts/1
   # GET /ivcontacts/1.json
   def show
+    @high_leverage_change_test = HighLeverageChangeTest.new
   end
 
   # GET /ivcontacts/new
@@ -25,10 +26,14 @@ class IvcontactsController < ApplicationController
 
   # GET /ivcontacts/1/edit
   def edit
+    # raise('boobies')
     @practice_id = params[:coach_practice_id]
     @practice = Practice.find(@practice_id)
     @practice_name = Practice.find(@practice_id).name
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
+    if @ivcontact.high_leverage_change_tests.count == 0
+      @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
+    end
   end
 
   # POST /ivcontacts
@@ -60,7 +65,7 @@ class IvcontactsController < ApplicationController
     @coach = Practice.find(@ivcontact.practice_id).coach
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
-        format.html { redirect_to list_coach_practice(@coach), notice: 'IV Contact was successfully updated.' }
+        format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @ivcontact }
       else
         format.html { render :edit }
@@ -118,6 +123,8 @@ class IvcontactsController < ApplicationController
         :pcqm_34, :pcqm_35, :pcqm_36,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify, :practice_id)
+        :prac_change_other, :prac_change_specify, :practice_id,
+        high_leverage_change_tests_attributes: [:id, :_destroy, :description, :test_status, :comments, :embed_evidence, :use_data, :xfunc_qi,
+                                                :id_at_risk, :manage_pops, :self_management, :resource_linkages])
     end
 end
