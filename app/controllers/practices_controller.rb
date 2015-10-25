@@ -18,6 +18,8 @@ class PracticesController < ApplicationController
   def new
     @practice = Practice.new
     @partner_id = params[:partner_id]
+    Rails.logger.debug "*** SITE ID"
+    Rails.logger.debug @practice.site_id
   end
 
   # GET /practices/1/edit
@@ -34,8 +36,12 @@ class PracticesController < ApplicationController
       @practice.partners << @partner
     end
 
+    @practice.site_id = @current_partner.site.id
+
     respond_to do |format|
       if @practice.save
+    Rails.logger.debug "*** SITE ID"
+    Rails.logger.debug @practice.site_id
         format.html { redirect_to partner_path(current_partner), notice: 'Practice was successfully created.' }
         format.json { render :show, status: :created, location: @practice }
       else
