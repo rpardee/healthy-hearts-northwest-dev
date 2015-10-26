@@ -1,0 +1,22 @@
+<div class='nested-fields box'>
+  <table class='space'>
+    <tr>
+      <td><%= f.label :item_type, "Note Type" %></td>
+      <td><%= f.select :item_type, CoachItem::ITEM_TYPE_VALS, include_blank: true %></td>
+      <td>&nbsp;</td>
+      <td><%= f.label :add_dt, "Date Added" %></td>
+      <td><%= f.text_field :add_dt %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :complete, "Completed?" %></td>
+      <td><%= f.check_box :complete %></td>
+      <td>&nbsp;</td>
+      <td><%= f.label :complete_dt, "Completion Date" %></td>
+      <td><%= f.text_field :complete_dt %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :notes, "Notes" %></td>
+      <td colspan='4'><%= f.text_area :notes %></td>
+    </tr>
+  </table>
+</div>

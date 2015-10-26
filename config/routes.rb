@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
   resources :coach_practices do
     resources :ivcontacts
+    resources :coach_items
     get 'list', on: :member
   end
   resources :practices, except: :index do

@@ -18,8 +18,6 @@ class PracticesController < ApplicationController
   def new
     @practice = Practice.new
     @partner_id = params[:partner_id]
-    Rails.logger.debug "*** SITE ID"
-    Rails.logger.debug @practice.site_id
   end
 
   # GET /practices/1/edit

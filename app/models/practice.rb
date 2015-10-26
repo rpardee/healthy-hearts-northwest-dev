@@ -9,6 +9,10 @@ class Practice < ActiveRecord::Base
 
 	belongs_to :site
 
+	has_many :coach_items
+	accepts_nested_attributes_for :coach_items, :reject_if => :all_blank,
+		:allow_destroy => true
+
 	has_many :personnels, dependent: :destroy
 	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
 		:allow_destroy => true

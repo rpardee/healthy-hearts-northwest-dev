@@ -1,22 +1,15 @@
-<%= form_for(@practice, as: :practice, url: coach_practice_path(@practice), method: :patch) do |f| %>
-  <% if @practice.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@practice.errors.count, "error") %> prohibited this practice from being saved:</h2>
-
-      <ul>
-      <% @practice.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div id='wrapper'>
+  <%= render 'layouts/header' %>
 
   <div id='left-2'>
-    <div>
-      <%= label_tag "coach_id", "Primary Coach: " %>
-      <%= select_tag "coach_id", options_for_select(policy_scope(Partner).order("name").map{ |p| [p.name, p. id] }, selected: @coach_id) %>
-   </div>
+    <h1><%= @practice.name %></h1>
+  </div>
+  <div id='right-2'>
+    <h1>Coach: <%= @practice.coach.name if @practice.coach %></h1>
+  </div>
+  <div class='clearfix'></div>
 
+  <div id='left-2'>
     <div>
       <br />
       <h3>Scheduled Site Visits</h3>
@@ -67,7 +60,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS.key("Action item")).each do |i| %>
+          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Action item"]).each do |i| %>
             <tr>
               <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
               <td><%= truncate(i.notes, length: 255) %></td>
@@ -85,7 +78,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS.key("Coach Follow-up")).each do |i| %>
+          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Coach follow-up"]).each do |i| %>
             <tr>
               <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
               <td><%= truncate(i.notes, length: 255) %></td>
@@ -132,9 +125,8 @@
   </div>
   <div class='clearfix'></div>
 
-    <div class="actions">
-      <br />
-      <%= f.submit %><br /><br />
-      <%= link_to "Back", :back %>
-    </div>
-<% end %>
+  <div class="actions">
+    <br />
+    <%= link_to "Back", :back %>
+  </div>
+</div>
