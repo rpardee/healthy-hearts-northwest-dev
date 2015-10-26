@@ -9,7 +9,6 @@
     <tr>
       <th>Practice</th>
       <th>Coach</th>
-      <th>New Action Item</th>
     </tr>
   </thead>
 
@@ -19,9 +18,9 @@
         <td><%= link_to practice.name, edit_coach_practice_path(practice) %></td>
         <td>
           <% if practice.coach %>
-            <%= link_to practice.coach.name, list_coach_practice_path(practice.coach) %></td>
+            <%= link_to practice.coach.name, list_coach_practice_path(practice.coach) %>
           <% end %>
-        <td>< %= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add Action Item"), new_coach_practice_event_path(practice), class: 'addButton', title: 'Add Action Item', rel: 'tooltip' % >
+        </td>
       </tr>
     <% end %>
   </tbody>

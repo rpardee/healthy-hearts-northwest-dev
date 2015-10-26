@@ -50,14 +50,6 @@
     <br />
 
     <div class='box'>
-      <div id='openPopupForm'>
-        <h2 title="Coach Notes" rel="tooltip">Coach Notes
-          <a class='addButton' title="Add New Item" rel="tooltip">
-            <%= image_tag("plus-blue.png", size: "15x15") %>
-          </a>
-        </h2>
-      </div>
-      <%= render partial: 'item_new_popup' %>
       <h3>Action Items</h3>
       <table class='typical enable-data-table'>
         <thead>
@@ -93,7 +85,6 @@
           <% end %>
         </tbody>
       </table>
-      <%= link_to "New Item", new_coach_practice_coach_item_path(@practice), class: 'addButton' %>
     </div>
 
     <div>
@@ -128,7 +119,6 @@
         </tbody>
       </table>
     <% end %>
-    <%= link_to "New Intervention Contact", new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
   </div>
   <div class='clearfix'></div>
 

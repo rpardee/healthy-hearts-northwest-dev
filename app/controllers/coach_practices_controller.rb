@@ -17,7 +17,8 @@ class CoachPracticesController < ApplicationController
   end
 
   def show
-    @coach_id = Practice.find(params[:id]).coach.name
+    @practice = Practice.find(params[:id])
+    @coach_name = @practice.coach.name
     @coach_item = CoachItem.new
     @visit1 = @practice.get_inperson_visit(1)
     @visit2 = @practice.get_inperson_visit(2)
