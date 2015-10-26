@@ -1,14 +1,14 @@
 <div class='nested-fields box'>
   <table class="space">
     <thead>
-      <th>Activity Description</th>
+      <th>PDSA Cycle</th>
       <th colspan="2">Corresponding <acronym title = "High Leverage Change">HLC</acronym>s</th>
       <th>Status</th>
       <th>Comments</th>
       <th>&nbsp;</th>
     </thead>
     <tr>
-      <td><%= f.text_area :description, :rows => 4, :cols => 40 %></td>
+      <td><%= f.text_area :description, :rows => 4, :cols => 35 %></td>
       <td>
         <% HighLeverageChangeTest::HLC_FIELDS[0..3].each do |hlcf| %>
             <%= f.check_box hlcf.to_sym %>
@@ -25,7 +25,7 @@
       </td>
       <td><%= f.select(:test_status, HighLeverageChangeTest::TEST_STATUSES, :include_blank => true) %></td>
       <td><%= f.text_area :comments, :rows => 4, :cols => 35 %></td>
-      <td><%= link_to_remove_association "Delete", f %></td>
+      <td><%= link_to_remove_association "Delete row", f, :title => 'Delete this Test Activity' %></td>
     </tr>
     <tr>
       <td colspan = "5">

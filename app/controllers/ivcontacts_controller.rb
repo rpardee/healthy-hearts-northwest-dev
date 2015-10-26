@@ -11,7 +11,6 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts/1
   # GET /ivcontacts/1.json
   def show
-    @high_leverage_change_test = HighLeverageChangeTest.new
   end
 
   # GET /ivcontacts/new
@@ -22,6 +21,9 @@ class IvcontactsController < ApplicationController
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
+    (0..3).each do
+      @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
+    end
   end
 
   # GET /ivcontacts/1/edit
@@ -31,7 +33,7 @@ class IvcontactsController < ApplicationController
     @practice = Practice.find(@practice_id)
     @practice_name = Practice.find(@practice_id).name
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
-    if @ivcontact.high_leverage_change_tests.count == 0
+    (@ivcontact.high_leverage_change_tests.count..3).each do
       @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
     end
   end
@@ -125,6 +127,7 @@ class IvcontactsController < ApplicationController
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
         :prac_change_other, :prac_change_specify, :practice_id,
         high_leverage_change_tests_attributes: [:id, :_destroy, :description, :test_status, :comments, :embed_evidence, :use_data, :xfunc_qi,
-                                                :id_at_risk, :manage_pops, :self_management, :resource_linkages])
+                                                :id_at_risk, :manage_pops, :self_management, :resource_linkages,
+                                                :hlc_other])
     end
 end

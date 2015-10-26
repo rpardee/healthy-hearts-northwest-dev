@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023190123) do
+ActiveRecord::Schema.define(version: 20151026181952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,8 +67,9 @@ ActiveRecord::Schema.define(version: 20151023190123) do
     t.boolean  "manage_pops"
     t.boolean  "self_management"
     t.boolean  "resource_linkages"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "hlc_other",         default: false
   end
 
   add_index "high_leverage_change_tests", ["ivcontact_id"], name: "index_high_leverage_change_tests_on_ivcontact_id", using: :btree
