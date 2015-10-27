@@ -12,7 +12,6 @@
   <% end %>
 
   <%= f.hidden_field :practice_id, value: @practice.id %>
-  <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
 
   <table class='space'>
     <tr>
@@ -1037,10 +1036,6 @@
 
   <div id='ivcontact-disruption' class='boxed'>
     <h3>Disruptions to Practice</h3>
-    <div id='ivcontact-disruption-warning'>
-      <h2>Note: The "Which In-Person Contact" question has not been answered.</h2>
-      <h3>Please answer that above to allow the following questions to display properly.</h3>
-    </div>
     <p> Have there been any of the following major changes in this practice in the <span id='ivcontact-disruption-12'>last 12 months</span><span id='ivcontact-disruption-3'>last 3 months</span>?</p>
     <table class='lined space fulltext background-orange'>
       <tr>

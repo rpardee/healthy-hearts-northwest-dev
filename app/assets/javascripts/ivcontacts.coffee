@@ -9,8 +9,12 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-gyr').show()
 		$('#ivcontact-tier').show()
 		$('#ivcontact-pcmha').show()
-		$('#ivcontact-disruption').show()
 		$('#ivcontact-contactmode').hide()
+		$('#ivcontact-disruption').show()
+		if $('#contact_specific_calculated').val() == 1
+			$('#ivcontact-disruption-12').show()
+		else
+			$('#ivcontact-disruption-3').show()
 		# $('#ivcontact-contactspecific').show()
 		# $('#ivcontact_contact_specific').val($('#contact_specific_calculated').val())
 	else if v == 2  	# Required/monthly call

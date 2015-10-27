@@ -28,8 +28,6 @@ class IvcontactsController < ApplicationController
     # @practice_id = params[:coach_practice_id]
     @practice = Practice.find(params[:coach_practice_id])
     @practice_name = Practice.find(@practice.id).name
-    @contact_specific = @ivcontact.contact_specific
-    # @contact_type = @ivcontact.contact_type
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
     set_contact_type_options
   end
@@ -39,7 +37,9 @@ class IvcontactsController < ApplicationController
   def create
     @ivcontact = Ivcontact.new(ivcontact_params)
     @practice = Practice.find(@ivcontact.practice_id)
-    @ivcontact.contact_specific = params[:contact_type_calculated]
+    if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Required in-person visit"
+      @ivcontact.contact_specific = @practice.next_inperson_contact
+    end
     personnel_array = params[:ivcontact][:personnels]
     save_personnel_list(personnel_array)
     respond_to do |format|
@@ -56,14 +56,18 @@ class IvcontactsController < ApplicationController
   # PATCH/PUT /ivcontacts/1
   # PATCH/PUT /ivcontacts/1.json
   def update
-    @coach = Practice.find(@ivcontact.practice_id).coach
+    @practice = Practice.find(@ivcontact.practice_id)
+    @coach = @practice.coach
+    # if Ivcontact::CONTACT_TYPE_VALS.key(params[:ivcontact][:contact_type]) == "Required in-person visit"
+    if params[:ivcontact][:contact_type] == '1'
+      @ivcontact.contact_specific = @practice.next_inperson_contact
+    else
+      @ivcontact.contact_specific = nil
+    end
     personnel_array = params[:ivcontact][:personnels]
     save_personnel_list(personnel_array)
-    @ivcontact.contact_specific = params[:contact_type_calculated]
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
-        Rails.logger.debug "AFTER **********"
-        Rails.logger.debug @ivcontact.contact_type
         format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @ivcontact }
       else
@@ -104,9 +108,9 @@ class IvcontactsController < ApplicationController
     end
 
     def save_personnel_list(personnel_array)
-      # Remove the dummy record that's created to provide scaffolding for additional records
-      delete_fake = personnel_array.shift
       @ivcontact.personnels.delete_all
+      # Remove the dummy record that's created to provide scaffolding for additional records
+      delete_fake = personnel_array.shift if personnel_array.is_a?(Array)
       personnel = Personnel.where(id: personnel_array)
       @ivcontact.personnels << personnel
     end
@@ -136,7 +140,7 @@ class IvcontactsController < ApplicationController
         :pcqm_34, :pcqm_35, :pcqm_36,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify, :practice_id, :personnels,
+        :prac_change_other, :prac_change_specify, :practice_id,
         personnels_attributes: [:id, :_destroy, :name, :role, :role_other])
     end
 end

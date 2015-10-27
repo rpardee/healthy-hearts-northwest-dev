@@ -92,7 +92,8 @@ class Practice < ActiveRecord::Base
   end
 
   def get_inperson_visit(visitnum)
-  	Ivcontact.where(practice_id: self.id, contact_type: 1, contact_specific: visitnum).first
+  	# Ivcontact.where(practice_id: self.id, contact_type: 1, contact_specific: visitnum).first
+  	self.ivcontacts.where(contact_type: 1, contact_specific: visitnum).first
   end
 
   def tier_value(visitnum)
