@@ -16,12 +16,14 @@
   <tbody>
     <% @practices.each do |practice| %>
       <tr>
-        <td><%= link_to practice.name, edit_coach_practice_path(practice) %></td>
+        <td><%= link_to practice.name, coach_practice_path(practice) %></td>
         <td align=center><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Contact"), new_coach_practice_ivcontact_path(practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %></td>
-        <td align=center>link_to new_action_item </td>
+        <td align=center><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Coach Item"), new_coach_practice_coach_item_path(practice), class: 'addButton', title: "Add New Coach Item" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<br />
+<%= link_to "Back", :back %>
 </div>

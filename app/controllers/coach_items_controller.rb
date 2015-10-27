@@ -15,10 +15,12 @@ class CoachItemsController < ApplicationController
   # GET /coach_items/new
   def new
     @coach_item = CoachItem.new
+    @practice = Practice.find(params[:coach_practice_id])
   end
 
   # GET /coach_items/1/edit
   def edit
+    @practice = Practice.find(params[:coach_practice_id])
   end
 
   # POST /coach_items
@@ -28,7 +30,7 @@ class CoachItemsController < ApplicationController
 
     respond_to do |format|
       if @coach_item.save
-        format.html { redirect_to @coach_item, notice: 'Coach item was successfully created.' }
+        format.html { redirect_to coach_practice_path(@coach_item.practice_id), notice: 'Coach item was successfully created.' }
         format.json { render :show, status: :created, location: @coach_item }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class CoachItemsController < ApplicationController
   def update
     respond_to do |format|
       if @coach_item.update(coach_item_params)
-        format.html { redirect_to @coach_item, notice: 'Coach item was successfully updated.' }
+        format.html { redirect_to coach_practice_path(@coach_item.practice_id), notice: 'Coach item was successfully updated.' }
         format.json { render :show, status: :ok, location: @coach_item }
       else
         format.html { render :edit }
@@ -69,6 +71,7 @@ class CoachItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coach_item_params
-      params[:coach_item]
+      params[:coach_item].permit(:id, :_destroy, :item_type, :add_dt, :complete, :complete_dt,
+        :notes, :practice_id)
     end
 end

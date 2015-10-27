@@ -1,3 +1,4 @@
+<div id='popupForm'>
   <%= form_for(@coach_item) do |f| %>
     <% if @coach_item.errors.any? %>
       <div id="error_explanation">
@@ -11,7 +12,10 @@
       </div>
     <% end %>
 
-    <h3>Action Item or Coach Follow-up</h3>
+    <div id="closePopupForm">
+      <a><%= image_tag("close.gif", alt: "Close") %></a>
+    </div>
+    <h3>New Action Item or Coach Follow-up</h3>
     <table class='space'>
       <tr>
         <td><%= f.label :practice_id, "Practice" %></td>
@@ -38,8 +42,7 @@
     </table>
 
     <div class="actions">
-      <br />
-      <%= f.submit "Save" %><br /><br />
-      <%= link_to "Back", :back %>
+      <%= f.submit "Add Activity" %>
     </div>
   <% end %>
+</div>

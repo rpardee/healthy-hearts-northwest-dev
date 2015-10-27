@@ -16,9 +16,22 @@ class CoachPracticesController < ApplicationController
     @practices = policy_scope(Practice).order("name")
   end
 
+  def show
+    @practice = Practice.find(params[:id])
+    @coach_name = @practice.coach.name
+    @coach_item = CoachItem.new
+    @visit1 = @practice.get_inperson_visit(1)
+    @visit2 = @practice.get_inperson_visit(2)
+    @visit3 = @practice.get_inperson_visit(3)
+    @visit4 = @practice.get_inperson_visit(4)
+    @visit5 = @practice.get_inperson_visit(5)
+  end
+
   # GET /coach_practices/1/edit
   def edit
     @coach_id = @practice.coach.id if @practice.coach
+    # Required for New Item quick add
+    @coach_item = CoachItem.new
     @visit1 = @practice.get_inperson_visit(1)
     @visit2 = @practice.get_inperson_visit(2)
     @visit3 = @practice.get_inperson_visit(3)
@@ -49,6 +62,8 @@ class CoachPracticesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def practice_params
       params[:practice].permit(:name, :address, :phone, :url, :coach_id,
-        personnels_attributes: [:id, :_destroy, :name, :role, :role_other])
+        personnels_attributes: [:id, :_destroy, :name, :role, :role_other],
+        coach_items_attributes: [:id, :_destroy, :item_type, :add_dt, :complete, :complete_dt,
+          :notes, :practice_id])
     end
 end

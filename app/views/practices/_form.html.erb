@@ -63,8 +63,10 @@
         <td><%= f.text_field :city, size: 40 %></td>
         <td><%= f.label :prac_state, "State" %></td>
         <td><%= f.select :prac_state, Practice::PRAC_STATE_VALS, include_blank: true %></td>
-        <td><%= f.label :site_id, "Site" %></td>
-        <td><%= f.select :site_id, Site::SITE_VALS, include_blank: true %></td>
+        <% if current_partner.admin? %>
+          <td><%= f.label :site_id, "Site" %></td>
+          <td><%= f.select :site_id, Site::SITE_VALS, include_blank: true %></td>
+        <% end %>
       </tr>
       <tr>
         <td><%= f.label :zip_code, "ZIP Code" %></td>

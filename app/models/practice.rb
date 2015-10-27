@@ -1,82 +1,87 @@
 class Practice < ActiveRecord::Base
-  has_paper_trail
-  validates_presence_of :name, :prac_state
+	has_paper_trail
+	validates_presence_of :name, :prac_state
 
-  has_many :ivcontacts
-  has_many :events
-  has_and_belongs_to_many :partners
-  has_one :practice_survey
+	has_many :ivcontacts
+	has_many :events
+	has_and_belongs_to_many :partners
+	has_one :practice_survey
 
-  belongs_to :site
+	belongs_to :site
 
-  has_many :personnels, dependent: :destroy
+	has_many :coach_items
+	accepts_nested_attributes_for :coach_items, :reject_if => :all_blank,
+		:allow_destroy => true
 
-  accepts_nested_attributes_for :personnels, :reject_if => :all_blank, :allow_destroy => true
+	has_many :personnels, dependent: :destroy
 
-  def primary_contact
-    self.personnels.where(site_contact_primary: true).first.try(:name)
-  end
+	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
+		:allow_destroy => true
 
-  def last_contact
-    self.events.maximum(:schedule_dt)
-  end
+	def primary_contact
+		self.personnels.where(site_contact_primary: true).first.try(:name)
+	end
 
-  has_many :events, dependent: :destroy do
-    def appointments
-      self.where("schedule_dt >= ?", Date.today)
-    end
+	def last_contact
+		self.events.maximum(:schedule_dt)
+	end
 
-    def enrolled
-      self.exists?(:outcome_pal_returned => true)
-    end
-  end
+	has_many :events, dependent: :destroy do
+		def appointments
+			self.where("schedule_dt >= ?", Date.today)
+		end
 
-  def recruiter
-    self.partners.where("recruiter = true").first
-  end
+		def enrolled
+			self.exists?(:outcome_pal_returned => true)
+		end
+	end
 
-  def coach
-    # self.partners.find(coach_id) if coach_id
-    Partner.find(self.coach_id) if coach_id
-  end
+	def recruiter
+		self.partners.where("recruiter = true").first
+	end
 
-  def pal_status
-    event_list = self.events
-    if event_list.exists?(:outcome_pal_returned => true)
-      "Returned"
-    elsif event_list.exists?(:outcome_pal_sent => true)
-      "Sent"
-    else
-      ""
-    end
-  end
+	def coach
+		# self.partners.find(coach_id) if coach_id
+		Partner.find(self.coach_id) if coach_id
+	end
 
-  def status
-    if primary_care == 2 || (prac_ehr.present? and prac_ehr > 1) ||
-      prac_ehr_mu == 2 or (fte_clinicians.present? and fte_clinicians > 10)
-      "Ineligible"
-    elsif interest_yn.blank?
-      if primary_care.blank? or fte_clinicians.blank? or prac_ehr.blank? or prac_ehr_mu.blank?
-        "Interest/Eligibility TBD"
-      elsif primary_care == 1 and fte_clinicians <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
-        "Eligible (Interest TBD)"
-      else
-        "Interest TBD (Status Problem)"
-      end
-    elsif interest_yn == 2
-      "Refused"
-    elsif interest_yn == 1
-      if primary_care.blank? or fte_clinicians.blank? or prac_ehr.blank? or prac_ehr_mu.blank?
-        "Interested (Eligibility TBD)"
-      elsif primary_care == 1 and fte_clinicians <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
-        "Interested & Eligible"
-      else
-        "Interested (Status Problem)"
-      end
-    else
-      "(Status Problem)"
-    end
-  end
+	def pal_status
+		event_list = self.events
+		if event_list.exists?(:outcome_pal_returned => true)
+			"Returned"
+		elsif event_list.exists?(:outcome_pal_sent => true)
+			"Sent"
+		else
+			""
+		end
+	end
+
+	def status
+		if primary_care == 2 || (prac_ehr.present? and prac_ehr > 1) ||
+			prac_ehr_mu == 2 or (fte_clinicians.present? and fte_clinicians > 10)
+			"Ineligible"
+		elsif interest_yn.blank?
+			if primary_care.blank? or fte_clinicians.blank? or prac_ehr.blank? or prac_ehr_mu.blank?
+				"Interest/Eligibility TBD"
+			elsif primary_care == 1 and fte_clinicians <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
+				"Eligible (Interest TBD)"
+			else
+				"Interest TBD (Status Problem)"
+			end
+		elsif interest_yn == 2
+			"Refused"
+		elsif interest_yn == 1
+			if primary_care.blank? or fte_clinicians.blank? or prac_ehr.blank? or prac_ehr_mu.blank?
+				"Interested (Eligibility TBD)"
+			elsif primary_care == 1 and fte_clinicians <= 10 and prac_ehr == 1 and prac_ehr_mu == 1
+				"Interested & Eligible"
+			else
+				"Interested (Status Problem)"
+			end
+		else
+			"(Status Problem)"
+		end
+	end
 
   def next_inperson_contact
     last_contact = Ivcontact.where(practice_id: self.id).maximum(:contact_specific)
@@ -88,7 +93,7 @@ class Practice < ActiveRecord::Base
   end
 
   def get_inperson_visit(visitnum)
-    Ivcontact.where(practice_id: self.id, contact_specific: visitnum).first
+  	Ivcontact.where(practice_id: self.id, contact_type: 1, contact_specific: visitnum).first
   end
 
   def tier_value(visitnum)
