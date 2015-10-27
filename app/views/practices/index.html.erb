@@ -17,7 +17,7 @@
     <% @practices.each do |practice| %>
       <tr>
         <td><%= practice.name %></td>
-        <td><%= practice.partner.name %></td>
+        <td><%= practice.site.name if practice.site %></td>
         <td><%= link_to 'Edit', edit_practice_path(practice) %></td>
       </tr>
     <% end %>

@@ -295,8 +295,19 @@
   </table>
   </div>
 
-  <div> PDSA Cycle nested stuff goes here </div>
-
+  <!-- cocoon stuff for HLCTs goes here -->
+  <div class="boxed">
+    <div id='high_leverage_change_tests'>
+      <h3>Tests of Change</h3>
+      <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p>
+      <%= f.fields_for :high_leverage_change_tests do |high_leverage_change_test| %>
+        <%= render 'high_leverage_change_test_fields', :f => high_leverage_change_test %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to_add_association 'Add Test', f, :high_leverage_change_tests %>
+    </div>
+  </div>
   <div id='ivcontact-gyr' class='boxed'>
     <h3>Green-Yellow-Red Assessment of Progress</h3>
     <p> What is your assessment of this practice's ability to continue to make progress
