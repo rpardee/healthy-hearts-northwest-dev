@@ -31,6 +31,7 @@ class IvcontactsController < ApplicationController
     # @practice_id = params[:coach_practice_id]
     @practice = Practice.find(params[:coach_practice_id])
     @practice_name = Practice.find(@practice.id).name
+    @contact_specific = @ivcontact.contact_specific
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
     (@ivcontact.high_leverage_change_tests.count..3).each do
       @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
