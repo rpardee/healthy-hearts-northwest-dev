@@ -108,6 +108,22 @@ $(document).on "page:change", ->
 
 $(document).on "page:change", ->
 	$('#tier-tooltip').tooltip()
+	$("#hlc-tooltip label").each ->
+		if $(this).hasClass("priority1")
+			$(this).attr('title', "Use when a practice has decided that a particular HLC was not a priority for them and/or have been intentional about not working on this HLC during the time since your last required contact. This rating can be made at any time during your work with the practice.")
+		if $(this).hasClass("priority2")
+			$(this).attr('title', "")
+		$(this).tooltip()
+	# $('#hlc-tooltip input:radio').each ->
+	# 	if $(this).val() == 1
+	# 		$(this).tooltip("option", "content", "FIRST")
+	# 		$(this).attr('title', "FIRST")
+	# 	else if $(this).val() == 2
+	# 		$(this).attr('title', "SECOND")
+	# 	else if $(this).val() == 3
+	# 		$(this).attr('title', "THIRD")
+	# 	else if $(this).val() == 4
+	# 		$(this).attr('title', "FOURTH")
 
 $(document).on "page:change", ->
 	$("#personnel-wrapper").on 'click', '.delete-ivcontact-personnel-button', ->
