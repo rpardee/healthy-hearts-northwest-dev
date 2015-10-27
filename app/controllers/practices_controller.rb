@@ -5,7 +5,7 @@ class PracticesController < ApplicationController
   # GET /practices
   # GET /practices.json
   def index
-    @practices = Practice.all
+    @practices = policy_scope(Practice).all
   end
 
   # GET /practices/1

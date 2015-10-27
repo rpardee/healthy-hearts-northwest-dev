@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021170556) do
+ActiveRecord::Schema.define(version: 20151026181952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,25 @@ ActiveRecord::Schema.define(version: 20151021170556) do
 
   add_index "events", ["partner_id"], name: "index_events_on_partner_id", using: :btree
   add_index "events", ["practice_id"], name: "index_events_on_practice_id", using: :btree
+
+  create_table "high_leverage_change_tests", force: :cascade do |t|
+    t.integer  "ivcontact_id"
+    t.text     "description"
+    t.integer  "test_status"
+    t.text     "comments"
+    t.boolean  "embed_evidence"
+    t.boolean  "use_data"
+    t.boolean  "xfunc_qi"
+    t.boolean  "id_at_risk"
+    t.boolean  "manage_pops"
+    t.boolean  "self_management"
+    t.boolean  "resource_linkages"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "hlc_other",         default: false
+  end
+
+  add_index "high_leverage_change_tests", ["ivcontact_id"], name: "index_high_leverage_change_tests_on_ivcontact_id", using: :btree
 
   create_table "ivcontacts", force: :cascade do |t|
     t.integer  "contact_type"
@@ -459,6 +478,7 @@ ActiveRecord::Schema.define(version: 20151021170556) do
 
   add_foreign_key "events", "partners"
   add_foreign_key "events", "practices"
+  add_foreign_key "high_leverage_change_tests", "ivcontacts"
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
   add_foreign_key "practice_surveys", "practices"

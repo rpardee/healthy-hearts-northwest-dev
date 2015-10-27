@@ -1,0 +1,2 @@
+module HighLeverageChangeTestHelper
+end

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :coach_items
-  resources :ivcontacts
+  resources :ivcontacts do
+    resources :high_leverage_change_tests
+  end
+
+  resources :high_leverage_change_tests
 
   devise_for :partners
   devise_scope :partners do
@@ -33,6 +37,7 @@ Rails.application.routes.draw do
   end
   resources :events
   resources :personnels
+  resources :practices
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

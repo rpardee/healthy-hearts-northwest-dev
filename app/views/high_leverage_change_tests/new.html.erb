@@ -1,0 +1,36 @@
+<%= form_for(@hlct) do |f| %>
+  <% if @hlct.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hlct.errors.count, "error") %> prohibited this change test from being saved:</h2>
+
+      <ul>
+      <% @hlct.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="space">
+    <thead>
+      <th>Activity Description</th>
+      <th>Corresponding <acronym title = "High Leverage Change">HLC</acronym>s</th>
+      <th>Status</th>
+      <th>Comments</th>
+      <th>&nbsp;</th>
+    </thead>
+    <tr>
+      <td><%= f.text_area :description, :rows => 8 %></td>
+      <td>
+        <% HighLeverageChangeTest::HLC_FIELDS.each do |hlcf| %>
+          <%= f.check_box hlcf.to_sym %>
+          <%= f.label hlcf.to_sym, HighLeverageChangeTest::HLCS_SHORT[hlcf], :title=> HighLeverageChangeTest::HLCS[hlcf] %>
+          <br/>
+        <% end %>
+      </td>
+      <td><%= f.select(:test_status, HighLeverageChangeTest::TEST_STATUSES, :include_blank => true) %></td>
+      <td><%= f.text_area :comments, :rows => 8 %></td>
+      <td><%= f.submit "Save" %></td>
+    </tr>
+  </table>
+<% end %>
+

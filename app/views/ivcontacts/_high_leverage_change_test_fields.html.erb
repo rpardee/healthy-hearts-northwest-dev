@@ -1,0 +1,33 @@
+<div class='nested-fields box'>
+  <table class="space">
+    <thead>
+      <th>PDSA Cycle</th>
+      <th colspan="2">Corresponding <acronym title = "High Leverage Change">HLC</acronym>s</th>
+      <th>Status</th>
+      <th>Comments</th>
+    </thead>
+    <tr>
+      <td><%= f.text_area :description, :rows => 4, :cols => 35 %></td>
+      <td>
+        <% HighLeverageChangeTest::HLC_FIELDS[0..3].each do |hlcf| %>
+            <%= f.check_box hlcf.to_sym %>
+            <%= f.label hlcf.to_sym, HighLeverageChangeTest::HLCS_SHORT[hlcf], :title=> HighLeverageChangeTest::HLCS[hlcf] %>
+            <br/>
+        <% end %>
+      </td>
+      <td>
+        <% HighLeverageChangeTest::HLC_FIELDS[4..9].each do |hlcf| %>
+            <%= f.check_box hlcf.to_sym %>
+            <%= f.label hlcf.to_sym, HighLeverageChangeTest::HLCS_SHORT[hlcf], :title=> HighLeverageChangeTest::HLCS[hlcf] %>
+            <br/>
+        <% end %>
+      </td>
+      <td><%= f.select(:test_status, HighLeverageChangeTest::TEST_STATUSES, :include_blank => true) %></td>
+      <td><%= f.text_area :comments, :rows => 4, :cols => 35 %></td>
+    </tr>
+    <tr>
+      <td colspan = "5">
+      </td>
+    </tr>
+  </table>
+</div>
