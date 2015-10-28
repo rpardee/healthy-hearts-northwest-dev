@@ -45,15 +45,12 @@ updateDisruptionTime = (contact_specific_field) ->
 	if v == 1  																	# Baseline/1st Quarter
 		$('#ivcontact-disruption-3').hide()
 		$('#ivcontact-disruption-12').show()
-		$('#ivcontact-disruption-warning').hide()
 	else if v == 2 | v == 3 | v == 4 | v == 5  	# 2nd-5th Quarter
 		$('#ivcontact-disruption-3').show()
 		$('#ivcontact-disruption-12').hide()
-		$('#ivcontact-disruption-warning').hide()
 	else																				# Blank
 		$('#ivcontact-disruption-3').hide()
 		$('#ivcontact-disruption-12').hide()
-		$('#ivcontact-disruption-warning').show()
 
 updateCheckbox = (checkbox_id, appear_id) ->
 	if document.getElementById(checkbox_id)
@@ -112,18 +109,12 @@ $(document).on "page:change", ->
 		if $(this).hasClass("priority1")
 			$(this).attr('title', "Use when a practice has decided that a particular HLC was not a priority for them and/or have been intentional about not working on this HLC during the time since your last required contact. This rating can be made at any time during your work with the practice.")
 		if $(this).hasClass("priority2")
-			$(this).attr('title', "")
+			$(this).attr('title', "Use when practice has articulated intent to work on an HLC but since you last met with them has either made no progress, very minor progress, or is still in the planning/brainstorming phase and has not tested any of their planned changes.")
+		if $(this).hasClass("priority3")
+			$(this).attr('title', "Use when a practice has been completing agreed upon actions, running PDSA cycles, training staff and/or other activities that are clearly contributing to a knowledge/culture change in the practice around this HLC.")
+		if $(this).hasClass("priority4")
+			$(this).attr('title', "Use when a practice already has all the systems in place to carry out the HLC on a consistent basis and has no plans for further changes or testing at this point.")
 		$(this).tooltip()
-	# $('#hlc-tooltip input:radio').each ->
-	# 	if $(this).val() == 1
-	# 		$(this).tooltip("option", "content", "FIRST")
-	# 		$(this).attr('title', "FIRST")
-	# 	else if $(this).val() == 2
-	# 		$(this).attr('title', "SECOND")
-	# 	else if $(this).val() == 3
-	# 		$(this).attr('title', "THIRD")
-	# 	else if $(this).val() == 4
-	# 		$(this).attr('title', "FOURTH")
 
 $(document).on "page:change", ->
 	$("#personnel-wrapper").on 'click', '.delete-ivcontact-personnel-button', ->

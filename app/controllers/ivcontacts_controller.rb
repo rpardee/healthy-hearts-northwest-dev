@@ -103,7 +103,7 @@ class IvcontactsController < ApplicationController
     def set_contact_type_options
       # If this is changed, also update Ivcontact::CONTACT_TYPE_VALS
       @grouped_options_for_contact_type = { 'Required monthly contact' => [['Required in-person visit', 1],
-        ['Required phone call', 2], ['Other contact', 3]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
+        ['Other required contact', 2]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 
     def get_personnel_list(personnel)
@@ -131,7 +131,9 @@ class IvcontactsController < ApplicationController
         :topic_abcs, :topic_brainstorm, :topic_observe_flow, :topic_share, :topic_connect,
         :topic_resource, :topic_planning, :topic_workflow, :topic_roles, :topic_qi_support,
         :topic_consensus, :topic_review_data, :topic_qi_display, :topic_huddle, :topic_self_assessment,
-        :topic_leadership, :topic_other, :topic_other_specify, :milestone_evidence_progress,
+        :topic_leadership, :topic_other, :topic_other_specify,
+        :topic_review_guideline, :topic_discuss_measurement,
+        :milestone_evidence_progress,
         :milestone_evidence_active, :milestone_evidence_discussed, :milestone_data_progress,
         :milestone_data_active, :milestone_data_discussed, :milestone_qi_progress,
         :milestone_qi_active, :milestone_qi_discussed, :milestone_atrisk_progress,

@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026181952) do
+ActiveRecord::Schema.define(version: 20151028002257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "coach_items", force: :cascade do |t|
     t.integer  "item_type"
@@ -163,6 +164,8 @@ ActiveRecord::Schema.define(version: 20151026181952) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "practice_id"
+    t.boolean  "topic_review_guideline"
+    t.boolean  "topic_discuss_measurement"
   end
 
   create_table "ivcontacts_personnels", id: false, force: :cascade do |t|
@@ -176,7 +179,6 @@ ActiveRecord::Schema.define(version: 20151026181952) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -192,6 +194,7 @@ ActiveRecord::Schema.define(version: 20151026181952) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
     t.boolean  "recruiter"
     t.boolean  "coach"
   end

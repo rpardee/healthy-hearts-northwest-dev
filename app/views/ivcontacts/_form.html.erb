@@ -202,6 +202,19 @@
       </td>
     </tr>
     <tr>
+      <td>
+        <%= f.check_box :topic_review_guideline %>
+        <%= f.label :topic_review_guideline, "Review/discuss organizational guidelines" %>
+      </td>
+      <td>
+        <%= f.check_box :topic_discuss_measurement %>
+        <%= f.label :topic_discuss_measurement, "Discuss value-based measurement" %>
+      </td>
+      <td>
+        &nbsp;
+      </td>
+    </tr>
+    <tr>
     </tr>
   </table>
 
@@ -244,7 +257,8 @@
       <td>Utilize reliable, robust data to understand and improve ABCS measures</td>
       <td><%=
         f.collection_radio_buttons :milestone_data_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
+          n = n.to_i + 1
+          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -253,7 +267,8 @@
       <td>Establish a regular QI process involving cross-functional teams (QI, care team, huddles, all staff)</td>
       <td><%=
         f.collection_radio_buttons :milestone_qi_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
+          n = n.to_i + 1
+          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -262,7 +277,8 @@
       <td>Identify at-risk patients for prevention outreach</td>
       <td><%=
         f.collection_radio_buttons :milestone_atrisk_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
+          n = n.to_i + 1
+          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -271,7 +287,8 @@
       <td>Define roles and responsibilities (tasks) across the care team to identify and manage ABCS populations</td>
       <td><%=
         f.collection_radio_buttons :milestone_task_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
+          n = n.to_i + 1
+          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -280,7 +297,8 @@
       <td>Deepen patient self-management support for action planning around ABCS</td>
       <td><%=
         f.collection_radio_buttons :milestone_selfmgmt_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
+          n = n.to_i + 1
+          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -289,7 +307,8 @@
       <td>Develop robust linkages to smoking cessation, CDSMP and other evidence-based community resources</td>
       <td><%=
         f.collection_radio_buttons :milestone_community_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          b.label { b.radio_button + b.text } + tag("br")
+          n = n.to_i + 1
+          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -428,7 +447,7 @@
 
   <div id='ivcontact-tier' class='boxed'>
     <h3>Tiering Tool for Capacity</h3>
-    <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Please this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
+    <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Place this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
     <table id='tier-tooltip' class='space lined background-green'>
       <tr title="Click column heading to view description">
         <th>&nbsp;</th>
@@ -1080,7 +1099,7 @@
         <td><%= f.check_box :prac_change_other %></td>
       </tr>
       <tr id='ivcontact-pracchangespecify'>
-        <td><%= f.label :prac_change_specify, "Please specify:" %></td>
+        <td><%= f.label :prac_change_specify, "If other, please specify:" %></td>
         <td><%= f.text_area :prac_change_specify, rows: 3, cols: 50 %></td>
       </tr>
     </table>
