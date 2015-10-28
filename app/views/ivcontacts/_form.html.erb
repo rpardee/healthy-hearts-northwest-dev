@@ -248,8 +248,7 @@
     <tr>
       <td>Embed clinical evidence on ABCS into daily work to guide care for patients</td>
       <td><%= f.collection_radio_buttons :milestone_evidence_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          n = n.to_i + 1
-          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
+          b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br")
         end %>
       </td>
     </tr>
@@ -257,8 +256,7 @@
       <td>Utilize reliable, robust data to understand and improve ABCS measures</td>
       <td><%=
         f.collection_radio_buttons :milestone_data_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          n = n.to_i + 1
-          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
+          b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -267,8 +265,7 @@
       <td>Establish a regular QI process involving cross-functional teams (QI, care team, huddles, all staff)</td>
       <td><%=
         f.collection_radio_buttons :milestone_qi_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          n = n.to_i + 1
-          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
+          b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -277,8 +274,7 @@
       <td>Identify at-risk patients for prevention outreach</td>
       <td><%=
         f.collection_radio_buttons :milestone_atrisk_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          n = n.to_i + 1
-          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
+          b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -287,8 +283,7 @@
       <td>Define roles and responsibilities (tasks) across the care team to identify and manage ABCS populations</td>
       <td><%=
         f.collection_radio_buttons :milestone_task_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          n = n.to_i + 1
-          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
+          b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -297,8 +292,7 @@
       <td>Deepen patient self-management support for action planning around ABCS</td>
       <td><%=
         f.collection_radio_buttons :milestone_selfmgmt_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          n = n.to_i + 1
-          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
+          b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
@@ -307,8 +301,7 @@
       <td>Develop robust linkages to smoking cessation, CDSMP and other evidence-based community resources</td>
       <td><%=
         f.collection_radio_buttons :milestone_community_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b|
-          n = n.to_i + 1
-          b.label(class: "priority#{n}") { b.radio_button + b.text } + tag("br")
+          b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br")
         end
         %>
       </td>
