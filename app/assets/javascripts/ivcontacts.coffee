@@ -146,7 +146,12 @@ $(document).on "page:change", ->
 			$(this).attr('title', "Use when a practice has been completing agreed upon actions, running PDSA cycles, training staff and/or other activities that are clearly contributing to a knowledge/culture change in the practice around this HLC.")
 		if $(this).hasClass("priority4")
 			$(this).attr('title', "Use when a practice already has all the systems in place to carry out the HLC on a consistent basis and has no plans for further changes or testing at this point.")
-		$(this).tooltip()
+		$(this).tooltip({
+			position: {
+				my: 'left+15 bottom-30',
+				at: 'left bottom'
+			}
+		})
 
 $(document).on "page:change", ->
 	$("#personnel-wrapper").on 'click', '.delete-ivcontact-personnel-button', ->
