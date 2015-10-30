@@ -10,10 +10,9 @@ class Ivcontact < ActiveRecord::Base
   validates_presence_of :contact_dt
 
   CONTACT_TYPE_VALS = {
-    "Required in-person visit" => 1,
-    "Required phone call" => 2,
-    "Other contact" => 3,
-    "Other ad-hoc" => 9
+    "Quarterly in-person visit" => 1,
+    "Other required contact" => 2,
+    "Other ad-hoc contact" => 9
   }
 
   CONTACT_MODE_VALS = {

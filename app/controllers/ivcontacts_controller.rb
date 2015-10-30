@@ -44,7 +44,7 @@ class IvcontactsController < ApplicationController
   def create
     @ivcontact = Ivcontact.new(ivcontact_params)
     @practice = Practice.find(@ivcontact.practice_id)
-    if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Required in-person visit"
+    if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Quarterly in-person visit"
       @ivcontact.contact_specific = @practice.next_inperson_contact
     end
     personnel_array = params[:ivcontact][:personnels]
@@ -102,7 +102,7 @@ class IvcontactsController < ApplicationController
 
     def set_contact_type_options
       # If this is changed, also update Ivcontact::CONTACT_TYPE_VALS
-      @grouped_options_for_contact_type = { 'Required monthly contact' => [['Required in-person visit', 1],
+      @grouped_options_for_contact_type = { '15 required monthly contacts' => [['Quarterly in-person visit', 1],
         ['Other required contact', 2]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 

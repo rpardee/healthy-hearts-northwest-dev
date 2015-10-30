@@ -11,7 +11,7 @@
 
   <div id='left-2'>
     <div>
-      <h3>Scheduled Site Visits</h3>
+      <h3>Required Site Visits</h3>
       <table class='lined space'>
         <tr>
           <td>Visit</td>
@@ -50,7 +50,7 @@
         </h2>
       </div>
       <%= render partial: 'item_new_popup' %>
-      <h3>Action Items</h3>
+      <h3>Action Items for Practice</h3>
       <table class='typical enable-data-table'>
         <thead>
           <tr>
@@ -86,18 +86,12 @@
         </tbody>
       </table>
     </div>
-
-    <div>
-      <br />
-      TO DO
-      <ul>
-        <li> Move historical Coach Notes to separate tab </li>
-        <li> Move historical IV Contacts to separate tab </li>
-      </ul>
-    </div>
   </div>
 
   <div id='right-2'>
+    <h2 title="Intervention Contacts" rel="tooltip">Intervention Contacts
+      <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
+    </h2>
     <% if @practice.ivcontacts.any? %>
       <table class='typical enable-data-table'>
         <thead>
@@ -116,7 +110,6 @@
         </tbody>
       </table>
     <% end %>
-    <%= link_to "New Intervention Contact", new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
   </div>
   <div class='clearfix'></div>
 

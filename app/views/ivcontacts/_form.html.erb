@@ -47,8 +47,8 @@
     </table>
   </div>
 
-  <div id='personnel-wrapper' class='box'>
-    <p class='title'>Attending Staff</p>
+  <div id='personnel-wrapper' class='boxed'>
+    <h3>Attending Staff</h3>
     <% @ivcontact.personnels.each do |p| %>
       <table class='space deletable'>
         <tr>
@@ -239,10 +239,10 @@
   <br />
   <div id='ivcontact-milestone' class='boxed'>
   <h3>H2N High Leverage Changes</h3>
-  <p>Please rate this practice's progress on <u>every high leverage change</u> listed below.</p>
+  <p>Please rate this practice's progress since your last required contact on <u>every High Leverage Change</u> listed below.</p>
   <table id='hlc-tooltip' class='space lined fulltext background-pink'>
     <tr>
-      <th width="50%">Milestone</th>
+      <th width="50%">HLC</th>
       <th>Progress</th>
     </tr>
     <tr>
@@ -310,7 +310,7 @@
   </div>
 
   <!-- cocoon stuff for HLCTs goes here -->
-  <div class="boxed">
+  <div class="boxed" id='ivcontact-pdsa'>
     <div id='high_leverage_change_tests'>
       <h3>Tests of Change</h3>
       <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p>
@@ -322,10 +322,11 @@
       <%= link_to_add_association 'Add Test', f, :high_leverage_change_tests %>
     </div>
   </div>
+
   <div id='ivcontact-gyr' class='boxed'>
     <h3>Green-Yellow-Red Assessment of Progress</h3>
     <p> What is your assessment of this practice's ability to continue to make progress
-      <strong>at this point in time</strong>? Your confidence in their ability to make progress
+      <u>at this point in time</u>? Your confidence in their ability to make progress
       may be based on their activities, overall change capacity, and/or other relevant
       internal and external factors.  Mark each site as green, yellow or red using the definitions provided, then indicate the activities or situations on which you are basing your rating.
       (A practice will likely move back and forth throughout the initiative based on current
@@ -440,7 +441,7 @@
 
   <div id='ivcontact-tier' class='boxed'>
     <h3>Tiering Tool for Capacity</h3>
-    <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the Tier Level Characteristics table below, identify where this practice is with its progress. Base your assessment on what you have observed or learned from the practice as its coach. Place this practice in the category that best matches its characteristics. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will be sustained.</p>
+    <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the definitions/examples provided for each tier, identify where this practice is with respect to capacity. Base your assessment on what you have observed or learned from the practice as its coach. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will likely be sustained.</p>
     <table id='tier-tooltip' class='space lined background-green'>
       <tr title="Click column heading to view description">
         <th>&nbsp;</th>
@@ -470,7 +471,7 @@
   </div>
 
   <div id='ivcontact-pcmha' class='boxed'>
-    <h3>Practice Self-Assessment Survey</h3>
+    <h3>Quality Improvement Change Assessment </h3>
 
     <p> HLC 1: Embed clinical evidence on ABCS into daily work to guide care for patients </p>
     <table class='lined space background-orange'>
@@ -1061,11 +1062,15 @@
 
   <div id='ivcontact-disruption' class='boxed'>
     <h3>Disruptions to Practice</h3>
-    <p> Have there been any of the following major changes in this practice in the <span id='ivcontact-disruption-12'>last 12 months</span><span id='ivcontact-disruption-3'>last 3 months</span>?</p>
+    <p> Have there been any of the following major changes in this practice in the <span id='ivcontact-disruption-12'>last 12 months</span><span id='ivcontact-disruption-3'>last 3 months</span>? Check all that apply.</p>
     <table class='lined space fulltext background-orange'>
       <tr>
         <td><%= f.label :prac_change_ehr, "Implemented a new or different Electronic Health Record (EHR)" %></td>
         <td><%= f.check_box :prac_change_ehr %></td>
+        <td id='ivcontact-ehr-which'>
+          <%= f.label :prac_change_ehr_which, "If yes, please indicate the name of the previous EHR system:" %>
+          <%= f.text_field :prac_change_ehr_which %>
+        </td>
       </tr>
       <tr>
         <td><%= f.label :prac_change_newlocation, "Moved to a new location" %></td>

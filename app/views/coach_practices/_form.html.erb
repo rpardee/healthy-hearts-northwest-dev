@@ -19,7 +19,7 @@
 
     <div>
       <br />
-      <h3>Scheduled Site Visits</h3>
+      <h3>Required Site Visits</h3>
       <table class='lined space'>
         <tr>
           <td>Visit</td>
@@ -50,7 +50,7 @@
     <br />
 
     <div class='box'>
-      <h3>Action Items</h3>
+      <h3>Action Items for Practice</h3>
       <table class='typical enable-data-table'>
         <thead>
           <tr>
@@ -86,22 +86,11 @@
         </tbody>
       </table>
     </div>
-
-    <div>
-      <br />
-      Display this optionally:
-      Historical action items.
-      Historical coach follow-ups.
-    </div>
-
-    <div>
-      <br />
-      Historical ivcontacts
-    </div>
   </div>
 
   <div id='right-2'>
     <% if @practice.ivcontacts.any? %>
+      <h3>Intervention Contacts</h3>
       <table class='typical enable-data-table'>
         <thead>
           <tr>
