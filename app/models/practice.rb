@@ -84,7 +84,7 @@ class Practice < ActiveRecord::Base
 	end
 
   def next_inperson_contact
-    last_contact = Ivcontact.where(practice_id: self.id).maximum(:contact_specific)
+    last_contact = Ivcontact.where(practice_id: self.id, contact_type: Ivcontact::CONTACT_TYPE_VALS["Quarterly in-person visit"]).maximum(:contact_specific)
     if last_contact.nil?
       return 1
     else
@@ -93,7 +93,8 @@ class Practice < ActiveRecord::Base
   end
 
   def get_inperson_visit(visitnum)
-  	Ivcontact.where(practice_id: self.id, contact_type: 1, contact_specific: visitnum).first
+  	# Ivcontact.where(practice_id: self.id, contact_type: 1, contact_specific: visitnum).first
+  	self.ivcontacts.where(contact_type: 1, contact_specific: visitnum).first
   end
 
   def tier_value(visitnum)

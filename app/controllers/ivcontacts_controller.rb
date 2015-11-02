@@ -32,7 +32,6 @@ class IvcontactsController < ApplicationController
     @practice = Practice.find(params[:coach_practice_id])
     @practice_name = Practice.find(@practice.id).name
     @contact_specific = @ivcontact.contact_specific
-    # @contact_type = @ivcontact.contact_type
     @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
     (@ivcontact.high_leverage_change_tests.count..3).each do
       @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
@@ -45,7 +44,9 @@ class IvcontactsController < ApplicationController
   def create
     @ivcontact = Ivcontact.new(ivcontact_params)
     @practice = Practice.find(@ivcontact.practice_id)
-    @ivcontact.contact_specific = params[:contact_type_calculated]
+    if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Quarterly in-person visit"
+      @ivcontact.contact_specific = @practice.next_inperson_contact
+    end
     personnel_array = params[:ivcontact][:personnels]
     save_personnel_list(personnel_array)
     respond_to do |format|
@@ -62,14 +63,18 @@ class IvcontactsController < ApplicationController
   # PATCH/PUT /ivcontacts/1
   # PATCH/PUT /ivcontacts/1.json
   def update
-    @coach = Practice.find(@ivcontact.practice_id).coach
+    @practice = Practice.find(@ivcontact.practice_id)
+    @coach = @practice.coach
+    # if Ivcontact::CONTACT_TYPE_VALS.key(params[:ivcontact][:contact_type]) == "Required in-person visit"
+    if params[:ivcontact][:contact_type] == '1'
+      @ivcontact.contact_specific = @practice.next_inperson_contact
+    else
+      @ivcontact.contact_specific = nil
+    end
     personnel_array = params[:ivcontact][:personnels]
     save_personnel_list(personnel_array)
-    @ivcontact.contact_specific = params[:contact_type_calculated]
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
-        Rails.logger.debug "AFTER **********"
-        Rails.logger.debug @ivcontact.contact_type
         format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @ivcontact }
       else
@@ -97,8 +102,8 @@ class IvcontactsController < ApplicationController
 
     def set_contact_type_options
       # If this is changed, also update Ivcontact::CONTACT_TYPE_VALS
-      @grouped_options_for_contact_type = { 'Required monthly contact' => [['Required in-person visit', 1],
-        ['Required phone call', 2], ['Other contact', 3]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
+      @grouped_options_for_contact_type = { '15 required monthly contacts' => [['Quarterly in-person visit', 1],
+        ['Other required contact', 2]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 
     def get_personnel_list(personnel)
@@ -110,9 +115,9 @@ class IvcontactsController < ApplicationController
     end
 
     def save_personnel_list(personnel_array)
-      # Remove the dummy record that's created to provide scaffolding for additional records
-      delete_fake = personnel_array.shift
       @ivcontact.personnels.delete_all
+      # Remove the dummy record that's created to provide scaffolding for additional records
+      delete_fake = personnel_array.shift if personnel_array.is_a?(Array)
       personnel = Personnel.where(id: personnel_array)
       @ivcontact.personnels << personnel
     end
@@ -126,7 +131,9 @@ class IvcontactsController < ApplicationController
         :topic_abcs, :topic_brainstorm, :topic_observe_flow, :topic_share, :topic_connect,
         :topic_resource, :topic_planning, :topic_workflow, :topic_roles, :topic_qi_support,
         :topic_consensus, :topic_review_data, :topic_qi_display, :topic_huddle, :topic_self_assessment,
-        :topic_leadership, :topic_other, :topic_other_specify, :milestone_evidence_progress,
+        :topic_leadership, :topic_other, :topic_other_specify,
+        :topic_review_guideline, :topic_discuss_measurement,
+        :milestone_evidence_progress,
         :milestone_evidence_active, :milestone_evidence_discussed, :milestone_data_progress,
         :milestone_data_active, :milestone_data_discussed, :milestone_qi_progress,
         :milestone_qi_active, :milestone_qi_discussed, :milestone_atrisk_progress,
@@ -142,7 +149,7 @@ class IvcontactsController < ApplicationController
         :pcqm_34, :pcqm_35, :pcqm_36,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify, :practice_id, :personnels,
+        :prac_change_other, :prac_change_specify, :practice_id,
         high_leverage_change_tests_attributes: [:id, :_destroy, :description, :test_status, :comments, :embed_evidence, :use_data, :xfunc_qi,
                                                 :id_at_risk, :manage_pops, :self_management, :resource_linkages,
                                                 :hlc_other],
