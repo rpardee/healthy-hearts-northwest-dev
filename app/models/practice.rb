@@ -209,7 +209,8 @@ class Practice < ActiveRecord::Base
 
   PRAC_EHR_EXTRACTDATA_VALS = {
     "Yes" => 1,
-    "No (SKIP to Q9)" => 2
+    # "No (SKIP to Q9)" => 2
+    "No (SKIP to Q3)" => 2
   }
 
   PRAC_EHR_VENDOR_VALS = {
@@ -222,7 +223,8 @@ class Practice < ActiveRecord::Base
 
   PRAC_IT_SUPPORT_VALS = {
     "Yes" => 1,
-    "No (SKIP to Q11)" => 2
+    # "No (SKIP to Q11)" => 2
+    "No" => 2
   }
 
   PRAC_CQM_VALS = {
