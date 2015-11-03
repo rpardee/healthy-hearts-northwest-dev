@@ -1,4 +1,1 @@
-<%= raw(Practice.attribute_names.join(',')) %>
-<% @practices.each do |p| %>
-<%=raw(p.attributes.values.join(',')) %>
-<% end %>
+<%= raw(export(@practices)) %>
