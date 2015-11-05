@@ -32,7 +32,10 @@ class PersonnelsController < ApplicationController
       if @personnel.save
         # format.html { redirect_to partner_practice_path(partner_id, @personnel.practice_id), notice: 'Personnel was successfully added.' }
         format.html { redirect_to partner_path(current_partner), notice: 'Personnel was successfully added.' }
-        format.json { render :show, status: :created, location: @personnel }
+        # format.json { render :show, status: :created, location: @personnel }
+        # Return the ID of the created object for use in ivcontacts.coffee
+        format.json { render json: {"id" => @personnel.id, "name" => @personnel.name,
+          "role_name" => Personnel::ROLE_VALS.key(@personnel.role) } }
       else
         format.html { render :new }
         format.json { render json: @personnel.errors, status: :unprocessable_entity }

@@ -37,31 +37,31 @@
     </tr>
   </table>
 
+  <div id='add-ivcontact-personnel-content' style="display: none;">
+    <table class='space deletable'>
+      <tr>
+        <td>Attendee:</td>
+        <td><%= select_tag 'ivcontact[personnels][]', options_for_select(@personnel_list) %></td>
+        <td><button class='delete-ivcontact-personnel-button' type='button'>Delete</button></td>
+      </tr>
+    </table>
+  </div>
+
   <div id='personnel-wrapper' class='boxed'>
     <h3>Attending Staff</h3>
-    <ul>
-      <% @personnel_list.each do |p| %>
-        <li>
-          <% if p.ivcontact_ids.include?(@ivcontact.id) %>
-            <%= check_box_tag "ivcontact[personnels][#{p.id}]", 1, checked: true %>
-          <% else %>
-            <%= check_box_tag "ivcontact[personnels][#{p.id}]" %>
-          <% end %>
-          <%= label_tag "ivcontact[personnels][#{p.id}]", "#{p.name} (#{Personnel::ROLE_VALS.key(p.role)})" %>
-        </li>
-      <% end %>
-      <li id='openPopupForm'>
-        <br />
-        <p>
-          <a title='Add New Staff' rel='tooltip'>
-            <%= image_tag("plus-blue.png", size: "15x15") %>
-            Add Staff Member
-          </a>
-        </p>
-      </li>
-    </ul>
+    <% @ivcontact.personnels.each do |p| %>
+      <table class='space deletable'>
+        <tr>
+          <td>Attendee:</td>
+          <td><%= select_tag 'ivcontact[personnels][]', options_for_select(@personnel_list, selected: p.id) %></td>
+          <td><button class='delete-ivcontact-personnel-button' type='button'>Delete</button></td>
+        </tr>
+      </table>
+    <% end %>
+    <div id='add-ivcontact-personnel-wrapper'>
+      <button id='add-ivcontact-personnel-button' type='button'>Add Staff Member</button>
+    </div>
   </div>
-  <%= render partial: 'add_staff_popup' %>
 
   <div class='boxed'>
   <h3>Topics Discussed:  Check all topics that apply</h3>

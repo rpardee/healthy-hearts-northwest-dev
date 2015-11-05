@@ -168,3 +168,20 @@ $(document).on "page:change", ->
 			"ivcontact[contact_dt]": "required"
 		}
 	})
+
+# Save newly added staff and add the staff member to the DOM
+$(document).on "page:change", ->
+	$("#add-staff-button").on 'click', ->
+		$.ajax
+			url: '/personnels'
+			type: 'POST'
+			data: { personnel: { practice_id: $('#coach-personnel-practice').val(), name: $('#coach-personnel-name').val(), role: $('#coach-personnel-role').val() } }
+			dataType: 'json'
+			error: (jqXHR, textStatus, errorThrown) ->
+				$('#staffPopupMessage').html("Name is required. Cannot save staff member.")
+			success: (data, textStatus, jqXHR) ->
+				$('#popupForm').fadeOut 'fast'
+				$('#staffPopupMessage').html("")
+				$('#coach-personnel-name').val("")
+				$('#coach-personnel-role').val("")
+				$('#openPopupForm').before("<li><input type='checkbox' name='ivcontact[personnels][#{data.id}]' id='ivcontact_personnels_#{data.id}' value='1' checked /> <label for='ivcontact_personnels_#{data.id}'>#{data.name} (#{data.role_name})</label></li>")

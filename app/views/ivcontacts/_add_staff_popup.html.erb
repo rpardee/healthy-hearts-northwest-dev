@@ -1,0 +1,23 @@
+<div id='popupForm'>
+  <div id="closePopupForm">
+    <a><%= image_tag("close.gif", alt: "Close") %></a>
+  </div>
+  <div id="staffPopupMessage">
+  </div>
+  <h3>New Staff Member</h3>
+  <%= hidden_field_tag :practice_id, value: @practice.id, id: 'coach-personnel-practice' %>
+  <table class='space' id='new-staff-popup'>
+    <tr>
+      <td><%= label_tag :name, "Name" %></td>
+      <td colspan="2"><%= text_field_tag :name, nil, :id => 'coach-personnel-name' %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :role %></td>
+      <td colspan='2'><%= select_tag :role, options_from_collection_for_select(Personnel::ROLE_VALS, "last", "first"), { id: 'coach-personnel-role', include_blank: true, class: 'enable-control', data: { :effector => '#personnel_role_other', :enablevalue => 99 }} %></td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <%= button_tag "Add Staff", id: 'add-staff-button', type: 'button' %>
+  </div>
+</div>

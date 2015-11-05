@@ -16,10 +16,11 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts/new
   def new
     @ivcontact = Ivcontact.new
+    @personnel = Personnel.new
     @practice = Practice.find(params[:coach_practice_id])
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
-    @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
+    @personnel_list = get_personnel_by_practice(@practice)
     (0..3).each do
       @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
     end
@@ -31,8 +32,8 @@ class IvcontactsController < ApplicationController
     # @practice_id = params[:coach_practice_id]
     @practice = Practice.find(params[:coach_practice_id])
     @practice_name = Practice.find(@practice.id).name
+    @personnel_list = get_personnel_by_practice(@practice)
     @contact_specific = @ivcontact.contact_specific
-    @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
     (@ivcontact.high_leverage_change_tests.count..3).each do
       @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
     end
@@ -47,7 +48,7 @@ class IvcontactsController < ApplicationController
     if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Quarterly in-person visit"
       @ivcontact.contact_specific = @practice.next_inperson_contact
     end
-    personnel_array = params[:ivcontact][:personnels]
+    personnel_array = params[:ivcontact][:personnels].keys
     save_personnel_list(personnel_array)
     respond_to do |format|
       if @ivcontact.save
@@ -71,7 +72,7 @@ class IvcontactsController < ApplicationController
     else
       @ivcontact.contact_specific = nil
     end
-    personnel_array = params[:ivcontact][:personnels]
+    personnel_array = params[:ivcontact][:personnels].keys
     save_personnel_list(personnel_array)
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
@@ -107,17 +108,22 @@ class IvcontactsController < ApplicationController
     end
 
     def get_personnel_list(personnel)
-      if personnel.nil?
-        Array.new
-      else
-        personnel.map {|p| ["#{p.name} - #{Personnel::ROLE_VALS.key(p.role)}", p.id]}
-      end
+      # if personnel.nil?
+      #   Array.new
+      # else
+      #   personnel.map {|p| ["#{p.name} - #{Personnel::ROLE_VALS.key(p.role)}", p.id]}
+      # end
+      @practice.personnels.includes(:ivcontacts)
+    end
+
+    def get_personnel_by_practice(practice)
+      Personnel.includes(:ivcontacts).where(practice_id: @practice.id).order("name")
     end
 
     def save_personnel_list(personnel_array)
       @ivcontact.personnels.delete_all
-      # Remove the dummy record that's created to provide scaffolding for additional records
-      delete_fake = personnel_array.shift if personnel_array.is_a?(Array)
+      # # Remove the dummy record that's created to provide scaffolding for additional records
+      # delete_fake = personnel_array.shift if personnel_array.is_a?(Array)
       personnel = Personnel.where(id: personnel_array)
       @ivcontact.personnels << personnel
     end
