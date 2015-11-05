@@ -64,6 +64,8 @@ class IvcontactsController < ApplicationController
   # PATCH/PUT /ivcontacts/1
   # PATCH/PUT /ivcontacts/1.json
   def update
+    # N.b., @ivcontact.contact_specific does not update. If a required in-person visit is
+    # entered, the specific (1st-5th) contact cannot be changed.
     @practice = Practice.find(@ivcontact.practice_id)
     @coach = @practice.coach
     # if Ivcontact::CONTACT_TYPE_VALS.key(params[:ivcontact][:contact_type]) == "Required in-person visit"
