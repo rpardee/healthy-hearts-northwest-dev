@@ -5,7 +5,7 @@
   <div id="staffPopupMessage">
   </div>
   <h3>New Staff Member</h3>
-  <%= hidden_field_tag :practice_id, value: @practice.id, id: 'coach-personnel-practice' %>
+  <%= hidden_field_tag :practice_id, @practice.id, id: 'coach-personnel-practice' %>
   <table class='space' id='new-staff-popup'>
     <tr>
       <td><%= label_tag :name, "Name" %></td>
