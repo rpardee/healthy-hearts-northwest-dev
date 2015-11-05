@@ -69,11 +69,11 @@ class IvcontactsController < ApplicationController
     @practice = Practice.find(@ivcontact.practice_id)
     @coach = @practice.coach
     # if Ivcontact::CONTACT_TYPE_VALS.key(params[:ivcontact][:contact_type]) == "Required in-person visit"
-    if params[:ivcontact][:contact_type] == '1'
-      @ivcontact.contact_specific = @practice.next_inperson_contact
-    else
-      @ivcontact.contact_specific = nil
-    end
+    # if params[:ivcontact][:contact_type] == '1'
+    #   @ivcontact.contact_specific = @practice.next_inperson_contact
+    # else
+    #   @ivcontact.contact_specific = nil
+    # end
     personnel_array = params[:ivcontact][:personnels].keys
     save_personnel_list(personnel_array)
     respond_to do |format|
