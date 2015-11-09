@@ -48,8 +48,7 @@ class IvcontactsController < ApplicationController
     if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Quarterly in-person visit"
       @ivcontact.contact_specific = @practice.next_inperson_contact
     end
-    personnel_array = params[:ivcontact][:personnels].keys
-    save_personnel_list(personnel_array)
+    save_personnel_list(params[:ivcontact][:personnels])
     respond_to do |format|
       if @ivcontact.save
         format.html { redirect_to list_coach_practice_path(@practice.coach.id), notice: 'IV Contact was successfully created.' }
@@ -68,14 +67,7 @@ class IvcontactsController < ApplicationController
     # entered, the specific (1st-5th) contact cannot be changed.
     @practice = Practice.find(@ivcontact.practice_id)
     @coach = @practice.coach
-    # if Ivcontact::CONTACT_TYPE_VALS.key(params[:ivcontact][:contact_type]) == "Required in-person visit"
-    # if params[:ivcontact][:contact_type] == '1'
-    #   @ivcontact.contact_specific = @practice.next_inperson_contact
-    # else
-    #   @ivcontact.contact_specific = nil
-    # end
-    personnel_array = params[:ivcontact][:personnels].keys
-    save_personnel_list(personnel_array)
+    save_personnel_list(params[:ivcontact][:personnels])
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
         format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully updated.' }
@@ -109,25 +101,16 @@ class IvcontactsController < ApplicationController
         ['Other required contact', 2]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 
-    def get_personnel_list(personnel)
-      # if personnel.nil?
-      #   Array.new
-      # else
-      #   personnel.map {|p| ["#{p.name} - #{Personnel::ROLE_VALS.key(p.role)}", p.id]}
-      # end
-      @practice.personnels.includes(:ivcontacts)
-    end
-
     def get_personnel_by_practice(practice)
       Personnel.includes(:ivcontacts).where(practice_id: @practice.id).order("name")
     end
 
-    def save_personnel_list(personnel_array)
+    def save_personnel_list(personnel_params)
       @ivcontact.personnels.delete_all
-      # # Remove the dummy record that's created to provide scaffolding for additional records
-      # delete_fake = personnel_array.shift if personnel_array.is_a?(Array)
-      personnel = Personnel.where(id: personnel_array)
-      @ivcontact.personnels << personnel
+      if personnel_params.nil? == false
+        personnel = Personnel.where(id: personnel_params.keys)
+        @ivcontact.personnels << personnel
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
