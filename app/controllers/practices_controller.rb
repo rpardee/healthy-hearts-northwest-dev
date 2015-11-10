@@ -6,6 +6,10 @@ class PracticesController < ApplicationController
   # GET /practices.json
   def index
     @practices = policy_scope(Practice).all
+    respond_to do |format|
+      format.html
+      format.csv
+    end
   end
 
   # GET /practices/1
