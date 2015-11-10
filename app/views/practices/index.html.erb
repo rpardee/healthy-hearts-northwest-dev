@@ -1,24 +1,21 @@
 <div id='wrapper'>
 <%= render 'layouts/header' %>
 
-<h1>All Practices</h1>
+<h1>Recruitment</h1>
 
-<p>I'll probably want to display a Recruiter column for Recruiters,
- a Coach column for coaches, and both for admins. </p>
-
-<table>
+<table class='typical enable-data-table'>
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Practice</th>
+      <th>Recruiter</th>
     </tr>
   </thead>
 
   <tbody>
     <% @practices.each do |practice| %>
       <tr>
-        <td><%= practice.name %></td>
-        <td><%= practice.site.name if practice.site %></td>
-        <td><%= link_to 'Edit', edit_practice_path(practice) %></td>
+        <td><%= link_to practice.name, edit_practice_path(practice) %></td>
+        <td><%= practice.recruiter.name if practice.recruiter %></td>
       </tr>
     <% end %>
   </tbody>

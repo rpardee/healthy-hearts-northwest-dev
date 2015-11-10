@@ -270,4 +270,36 @@ class Practice < ActiveRecord::Base
     "Already contracting with a private/commercial ACO" => 3,
     "Already contracting but plan to join ... (see below)*" => 4
   }
+
+  EXPORT_VARIABLES = %w(name, address, phone, url)
+
+  require File.expand_path('lib/variable_map')
+  include VariableMap
+
+  def self.export_variable_header
+    prettyName = Array.new
+    Practice.attribute_names.each do |dbname|
+    # Practice::EXPORT_VARIABLES.each do |dbname|
+      lookupVarName = VariableMap::PRACTICE_MAP[dbname][0] if VariableMap::PRACTICE_MAP[dbname]
+      if lookupVarName.nil?
+        prettyName << dbname.humanize
+      else
+        prettyName << lookupVarName
+      end
+    end
+    return ('"' + prettyName.join('","') + '"').html_safe
+  end
+
+  def export_variable_values
+    prettyVars = Array.new
+    self.attributes.each do |a|
+      lookupValue = VariableMap::PRACTICE_MAP[a[0]][1] if VariableMap::PRACTICE_MAP[a[0]]
+      if lookupValue.nil?
+        prettyVars << a[1]
+      else
+        prettyVars << lookupValue.constantize.key(a[1])
+      end
+    end
+    return ('"' + prettyVars.join('","') + '"').html_safe
+  end
 end

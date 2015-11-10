@@ -1,4 +1,4 @@
-<%= raw(Practice.attribute_names.join(',')) %>
+<%= Practice.export_variable_header %>
 <% @practices.each do |p| %>
-<%=raw(p.attributes.values.join(',')) %>
+<%= raw(p.export_variable_values) %>
 <% end %>

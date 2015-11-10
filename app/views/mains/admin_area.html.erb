@@ -1,0 +1,24 @@
+<div id='wrapper'>
+<%= render 'layouts/header' %>
+
+<h1>Admin Area</h1>
+
+<% if current_partner.supervisor? %>
+  <h3>
+    <%= link_to "Coach List", coach_practices_path %>
+  </h3>
+  <h3>
+    <%= link_to "Recruiter List", practices_path %>
+  </h3>
+  <h3>
+    <%= link_to "Export Practice Data", export_practice_data_path %>
+  </h3>
+<% end %>
+
+<% if current_partner.admin? %>
+  <h3>
+    <%= link_to "System Users List", list_partners_path %>
+  </h3>
+<% end %>
+
+</div>
