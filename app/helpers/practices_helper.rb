@@ -26,26 +26,26 @@ module PracticesHelper
   end
 
   def export(practices)
-  to_export = {study_id: 'Study ID',
-                name: 'Name',
-                address: 'Address',
-                phone: 'Phone',
-                url: 'Website',
-                created_at: 'Record Created At',
-                updated_at: 'Last DB update',
-                email: 'E-mail',
-                recruitment_source: 'Recruitment Source',
-                prac_ehr: 'EHR',
-                current_partner: 'Current Partner',
-                parent_organization: 'Parent Org',
-                prac_state: 'State',
-                zip_code: 'Zip',
-                city: 'City',
-                pc_name_cached: 'Primary Contact',
-                la_date_cached: 'Last Activity',
-                pal_status_cached: 'PAL Status',
-                site_id: 'Site',
-                id: 'Database ID'}
+  to_export = {study_id:              'Study ID',
+                name:                 'Name',
+                address:              'Address',
+                phone:                'Phone',
+                url:                  'Website',
+                created_at:           'Record Created At',
+                updated_at:           'Last DB update',
+                email:                'E-mail',
+                recruitment_source:   'Recruitment Source',
+                prac_ehr:             'EHR',
+                current_partner:      'Current Partner',
+                parent_organization:  'Parent Org',
+                prac_state:           'State',
+                zip_code:             'Zip',
+                city:                 'City',
+                pc_name_cached:       'Primary Contact',
+                la_date_cached:       'Last Activity',
+                pal_status_cached:    'PAL Status',
+                site_id:              'Site',
+                id:                   'Database ID'}
 
     csv_string = CSV.generate do |csv|
       csv << to_export.values
