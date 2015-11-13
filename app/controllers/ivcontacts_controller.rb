@@ -21,9 +21,7 @@ class IvcontactsController < ApplicationController
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
     @personnel_list = get_personnel_by_practice(@practice)
-    (0..3).each do
-      @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
-    end
+    get_continuing_change_tests(@practice)
     set_contact_type_options
   end
 
@@ -110,6 +108,19 @@ class IvcontactsController < ApplicationController
       if personnel_params.nil? == false
         personnel = Personnel.where(id: personnel_params.keys)
         @ivcontact.personnels << personnel
+      end
+    end
+
+    def get_continuing_change_tests(practice)
+      test_array = Array.new
+      last_inperson = Ivcontact.where('practice_id = ? AND contact_specific IS NOT NULL', practice.id).order(:contact_specific).last
+      test_array << last_inperson.high_leverage_change_tests.where(test_status: 0)
+      (0..3).each do |n|
+        if test_array[n]
+          @ivcontact.high_leverage_change_tests << test_array[n]
+        else
+          @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
+        end
       end
     end
 
