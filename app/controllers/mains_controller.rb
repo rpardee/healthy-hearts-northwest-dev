@@ -1,4 +1,5 @@
 class MainsController < ApplicationController
+	before_action :authenticate_partner!, only: :admin_area
 
   # GET /mains
   def index
@@ -7,6 +8,9 @@ class MainsController < ApplicationController
 
   # GET /mains/practice_survey_thanks
   def practice_survey_thanks
+  end
+
+  def admin_area
   end
 
 end

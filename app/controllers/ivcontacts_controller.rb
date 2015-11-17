@@ -49,7 +49,7 @@ class IvcontactsController < ApplicationController
     save_personnel_list(params[:ivcontact][:personnels])
     respond_to do |format|
       if @ivcontact.save
-        format.html { redirect_to list_coach_practice_path(@practice.coach.id), notice: 'IV Contact was successfully created.' }
+        format.html { redirect_to coach_practice_path(@practice), notice: 'IV Contact was successfully created.' }
         format.json { render :show, status: :created, location: @ivcontact }
       else
         format.html { render :new }
@@ -68,7 +68,7 @@ class IvcontactsController < ApplicationController
     save_personnel_list(params[:ivcontact][:personnels])
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
-        format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully updated.' }
+        format.html { redirect_to coach_practice_path(@practice), notice: 'IV Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @ivcontact }
       else
         format.html { render :edit }
@@ -114,7 +114,7 @@ class IvcontactsController < ApplicationController
     def get_continuing_change_tests(practice)
       test_array = Array.new
       last_inperson = Ivcontact.where('practice_id = ? AND contact_specific IS NOT NULL', practice.id).order(:contact_specific).last
-      test_array << last_inperson.high_leverage_change_tests.where(test_status: 0)
+      test_array << last_inperson.high_leverage_change_tests.where(test_status: 0) if last_inperson
       (0..3).each do |n|
         if test_array[n]
           @ivcontact.high_leverage_change_tests << test_array[n]
