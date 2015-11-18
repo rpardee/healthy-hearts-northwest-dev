@@ -9,6 +9,33 @@ class Ivcontact < ActiveRecord::Base
 
   validates_presence_of :contact_dt
 
+  def disruptions
+    disruptions = ""
+    disruptions += "New EHR*" if prac_change_ehr == 1
+    disruptions += "New location*" if prac_change_newlocation == 1
+    disruptions += "Lost clinician*" if prac_change_lost_clin == 1
+    disruptions += "Lost staff*" if prac_change_lost_om == 1
+    disruptions += "New affiliation*" if prac_change_boughtover == 1
+    disruptions += "New billing*" if prac_change_billing == 1
+    disruptions += "Other*" if prac_change_other == 1
+    disruptions = disruptions.gsub(/(\w)(\*)(\w)/, '\1 - \3')
+    disruptions.gsub(/\*$/, '')
+  end
+
+  HIT_TIER_VALS = {
+    "Tier 1" => 1,
+    "Tier 2" => 2,
+    "Tier 3" => 3,
+    "Tier 4" => 4
+  }
+
+  HIT_QUALITY_VALS = {
+    "Very confident" => 1,
+    "Confident" => 2,
+    "Somewhat confident" => 3,
+    "Not confident" => 4,
+  }
+
   CONTACT_TYPE_VALS = {
     "Quarterly in-person visit" => 1,
     "Other required contact" => 2,

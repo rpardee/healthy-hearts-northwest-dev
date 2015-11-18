@@ -1,18 +1,16 @@
 <div id='wrapper'>
 <%= render 'layouts/header' %>
 
-<h1>All Practices</h1>
+<h1>Recruitment</h1>
 
-<p>I'll probably want to display a Recruiter column for Recruiters,
- a Coach column for coaches, and both for admins. </p>
-
-<table>
+<table class='typical enable-data-table'>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Practice</th>
       <th>Site</th>
       <th>Study ID</th>
       <th>ID</th>
+      <th>Recruiter</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -20,17 +18,21 @@
   <tbody>
     <% @practices.each do |practice| %>
       <tr>
-        <td><%= practice.name %></td>
+        <td><%= link_to practice.name, edit_practice_path(practice) %></td>
         <td><%= practice.site.name if practice.site %></td>
         <td><%= practice.study_id if practice.study_id %></td>
         <td><%= practice.id %></td>
+        <td><%= practice.recruiter.name if practice.recruiter %></td>
         <td><%= link_to 'Edit', edit_practice_path(practice) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<br />
 
 <%= link_to 'New Practice', new_practice_path %>
+<br />
+
+<%= link_to "Back", :back %>
 </div>

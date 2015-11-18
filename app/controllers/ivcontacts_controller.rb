@@ -16,13 +16,12 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts/new
   def new
     @ivcontact = Ivcontact.new
+    @personnel = Personnel.new
     @practice = Practice.find(params[:coach_practice_id])
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
-    @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
-    (0..3).each do
-      @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
-    end
+    @personnel_list = get_personnel_by_practice(@practice)
+    get_continuing_change_tests(@practice)
     set_contact_type_options
   end
 
@@ -31,8 +30,8 @@ class IvcontactsController < ApplicationController
     # @practice_id = params[:coach_practice_id]
     @practice = Practice.find(params[:coach_practice_id])
     @practice_name = Practice.find(@practice.id).name
+    @personnel_list = get_personnel_by_practice(@practice)
     @contact_specific = @ivcontact.contact_specific
-    @personnel_list = get_personnel_list(Personnel.where(practice_id: @practice.id).order("name"))
     (@ivcontact.high_leverage_change_tests.count..3).each do
       @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
     end
@@ -47,11 +46,10 @@ class IvcontactsController < ApplicationController
     if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Quarterly in-person visit"
       @ivcontact.contact_specific = @practice.next_inperson_contact
     end
-    personnel_array = params[:ivcontact][:personnels]
-    save_personnel_list(personnel_array)
+    save_personnel_list(params[:ivcontact][:personnels])
     respond_to do |format|
       if @ivcontact.save
-        format.html { redirect_to list_coach_practice_path(@practice.coach.id), notice: 'IV Contact was successfully created.' }
+        format.html { redirect_to coach_practice_path(@practice), notice: 'IV Contact was successfully created.' }
         format.json { render :show, status: :created, location: @ivcontact }
       else
         format.html { render :new }
@@ -63,19 +61,14 @@ class IvcontactsController < ApplicationController
   # PATCH/PUT /ivcontacts/1
   # PATCH/PUT /ivcontacts/1.json
   def update
+    # N.b., @ivcontact.contact_specific does not update. If a required in-person visit is
+    # entered, the specific (1st-5th) contact cannot be changed.
     @practice = Practice.find(@ivcontact.practice_id)
     @coach = @practice.coach
-    # if Ivcontact::CONTACT_TYPE_VALS.key(params[:ivcontact][:contact_type]) == "Required in-person visit"
-    if params[:ivcontact][:contact_type] == '1'
-      @ivcontact.contact_specific = @practice.next_inperson_contact
-    else
-      @ivcontact.contact_specific = nil
-    end
-    personnel_array = params[:ivcontact][:personnels]
-    save_personnel_list(personnel_array)
+    save_personnel_list(params[:ivcontact][:personnels])
     respond_to do |format|
       if @ivcontact.update(ivcontact_params)
-        format.html { redirect_to list_coach_practice_path(@coach), notice: 'IV Contact was successfully updated.' }
+        format.html { redirect_to coach_practice_path(@practice), notice: 'IV Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @ivcontact }
       else
         format.html { render :edit }
@@ -106,20 +99,29 @@ class IvcontactsController < ApplicationController
         ['Other required contact', 2]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 
-    def get_personnel_list(personnel)
-      if personnel.nil?
-        Array.new
-      else
-        personnel.map {|p| ["#{p.name} - #{Personnel::ROLE_VALS.key(p.role)}", p.id]}
+    def get_personnel_by_practice(practice)
+      Personnel.includes(:ivcontacts).where(practice_id: @practice.id).order("name")
+    end
+
+    def save_personnel_list(personnel_params)
+      @ivcontact.personnels.delete_all
+      if personnel_params.nil? == false
+        personnel = Personnel.where(id: personnel_params.keys)
+        @ivcontact.personnels << personnel
       end
     end
 
-    def save_personnel_list(personnel_array)
-      @ivcontact.personnels.delete_all
-      # Remove the dummy record that's created to provide scaffolding for additional records
-      delete_fake = personnel_array.shift if personnel_array.is_a?(Array)
-      personnel = Personnel.where(id: personnel_array)
-      @ivcontact.personnels << personnel
+    def get_continuing_change_tests(practice)
+      test_array = Array.new
+      last_inperson = Ivcontact.where('practice_id = ? AND contact_specific IS NOT NULL', practice.id).order(:contact_specific).last
+      test_array << last_inperson.high_leverage_change_tests.where(test_status: 0) if last_inperson
+      (0..3).each do |n|
+        if test_array[n]
+          @ivcontact.high_leverage_change_tests << test_array[n]
+        else
+          @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -142,14 +144,13 @@ class IvcontactsController < ApplicationController
         :milestone_selfmgmt_active, :milestone_selfmgmt_discussed,
         :milestone_community_progress, :milestone_community_active,
         :milestone_community_discussed, :gyr, :gyr_notes, :tier,
-        :pcqm_1, :pcqm_2, :pcqm_3, :pcqm_4, :pcqm_5, :pcqm_6, :pcqm_7, :pcqm_8, :pcqm_9,
-        :pcqm_10, :pcqm_11, :pcqm_12, :pcqm_13, :pcqm_14, :pcqm_15, :pcqm_16, :pcqm_17,
-        :pcqm_18, :pcqm_19, :pcqm_20, :pcqm_21, :pcqm_22, :pcqm_23, :pcqm_24, :pcqm_25,
-        :pcqm_26, :pcqm_27, :pcqm_28, :pcqm_29, :pcqm_30, :pcqm_31, :pcqm_32, :pcqm_33,
-        :pcqm_34, :pcqm_35, :pcqm_36,
+        :pcmha_1, :pcmha_2, :pcmha_3, :pcmha_4, :pcmha_5, :pcmha_6, :pcmha_7, :pcmha_8, :pcmha_9,
+        :pcmha_10, :pcmha_11, :pcmha_12, :pcmha_13, :pcmha_14, :pcmha_15, :pcmha_16, :pcmha_17,
+        :pcmha_18, :pcmha_19, :pcmha_20,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
         :prac_change_other, :prac_change_specify, :practice_id,
+        :status_text, :smsvy_name, :smsvy_email, :hit_ehr_vendor, :hit_tier, :hit_quality, :hit_quality_explain,
         high_leverage_change_tests_attributes: [:id, :_destroy, :description, :test_status, :comments, :embed_evidence, :use_data, :xfunc_qi,
                                                 :id_at_risk, :manage_pops, :self_management, :resource_linkages,
                                                 :hlc_other],

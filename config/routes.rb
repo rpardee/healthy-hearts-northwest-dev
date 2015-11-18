@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resource :mains, only: :index
   get 'practice_survey_thanks', to: 'mains#practice_survey_thanks'
+  get 'admin_area', to: 'mains#admin_area'
 
   resources :practice_surveys
 

@@ -132,6 +132,34 @@ div#nav-section {
   float: left;
 }
 
+div#nav-top {
+  input {
+    border: none;
+    float: right;
+    width: 10%;
+    border-radius: 10px;
+    font-weight: bold;
+    color: $white;
+    background: #4479BA;
+    padding: 15px 20px;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    display: block;
+  }
+  input:hover, input:focus {
+    background: #356094;
+    border: solid 1px #2A4E77;
+  }
+  input:active {
+    -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    background: #2E5481;
+    border: solid 1px #203E5F;
+  }
+}
+
 nav {
   ul {
     list-style: none;

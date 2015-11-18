@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030223224) do
+ActiveRecord::Schema.define(version: 20151117172834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,13 @@ ActiveRecord::Schema.define(version: 20151030223224) do
     t.boolean  "topic_review_guideline"
     t.boolean  "topic_discuss_measurement"
     t.string   "prac_change_ehr_which"
+    t.string   "status_text"
+    t.string   "smsvy_name"
+    t.string   "smsvy_email"
+    t.string   "hit_ehr_vendor"
+    t.integer  "hit_tier"
+    t.integer  "hit_quality"
+    t.text     "hit_quality_explain"
   end
 
   create_table "ivcontacts_personnels", id: false, force: :cascade do |t|

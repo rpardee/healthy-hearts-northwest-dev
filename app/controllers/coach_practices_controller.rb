@@ -25,6 +25,7 @@ class CoachPracticesController < ApplicationController
     @visit3 = @practice.get_inperson_visit(3)
     @visit4 = @practice.get_inperson_visit(4)
     @visit5 = @practice.get_inperson_visit(5)
+    @qica_summary = @practice.get_qica_summary
   end
 
   # GET /coach_practices/1/edit
@@ -40,11 +41,13 @@ class CoachPracticesController < ApplicationController
   end
 
   # PATCH/PUT /coach_practices/1
+  # coach_practices#edit performed via Admin area - coach assignment to practices - so it should redirect
+  #   to the coach list (coach_practices#index)
   def update
     coach_id = params[:coach_id]
     respond_to do |format|
       if @practice.update(:coach_id => coach_id)
-        format.html { redirect_to list_coach_practice_path(coach_id), notice: 'Practice was successfully updated.' }
+        format.html { redirect_to coach_practices_path, notice: 'Practice was successfully updated.' }
         format.json { render :show, status: :ok, location: @practice }
       else
         format.html { render :edit }
