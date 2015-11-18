@@ -3,13 +3,6 @@
 
   <div id='left-2'>
     <h1><%= @practice.name %></h1>
-  </div>
-  <div id='right-2'>
-    <h1>Coach: <%= @practice.coach.name if @practice.coach %></h1>
-  </div>
-  <div class='clearfix'></div>
-
-  <div id='left-2'>
     <div>
       <h3>Required Site Visits</h3>
       <table class='lined space'>
@@ -39,6 +32,55 @@
         </tr>
       </table>
     </div>
+
+    <br />
+    <div>
+      <h3>QICA Results from <%= @practice.iv_qica_dt.try(:strftime, '%-m/%-d/%Y') %></h3>
+      <table class='lined space background-green'>
+        <tr>
+          <th>HLC #</th>
+          <th>Total Score</th>
+          <th>% for HLC</th>
+        </tr>
+        <% @qica_summary.each.with_index do |q, idx| %>
+          <tr>
+            <td><%= idx + 1 %></td>
+            <td><%= q[0] %></td>
+            <td><%= number_to_percentage(q[1], precision: 0) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <div id='right-2'>
+    <h1>Coach: <%= @practice.coach.name if @practice.coach %></h1>
+    <h2 title="Intervention Contacts" rel="tooltip">Intervention Contacts
+      <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
+    </h2>
+    <% if @practice.ivcontacts.any? %>
+      <table class='typical enable-data-table'>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>GYR</th>
+            <th>Disruptions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @practice.ivcontacts.each do |c| %>
+            <tr>
+              <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
+              <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
+              <td><%= get_gyr_html(c.gyr) %></td>
+              <td><%= c.disruptions %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
     <br />
 
     <div class='box'>
@@ -88,29 +130,6 @@
     </div>
   </div>
 
-  <div id='right-2'>
-    <h2 title="Intervention Contacts" rel="tooltip">Intervention Contacts
-      <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
-    </h2>
-    <% if @practice.ivcontacts.any? %>
-      <table class='typical enable-data-table'>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @practice.ivcontacts.each do |c| %>
-            <tr>
-              <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
-              <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
   <div class='clearfix'></div>
 
   <div class="actions">

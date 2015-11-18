@@ -11,8 +11,22 @@
     </div>
   <% end %>
 
+  <div id='nav-top'>
+    <nav>
+      <%= f.submit "Save" %>
+    </nav>
+  </div>
+
   <%= f.hidden_field :practice_id, value: @practice.id %>
   <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
+
+  <table class='space background-pink'>
+    <tr>
+      <td><%= f.label :status_text, "Brief status description" %></td>
+      <td><%= f.text_field :status_text, size: 40, maxlength: 40 %></td>
+    </tr>
+  </table>
+  <br />
 
   <table class='space'>
     <tr>
@@ -236,7 +250,21 @@
   </table>
   </div>
 
-  <br />
+  <div id='ivcontact-smsvy' class='boxed'>
+    <h3>Contact for Staff Member Survey</h3>
+    <table class='space lined background-green'>
+      <tr>
+        <td><%= f.label :smsvy_name, "Name" %>&nbsp;&nbsp;</td>
+        <td><%= f.text_field :smsvy_name, size: 50 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :smsvy_email, "Email" %>&nbsp;&nbsp;</td>
+        <td><%= f.text_field :smsvy_email, size: 50 %></td>
+      </tr>
+    </table>
+    <br />
+  </div>
+
   <div id='ivcontact-milestone' class='boxed'>
   <h3>H2N High Leverage Changes</h3>
   <p>Please rate this practice's progress since your last required contact on <u>every High Leverage Change</u> listed below.</p>
@@ -321,6 +349,29 @@
     <div>
       <%= link_to_add_association 'Add Test', f, :high_leverage_change_tests %>
     </div>
+  </div>
+
+  <!-- New HIT section -->
+  <div class='boxed' id='ivcontact-hit'>
+    <h3>Health Information Technology (HIT)</h3>
+    <table class='space lined background-brown'>
+      <tr id='ivcontact-hit-vendor'>
+        <td><%= f.label :hit_ehr_vendor, "EHR Vendor" %></td>
+        <td><%= f.text_field :hit_ehr_vendor, size: 50 %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :hit_tier, "HIT Tier" %></td>
+        <td><%= f.select :hit_tier, Ivcontact::HIT_TIER_VALS, include_blank: true %>
+      </td>
+      <tr>
+        <td><%= f.label :hit_quality, "Please rate your overall level of confidence in the <u>quality</u> of the ABCS data that this practice is able to produce.".html_safe %></td>
+        <td><%= f.select :hit_quality, Ivcontact::HIT_QUALITY_VALS, include_blank: true %>
+      </td>
+      <tr id='ivcontact-hit-quality-explain'>
+        <td><%= f.label :hit_quality_explain, "Please explain why your are not confident about this practice's ability to produce quality ABCS data." %></td>
+        <td><%= f.text_area :hit_quality_explain, rows: 3, cols: 50 %></td>
+      </tr>
+    </table>
   </div>
 
   <div id='ivcontact-gyr' class='boxed'>
@@ -1103,7 +1154,4 @@
     </table>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Save Contact" %>
-  </div>
 <% end %>

@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$(document).on "page:change", ->
+	$('div#nav-right').sticky()
+
 updateContactType = (contact_type_field) ->
 	v = parseInt($(contact_type_field).val())
 	if v == 1  				# Required/in-person
@@ -60,6 +63,39 @@ updateQICA = (contact_type_field, contact_specific_field) ->
 	else
 		$('#ivcontact-pcmha').hide()
 
+updateStaffMemberSurvey = (contact_type_field, contact_specific_field) ->
+	contactType = parseInt($(contact_type_field).val())
+	contactSpecific = parseInt($(contact_specific_field).val())
+	if contactType == 1										# In-person visit
+		if contactSpecific == 1	| contactSpecific == 5		# 1st & 5th visits
+			$('#ivcontact-smsvy').show()
+		else																# Other visits or Blank
+			$('#ivcontact-smsvy').hide()
+	else
+		$('#ivcontact-smsvy').hide()
+
+updateHIT = (contact_type_field, contact_specific_field) ->
+	contactType = parseInt($(contact_type_field).val())
+	contactSpecific = parseInt($(contact_specific_field).val())
+	if contactType == 1										# In-person visit
+		if contactSpecific == 1							# 1st visit
+			$('#ivcontact-hit').show()
+			$('#ivcontact-hit-vendor').show()
+		else if contactSpecific == 5				# 5th visit
+			$('#ivcontact-hit').show()
+			$('#ivcontact-hit-vendor').hide()
+		else																# Other visits or Blank
+			$('#ivcontact-hit').hide()
+	else
+		$('#ivcontact-hit').hide()
+
+updateHITQuality = (hit_quality_field) ->
+	hitQuality = parseInt($(hit_quality_field).val())
+	if hitQuality == 3	| hitQuality == 4		# "Somewhat" or "Not confident"
+		$('#ivcontact-hit-quality-explain').show()
+	else																		# "Very", "Confident" or blank
+		$('#ivcontact-hit-quality-explain').hide()
+
 updateEHRWhich = (contact_type_field, contact_specific_field, new_ehr) ->
 	contactType = parseInt($(contact_type_field).val())
 	contactSpecific = parseInt($(contact_specific_field).val())
@@ -88,6 +124,9 @@ $(document).on "page:change", ->
 	updateContactType('#ivcontact_contact_type')
 	updateDisruptionTime('#contact_specific_calculated')
 	updateQICA('#ivcontact_contact_type', '#contact_specific_calculated')
+	updateHIT('#ivcontact_contact_type', '#contact_specific_calculated')
+	updateHITQuality('#ivcontact_hit_quality')
+	updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
 	updateEHRWhich('#ivcontact_contact_type', '#contact_specific_calculated', 'ivcontact_prac_change_ehr')
 	updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 	updateCheckbox('ivcontact_prac_change_other', '#ivcontact-pracchangespecify')
@@ -96,6 +135,8 @@ $(document).on "page:change", ->
 	$('#ivcontact_contact_type').on 'change',  ->
 		updateContactType('#ivcontact_contact_type')
 		updateQICA('#ivcontact_contact_type', '#contact_specific_calculated')
+		updateHIT('#ivcontact_contact_type', '#contact_specific_calculated')
+		updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
 
 $(document).on "page:change", ->
 	$('#ivcontact_topic_other').on 'click',  ->
@@ -104,6 +145,10 @@ $(document).on "page:change", ->
 $(document).on "page:change", ->
 	$('#ivcontact_prac_change_ehr').on 'click',  ->
 		updateEHRWhich('#ivcontact_contact_type', '#contact_specific_calculated', 'ivcontact_prac_change_ehr')
+
+$(document).on "page:change", ->
+	$('#ivcontact_hit_quality').on 'click',  ->
+		updateHITQuality('#ivcontact_hit_quality')
 
 $(document).on "page:change", ->
 	$('#ivcontact_prac_change_other').on 'click',  ->
