@@ -19,7 +19,7 @@
     <table class='space'>
       <tr>
         <td><%= f.label :practice_id, "Practice" %></td>
-        <td><%= f.select :practice_id, options_for_select(policy_scope(Practice).order("name").map{ |p| [p.name, p.id] }, selected: @practice_id), include_blank: true %></td>
+        <td><%= f.select :practice_id, options_for_select(policy_scope(Practice).order("name").map{ |p| [p.name, p.id] }, selected: @practice_id), {include_blank: true}, {disabled: !@event.new_record?} %></td>
       </tr>
       <tr>
         <td><%= f.label :partner_id, "Assigned Recruiter" %></td>
