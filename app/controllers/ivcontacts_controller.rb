@@ -112,12 +112,13 @@ class IvcontactsController < ApplicationController
     end
 
     def get_continuing_change_tests(practice)
-      test_array = Array.new
-      last_inperson = Ivcontact.where('practice_id = ? AND contact_specific IS NOT NULL', practice.id).order(:contact_specific).last
-      test_array << last_inperson.high_leverage_change_tests.where(test_status: 0) if last_inperson
+      last_inperson = Ivcontact.where('practice_id = ? AND contact_type IN (1, 2)', practice.id).order(:contact_dt).last
+      puts Rails.logger.debug "**********************"
+      puts Rails.logger.debug last_inperson.contact_dt
+      continuing_tests = last_inperson.high_leverage_change_tests.where(test_status: 0) if last_inperson
       (0..3).each do |n|
-        if test_array[n]
-          @ivcontact.high_leverage_change_tests << test_array[n]
+        if continuing_tests[n]
+          @ivcontact.high_leverage_change_tests << continuing_tests[n].dup
         else
           @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
         end
@@ -146,7 +147,7 @@ class IvcontactsController < ApplicationController
         :milestone_community_discussed, :gyr, :gyr_notes, :tier,
         :pcmha_1, :pcmha_2, :pcmha_3, :pcmha_4, :pcmha_5, :pcmha_6, :pcmha_7, :pcmha_8, :pcmha_9,
         :pcmha_10, :pcmha_11, :pcmha_12, :pcmha_13, :pcmha_14, :pcmha_15, :pcmha_16, :pcmha_17,
-        :pcmha_18, :pcmha_19, :pcmha_20,
+        :pcmha_18, :pcmha_19, :pcmha_20, :prach_change_ehr_which,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
         :prac_change_other, :prac_change_specify, :practice_id,
