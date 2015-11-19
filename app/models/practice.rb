@@ -57,7 +57,8 @@ class Practice < ActiveRecord::Base
   def get_qica_summary
     qica_summary = Array.new
     visit14 = self.ivcontacts.where({ contact_type: [1, 4] })
-    if visit14
+    qica = visit14.order(:contact_dt).last if visit14
+    if qica
       qica = visit14.order(:contact_dt).last
       sum = qica.pcmha_1 || 0
       pct = ((sum || 0)/12.to_f * 100)
