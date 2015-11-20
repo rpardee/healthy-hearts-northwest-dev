@@ -20,8 +20,12 @@ module PracticesHelper
   end
 
   def export(practices)
-    to_export = {study_id:                      'Study ID',
+    to_export = {
+                  id:                           'Database ID',
+                  study_id:                     'Study ID',
                   name:                         'Name',
+                  status:                       'Status',
+                  enrolled:                     'Enrolled?',
                   parent_organization:          'Parent Org',
                   current_partner:              'Primary Recruiter',
                   recruitment_source:           'Recruitment Source',
@@ -63,36 +67,67 @@ module PracticesHelper
                   prac_ehr_extractdata:         'Have data extractor?',
                   prac_ehr_person_extractdata:  'Data Extractor',
                   prac_it_support:              'Have HIT support?',
-                  pc_name_cached:               'Primary Contact',
                   la_date_cached:               'Last Activity',
                   pal_status_cached:            'PAL Status',
                   site_id:                      'Site',
-                  id:                           'Database ID'}
+                  prim_con_name:                'Primary Contact',
+                  prim_con_phone:               'Primary Contact Phone',
+                  prim_con_email:               'Primary Contact Email',
+                  ehr_ext_name:                 'EHR Extractor',
+                  ehr_ext_phone:                'EHR Extractor Phone',
+                  ehr_ext_email:                'EHR Extractor Email',
+                  ehr_hlp_name:                 'EHR Helper',
+                  ehr_hlp_phone:                'EHR Helper Phone',
+                  ehr_hlp_email:                'EHR Helper Email',
+                }
 
     csv_string = CSV.generate do |csv|
       csv << to_export.values
-      Practice.all.each do |user|
+      practices.all.each do |prac|
+        prim_con  = prac.personnels.where(site_contact_primary: true).first
+        ehr_ext   = prac.personnels.where(ehr_extractor: true).first
+        ehr_hlp   = prac.personnels.where(ehr_helper: true).first
         wanted_attributes = Hash.new
         to_export.keys.each do |k|
           wanted_attributes[k] = case k
+                                  when :enrolled
+                                    (prac.pal_status_cached == 'Returned')
                                   when :prac_state
-                                    Practice::PRAC_STATE_VALS.key(user.send(k))
+                                    Practice::PRAC_STATE_VALS.key(prac.send(k))
                                   when :prac_ehr
-                                    Practice::PRAC_EHRNAME_VALS.key(user.send(k))
+                                    Practice::PRAC_EHRNAME_VALS.key(prac.send(k))
                                   when :recruitment_source
-                                    Practice::RECRUITMENT_SOURCE_VALS.key(user.send(k))
+                                    Practice::RECRUITMENT_SOURCE_VALS.key(prac.send(k))
                                   when :primary_care, :interest_yn
-                                    Practice::YN12_VALS.key(user.send(k))
+                                    Practice::YN12_VALS.key(prac.send(k))
                                   when :prac_spec_mix
-                                    Practice::PRAC_SPEC_MIX_VALS.key(user.send(k))
+                                    Practice::PRAC_SPEC_MIX_VALS.key(prac.send(k))
                                   when :prac_ehr_extractdata
-                                    Practice::PRAC_EHR_EXTRACTDATA_VALS.key(user.send(k))
+                                    Practice::PRAC_EHR_EXTRACTDATA_VALS.key(prac.send(k))
                                   when :prac_ehr_person_extractdata
-                                    Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS.key(user.send(k))
+                                    Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS.key(prac.send(k))
                                   when :site_id
-                                    user.site ? user.site.name : 'Not assigned'
+                                    prac.site ? prac.site.name : 'Not assigned'
+                                  when :prim_con_name
+                                    prim_con.name if prim_con
+                                  when :prim_con_phone
+                                    prim_con.phone1 if prim_con
+                                  when :prim_con_email
+                                    prim_con.email1 if prim_con
+                                  when :ehr_ext_name
+                                    ehr_ext.name if ehr_ext
+                                  when :ehr_ext_phone
+                                    ehr_ext.phone1 if ehr_ext
+                                  when :ehr_ext_email
+                                    ehr_ext.email1 if ehr_ext
+                                  when :ehr_hlp_name
+                                    ehr_hlp.name if ehr_hlp
+                                  when :ehr_hlp_phone
+                                    ehr_hlp.phone1 if ehr_hlp
+                                  when :ehr_hlp_email
+                                    ehr_hlp.email1 if ehr_hlp
                                   else
-                                    user.send(k)
+                                    prac.send(k)
                                   end
 
         end
