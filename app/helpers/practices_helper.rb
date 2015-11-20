@@ -24,8 +24,11 @@ module PracticesHelper
                   id:                           'Database ID',
                   study_id:                     'Study ID',
                   name:                         'Name',
-                  status:                       'Status',
                   enrolled:                     'Enrolled?',
+                  interest_yn:                  'Interested?',
+                  status:                       'Status',
+                  pal_status_cached:            'PAL Status',
+                  la_date_cached:               'Last Activity',
                   parent_organization:          'Parent Org',
                   current_partner:              'Primary Recruiter',
                   recruitment_source:           'Recruitment Source',
@@ -39,7 +42,6 @@ module PracticesHelper
                   residency_training_site:      'Residency Training Site?',
                   number_clinicians:            'No. clinicians',
                   fte_clinicians:               'Clinician FTE',
-                  interest_yn:                  'Interested?',
                   primary_care:                 'Primary Care',
                   prac_own_clinician:           'Clinician owned?',
                   prac_own_hosp:                'Hosp/healthsys owned?',
@@ -67,9 +69,6 @@ module PracticesHelper
                   prac_ehr_extractdata:         'Have data extractor?',
                   prac_ehr_person_extractdata:  'Data Extractor',
                   prac_it_support:              'Have HIT support?',
-                  la_date_cached:               'Last Activity',
-                  pal_status_cached:            'PAL Status',
-                  site_id:                      'Site',
                   prim_con_name:                'Primary Contact',
                   prim_con_phone:               'Primary Contact Phone',
                   prim_con_email:               'Primary Contact Email',
@@ -79,6 +78,7 @@ module PracticesHelper
                   ehr_hlp_name:                 'EHR Helper',
                   ehr_hlp_phone:                'EHR Helper Phone',
                   ehr_hlp_email:                'EHR Helper Email',
+                  site_id:                      'Site',
                 }
 
     csv_string = CSV.generate do |csv|
