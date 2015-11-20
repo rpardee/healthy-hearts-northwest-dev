@@ -2,8 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).on "page:change", ->
-	$('div#nav-right').sticky()
+# $(document).on "page:change", ->
+# 	$('div#nav-right').sticky()
 
 updateContactType = (contact_type_field) ->
 	v = parseInt($(contact_type_field).val())

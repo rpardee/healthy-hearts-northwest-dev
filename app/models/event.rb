@@ -87,7 +87,7 @@ class Event < ActiveRecord::Base
     # it corresponds to practice.last_contact
     p = self.practice
     reset_cached_values(p)
-    if @original_pracid > 0 then
+    if @original_pracid && @original_pracid > 0 then
       p2 = Practice.find(@original_pracid)
       reset_cached_values(p2)
     end
