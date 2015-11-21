@@ -61,6 +61,7 @@ module PracticesHelper
                   prac_aco_medicare:            'Medicare ACO' ,
                   prac_aco_commercial:          'Private/Commercial ACO',
                   prac_aco_other:               'Other ACO',
+                  prac_aco_dk:                  "Don't Know ACO",
                   prac_aco_none:                'Not an ACO',
                   prac_aco_join_medicaid:       'Join Medicaid ACO?',
                   prac_aco_join_medicare:       'Join Medicare ACO?',
