@@ -5,6 +5,7 @@ class Personnel < ActiveRecord::Base
 
 	# Update the cached name of the practice's primary contact to speed the partners/show view.
 	after_save :update_practice
+  after_destroy :update_practice
 
 	has_paper_trail
 
