@@ -43,8 +43,6 @@ class PracticesController < ApplicationController
 
     respond_to do |format|
       if @practice.save
-    Rails.logger.debug "*** SITE ID"
-    Rails.logger.debug @practice.site_id
         format.html { redirect_to partner_path(current_partner), notice: 'Practice was successfully created.' }
         format.json { render :show, status: :created, location: @practice }
       else

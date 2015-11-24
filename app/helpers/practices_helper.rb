@@ -1,4 +1,6 @@
 module PracticesHelper
+  require 'csv'
+
   def check_practice_cache
     agree_count = 0
     problem_practices = Array.new
