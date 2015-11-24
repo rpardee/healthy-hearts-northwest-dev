@@ -113,11 +113,9 @@ class IvcontactsController < ApplicationController
 
     def get_continuing_change_tests(practice)
       last_inperson = Ivcontact.where('practice_id = ? AND contact_type IN (1, 2)', practice.id).order(:contact_dt).last
-      puts Rails.logger.debug "**********************"
-      puts Rails.logger.debug last_inperson.contact_dt
       continuing_tests = last_inperson.high_leverage_change_tests.where(test_status: 0) if last_inperson
       (0..3).each do |n|
-        if continuing_tests[n]
+        if continuing_tests && continuing_tests[n]
           @ivcontact.high_leverage_change_tests << continuing_tests[n].dup
         else
           @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
