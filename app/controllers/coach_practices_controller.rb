@@ -1,6 +1,7 @@
 class CoachPracticesController < ApplicationController
   before_action :set_practice, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_partner!
+  before_action :set_recruiter_coach_view
 
   # List of all practices for that Coach
   # GET /coach_practices/1/list
@@ -26,6 +27,12 @@ class CoachPracticesController < ApplicationController
     @visit4 = @practice.get_inperson_visit(4)
     @visit5 = @practice.get_inperson_visit(5)
     @qica_summary = @practice.get_qica_summary
+    action_item = @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Action item for practice"])
+    @action_item_complete = action_item.where(complete: true)
+    @action_item_incomplete = action_item.where(complete: false)
+    coach_item = @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Coach follow-up"])
+    @coach_item_complete = coach_item.where(complete: true)
+    @coach_item_incomplete = coach_item.where(complete: false)
   end
 
   # GET /coach_practices/1/edit
@@ -60,6 +67,10 @@ class CoachPracticesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_practice
       @practice = Practice.find(params[:id])
+    end
+
+    def set_recruiter_coach_view
+      @recruiter_or_coach_view = "Coach View"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

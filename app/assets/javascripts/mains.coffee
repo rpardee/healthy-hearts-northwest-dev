@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$(document).on "page:change", ->
+	$("#tabs-item").tabs()
+	$("#tabs-fu").tabs()
+
 $(document).on('click', '#openPopupForm', ( ->
 	$('#popupForm').fadeIn 'fast'
 ))

@@ -47,7 +47,7 @@ class Practice < ActiveRecord::Base
   end
 
   def iv_qica_dt
-    iv_qica_required = self.ivcontacts.where({ contact_type: [1, 4] })
+    iv_qica_required = self.ivcontacts.where({ contact_type: 1, contact_specific: [1, 4] })
     iv_qica_required.order(:contact_dt).last.contact_dt if iv_qica_required.count > 0
   end
 
@@ -56,31 +56,31 @@ class Practice < ActiveRecord::Base
   # Update in both places if necessary
   def get_qica_summary
     qica_summary = Array.new
-    visit14 = self.ivcontacts.where({ contact_type: [1, 4] })
+    visit14 = self.ivcontacts.where({ contact_type: 1, contact_specific: [1, 4] })
     qica = visit14.order(:contact_dt).last if visit14
     if qica
       qica = visit14.order(:contact_dt).last
       sum = qica.pcmha_1 || 0
       pct = ((sum || 0)/12.to_f * 100)
-      qica_summary[0] = [sum, pct]
+      qica_summary[0] = [sum, pct, 12]
       sum = [qica.pcmha_2, qica.pcmha_3].compact.reduce(0, :+)
       pct = ((sum || 0)/24.to_f * 100)
-      qica_summary[1] = [sum, pct]
+      qica_summary[1] = [sum, pct, 24]
       sum = [qica.pcmha_4, qica.pcmha_5, qica.pcmha_6].compact.reduce(0, :+)
       pct = ((sum || 0)/36.to_f * 100)
-      qica_summary[2] = [sum, pct]
+      qica_summary[2] = [sum, pct, 36]
       sum = [qica.pcmha_7, qica.pcmha_8, qica.pcmha_9, qica.pcmha_10].compact.reduce(0, :+)
       pct = ((sum || 0)/48.to_f * 100)
-      qica_summary[3] = [sum, pct]
+      qica_summary[3] = [sum, pct, 48]
       sum = [qica.pcmha_11, qica.pcmha_12, qica.pcmha_13, qica.pcmha_14].compact.reduce(0, :+)
       pct = ((sum || 0)/48.to_f * 100)
-      qica_summary[4] = [sum, pct]
+      qica_summary[4] = [sum, pct, 48]
       sum = [qica.pcmha_15, qica.pcmha_16, qica.pcmha_17].compact.reduce(0, :+)
       pct = ((sum || 0)/36.to_f * 100)
-      qica_summary[5] = [sum, pct]
+      qica_summary[5] = [sum, pct, 36]
       sum = [qica.pcmha_18, qica.pcmha_19, qica.pcmha_20].compact.reduce(0, :+)
       pct = ((sum || 0)/36.to_f * 100)
-      qica_summary[6] = [sum, pct]
+      qica_summary[6] = [sum, pct, 36]
     end
     return qica_summary
   end

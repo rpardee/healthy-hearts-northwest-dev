@@ -1,6 +1,7 @@
 class IvcontactsController < ApplicationController
   before_action :set_ivcontact, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_partner!
+  before_action :set_recruiter_coach_view
 
   # GET /ivcontacts
   # GET /ivcontacts.json
@@ -91,6 +92,10 @@ class IvcontactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ivcontact
       @ivcontact = Ivcontact.find(params[:id])
+    end
+
+    def set_recruiter_coach_view
+      @recruiter_or_coach_view = "Coach View"
     end
 
     def set_contact_type_options

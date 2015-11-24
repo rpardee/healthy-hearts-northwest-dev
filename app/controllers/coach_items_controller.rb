@@ -1,5 +1,6 @@
 class CoachItemsController < ApplicationController
   before_action :set_coach_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_recruiter_coach_view
 
   # GET /coach_items
   # GET /coach_items.json
@@ -67,6 +68,10 @@ class CoachItemsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_coach_item
       @coach_item = CoachItem.find(params[:id])
+    end
+
+    def set_recruiter_coach_view
+      @recruiter_or_coach_view = "Coach View"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
