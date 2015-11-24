@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   belongs_to :partner
   belongs_to :practice
-  validates_presence_of :practice_id, :schedule_dt
+  validates_presence_of :practice_id, :schedule_dt, :contact_type, :outcome
 
   has_paper_trail
 
