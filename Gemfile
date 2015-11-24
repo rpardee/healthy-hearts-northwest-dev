@@ -44,6 +44,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Not sure where this should really go--needed for practices_helper.rb.  Not a gem, but I get an error if this isn't somewhere.
+require 'csv'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

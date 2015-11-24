@@ -8,8 +8,10 @@ class EventsController < ApplicationController
     @events = Event.all
     @event = Event.new
     @practice = Practice.where(id: params[:practice_id]).first
-    @practice_id = @practice.id
-    @recruiter_id = @practice.recruiter.id if @practice.recruiter
+    if @practice
+      @practice_id = @practice.id
+      @recruiter_id = @practice.recruiter.id if @practice.recruiter
+    end
   end
 
   # GET /events/1
