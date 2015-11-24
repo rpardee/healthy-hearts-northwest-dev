@@ -341,7 +341,8 @@
   <div class="boxed" id='ivcontact-pdsa'>
     <div id='high_leverage_change_tests'>
       <h3>Tests of Change</h3>
-      <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p>
+      <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p><br />
+      <p>PDSAs that you indicated were ongoing (testing continuing) during your last contact will automatically show up in the table below. Please be sure to re-rate their status. Are they still being tested or have they been abandoned or accepted?</p>
       <%= f.fields_for :high_leverage_change_tests do |high_leverage_change_test| %>
         <%= render 'high_leverage_change_test_fields', :f => high_leverage_change_test %>
       <% end %>
@@ -359,7 +360,7 @@
         <td><%= f.label :hit_ehr_vendor, "EHR Vendor" %></td>
         <td><%= f.text_field :hit_ehr_vendor, size: 50 %></td>
       </tr>
-      <tr>
+      <tr id='ivcontact-hit-tier'>
         <td><%= f.label :hit_tier, "HIT Tier" %></td>
         <td><%= f.select :hit_tier, Ivcontact::HIT_TIER_VALS, include_blank: true %>
       </td>
@@ -1153,5 +1154,9 @@
       </tr>
     </table>
   </div>
+
+<div>
+  <%= f.submit "Save" %>
+</div>
 
 <% end %>
