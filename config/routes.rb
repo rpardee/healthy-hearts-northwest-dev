@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     post 'partners/admin_create' => 'partners#admin_create'
   end
 
+  resources :practices do
+    get 'assign_practice', on: :member
+  end
+
   resource :mains, only: :index
   get 'practice_survey_thanks', to: 'mains#practice_survey_thanks'
   get 'admin_area', to: 'mains#admin_area'

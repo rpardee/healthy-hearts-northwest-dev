@@ -1,7 +1,6 @@
 class CoachPracticesController < ApplicationController
   before_action :set_practice, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_partner!
-  before_action :set_recruiter_coach_view
 
   # List of all practices for that Coach
   # GET /coach_practices/1/list
@@ -69,10 +68,6 @@ class CoachPracticesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_practice
       @practice = Practice.find(params[:id])
-    end
-
-    def set_recruiter_coach_view
-      @recruiter_or_coach_view = "Coach View"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

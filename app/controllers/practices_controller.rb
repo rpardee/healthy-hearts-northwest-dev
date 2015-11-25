@@ -1,7 +1,18 @@
 class PracticesController < ApplicationController
   before_action :set_practice, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_partner!
-  before_action :set_recruiter_coach_view
+
+  # Allow practices to be associated with coaches here
+  # GET /practices/1/assign_practice
+  def assign_practice
+    @coach = Partner.find(params[:id])
+    @practice_all = policy_scope(Practice).all.order("name")
+    Rails.logger.debug "*****************"
+    Rails.logger.debug "Total count: #{@practice_all.count}"
+    @practice_current = policy_scope(Practice).where(coach_id: @coach.id).order("name")
+    Rails.logger.debug "Total count: #{@practice_current.count}"
+    @practice_other = @practice_all - @practice_current
+  end
 
   # GET /practices
   # GET /practices.json
@@ -93,10 +104,6 @@ class PracticesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_practice
       @practice = Practice.find(params[:id])
-    end
-
-    def set_recruiter_coach_view
-      @recruiter_or_coach_view = "Recruiter View"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
