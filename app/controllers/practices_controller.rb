@@ -6,6 +6,7 @@ class PracticesController < ApplicationController
   # GET /practices
   # GET /practices.json
   def index
+    @recruiter_or_coach_override = "Admin"
     @practices = policy_scope(Practice).all
     respond_to do |format|
       format.html

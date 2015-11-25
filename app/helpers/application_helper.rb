@@ -15,4 +15,19 @@ module ApplicationHelper
 			return "(undefined)"
 		end
 	end
+
+	def recruiter_or_coach_default
+		# controller_name and action_name are available methods
+		recruiter_controllers = ['events','personnels','practices']
+		coach_controllers = ['coach_items','coach_practices','high_level_change_tests',
+			'ivcontacts']
+		admin_controllers = ['partners','sites']
+		if recruiter_controllers.include?(controller_name)
+			"Recruiter"
+		elsif coach_controllers.include?(controller_name)
+			"Coach"
+		elsif admin_controllers.include?(controller_name)
+			"Admin"
+		end
+	end
 end

@@ -14,6 +14,7 @@ class CoachPracticesController < ApplicationController
   # Probably limit to enrolled practices?
 	# GET /coach_practices
   def index
+    @recruiter_or_coach_override = "Admin"
     @practices = policy_scope(Practice).order("name")
   end
 
@@ -37,6 +38,7 @@ class CoachPracticesController < ApplicationController
 
   # GET /coach_practices/1/edit
   def edit
+    @recruiter_or_coach_override = "Admin"
     @coach_id = @practice.coach.id if @practice.coach
     # Required for New Item quick add
     @coach_item = CoachItem.new

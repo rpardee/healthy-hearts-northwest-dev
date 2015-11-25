@@ -20,14 +20,6 @@
   <%= f.hidden_field :practice_id, value: @practice.id %>
   <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
 
-  <table class='space background-pink'>
-    <tr>
-      <td><%= f.label :status_text, "Brief status description" %></td>
-      <td><%= f.text_field :status_text, size: 40, maxlength: 40 %></td>
-    </tr>
-  </table>
-  <br />
-
   <table class='space'>
     <tr>
       <td><%= f.label :contact_type, "Type of Contact" %></td>
