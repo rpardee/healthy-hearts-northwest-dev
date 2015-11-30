@@ -26,6 +26,7 @@ class CoachPracticesController < ApplicationController
     @visit4 = @practice.get_inperson_visit(4)
     @visit5 = @practice.get_inperson_visit(5)
     @qica_summary = @practice.get_qica_summary
+
   end
 
   # GET /coach_practices/1/edit
