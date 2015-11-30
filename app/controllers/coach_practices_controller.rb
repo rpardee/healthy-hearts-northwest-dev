@@ -13,24 +13,30 @@ class CoachPracticesController < ApplicationController
   # Probably limit to enrolled practices?
 	# GET /coach_practices
   def index
+    @recruiter_or_coach_override = "Admin"
     @practices = policy_scope(Practice).order("name")
   end
 
   def show
-    @practice = Practice.find(params[:id])
-    @coach_name = @practice.coach.name
-    @coach_item = CoachItem.new
-    @visit1 = @practice.get_inperson_visit(1)
-    @visit2 = @practice.get_inperson_visit(2)
-    @visit3 = @practice.get_inperson_visit(3)
-    @visit4 = @practice.get_inperson_visit(4)
-    @visit5 = @practice.get_inperson_visit(5)
-    @qica_summary = @practice.get_qica_summary
-
+    @practice                 = Practice.find(params[:id])
+    @coach_name               = @practice.coach.name
+    @visit1                   = @practice.get_inperson_visit(1)
+    @visit2                   = @practice.get_inperson_visit(2)
+    @visit3                   = @practice.get_inperson_visit(3)
+    @visit4                   = @practice.get_inperson_visit(4)
+    @visit5                   = @practice.get_inperson_visit(5)
+    @qica_summary             = @practice.get_qica_summary
+    action_item               = @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Action item for practice"])
+    @action_item_complete     = action_item.where(complete: true)
+    @action_item_incomplete   = action_item.where(complete: false)
+    coach_item                = @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Coach follow-up"])
+    @coach_item_complete      = coach_item.where(complete: true)
+    @coach_item_incomplete    = coach_item.where(complete: false)
   end
 
   # GET /coach_practices/1/edit
   def edit
+    @recruiter_or_coach_override = "Admin"
     @coach_id = @practice.coach.id if @practice.coach
     # Required for New Item quick add
     @coach_item = CoachItem.new

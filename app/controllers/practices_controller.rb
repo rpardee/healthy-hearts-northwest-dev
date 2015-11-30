@@ -2,9 +2,22 @@ class PracticesController < ApplicationController
   before_action :set_practice, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_partner!
 
+  # Allow practices to be associated with coaches here
+  # GET /practices/1/assign_practice
+  def assign_practice
+    @coach = Partner.find(params[:id])
+    @practice_all = policy_scope(Practice).all.order("name")
+    Rails.logger.debug "*****************"
+    Rails.logger.debug "Total count: #{@practice_all.count}"
+    @practice_current = policy_scope(Practice).where(coach_id: @coach.id).order("name")
+    Rails.logger.debug "Total count: #{@practice_current.count}"
+    @practice_other = @practice_all - @practice_current
+  end
+
   # GET /practices
   # GET /practices.json
   def index
+    @recruiter_or_coach_override = "Admin"
     @practices = policy_scope(Practice).all
     respond_to do |format|
       format.html
@@ -42,8 +55,6 @@ class PracticesController < ApplicationController
 
     respond_to do |format|
       if @practice.save
-    Rails.logger.debug "*** SITE ID"
-    Rails.logger.debug @practice.site_id
         format.html { redirect_to partner_path(current_partner), notice: 'Practice was successfully created.' }
         format.json { render :show, status: :created, location: @practice }
       else

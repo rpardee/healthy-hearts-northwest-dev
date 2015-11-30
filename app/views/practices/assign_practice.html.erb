@@ -1,0 +1,45 @@
+<div id='wrapper'>
+<%= render 'layouts/header' %>
+<p id="notice"><%= notice %></p>
+
+<h1>Practice Assignment for <%= @coach.name %></h1>
+
+<table class='space'>
+  <thead>
+    <tr>
+      <th>Practice</th>
+      <th>Last Required Contact</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @practice_current.each do |practice| %>
+      <tr>
+      	<td><%= select_tag :practice_id, options_for_select(policy_scope(Practice).order("name").collect { |p| [p.name, p.id] }, selected: practice.id) %></td>
+        <td>
+          <% if practice.last_required_iv_contact && practice.last_required_iv_contact <= Date.today - 45 %>
+            <span style="color: red;">
+          <% else %>
+            <span>
+          <% end %>
+          <%= practice.last_required_iv_contact %>
+          </span>
+        </td>
+        <td><%= practice.last_iv_status %></td>
+        <td><%= link_to "Edit", coach_practice_path(practice) %></td>
+        <td><%= image_submit_tag "minus-blue.png", height: 15, width: 15, id: "delete-practice-assignment-button", alt: "Delete Practice" %>Can I add a tooltip instead of text?</td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="5">
+      	Add Practice <%= image_submit_tag "plus-blue.png", height: 15, width: 15, id: "add-practice-assignment-button" %>Can I add a tooltip instead of text?
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+<%= link_to "Back", :back %>
+</div>

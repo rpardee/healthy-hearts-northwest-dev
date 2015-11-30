@@ -45,7 +45,7 @@
         <% @qica_summary.each.with_index do |q, idx| %>
           <tr>
             <td><%= idx + 1 %></td>
-            <td><%= q[0] %></td>
+            <td><%= "#{q[0]}/#{q[2]}" %></td>
             <td><%= number_to_percentage(q[1], precision: 0) %></td>
           </tr>
         <% end %>
@@ -93,40 +93,92 @@
       </div>
       <%= render partial: 'item_new_popup' %>
       <h3>Action Items for Practice</h3>
-      <table class='typical enable-data-table'>
-        <thead>
-          <tr>
-            <th>Add Date</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Action item"]).each do |i| %>
+      <div id='tabs-item'>
+        <ul>
+          <li><a href="#tabs-item-incomplete">Incomplete</a></li>
+          <li><a href="#tabs-item-complete">Complete</a></li>
+        </ul>
+        <div id='tabs-item-incomplete'>
+        <table class='typical enable-data-table'>
+          <thead>
             <tr>
-              <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-              <td><%= truncate(i.notes, length: 255) %></td>
+              <th>Add Date</th>
+              <th>Notes</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @action_item_incomplete.each do |i| %>
+              <tr>
+                <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                <td><%= truncate(i.notes, length: 255) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        </div>
+        <div id='tabs-item-complete'>
+        <table class='typical enable-data-table'>
+          <thead>
+            <tr>
+              <th>Add Date</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @action_item_complete.each do |i| %>
+              <tr>
+                <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                <td><%= truncate(i.notes, length: 255) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        </div>
+      </div>
 
+      <br />
       <h3>Coach Follow-ups</h3>
-      <table class='typical enable-data-table'>
-        <thead>
-          <tr>
-            <th>Add Date</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Coach follow-up"]).each do |i| %>
+      <div id='tabs-fu'>
+        <ul>
+          <li><a href="#tabs-fu-incomplete">Incomplete</a></li>
+          <li><a href="#tabs-fu-complete">Complete</a></li>
+        </ul>
+        <div id='tabs-fu-incomplete'>
+        <table class='typical enable-data-table'>
+          <thead>
             <tr>
-              <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-              <td><%= truncate(i.notes, length: 255) %></td>
+              <th>Add Date</th>
+              <th>Notes</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @coach_item_incomplete.each do |i| %>
+              <tr>
+                <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                <td><%= truncate(i.notes, length: 255) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+        <div id='tabs-fu-complete'>
+        <table class='typical enable-data-table'>
+          <thead>
+            <tr>
+              <th>Add Date</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @coach_item_complete.each do |i| %>
+              <tr>
+                <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                <td><%= truncate(i.notes, length: 255) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

@@ -81,9 +81,11 @@ updateHIT = (contact_type_field, contact_specific_field) ->
 		if contactSpecific == 1							# 1st visit
 			$('#ivcontact-hit').show()
 			$('#ivcontact-hit-vendor').show()
+			$('#ivcontact-hit-tier').show()
 		else if contactSpecific == 5				# 5th visit
 			$('#ivcontact-hit').show()
 			$('#ivcontact-hit-vendor').hide()
+			$('#ivcontact-hit-tier').hide()
 		else																# Other visits or Blank
 			$('#ivcontact-hit').hide()
 	else

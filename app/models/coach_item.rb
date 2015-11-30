@@ -4,7 +4,7 @@ class CoachItem < ActiveRecord::Base
   validates_presence_of :practice_id
 
 	ITEM_TYPE_VALS = {
-		"Action item" => 1,
+		"Action item for practice" => 1,
 		"Coach follow-up" => 2
 	}
 end

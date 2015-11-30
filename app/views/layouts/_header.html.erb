@@ -7,6 +7,9 @@
 		<% else %>
 			<%= link_to image_tag("HHNW_enow_logo_grayscale_reverse.png", size: "228x86", alt: "Link to Home Page"), root_path %>
 		<% end %>
+		<span id='recruiter-or-coach-view'>
+			<%= @recruiter_or_coach_override || recruiter_or_coach_default %>
+		</span>
 		<div class='signout'>
 			<table class='space'>
 				<tr>

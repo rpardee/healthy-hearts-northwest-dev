@@ -47,45 +47,6 @@
         </tr>
       </table>
     </div>
-    <br />
-
-    <div class='box'>
-      <h3>Action Items for Practice</h3>
-      <table class='typical enable-data-table'>
-        <thead>
-          <tr>
-            <th>Add Date</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS.key("Action item")).each do |i| %>
-            <tr>
-              <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-              <td><%= truncate(i.notes, length: 255) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-
-      <h3>Coach Follow-ups</h3>
-      <table class='typical enable-data-table'>
-        <thead>
-          <tr>
-            <th>Add Date</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS.key("Coach Follow-up")).each do |i| %>
-            <tr>
-              <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-              <td><%= truncate(i.notes, length: 255) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
   </div>
 
   <div id='right-2'>

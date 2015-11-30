@@ -20,14 +20,6 @@
   <%= f.hidden_field :practice_id, value: @practice.id %>
   <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
 
-  <table class='space background-pink'>
-    <tr>
-      <td><%= f.label :status_text, "Brief status description" %></td>
-      <td><%= f.text_field :status_text, size: 40, maxlength: 40 %></td>
-    </tr>
-  </table>
-  <br />
-
   <table class='space'>
     <tr>
       <td><%= f.label :contact_type, "Type of Contact" %></td>
@@ -341,7 +333,8 @@
   <div class="boxed" id='ivcontact-pdsa'>
     <div id='high_leverage_change_tests'>
       <h3>Tests of Change</h3>
-      <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p>
+      <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p><br />
+      <p>PDSAs that you indicated were ongoing (testing continuing) during your last contact will automatically show up in the table below. Please be sure to re-rate their status. Are they still being tested or have they been abandoned or accepted?</p>
       <%= f.fields_for :high_leverage_change_tests do |high_leverage_change_test| %>
         <%= render 'high_leverage_change_test_fields', :f => high_leverage_change_test %>
       <% end %>
@@ -359,7 +352,7 @@
         <td><%= f.label :hit_ehr_vendor, "EHR Vendor" %></td>
         <td><%= f.text_field :hit_ehr_vendor, size: 50 %></td>
       </tr>
-      <tr>
+      <tr id='ivcontact-hit-tier'>
         <td><%= f.label :hit_tier, "HIT Tier" %></td>
         <td><%= f.select :hit_tier, Ivcontact::HIT_TIER_VALS, include_blank: true %>
       </td>
@@ -562,6 +555,10 @@
     <br />
     <p> HLC 2: Utilize reliable, robust data to understand and improve ABCS measures </p>
     <table class='lined space background-pink'>
+      <tr>
+        <th>Items</th>
+        <th colspan='4'>Lowest ... Highest</th>
+      </tr>
       <tr align="center">
         <td>2. Performance measures </td>
         <td>
@@ -621,6 +618,10 @@
     <br />
     <p>HLC 3: Establish a regular QI process involving cross-functional teams</p>
     <table class='lined space background-blue'>
+      <tr>
+        <th>Items</th>
+        <th colspan='4'>Lowest ... Highest</th>
+      </tr>
       <tr align="center">
         <td>4. The responsibility for conducting quality improvement activities</td>
         <td>
@@ -826,7 +827,7 @@
     <table class='lined space background-orange'>
       <tr>
         <th>Items</th>
-        <th colspan='3'>Lowest ... Highest</th>
+        <th colspan='4'>Lowest ... Highest</th>
       </tr>
       <tr align="center">
         <td>11. Non-physician practice team members</td>
@@ -941,6 +942,10 @@
     <br />
     <p> HLC 6: Deepen patient self-management support for action planning around ABCS </p>
     <table class='lined space background-pink'>
+      <tr>
+        <th>Items</th>
+        <th colspan='4'>Lowest ... Highest</th>
+      </tr>
       <tr align="center">
         <td>15. Assessing patient and family values and preferences</td>
         <td>
@@ -1027,6 +1032,10 @@
     <br />
     <p> HLC 7: Develop robust linkages to smoking cession, CDSMP and other evidence-based community resources </p>
     <table class='lined space background-blue'>
+      <tr>
+        <th>Items</th>
+        <th colspan='4'>Lowest ... Highest</th>
+      </tr>
       <tr align="center">
         <td>18. Test results and care plans</td>
         <td>
@@ -1153,5 +1162,9 @@
       </tr>
     </table>
   </div>
+
+<div>
+  <%= f.submit "Save" %>
+</div>
 
 <% end %>
