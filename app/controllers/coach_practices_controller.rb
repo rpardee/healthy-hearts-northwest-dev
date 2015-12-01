@@ -32,6 +32,9 @@ class CoachPracticesController < ApplicationController
     coach_item                = @practice.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Coach follow-up"])
     @coach_item_complete      = coach_item.where(complete: true)
     @coach_item_incomplete    = coach_item.where(complete: false)
+    @coach_item               = @practice.coach_items.create
+    ivc                       = @practice.last_required_iv_contact
+    @aa_hlcts                 = ivc.high_leverage_change_tests.where("test_status in (1, 2)") if ivc
   end
 
   # GET /coach_practices/1/edit

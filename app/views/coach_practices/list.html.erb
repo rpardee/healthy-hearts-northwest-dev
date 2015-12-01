@@ -21,12 +21,12 @@
       <tr>
         <td><%= link_to practice.name, coach_practice_path(practice) %></td>
         <td>
-          <% if practice.last_required_iv_contact && practice.last_required_iv_contact <= Date.today - 45 %>
+          <% if practice.last_required_iv_contact && practice.last_required_iv_contact.contact_dt <= Date.today - 45 %>
             <span style="color: red;">
           <% else %>
             <span>
           <% end %>
-          <%= practice.last_required_iv_contact %>
+          <%= practice.last_required_iv_contact.contact_dt if practice.last_required_iv_contact %>
           </span>
         </td>
         <td><%= practice.last_iv_status %></td>

@@ -36,7 +36,11 @@ class HighLeverageChangeTest < ActiveRecord::Base
     hlc_other:         "Other"
   }
 
-  TEST_STATUSES = [["Continuing testing", 0], ["Adopted change", 1], ["Abandoned", 2]]
+  TEST_STATUSES = {
+    "Continuing testing" => 0,
+    "Adopted change" => 1,
+    "Abandoned" => 2
+    }
 
 end
 

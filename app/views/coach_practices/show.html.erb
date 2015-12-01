@@ -51,6 +51,33 @@
         <% end %>
       </table>
     </div>
+    <div>
+      <h3>Abandoned/Adopted <abbr title = "High Leverage Change Tests">HLCT</abbr>s</h3>
+      <% if @aa_hlcts %>
+        <table class = 'lined space background-lightpurple'>
+          <thead>
+            <tr>
+              <th>Activity</th>
+              <th>Status</th>
+              <th>HLCs</th>
+            </tr>
+          </thead>
+          <% @aa_hlcts.each do |aa| %>
+            <tr>
+              <td>
+                <%= aa.description %>
+              </td>
+              <td>
+                <%= HighLeverageChangeTest::TEST_STATUSES.key(aa.test_status) %>
+              </td>
+              <td>
+                <%= aa.list_hlcs %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
   </div>
 
   <div id='right-2'>
