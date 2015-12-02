@@ -51,15 +51,17 @@
         <% end %>
       </table>
     </div>
+    <br />
     <div>
-      <h3>Abandoned/Adopted <abbr title = "High Leverage Change Tests">HLCT</abbr>s</h3>
-      <% if @aa_hlcts %>
+      <h3>Abandoned/Adopted <abbr title = "High Leverage Change Tests">PDSA</abbr>s</h3>
+      <% if @aa_hlcts.length > 0 %>
         <table class = 'lined space background-lightpurple'>
           <thead>
             <tr>
-              <th>Activity</th>
-              <th>Status</th>
-              <th>HLCs</th>
+              <th>PDSA</th>
+              <th>Contact Date</th>
+              <th>Final Status</th>
+              <th>Comments</th>
             </tr>
           </thead>
           <% @aa_hlcts.each do |aa| %>
@@ -68,14 +70,19 @@
                 <%= aa.description %>
               </td>
               <td>
+                <%= aa.status_date %>
+              </td>
+              <td>
                 <%= HighLeverageChangeTest::TEST_STATUSES.key(aa.test_status) %>
               </td>
               <td>
-                <%= aa.list_hlcs %>
+                <%= aa.comments %>
               </td>
             </tr>
           <% end %>
         </table>
+      <% else %>
+        <em>None thus far!</em>
       <% end %>
     </div>
   </div>

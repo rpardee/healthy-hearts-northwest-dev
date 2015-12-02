@@ -18,6 +18,7 @@ class CoachPracticesController < ApplicationController
   end
 
   def show
+    @aa_hlcts = Array.new
     @practice                 = Practice.find(params[:id])
     @coach_name               = @practice.coach.name
     @visit1                   = @practice.get_inperson_visit(1)
@@ -33,8 +34,11 @@ class CoachPracticesController < ApplicationController
     @coach_item_complete      = coach_item.where(complete: true)
     @coach_item_incomplete    = coach_item.where(complete: false)
     @coach_item               = @practice.coach_items.create
-    ivc                       = @practice.last_required_iv_contact
-    @aa_hlcts                 = ivc.high_leverage_change_tests.where("test_status in (1, 2)") if ivc
+    @practice.ivcontacts.each do |ivc|
+      ivc.high_leverage_change_tests.where("test_status in (1, 2)").each do |aa|
+        @aa_hlcts << aa
+      end
+    end
   end
 
   # GET /coach_practices/1/edit
