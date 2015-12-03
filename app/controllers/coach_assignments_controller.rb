@@ -27,7 +27,8 @@ class CoachAssignmentsController < ApplicationController
     end
     respond_to do |format|
       if success
-        format.html { redirect_to edit_coach_assignment_path(1), notice: 'Partner was successfully updated.' }
+        format.html { redirect_to edit_coach_assignment_path(@coach),
+          notice: 'Practice assignments were successfully updated.' }
       else
         format.html { render :edit }
       end
