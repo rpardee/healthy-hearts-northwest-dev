@@ -1,0 +1,29 @@
+<div id='wrapper'>
+<%= render 'layouts/header' %>
+
+<h1>Coaches and Coach Assignments</h1>
+
+<table class='typical enable-data-table'>
+  <thead>
+    <tr>
+      <th>Coach</th>
+      <th>Coach View of Practice</th>
+      <th>Assign Practices</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coaches.each do |coach| %>
+      <tr>
+        <td><%= coach.name %></td>
+        <td style="text-align: center;"><%= link_to image_tag("view.png", size: "20x20"), list_coach_practice_path(coach) if Practice.exists?(coach_id: coach.id) %></td>
+        <td style="text-align: center;"><%= link_to image_tag("plus-arrow-blue.png", size: "40x20"), edit_coach_assignment_path(coach) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to "Back", :back %>
+</div>

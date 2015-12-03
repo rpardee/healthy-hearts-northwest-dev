@@ -1,0 +1,51 @@
+<%= form_tag(coach_assignment_path(@coach), method: :patch) do |f| %>
+  <div id='wrapper'>
+  <%= render 'layouts/header' %>
+  <p id="notice"><%= notice %></p>
+
+  <h1>Practice Assignment for <%= @coach.name %></h1>
+
+  <table class='space' id='assign-practice-table'>
+    <thead>
+      <tr>
+        <th>Practice</th>
+        <th>Last Required Contact</th>
+        <th>Status</th>
+        <th>Coach View of Practice</th>
+        <th>Unassign Practice</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @practices.each do |practice| %>
+        <%= render 'assigned_practice_fields', :practice => practice %>
+      <% end %>
+      <tr id='add-practice-assignment-row'>
+        <td colspan="5">
+        	Add Practice <%= image_tag "plus-blue.png", height: 15, width: 15, id: "add-practice-assignment-button", title: "Assign New Practice" %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <%= submit_tag "Save" %>
+  </div>
+
+<% end %>
+
+<table style="display:none;">
+  <tbody id='add-practice-assignment-section'>
+    <tr class='deletable'>
+      <td><%= select_tag "practice_id[]", options_for_select(@practices_unselected.order("name").collect { |p| [p.name, p.id] }), include_blank: true %></td>
+      <td>&mdash;</td>
+      <td>&mdash;</td>
+      <td>View</td>
+      <td><%= image_tag "minus-blue.png", height: 15, width: 15, class: "delete-practice-assignment-button", alt: "Delete Practice", title: "Delete Practice" %></td>
+    </tr>
+  </tbody>
+</table>
+
+<br />
+<%= link_to "Back", :back %>
+</div>

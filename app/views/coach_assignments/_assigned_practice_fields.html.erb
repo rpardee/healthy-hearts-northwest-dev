@@ -1,0 +1,14 @@
+<tr class='deletable'>
+  <td><%= select_tag "practice_id[]", options_for_select(policy_scope(Practice).order("name").collect { |p| [p.name, p.id] }, selected: practice.id) %></td>
+  <td style="text-align: center;"><% if practice.last_required_iv_contact && practice.last_required_iv_contact <= Date.today - 45 %>
+        <span style="color: red;">
+      <% else %>
+        <span>
+      <% end %>
+      <%= practice.last_required_iv_contact %>
+      </span>
+  </td>
+  <td style="text-align: center;"><%= practice.last_iv_status %></td>
+  <td style="text-align: center;"><%= link_to image_tag("view.png", size: "20x20"), coach_practice_path(practice) %></td>
+  <td style="text-align: center;"><%= image_tag "minus-blue.png", height: 15, width: 15, class: "delete-practice-assignment-button", alt: "Delete Practice", title: "Delete Practice" %></td>
+</tr>

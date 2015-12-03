@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  resources :coach_items
-  resources :ivcontacts do
-    resources :high_leverage_change_tests
-  end
-
-  resources :high_leverage_change_tests
 
   devise_for :partners
   devise_scope :partners do
@@ -12,37 +6,37 @@ Rails.application.routes.draw do
     post 'partners/admin_create' => 'partners#admin_create'
   end
 
-  resources :practices do
-    get 'assign_practice', on: :member
-  end
-
   resource :mains, only: :index
   get 'practice_survey_thanks', to: 'mains#practice_survey_thanks'
   get 'admin_area', to: 'mains#admin_area'
 
-  resources :practice_surveys
-
   resources :sites do
     resources :partners
   end
-
   resources :partners do
     resources :events
     resources :practices
     get 'list', on: :collection
+    get 'assign_practice', on: :member
+  end
+  resources :practices do
+    resources :events
+    resources :personnels
   end
   resources :coach_practices do
     resources :ivcontacts
     resources :coach_items
     get 'list', on: :member
   end
-  resources :practices, except: :index do
-    resources :events
-    resources :personnels
+  resources :ivcontacts do
+    resources :high_leverage_change_tests
   end
+  resources :coach_assignments, only: [ :index, :edit, :update ]
   resources :events
   resources :personnels
-  resources :practices
+  resources :practice_surveys
+  resources :high_leverage_change_tests
+  resources :coach_items
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -4,21 +4,21 @@
 <h1>Admin Area</h1>
 
 <% if current_partner.supervisor? %>
-  <h3>
-    <%= link_to "Coach List", coach_practices_path %>
-  </h3>
-  <h3>
-    <%= link_to "Recruiter List", practices_path %>
-  </h3>
-  <h3>
+  <h2>
+    <%= link_to "Coaches List", coach_assignments_path %>
+  </h2>
+  <h2>
+    <%= link_to "Recruiters List", practices_path %>
+  </h2>
+  <h2>
     <%= link_to "Export Practice Data", practices_path(format: "csv") %>
-  </h3>
+  </h2>
 <% end %>
 
 <% if current_partner.admin? %>
-  <h3>
+  <h2>
     <%= link_to "System Users List", list_partners_path %>
-  </h3>
+  </h2>
 <% end %>
 
 </div>
