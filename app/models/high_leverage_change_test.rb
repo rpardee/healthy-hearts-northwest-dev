@@ -12,6 +12,10 @@ class HighLeverageChangeTest < ActiveRecord::Base
     lst
   end
 
+  def status_date
+    self.ivcontact.contact_dt
+  end
+
 
   HLC_FIELDS = [:embed_evidence, :use_data, :xfunc_qi, :id_at_risk, :manage_pops, :self_management, :resource_linkages, :hlc_other]
   HLCS = {
@@ -36,7 +40,11 @@ class HighLeverageChangeTest < ActiveRecord::Base
     hlc_other:         "Other"
   }
 
-  TEST_STATUSES = [["Continuing testing", 0], ["Adopted change", 1], ["Abandoned", 2]]
+  TEST_STATUSES = {
+    "Continuing testing" => 0,
+    "Adopted change" => 1,
+    "Abandoned" => 2
+    }
 
 end
 
