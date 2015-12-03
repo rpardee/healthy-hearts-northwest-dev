@@ -1,6 +1,6 @@
 <tr class='deletable'>
   <td><%= select_tag "practice_id[]", options_for_select(policy_scope(Practice).order("name").collect { |p| [p.name, p.id] }, selected: practice.id) %></td>
-  <td style="text-align: center;"><% if practice.last_required_iv_contact && practice.last_required_iv_contact <= Date.today - 45 %>
+  <td style="text-align: center;"><% if practice.last_required_iv_contact && (practice.last_required_iv_contact <= Date.today - 45) %>
         <span style="color: red;">
       <% else %>
         <span>
