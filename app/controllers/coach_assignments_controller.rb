@@ -12,7 +12,7 @@ class CoachAssignmentsController < ApplicationController
 	# GET /coach_assignments/1/edit
   def edit
   	@coach = Partner.find(params[:id])
-  	@practices = Practice.where(coach_id: @coach.id).order(:name)
+  	@practices = policy_scope(Practice).where(coach_id: @coach.id).order(:name)
   	@practices_unselected = policy_scope(Practice).where("coach_id != ? or coach_id IS NULL", @coach.id)
   end
 
