@@ -10,6 +10,7 @@ class Practice < ActiveRecord::Base
 	belongs_to :site
 
 	has_many :coach_items
+
 	accepts_nested_attributes_for :coach_items, :reject_if => :all_blank,
 		:allow_destroy => true
 
@@ -26,9 +27,12 @@ class Practice < ActiveRecord::Base
     self.events.maximum(:schedule_dt)
   end
 
+  def last_required_iv_contact_date
+    lric = last_required_iv_contact
+    lric.contact_dt if lric
+  end
   def last_required_iv_contact
-    iv_with_required = self.ivcontacts.where({ contact_type: [1, 2] })
-    iv_with_required.maximum(:contact_dt) if iv_with_required.count > 0
+    self.ivcontacts.where({ contact_type: [1, 2] }).order(:contact_dt).last
   end
 
   def last_iv_status

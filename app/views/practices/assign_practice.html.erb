@@ -19,12 +19,12 @@
       <tr>
       	<td><%= select_tag :practice_id, options_for_select(policy_scope(Practice).order("name").collect { |p| [p.name, p.id] }, selected: practice.id) %></td>
         <td>
-          <% if practice.last_required_iv_contact && practice.last_required_iv_contact <= Date.today - 45 %>
+          <% if practice.last_required_iv_contact && practice.last_required_iv_contact_date <= Date.today - 45 %>
             <span style="color: red;">
           <% else %>
             <span>
           <% end %>
-          <%= practice.last_required_iv_contact %>
+          <%= practice.last_required_iv_contact_date %>
           </span>
         </td>
         <td><%= practice.last_iv_status %></td>

@@ -25,7 +25,7 @@ module PracticesHelper
     to_export = {
                   id:                           'Database ID',
                   study_id:                     'Study ID',
-                  name:                         'Name',
+                  name:                         'Practice Name',
                   enrolled:                     'Enrolled?',
                   interest_yn:                  'Interested?',
                   status:                       'Status',
@@ -34,17 +34,26 @@ module PracticesHelper
                   parent_organization:          'Parent Org',
                   current_partner:              'Primary Recruiter',
                   recruitment_source:           'Recruitment Source',
-                  address:                      'Address',
-                  city:                         'City',
-                  prac_state:                   'State',
-                  zip_code:                     'Zip',
-                  phone:                        'Phone',
-                  url:                          'Website',
-                  email:                        'E-mail',
+                  address:                      'Practice Address',
+                  city:                         'Practice City',
+                  prac_state:                   'Practice State',
+                  zip_code:                     'Practice Zip',
+                  phone:                        'Practice Phone',
+                  url:                          'Practice Website',
+                  email:                        'Practice E-mail',
                   residency_training_site:      'Residency Training Site?',
+                  interest_yn:                  'Interested?',
+                  interest_why_not:             'Why not interested?',
+                  interest_why:                 'Why interested?',
+                  interest_expect:              'Expected outcomes',
+                  interest_challenge:           'Expected challenges',
+                  interest_contact_month:       'Good month for coach visit?',
+                  primary_care:                 'Primary Care',
                   number_clinicians:            'No. clinicians',
                   fte_clinicians:               'Clinician FTE',
-                  primary_care:                 'Primary Care',
+                  prac_ehr:                     'EHR',
+                  prac_ehr_mu:                  'MU-certified?',
+                  prac_ehr_mu_yr:               'Year MU-Certified',
                   prac_own_clinician:           'Clinician owned?',
                   prac_own_hosp:                'Hosp/healthsys owned?',
                   prac_own_hmo:                 'HMO Owned?',
@@ -68,7 +77,6 @@ module PracticesHelper
                   prac_aco_join_medicaid:       'Join Medicaid ACO?',
                   prac_aco_join_medicare:       'Join Medicare ACO?',
                   prac_aco_join_commercial:     'Join Commercial ACO?',
-                  prac_ehr:                     'EHR',
                   prac_ehr_extractdata:         'Have data extractor?',
                   prac_ehr_person_extractdata:  'Data Extractor',
                   prac_it_support:              'Have HIT support?',
@@ -101,14 +109,26 @@ module PracticesHelper
                                     Practice::PRAC_EHRNAME_VALS.key(prac.send(k))
                                   when :recruitment_source
                                     Practice::RECRUITMENT_SOURCE_VALS.key(prac.send(k))
-                                  when :primary_care, :interest_yn
+                                  when :primary_care, :interest_yn, :prac_ehr_mu, :prac_pcmh
                                     Practice::YN12_VALS.key(prac.send(k))
+                                  when :interest_why_not
+                                    Practice::INTEREST_WHY_NOT_VALS.key(prac.send(k))
+                                  when :interest_contact_month
+                                    Practice::INTEREST_CONTACT_MONTH_VALS.key(prac.send(k))
                                   when :prac_spec_mix
                                     Practice::PRAC_SPEC_MIX_VALS.key(prac.send(k))
                                   when :prac_ehr_extractdata
                                     Practice::PRAC_EHR_EXTRACTDATA_VALS.key(prac.send(k))
                                   when :prac_ehr_person_extractdata
                                     Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS.key(prac.send(k))
+                                  when :prac_aco_join_medicaid
+                                    Practice::PRAC_ACO_JOIN_MEDICAID_VALS.key(prac.send(k))
+                                  when :prac_aco_join_medicare
+                                    Practice::PRAC_ACO_JOIN_MEDICARE_VALS.key(prac.send(k))
+                                  when :prac_aco_join_commercial
+                                    Practice::PRAC_ACO_JOIN_COMMERCIAL_VALS.key(prac.send(k))
+                                  when :prac_it_support
+                                    Practice::PRAC_IT_SUPPORT_VALS.key(prac.send(k))
                                   when :site_id
                                     prac.site ? prac.site.name : 'Not assigned'
                                   when :prim_con_name

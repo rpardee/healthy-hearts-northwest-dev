@@ -28,9 +28,9 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts/1/edit
   def edit
     # @practice_id = params[:coach_practice_id]
-    @practice = Practice.find(params[:coach_practice_id])
-    @practice_name = Practice.find(@practice.id).name
-    @personnel_list = get_personnel_by_practice(@practice)
+    @practice         = Practice.find(params[:coach_practice_id])
+    @practice_name    = Practice.find(@practice.id).name
+    @personnel_list   = get_personnel_by_practice(@practice)
     @contact_specific = @ivcontact.contact_specific
     (@ivcontact.high_leverage_change_tests.count..3).each do
       @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
@@ -113,12 +113,14 @@ class IvcontactsController < ApplicationController
 
     def get_continuing_change_tests(practice)
       last_inperson = Ivcontact.where('practice_id = ? AND contact_type IN (1, 2)', practice.id).order(:contact_dt).last
-      continuing_tests = last_inperson.high_leverage_change_tests.where(test_status: 0) if last_inperson
-      (0..3).each do |n|
-        if continuing_tests && continuing_tests[n]
-          @ivcontact.high_leverage_change_tests << continuing_tests[n].dup
-        else
-          @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
+      if last_inperson
+        continuing_tests = last_inperson.high_leverage_change_tests.where(test_status: 0)
+        (0..3).each do |n|
+          if continuing_tests[n]
+            @ivcontact.high_leverage_change_tests << continuing_tests[n].dup
+          else
+            @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
+          end
         end
       end
     end
