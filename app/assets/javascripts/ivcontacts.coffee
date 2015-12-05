@@ -10,6 +10,7 @@ updateContactType = (contact_type_field) ->
 	if v == 1  				# Required/in-person
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
+		$('#ivcontact-hit').show()
 		$('#ivcontact-gyr').show()
 		$('#ivcontact-tier').show()
 		$('#ivcontact-pcmha').show()
@@ -18,6 +19,7 @@ updateContactType = (contact_type_field) ->
 	else if v == 2  	# Required/other
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
+		$('#ivcontact-hit').hide()
 		$('#ivcontact-gyr').show()
 		$('#ivcontact-tier').hide()
 		$('#ivcontact-pcmha').hide()
@@ -26,6 +28,7 @@ updateContactType = (contact_type_field) ->
 	else if v == 9		# Ad-hoc contact/blank
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
+		$('#ivcontact-hit').hide()
 		$('#ivcontact-gyr').hide()
 		$('#ivcontact-tier').hide()
 		$('#ivcontact-pcmha').hide()
@@ -34,6 +37,7 @@ updateContactType = (contact_type_field) ->
 	else							# Blank
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
+		$('#ivcontact-hit').hide()
 		$('#ivcontact-gyr').hide()
 		$('#ivcontact-tier').hide()
 		$('#ivcontact-pcmha').hide()
@@ -74,22 +78,18 @@ updateStaffMemberSurvey = (contact_type_field, contact_specific_field) ->
 	else
 		$('#ivcontact-smsvy').hide()
 
-updateHIT = (contact_type_field, contact_specific_field) ->
-	contactType = parseInt($(contact_type_field).val())
+# #ivcontact-hit shows at in-person contact - some fields are only displayed for particular contacts
+updateHIT = (contact_specific_field) ->
 	contactSpecific = parseInt($(contact_specific_field).val())
-	if contactType == 1										# In-person visit
-		if contactSpecific == 1							# 1st visit
-			$('#ivcontact-hit').show()
-			$('#ivcontact-hit-vendor').show()
-			$('#ivcontact-hit-tier').show()
-		else if contactSpecific == 5				# 5th visit
-			$('#ivcontact-hit').show()
-			$('#ivcontact-hit-vendor').hide()
-			$('#ivcontact-hit-tier').hide()
-		else																# Other visits or Blank
-			$('#ivcontact-hit').hide()
-	else
-		$('#ivcontact-hit').hide()
+	if contactSpecific == 1							# 1st visit
+		$('#ivcontact-hit-vendor').show()
+		$('#ivcontact-hit-tier').show()
+	else if contactSpecific == 5				# 5th visit
+		$('#ivcontact-hit-vendor').hide()
+		$('#ivcontact-hit-tier').show()
+	else																# Other visits or Blank
+		$('#ivcontact-hit-vendor').hide()
+		$('#ivcontact-hit-tier').hide()
 
 updateHITQuality = (hit_quality_field) ->
 	hitQuality = parseInt($(hit_quality_field).val())
@@ -126,7 +126,7 @@ $(document).on "page:change", ->
 	updateContactType('#ivcontact_contact_type')
 	updateDisruptionTime('#contact_specific_calculated')
 	updateQICA('#ivcontact_contact_type', '#contact_specific_calculated')
-	updateHIT('#ivcontact_contact_type', '#contact_specific_calculated')
+	updateHIT('#contact_specific_calculated')
 	updateHITQuality('#ivcontact_hit_quality')
 	updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
 	updateEHRWhich('#ivcontact_contact_type', '#contact_specific_calculated', 'ivcontact_prac_change_ehr')
@@ -137,7 +137,7 @@ $(document).on "page:change", ->
 	$('#ivcontact_contact_type').on 'change',  ->
 		updateContactType('#ivcontact_contact_type')
 		updateQICA('#ivcontact_contact_type', '#contact_specific_calculated')
-		updateHIT('#ivcontact_contact_type', '#contact_specific_calculated')
+		updateHIT('#contact_specific_calculated')
 		updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
 
 $(document).on "page:change", ->
