@@ -112,7 +112,7 @@ class IvcontactsController < ApplicationController
     end
 
     def get_continuing_change_tests(practice)
-      last_inperson = Ivcontact.where('practice_id = ? AND contact_type IN (1, 2)', practice.id).order(:contact_dt).last
+      last_inperson = practice.last_required_iv_contact
       if last_inperson
         continuing_tests = last_inperson.high_leverage_change_tests.where(test_status: 0)
         (0..3).each do |n|
