@@ -11,12 +11,6 @@
     </div>
   <% end %>
 
-  <div id='nav-top'>
-    <nav>
-      <%= f.submit "Save" %>
-    </nav>
-  </div>
-
   <%= f.hidden_field :practice_id, value: @practice.id %>
   <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
 
