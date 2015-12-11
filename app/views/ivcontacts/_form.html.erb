@@ -11,12 +11,6 @@
     </div>
   <% end %>
 
-  <div id='nav-top'>
-    <nav>
-      <%= f.submit "Save" %>
-    </nav>
-  </div>
-
   <%= f.hidden_field :practice_id, value: @practice.id %>
   <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
 
@@ -392,9 +386,11 @@
       <%= f.label :gyr, "Assessment:" %>
       <%= f.select :gyr, Ivcontact::GYR_VALS, include_blank: true %>
     </p>
-    <p>
-      <%= f.label :gyr_notes, "Activities or Situations for Rating" %>
-      <%= f.text_area :gyr_notes, cols: 60, rows: 2 %>
+    <p style="display: table;">
+      <label for="ivcontact_gyr_notes" style="display: table-cell; vertical-align: middle;">
+        Activities or Situations for Rating: &nbsp;
+      </label>
+      <%= f.text_area :gyr_notes, cols: 80, rows: 3 %>
     </p>
   </div>
 

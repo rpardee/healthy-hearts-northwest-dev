@@ -40,6 +40,12 @@ span#recruiter-or-coach-view {
 .ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
   cursor: text;
 }
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited{
+    color: white;
+}
 
 #front-page {
   background-color: #AD122A;

@@ -93,7 +93,7 @@
 
   <div id='right-2'>
     <h1>Coach: <%= @practice.coach.name if @practice.coach %></h1>
-    <h2 title="Intervention Contacts" rel="tooltip">Intervention Contacts
+    <h2 title="Add an intervention contact" rel="tooltip">Intervention Contacts
       <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
     </h2>
     <% if @practice.ivcontacts.any? %>
@@ -117,6 +117,9 @@
           <% end %>
         </tbody>
       </table>
+    <% else %>
+      <em>Click the + icon above to add your first contact.</em>
+      <br /><br />
     <% end %>
 
     <br />
@@ -140,7 +143,7 @@
         <table class='typical enable-data-table'>
           <thead>
             <tr>
-              <th>Add Date</th>
+              <th>Date</th>
               <th>Notes</th>
             </tr>
           </thead>
@@ -158,7 +161,7 @@
         <table class='typical enable-data-table'>
           <thead>
             <tr>
-              <th>Add Date</th>
+              <th>Date</th>
               <th>Notes</th>
             </tr>
           </thead>
