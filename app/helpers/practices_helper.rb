@@ -28,7 +28,7 @@ module PracticesHelper
                   name:                         'Practice Name',
                   enrolled:                     'Enrolled?',
                   interest_yn:                  'Interested?',
-                  status:                       'Status',
+                  status:                       'Recruitment Status',
                   pal_status_cached:            'PAL Status',
                   la_date_cached:               'Last Activity',
                   parent_organization:          'Parent Org',
@@ -51,21 +51,23 @@ module PracticesHelper
                   primary_care:                 'Primary Care',
                   number_clinicians:            'No. clinicians',
                   fte_clinicians:               'Clinician FTE',
+
                   prac_ehr:                     'EHR',
                   prac_ehr_mu:                  'MU-certified?',
-                  prac_ehr_mu_yr:               'Year MU-Certified',
+                  prac_ehr_mu_yr:               'Year Certified',
                   prac_own_clinician:           'Clinician owned?',
                   prac_own_hosp:                'Hosp/healthsys owned?',
                   prac_own_hmo:                 'HMO Owned?',
                   prac_own_fqhc:                'FQHC Owned?',
-                  prac_own_nonfed:              'Nonfed Owned?' ,
+                  prac_own_nonfed:              'Nonfed Govt Owned?' ,
                   prac_own_academic:            'Academic Owned?',
-                  prac_own_fed:                 'Federal?',
-                  prac_own_rural:               'Rural?',
-                  prac_own_ihs:                 'IHS?',
+                  prac_own_fed:                 'Federal Owned?',
+                  prac_own_rural:               'Rural Owned?',
+                  prac_own_ihs:                 'IHS Owned?',
                   prac_own_other:               'Other Owned',
-                  prac_own_yrs:                 'Years Owned',
-                  elig_clinic_count:            'PC Count',
+                  prac_own_other_specify:       'Other - specify',
+                  prac_own_yrs:                 'Years Current Ownership',
+                  elig_clinic_count:            'No. Clinics Owned by Parent Org',
                   prac_spec_mix:                'Specialty Mix',
                   prac_pcmh:                    'PCMH?',
                   prac_aco_medicaid:            'Medicaid ACO',
@@ -76,9 +78,10 @@ module PracticesHelper
                   prac_aco_none:                'Not an ACO',
                   prac_aco_join_medicaid:       'Join Medicaid ACO?',
                   prac_aco_join_medicare:       'Join Medicare ACO?',
-                  prac_aco_join_commercial:     'Join Commercial ACO?',
+                  prac_aco_join_commercial:     'Join Pvt/Commercial ACO?',
                   prac_ehr_extractdata:         'Have data extractor?',
                   prac_ehr_person_extractdata:  'Data Extractor',
+                  prac_ehr_person_extractdata_other: 'DE--other',
                   prac_it_support:              'Have HIT support?',
                   prim_con_name:                'Primary Contact',
                   prim_con_phone:               'Primary Contact Phone',
@@ -89,7 +92,7 @@ module PracticesHelper
                   ehr_hlp_name:                 'EHR Helper',
                   ehr_hlp_phone:                'EHR Helper Phone',
                   ehr_hlp_email:                'EHR Helper Email',
-                  site_id:                      'Site',
+                  site_id:                      'Site'
                 }
 
     csv_string = CSV.generate do |csv|
@@ -98,6 +101,7 @@ module PracticesHelper
         prim_con  = prac.personnels.where(site_contact_primary: true).first
         ehr_ext   = prac.personnels.where(ehr_extractor: true).first
         ehr_hlp   = prac.personnels.where(ehr_helper: true).first
+        # TODO: ? Add QI Champion.
         wanted_attributes = Hash.new
         to_export.keys.each do |k|
           wanted_attributes[k] = case k
@@ -106,7 +110,7 @@ module PracticesHelper
                                   when :prac_state
                                     Practice::PRAC_STATE_VALS.key(prac.send(k))
                                   when :prac_ehr
-                                    Practice::PRAC_EHRNAME_VALS.key(prac.send(k))
+                                    Practice::PRAC_EHR_VALS.key(prac.send(k))
                                   when :recruitment_source
                                     Practice::RECRUITMENT_SOURCE_VALS.key(prac.send(k))
                                   when :primary_care, :interest_yn, :prac_ehr_mu, :prac_pcmh
@@ -152,7 +156,6 @@ module PracticesHelper
                                   else
                                     prac.send(k)
                                   end
-
         end
         csv << wanted_attributes.values
       end
