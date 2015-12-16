@@ -19,6 +19,11 @@ class Practice < ActiveRecord::Base
 	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
 		:allow_destroy => true
 
+  def brief_status
+    self.coach_items.where(item_type: CoachItem::ITEM_TYPE_VALS["Brief status update"])
+      .order(:updated_at).last.try(:notes)
+  end
+
 	def primary_contact
 		self.personnels.where(site_contact_primary: true).first.try(:name)
 	end

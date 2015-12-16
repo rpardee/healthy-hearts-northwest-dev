@@ -4,6 +4,10 @@
   <div id='left-2'>
     <h1><%= @practice.name %></h1>
     <div>
+      Status: <%= truncate(@practice.brief_status, length: 20) %>
+    </div>
+    <br />
+    <div>
       <h3>Required Site Visits</h3>
       <table class='lined space'>
         <tr>
