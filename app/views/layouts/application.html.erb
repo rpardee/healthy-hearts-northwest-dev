@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Healthy Hearts Northwest</title>
+  <title><%= @page_title ? "H2N: #{@page_title}" : "Healthy Hearts Northwest" %></title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= jquery_include_tag :google %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>

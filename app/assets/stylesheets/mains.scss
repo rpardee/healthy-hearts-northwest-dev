@@ -73,3 +73,19 @@ span#recruiter-or-coach-view {
   	color: #92D7E7;
   }
 }
+#pc-overview
+{
+  text-align: left ;
+  border-collapse: collapse ;
+  border: 1px solid black ;
+  abbr {
+    text-decoration: underline ;
+  }
+  td, th {
+    padding: 10px ;
+    border: 1px solid black ;
+  }
+  th {
+    font-weight: bold ;
+  }
+}

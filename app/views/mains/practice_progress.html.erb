@@ -1,0 +1,58 @@
+<div id='wrapper'>
+  <%= render 'layouts/header' %>
+
+  <% if @practices.nil? %>
+    <p>No practices returned!</p>
+  <% else %>
+    <table id='pc-overview' class='enable-data-table'>
+      <thead>
+        <tr>
+          <th rowspan="2">Name</th>
+          <th rowspan="2">Coach</th>
+          <th colspan="5">Required in-person site visits</th>
+          <th colspan="3">Last Required Contact</th>
+        </tr>
+        <tr>
+          <th>Welcome (baseline)</th>
+          <th>Q2</th>
+          <th>Q3</th>
+          <th>Q4</th>
+          <th>Q5 (final)</th>
+          <th>Topics Discussed</th>
+          <th>HLCs Making Progress</th>
+          <th>GYR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @practices.each do |pr| %>
+          <tr>
+            <td>
+              <%= link_to pr.name, practice_lifetime_path(pr) %>
+            </td>
+            <td>
+              <%= pr.coach.name if pr.coach %>
+            </td>
+            <% ivcs = pr.ivcontacts.where({ contact_type: 1 }).order(:contact_dt) %>
+            <% ivcs.each do |ivc| %>
+              <td><%= ivc.contact_dt %></td>
+            <% end %>
+            <% (ivcs.length..4).each do %>
+              <td>&nbsp;</td>
+            <% end %>
+            <% lc = pr.last_required_iv_contact %>
+            <% if lc %>
+              <% clr = Ivcontact::GYR_VALS.key(lc.gyr) %>
+              <td><%= raw(lc.topics_discussed) %></td>
+              <td><%= lc.hlcs_making_progress %></td>
+              <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+            <% else %>
+              <% (1..3).each do %>
+                <td>&nbsp;</td>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

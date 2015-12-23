@@ -1,0 +1,26 @@
+<div id='wrapper'>
+<%= render 'layouts/header' %>
+
+<h1>Manager Tasks</h1>
+
+<% if current_partner.supervisor? %>
+  <h2>Intervention Dashboards</h2>
+  <h3><%= link_to "IV Contacts Overview", practice_contacts_path, title: "Practices and details on the contents of their last Intervention visits." %></h3>
+  <h3><%= link_to "Practice Progress", practice_contacts_path, title: "Practices, visit dates, topics discussed, etc." %></h3>
+  <h2>General Tasks</h2>
+  <h3>
+    <%= link_to "Coaches List", coach_assignments_path %>
+  </h3>
+  <h3>
+    <%= link_to "Recruiters List", practices_path %>
+  </h3>
+  <h3>
+    <%= link_to "Export Practice Data", practices_path(format: "csv") %>
+  </h3>
+<% else %>
+  <h3>The account you're currently logged in as (<%= current_partner.name %>) is not registered as a supervisor, so there's nothing for you to do here.</h3>
+  <p>(How did you even get to this page?)</p>
+<% end %>
+
+
+</div>
