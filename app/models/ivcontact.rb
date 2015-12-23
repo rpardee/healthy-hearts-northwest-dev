@@ -5,7 +5,7 @@ class Ivcontact < ActiveRecord::Base
   has_and_belongs_to_many :personnels
   has_paper_trail
 
-  accepts_nested_attributes_for :high_leverage_change_tests, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :high_leverage_change_tests, reject_if: proc { |attributes| attributes['description'].blank? }, allow_destroy: true
 
   validates_presence_of :contact_dt
 
