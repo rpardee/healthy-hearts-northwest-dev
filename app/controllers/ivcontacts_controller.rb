@@ -15,13 +15,14 @@ class IvcontactsController < ApplicationController
 
   # GET /ivcontacts/new
   def new
-    @ivcontact = Ivcontact.new
-    @personnel = Personnel.new
     @practice = Practice.find(params[:coach_practice_id])
+    @ivcontact = @practice.ivcontacts.build
+    @personnel = Personnel.new
     @practice_name = @practice.name
     @contact_specific = @practice.next_inperson_contact
     @personnel_list = get_personnel_by_practice(@practice)
     get_continuing_change_tests(@practice)
+    @ivcontact.high_leverage_change_tests.build unless @ivcontact.high_leverage_change_tests.length > 0
     set_contact_type_options
   end
 
@@ -32,8 +33,8 @@ class IvcontactsController < ApplicationController
     @practice_name    = Practice.find(@practice.id).name
     @personnel_list   = get_personnel_by_practice(@practice)
     @contact_specific = @ivcontact.contact_specific
-    (@ivcontact.high_leverage_change_tests.count..3).each do
-      @ivcontact.high_leverage_change_tests << HighLeverageChangeTest.new
+    (@ivcontact.high_leverage_change_tests.count..2).each do
+      @ivcontact.high_leverage_change_tests.build
     end
     set_contact_type_options
   end

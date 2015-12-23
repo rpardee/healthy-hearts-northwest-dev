@@ -19,3 +19,16 @@
  *= require mains.scss
  *= require practice_surveys.scss
  */
+.gyr-red {
+  background-color: red ;
+  color: white ;
+}
+
+.gyr-yellow {
+  background-color: yellow ;
+}
+
+.gyr-green {
+  background-color: green ;
+  color: white ;
+}
