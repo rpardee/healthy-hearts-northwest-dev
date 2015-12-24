@@ -5,6 +5,7 @@ class CoachItem < ActiveRecord::Base
 
 	ITEM_TYPE_VALS = {
 		"Action item for practice" => 1,
-		"Coach follow-up" => 2
+		"Coach follow-up" => 2,
+		"Brief status update" => 3
 	}
 end
