@@ -1,10 +1,91 @@
 <div id='wrapper'>
   <%= render 'layouts/header' %>
-  <h2><%= @practice.name %></h2>
-  <h3>Topics</h3>
-  <p>::really interesting table goes here::</p>
-  <h3>HLC</h3>
-  <p>::really interesting table goes here::</p>
-  <h3>GYR</h3>
-  <p>::really interesting table goes here::</p>
+  <% if @practice %>
+    <h2><%= @practice.name %> Lifetime</h2>
+    <% if @practice.ivcontacts.any? %>
+      <h3>Topics</h3>
+      <table id='topics' class='simple-grid'>
+        <thead>
+          <tr>
+            <th>Discussed?</th>
+            <% (0..14).each do |i| %>
+              <th>#<%= i+1 %> </th>
+            <% end %>
+          </tr>
+          <tr>
+            <th>Date</th>
+              <% (0..14).each do |i| %>
+                <% this_contact = @practice.ivcontacts[i] %>
+                <% if this_contact then %>
+                  <th><%= this_contact.contact_dt %></th>
+                <% else %>
+                  <th>&nbsp;</th>
+                <% end %>
+              <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% labno = 1 %>
+          <% Ivcontact::DISCUSSION_TOPICS.each do |fld, lab| %>
+            <tr>
+              <td>#<%= "#{labno}. #{lab}" %></td>
+              <% labno += 1 %>
+              <% (0..14).each do |i| %>
+                <% this_contact = @practice.ivcontacts[i] %>
+                <% if this_contact then %>
+                  <td><%= check_if(this_contact.send(fld)) %></td>
+                <% else %>
+                  <td>&nbsp;</td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <h3>HLC</h3>
+      <table id = 'hlcs' class = 'simple-grid'>
+        <thead>
+          <tr>
+            <th>Rating</th>
+            <% (0..14).each do |i| %>
+              <th>#<%= i+1 %> </th>
+            <% end %>
+          </tr>
+          <tr>
+            <th>Date</th>
+            <% (0..14).each do |i| %>
+              <% this_contact = @practice.ivcontacts[i] %>
+              <% if this_contact then %>
+                <th><%= this_contact.contact_dt %></th>
+              <% else %>
+                <th>&nbsp;</th>
+              <% end %>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+        <% Ivcontact::HLCS_SHORT.each do |fld, lab| %>
+          <tr>
+            <td><%= lab%></td>
+              <% (0..14).each do |i| %>
+                <% this_contact = @practice.ivcontacts[i] %>
+                <% if this_contact then %>
+                  <td><%= check_if(this_contact.send(fld)) %></td>
+                <% else %>
+                  <td>&nbsp;</td>
+                <% end %>
+              <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <h3>GYR</h3>
+      <p>::really interesting table goes here::</p>
+    <% else %>
+      <h3>No contacts thus far--nothing to show!</h3>
+    <% end %>
+  <% else %>
+    <h2>Practice not found--are you sure it exists and belongs to your org?</h2>
+  <% end %>
+
 </div>

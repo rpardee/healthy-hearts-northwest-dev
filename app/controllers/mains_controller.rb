@@ -25,7 +25,7 @@ class MainsController < ApplicationController
     @practices = policy_scope(Practice).where(pal_status_cached: 'Returned').order(:name)
   end
   def practice_lifetime
-    @practice = Practice.find(params[:id])
+    @practice = policy_scope(Practice).find(params[:id])
     @page_title = "Lifetime of #{@practice.name}"
   end
 end
