@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   resource :mains, only: :index
   get 'practice_survey_thanks', to: 'mains#practice_survey_thanks'
   get 'admin_area', to: 'mains#admin_area'
+  get 'supervisor_area', to: 'mains#supervisor_area'
+  # 'dashboardy' things
+  get 'practice_contacts', to: 'mains#practice_contacts'
+  get 'practice_progress', to: 'mains#practice_progress'
+  get 'practice_lifetime/:id', to: 'mains#practice_lifetime', as: 'practice_lifetime'
 
   resources :sites do
     resources :partners

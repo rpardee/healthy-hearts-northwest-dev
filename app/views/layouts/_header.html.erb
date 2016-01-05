@@ -22,7 +22,18 @@
 					</td>
 					<td>
 						<% if current_partner.recruiter %>
-							<%= link_to "Recruiter Area", partner_path(current_partner) %>
+							<%= link_to "Recruiter Area", partner_path(current_partner), title: "Tasks for the Practice Recruiting Phase of the project" %>
+						<% else %>
+							&nbsp;
+						<% end %>
+					</td>
+					<td><%= link_to "Manager Area", supervisor_area_path, title: "Tasks for Supervisors of Recruiters & Coaches" %></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						<% if current_partner.coach %>
+							<%= link_to "Coach Area", list_coach_practice_path(current_partner), title: "Tasks for the Intervention Phase of the project" %>
 						<% else %>
 							&nbsp;
 						<% end %>
@@ -32,23 +43,13 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<% if current_partner.coach %>
-							<%= link_to "Coach Area", list_coach_practice_path(current_partner) %>
+						<% if current_partner.supervisor? %>
+							<%= link_to "Admin Area", admin_area_path, title: "Tasks for administrators of this web application." %>
 						<% else %>
 							&nbsp;
 						<% end %>
 					</td>
 					<td><%= link_to "Change password", edit_partner_registration_path %></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td colspan='2'>
-						<% if current_partner.supervisor? %>
-							<%= link_to "Admin Area", admin_area_path %>
-						<% else %>
-							&nbsp;
-						<% end %>
-					</td>
 				</tr>
 			</table>
 		</div>

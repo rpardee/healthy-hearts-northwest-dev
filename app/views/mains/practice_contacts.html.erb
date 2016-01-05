@@ -1,0 +1,48 @@
+<div id='wrapper'>
+  <%= render 'layouts/header' %>
+
+  <% if @practices.nil? %>
+    <p>No practices returned!</p>
+  <% else %>
+    <table id='pc-overview' class="enable-data-table">
+      <thead>
+        <tr>
+          <th rowspan="2">Name</th>
+          <th rowspan="2">Coach</th>
+          <th colspan="5">Last Required Contact</th>
+        </tr>
+        <tr>
+          <th>Date</th>
+          <th><abbr title="'Complete' if at least one topic was checked at last contact.">Topics</abbr></th>
+          <th><abbr title="'Complete' if *all* 7 HLCs have a progress rating on the last contact.">HLC</abbr></th>
+          <th><abbr title="'Complete' if there was at least one PDSA (test of change) on the last contact.">PDSA</abbr></th>
+          <th>GYR</th>
+        </tr>
+      </thead>
+      <% @practices.each do |pr| %>
+        <tr>
+          <td>
+            <%= link_to pr.name, edit_coach_practice_path(pr) %>
+          </td>
+          <td>
+            <%= pr.coach.name if pr.coach %>
+          </td>
+          <% lc = pr.last_required_iv_contact %>
+          <% if lc %>
+            <td><%= link_to lc.contact_dt, edit_coach_practice_ivcontact_path(lc.practice, lc) %></td>
+            <td><%= ivc_topics_complete(lc) %></td>
+            <td><%= ivc_hlc_complete(lc)    %></td>
+            <td><%= ivc_pdsa_complete(lc)   %></td>
+            <% clr = Ivcontact::GYR_VALS.key(lc.gyr) %>
+            <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+          <% else %>
+            <td>None Yet</td>
+            <% (1..4).each do %>
+              <td>&nbsp;</td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
