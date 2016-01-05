@@ -2,28 +2,11 @@
   <%= render 'layouts/header' %>
   <% if @practice %>
     <h2><%= @practice.name %> Lifetime</h2>
-    <% if @practice.ivcontacts.any? %>
+    <% @ivcs = @practice.ivcontacts.order(:contact_dt) %>
+    <% if @ivcs.any? %>
       <h3>Topics</h3>
       <table id='topics' class='simple-grid'>
-        <thead>
-          <tr>
-            <th>Discussed?</th>
-            <% (0..14).each do |i| %>
-              <th>#<%= i+1 %> </th>
-            <% end %>
-          </tr>
-          <tr>
-            <th>Date</th>
-              <% (0..14).each do |i| %>
-                <% this_contact = @practice.ivcontacts[i] %>
-                <% if this_contact then %>
-                  <th><%= this_contact.contact_dt %></th>
-                <% else %>
-                  <th>&nbsp;</th>
-                <% end %>
-              <% end %>
-          </tr>
-        </thead>
+      <%= render 'contacts_header', boxlab: "Blah" %>
         <tbody>
           <% labno = 1 %>
           <% Ivcontact::DISCUSSION_TOPICS.each do |fld, lab| %>
@@ -31,7 +14,7 @@
               <td>#<%= "#{labno}. #{lab}" %></td>
               <% labno += 1 %>
               <% (0..14).each do |i| %>
-                <% this_contact = @practice.ivcontacts[i] %>
+                <% this_contact = @ivcs[i] %>
                 <% if this_contact then %>
                   <td><%= check_if(this_contact.send(fld)) %></td>
                 <% else %>
@@ -44,33 +27,15 @@
       </table>
       <h3>HLC</h3>
       <table id = 'hlcs' class = 'simple-grid'>
-        <thead>
-          <tr>
-            <th>Rating</th>
-            <% (0..14).each do |i| %>
-              <th>#<%= i+1 %> </th>
-            <% end %>
-          </tr>
-          <tr>
-            <th>Date</th>
-            <% (0..14).each do |i| %>
-              <% this_contact = @practice.ivcontacts[i] %>
-              <% if this_contact then %>
-                <th><%= this_contact.contact_dt %></th>
-              <% else %>
-                <th>&nbsp;</th>
-              <% end %>
-            <% end %>
-          </tr>
-        </thead>
+        <%= render 'contacts_header', boxlab: "Required Contacts" %>
         <tbody>
         <% Ivcontact::HLCS_SHORT.each do |fld, lab| %>
           <tr>
             <td><%= lab%></td>
               <% (0..14).each do |i| %>
-                <% this_contact = @practice.ivcontacts[i] %>
+                <% this_contact = @ivcs[i] %>
                 <% if this_contact then %>
-                  <td><%= check_if(this_contact.send(fld)) %></td>
+                  <td><%= Ivcontact::PROGRESS_VALS.key(this_contact.send(fld)) %></td>
                 <% else %>
                   <td>&nbsp;</td>
                 <% end %>
@@ -80,7 +45,44 @@
         </tbody>
       </table>
       <h3>GYR</h3>
-      <p>::really interesting table goes here::</p>
+      <table id='gyr' class='simple-grid'>
+        <%= render 'contacts_header', boxlab: "Required Contacts" %>
+         <tbody>
+          <tr>
+            <th>GYR</th>
+            <% (0..14).each do |i| %>
+              <% this_contact = @ivcs[i] %>
+              <% if this_contact then %>
+                <% clr = Ivcontact::GYR_VALS.key(this_contact.gyr) %>
+                <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+              <% else %>
+                <th>&nbsp;</th>
+              <% end %>
+            <% end %>
+          </tr>
+          <tr>
+            <th>Tier</th>
+            <% (0..14).each do |i| %>
+              <% this_contact = @ivcs[i] %>
+              <% if this_contact then %>
+                <td><%= this_contact.tier %></td>
+              <% else %>
+                <th>&nbsp;</th>
+              <% end %>
+            <% end %>
+          <tr>
+            <th>Disruptions</th>
+            <% (0..14).each do |i| %>
+              <% this_contact = @ivcs[i] %>
+              <% if this_contact then %>
+                <td><%= this_contact.disruptions %></td>
+              <% else %>
+                <th>&nbsp;</th>
+              <% end %>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
     <% else %>
       <h3>No contacts thus far--nothing to show!</h3>
     <% end %>

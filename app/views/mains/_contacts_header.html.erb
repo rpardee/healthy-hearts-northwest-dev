@@ -1,0 +1,19 @@
+<thead>
+  <tr>
+    <th><%= @boxlab %></th>
+    <% (0..14).each do |i| %>
+      <th>#<%= i+1 %> </th>
+    <% end %>
+  </tr>
+  <tr>
+    <th>Date</th>
+      <% (0..14).each do |i| %>
+        <% this_contact = @ivcs[i] %>
+        <% if this_contact then %>
+          <th><%= link_to this_contact.contact_dt, coach_practice_path(this_contact.practice) %></th>
+        <% else %>
+          <th>&nbsp;</th>
+        <% end %>
+      <% end %>
+  </tr>
+</thead>
