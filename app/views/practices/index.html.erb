@@ -10,6 +10,7 @@
       <th>Site</th>
       <th>Study ID</th>
       <th>Recruiter</th>
+      <th>Coach</th>
     </tr>
   </thead>
 
@@ -20,6 +21,7 @@
         <td><%= practice.site.name if practice.site %></td>
         <td><%= practice.study_id if practice.study_id %></td>
         <td><%= practice.recruiter.name if practice.recruiter %></td>
+        <td><%= practice.coach.name if practice.coach %></td>
       </tr>
     <% end %>
   </tbody>
