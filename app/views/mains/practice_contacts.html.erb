@@ -34,7 +34,11 @@
             <td><%= ivc_hlc_complete(lc)    %></td>
             <td><%= ivc_pdsa_complete(lc)   %></td>
             <% clr = Ivcontact::GYR_VALS.key(lc.gyr) %>
-            <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+            <% if clr %>
+              <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+            <% else %>
+              <td>&nbsp;</td>
+            <% end %>
           <% else %>
             <td>None Yet</td>
             <% (1..4).each do %>

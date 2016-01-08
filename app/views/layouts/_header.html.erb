@@ -27,7 +27,13 @@
 							&nbsp;
 						<% end %>
 					</td>
-					<td><%= link_to "Manager Area", supervisor_area_path, title: "Tasks for Supervisors of Recruiters & Coaches" %></td>
+					<td>
+						<% if current_partner.supervisor? %>
+							<%= link_to "Manager Area", supervisor_area_path, title: "Tasks for Supervisors of Recruiters & Coaches" %>
+						<% else %>
+							&nbsp;
+						<% end %>
+					</td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
@@ -43,7 +49,7 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td>
-						<% if current_partner.supervisor? %>
+						<% if current_partner.admin? %>
 							<%= link_to "Admin Area", admin_area_path, title: "Tasks for administrators of this web application." %>
 						<% else %>
 							&nbsp;

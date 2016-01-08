@@ -1,5 +1,6 @@
 class MainsController < ApplicationController
-	before_action :authenticate_partner!, only: :admin_area
+	before_action :authenticate_partner!, only: [:admin_area, :supervisor_area,
+    :practice_contacts, :practice_progress, :practice_lifetime]
 
   # GET /mains
   def index

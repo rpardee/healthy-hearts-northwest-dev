@@ -9,9 +9,8 @@
       <th>Practice</th>
       <th>Site</th>
       <th>Study ID</th>
-      <th>ID</th>
       <th>Recruiter</th>
-      <th>&nbsp;</th>
+      <th>Coach</th>
     </tr>
   </thead>
 
@@ -21,9 +20,8 @@
         <td><%= link_to practice.name, edit_practice_path(practice) %></td>
         <td><%= practice.site.name if practice.site %></td>
         <td><%= practice.study_id if practice.study_id %></td>
-        <td><%= practice.id %></td>
         <td><%= practice.recruiter.name if practice.recruiter %></td>
-        <td><%= link_to 'Edit', edit_practice_path(practice) %></td>
+        <td><%= practice.coach.name if practice.coach %></td>
       </tr>
     <% end %>
   </tbody>
