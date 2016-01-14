@@ -86,13 +86,13 @@
         <% end %>
       </div>
     <% else %>
-      <h3>No intervention contacts logged yet--add one on the right side of the page to make this page more interesting.</h3>
+      <h3>No intervention contacts logged yet &mdash; add one on the right side of the page to make this page more interesting.</h3>
     <% end %>
   </div>
 
   <div id='right-2'>
     <h1>Coach: <%= @practice.coach.name if @practice.coach %></h1>
-    <h2 title="Add an intervention contact" rel="tooltip">Intervention Contacts
+    <h2 title="Add a site contact" rel="tooltip">Site Contacts
       <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
     </h2>
     <% if @practice.ivcontacts.any? %>
@@ -117,7 +117,7 @@
         </tbody>
       </table>
     <% else %>
-      <em>Click the + icon above to add your first contact.</em>
+      <em style="color: red;">Click the + icon above to add your first contact.</em>
       <br /><br />
     <% end %>
 

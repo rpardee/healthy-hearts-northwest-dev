@@ -44,7 +44,7 @@
 							&nbsp;
 						<% end %>
 					</td>
-					<td><%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %></td>
+					<td><%= link_to "Change password", edit_partner_registration_path %></td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
@@ -55,7 +55,7 @@
 							&nbsp;
 						<% end %>
 					</td>
-					<td><%= link_to "Change password", edit_partner_registration_path %></td>
+					<td><%= link_to "Sign out, #{current_partner.name}", destroy_partner_session_path, :method => :delete %></td>
 				</tr>
 			</table>
 		</div>

@@ -81,12 +81,9 @@ updateHIT = (contact_specific_field) ->
 	if contactSpecific == 1							# 1st visit
 		$('#ivcontact-hit-vendor').show()
 		$('#ivcontact-hit-tier').show()
-	else if contactSpecific == 5				# 5th visit
-		$('#ivcontact-hit-vendor').hide()
-		$('#ivcontact-hit-tier').show()
 	else																# Other visits or Blank
 		$('#ivcontact-hit-vendor').hide()
-		$('#ivcontact-hit-tier').hide()
+		$('#ivcontact-hit-tier').show()
 
 updateHITQuality = (hit_quality_field) ->
 	hitQuality = parseInt($(hit_quality_field).val())
@@ -127,7 +124,6 @@ $(document).on "page:change", ->
 	updateHITQuality('#ivcontact_hit_quality')
 	updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
 	updateEHRWhich('#ivcontact_contact_type', '#contact_specific_calculated', 'ivcontact_prac_change_ehr')
-	updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 	updateCheckbox('ivcontact_prac_change_other', '#ivcontact-pracchangespecify')
 
 $(document).on "page:change", ->
@@ -136,10 +132,6 @@ $(document).on "page:change", ->
 		updateQICA('#ivcontact_contact_type', '#contact_specific_calculated')
 		updateHIT('#contact_specific_calculated')
 		updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
-
-$(document).on "page:change", ->
-	$('#ivcontact_topic_other').on 'click',  ->
-		updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 
 $(document).on "page:change", ->
 	$('#ivcontact_prac_change_ehr').on 'click',  ->

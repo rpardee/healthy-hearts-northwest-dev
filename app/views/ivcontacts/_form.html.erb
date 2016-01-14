@@ -227,7 +227,7 @@
           <%= f.check_box :topic_other %>
           <%= f.label :topic_other, "Other" %>
           <span id='ivcontact-topicotherspecify'>
-            &nbsp; &nbsp; &nbsp;<%= f.label :topic_other_specify, "Specify:" %>
+            &nbsp; &nbsp; &nbsp;<%= f.label :topic_other_specify, "Please specify:" %>
             <%= f.text_field :topic_other_specify, size: 60 %>
           </span>
         </td>
@@ -362,7 +362,7 @@
       internal and external factors.  Mark each site as green, yellow or red using the definitions provided, then indicate the activities or situations on which you are basing your rating.
       (A practice will likely move back and forth throughout the initiative based on current
       conditions and situations.)</p>
-    <table class='space lined'>
+    <table class='space lined' width='85%' style="margin-left: auto; margin-right: auto;">
       <tr>
         <th width="33%" class='gyr-green'>Green</th>
         <th width="33%" class='gyr-yellow'>Yellow</th>
@@ -383,7 +383,7 @@
       <label for="ivcontact_gyr_notes" style="display: table-cell; vertical-align: middle;">
         Activities or Situations for Rating: &nbsp;
       </label>
-      <%= f.text_area :gyr_notes, cols: 80, rows: 3 %>
+      <%= f.text_area :gyr_notes, cols: 100, rows: 6 %>
     </p>
   </div>
 
@@ -1144,10 +1144,10 @@
       <tr>
         <td><%= f.label :prac_change_other, "Other" %></td>
         <td><%= f.check_box :prac_change_other %></td>
-      </tr>
-      <tr id='ivcontact-pracchangespecify'>
-        <td><%= f.label :prac_change_specify, "If other, please specify:" %></td>
-        <td><%= f.text_area :prac_change_specify, rows: 3, cols: 50 %></td>
+        <td id='ivcontact-pracchangespecify' style="padding-bottom: 15px;">
+          <%= f.label :prac_change_specify, "If other, please specify:" %>
+          <%= f.text_area :prac_change_specify, rows: 1, cols: 100 %>
+        </td>
       </tr>
     </table>
   </div>
