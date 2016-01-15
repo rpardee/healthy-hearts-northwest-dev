@@ -20,7 +20,8 @@ $(document).on "page:change", ->
 		.DataTable( {
 			"paging": true,
 			"info": true,
-			"lengthMenu": [ 25, 100, 250 ]
+			"lengthMenu": [ 25, 100, 250 ],
+			retrieve: true
 			stateSave: true
 		})
 
