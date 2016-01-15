@@ -107,6 +107,7 @@ class Ivcontact < ActiveRecord::Base
   CONTACT_TYPE_VALS = {
     "Quarterly in-person visit" => 1,
     "Other required contact" => 2,
+    "HIT only contact" => 3,
     "Other ad-hoc contact" => 9
   }
 
@@ -136,6 +137,8 @@ class Ivcontact < ActiveRecord::Base
   	"Red" => 3
   }
 
+  # N.b., there is a value of 9 for "Did not discuss"
+  # To ensure that it is broken out from this list, that radio button is created separately
   PROGRESS_VALS = {
   	"Not a priority" => 1,
   	"Planning, little/no progress" => 2,

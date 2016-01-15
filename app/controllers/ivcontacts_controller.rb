@@ -97,7 +97,8 @@ class IvcontactsController < ApplicationController
     def set_contact_type_options
       # If this is changed, also update Ivcontact::CONTACT_TYPE_VALS
       @grouped_options_for_contact_type = { '15 required monthly contacts' => [['Quarterly in-person visit', 1],
-        ['Other required contact', 2]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
+        ['Other required contact', 2]], 'HIT only' => [['HIT-only visit', 3]],
+        'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 
     def get_personnel_by_practice(practice)

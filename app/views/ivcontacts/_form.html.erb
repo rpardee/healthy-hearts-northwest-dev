@@ -47,7 +47,7 @@
           <% else %>
             <%= check_box_tag "ivcontact[personnels][#{p.id}]" %>
           <% end %>
-          <%= label_tag "ivcontact[personnels][#{p.id}]", "#{p.name} (#{Personnel::ROLE_VALS.key(p.role)})" %>
+          <%= label_tag "ivcontact[personnels][#{p.id}]", "#{p.name} (#{Personnel::ROLE_VALS.key(p.role)})   #{p.email1}" %>
         </li>
       <% end %>
       <li id='openPopupForm'>
@@ -255,7 +255,7 @@
     <table id='hlc-tooltip' class='space lined fulltext background-pink'>
       <tr>
         <th width="50%">HLC</th>
-        <th>Progress</th>
+        <th colspan="2">Progress</th>
       </tr>
       <tr>
         <td>Embed clinical evidence on ABCS into daily work to guide care for patients</td>
@@ -263,6 +263,10 @@
           <%= f.collection_radio_buttons :milestone_evidence_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_evidence_progress, 9 %>
+          <%= f.label :milestone_evidence_progress_9, "Did not discuss" %>
         </td>
       </tr>
       <tr>
@@ -272,6 +276,10 @@
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
         </td>
+        <td>
+          <%= f.radio_button :milestone_data_progress, 9 %>
+          <%= f.label :milestone_data_progress_9, "Did not discuss" %>
+        </td>
       </tr>
       <tr>
         <td>Establish a regular QI process involving cross-functional teams (QI, care team, huddles, all staff)</td>
@@ -279,6 +287,10 @@
           <%= f.collection_radio_buttons :milestone_qi_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_qi_progress, 9 %>
+          <%= f.label :milestone_qi_progress_9, "Did not discuss" %>
         </td>
       </tr>
       <tr>
@@ -288,6 +300,10 @@
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
         </td>
+        <td>
+          <%= f.radio_button :milestone_atrisk_progress, 9 %>
+          <%= f.label :milestone_atrisk_progress_9, "Did not discuss" %>
+        </td>
       </tr>
       <tr>
         <td>Define roles and responsibilities (tasks) across the care team to identify and manage ABCS populations</td>
@@ -295,6 +311,10 @@
           <%= f.collection_radio_buttons :milestone_task_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_task_progress, 9 %>
+          <%= f.label :milestone_task_progress_9, "Did not discuss" %>
         </td>
       </tr>
       <tr>
@@ -304,6 +324,10 @@
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
         </td>
+        <td>
+          <%= f.radio_button :milestone_selfmgmt_progress, 9 %>
+          <%= f.label :milestone_selfmgmt_progress_9, "Did not discuss" %>
+        </td>
       </tr>
       <tr>
         <td>Develop robust linkages to smoking cessation, CDSMP and other evidence-based community resources</td>
@@ -311,6 +335,10 @@
           <%= f.collection_radio_buttons :milestone_community_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_community_progress, 9 %>
+          <%= f.label :milestone_community_progress_9, "Did not discuss" %>
         </td>
       </tr>
     </table>

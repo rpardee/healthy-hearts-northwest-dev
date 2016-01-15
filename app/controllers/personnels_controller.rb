@@ -35,7 +35,7 @@ class PersonnelsController < ApplicationController
         # format.json { render :show, status: :created, location: @personnel }
         # Return the ID of the created object for use in ivcontacts.coffee
         format.json { render json: {"id" => @personnel.id, "name" => @personnel.name,
-          "role_name" => Personnel::ROLE_VALS.key(@personnel.role) } }
+          "role_name" => Personnel::ROLE_VALS.key(@personnel.role), "email1" => @personnel.email1 } }
       else
         format.html { render :new }
         format.json { render json: @personnel.errors, status: :unprocessable_entity }

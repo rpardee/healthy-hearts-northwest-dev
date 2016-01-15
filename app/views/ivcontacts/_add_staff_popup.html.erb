@@ -9,15 +9,41 @@
   <table class='space' id='new-staff-popup'>
     <tr>
       <td><%= label_tag :name, "Name" %></td>
-      <td colspan="2"><%= text_field_tag :name, nil, :id => 'coach-personnel-name' %></td>
+      <td><%= text_field_tag :name, nil, :id => 'coach-personnel-name' %></td>
     </tr>
     <tr>
       <td><%= label_tag :role %></td>
-      <td colspan='2'><%= select_tag :role, options_from_collection_for_select(Personnel::ROLE_VALS, "last", "first"), { id: 'coach-personnel-role', include_blank: true, class: 'enable-control', data: { :effector => '#personnel_role_other', :enablevalue => 99 }} %></td>
+      <td>
+        <%= select_tag :role, options_from_collection_for_select(Personnel::ROLE_VALS, "last", "first"), { id: 'coach-personnel-role', include_blank: true, class: 'enable-control', data: { :effector => '#coach-personnel-role-other', :enablevalue => 99 }} %>
+        <%= text_field_tag :role_other, nil, { :placeholder => "If other, please specify", :id => "coach-personnel-role-other" } %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= label_tag :email1, "Email" %></td>
+      <td>
+        <%= text_field_tag :email1, nil, { :id => "coach-personnel-email1" } %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan='7'>
+        <table>
+          <tr>
+            <td>H2N Roles:</td>
+            <td><%= label_tag :site_contact_primary, "Primary Site Contact" %></td>
+            <td><%= check_box_tag :site_contact_primary, 1, false, { id: "coach-personnel-site-contact-primary" } %></td>
+            <td><%= label_tag :site_contact_secondary, "Secondary Site Contact" %></td>
+            <td><%= check_box_tag :site_contact_secondary, 1, false, id: "coach-personnel-site-contact-secondary" %></td>
+            <td><%= label_tag :site_contact_champion, "QI Champion" %></td>
+            <td><%= check_box_tag :site_contact_champion, 1, false, id: "coach-personnel-site-contact-champion" %></td>
+          </tr>
+        </table>
+      </td>
     </tr>
   </table>
 
   <div class="actions">
     <%= button_tag "Add Staff", id: 'add-staff-button', type: 'button' %>
   </div>
+  <br />
+  <p style="color: white;">Please remember that you can edit staff information in the Recruitment Area of the system.</p>
 </div>
