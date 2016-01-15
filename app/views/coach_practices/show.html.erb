@@ -53,14 +53,14 @@
       </div>
       <br />
       <div id='noncontinuing-hlcts'>
-        <h3>Abandoned/Adopted <abbr title = "High Leverage Change Tests">PDSA</abbr>s</h3>
+        <h3><abbr title = "High Leverage Change Tests">PDSA</abbr>s for this Practice</h3>
         <% if @aa_hlcts.length > 0 %>
           <table class = 'lined space background-lightpurple'>
             <thead>
               <tr>
                 <th>PDSA</th>
                 <th>Contact Date</th>
-                <th>Final Status</th>
+                <th>Status</th>
                 <th>Comments</th>
               </tr>
             </thead>
@@ -120,9 +120,9 @@
       <em style="color: red;">Click the + icon above to add your first contact.</em>
       <br /><br />
     <% end %>
+    <button id="opener">View Comments</button>
 
     <br />
-
     <% if @practice.ivcontacts.any? %>
       <div class='box'>
         <div id='openPopupForm'>
@@ -185,49 +185,66 @@
             <li><a href="#tabs-fu-complete">Complete</a></li>
           </ul>
           <div id='tabs-fu-incomplete'>
-          <table class='typical enable-data-table'>
-            <thead>
-              <tr>
-                <th>Add Date</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @coach_item_incomplete.each do |i| %>
+            <table class='typical enable-data-table'>
+              <thead>
                 <tr>
-                  <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-                  <td><%= truncate(i.notes, length: 255) %></td>
+                  <th>Add Date</th>
+                  <th>Notes</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <% @coach_item_incomplete.each do |i| %>
+                  <tr>
+                    <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                    <td><%= truncate(i.notes, length: 255) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
           <div id='tabs-fu-complete'>
-          <table class='typical enable-data-table'>
-            <thead>
-              <tr>
-                <th>Add Date</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @coach_item_complete.each do |i| %>
+            <table class='typical enable-data-table'>
+              <thead>
                 <tr>
-                  <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-                  <td><%= truncate(i.notes, length: 255) %></td>
+                  <th>Add Date</th>
+                  <th>Notes</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% @coach_item_complete.each do |i| %>
+                  <tr>
+                    <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                    <td><%= truncate(i.notes, length: 255) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     <%end %>
   </div>
+  <div id = 'contact-comments' title="Comments from All Contacts">
+    <h3>Contact Comments</h3>
+    <% if @practice.ivcontacts.any? then %>
+      <% rowcolor = 1 %>
+      <% @practice.ivcontacts.order('contact_dt desc').each do |ivc| %>
+        <p><%= render :partial => 'comment', :locals => {:ivc => ivc, :rowcolor => rowcolor} %></p>
+        <% rowcolor = 1 - rowcolor %>
+      <% end %>
+    <% else %>
+      <p>None yet--add some contacts.</p>
+    <% end %>
+  </div>
 
-  <div class='clearfix'></div>
+  <div class='clearfix'>
+
+  </div>
 
   <div class="actions">
     <br />
     <%= link_to "Back", :back %>
   </div>
+
 </div>
+
