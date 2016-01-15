@@ -5,6 +5,7 @@
 updateContactType = (contact_type_field) ->
 	v = parseInt($(contact_type_field).val())
 	if v == 1  				# Required/in-person
+		$('#ivcontact-observations').show()
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
 		$('#ivcontact-hit').show()
@@ -14,6 +15,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-contactmode').hide()
 		$('#ivcontact-disruption').show()
 	else if v == 2  	# Required/other
+		$('#ivcontact-observations').hide()
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
 		$('#ivcontact-hit').hide()
@@ -23,6 +25,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 	else if v == 9		# Ad-hoc contact/blank
+		$('#ivcontact-observations').hide()
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
 		$('#ivcontact-hit').hide()
@@ -32,6 +35,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 	else							# Blank
+		$('#ivcontact-observations').hide()
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
 		$('#ivcontact-hit').hide()
@@ -149,25 +153,41 @@ $(document).on "page:change", ->
 	$('#ivcontact-tier1').on 'click', ->
 		$('#tier1').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Limited Change Capacity",
+			create: ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier1').dialog('open')
 	$('#ivcontact-tier2').on 'click', ->
 		$('#tier2').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Basic Change Capacity",
+			create: ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier2').dialog('open')
 	$('#ivcontact-tier3').on 'click', ->
 		$('#tier3').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Moderate Change Capacity",
+			create: ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier3').dialog('open')
 	$('#ivcontact-tier4').on 'click', ->
 		$('#tier4').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Advanced Change Capacity",
+			create: ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier4').dialog('open')
 

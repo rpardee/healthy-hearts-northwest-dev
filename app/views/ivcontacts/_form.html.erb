@@ -31,9 +31,9 @@
       <td><%= f.label :contact_duration, "Duration of Contact" %> (mins)</td>
       <td><%= f.text_field :contact_duration %></td>
     </tr>
-    <tr>
-      <td><%= f.label :contact_comments, "Comments" %> </td>
-      <td><%= f.text_area :contact_comments, :rows => 3, :cols => 60 %></td>
+    <tr id='ivcontact-observations'>
+      <td><%= f.label :observations, "Observations of Environment and Team Dynamics" %> </td>
+      <td><%= f.text_area :observations, :rows => 6, :cols => 100 %></td>
     </tr>
   </table>
 
@@ -475,13 +475,13 @@
   <div id='ivcontact-tier' class='boxed'>
     <h3>Tiering Tool for Capacity</h3>
     <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the definitions/examples provided for each tier, identify where this practice is with respect to capacity. Base your assessment on what you have observed or learned from the practice as its coach. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will likely be sustained.</p>
-    <table id='tier-tooltip' class='space lined background-green'>
+    <table id='tier-tooltip' class='space lined background-green' style="margin-left: 30px;">
       <tr title="Click column heading to view description">
         <th>&nbsp;</th>
-        <th id='ivcontact-tier1'>STARTING<br /></th>
-        <th id='ivcontact-tier2'>LIMITED PRACTICE CHANGES;<br />NEED TO BUILD CAPACITY<br /></th>
-        <th id='ivcontact-tier3'>MAKING MANY PRACTICE CHANGES<br /></th>
-        <th id='ivcontact-tier4'>MANAGING MULTI-DIMENSIONAL CHANGE<br /></th>
+        <th id='ivcontact-tier1'>LIMITED CHANGE CAPACITY<br /></th>
+        <th id='ivcontact-tier2'>BASIC CHANGE CAPACITY<br /></th>
+        <th id='ivcontact-tier3'>MODERATE CHANGE CAPACITY<br /></th>
+        <th id='ivcontact-tier4'>ADVANCED CHANGE CAPACITY<br /></th>
       </tr>
       <% for t in 1..5 %>
         <tr align='center'>
@@ -1150,6 +1150,11 @@
         </td>
       </tr>
     </table>
+  </div>
+
+  <div class='boxed'>
+    <h3><%= f.label :contact_comments, "Comments and Field Notes" %></h3>
+    <p><%= f.text_area :contact_comments, :rows => 6, :cols => 100 %></p>
   </div>
 
   <div>
