@@ -151,7 +151,7 @@ class IvcontactsController < ApplicationController
         :pcmha_18, :pcmha_19, :pcmha_20, :prach_change_ehr_which,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify, :practice_id,
+        :prac_change_other, :prac_change_specify, :practice_id, :observations,
         :status_text, :smsvy_name, :smsvy_email, :hit_ehr_vendor, :hit_tier, :hit_quality, :hit_quality_explain,
         high_leverage_change_tests_attributes: [:id, :_destroy, :description, :test_status, :comments, :embed_evidence, :use_data, :xfunc_qi,
                                                 :id_at_risk, :manage_pops, :self_management, :resource_linkages,
