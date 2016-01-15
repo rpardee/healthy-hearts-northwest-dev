@@ -1,8 +1,16 @@
 <thead>
   <tr>
-    <th><%= @boxlab %></th>
+    <th><%= @boxlab || "Required Contacts" %></th>
     <% (0..14).each do |i| %>
-      <th>#<%= i+1 %> </th>
+      <%
+        extrlab = case i
+          when 0
+            '<br/>(welcome)'
+          when 3, 6
+            '<br/>(visit)'
+          end
+      %>
+      <th class='contact-date-column'>#<%= raw("#{i+1} #{extrlab}") %> </th>
     <% end %>
   </tr>
   <tr>

@@ -11,7 +11,7 @@
           <% labno = 1 %>
           <% Ivcontact::DISCUSSION_TOPICS.each do |fld, lab| %>
             <tr>
-              <td>#<%= "#{labno}. #{lab}" %></td>
+              <td style="width: 17%">#<%= "#{labno}. #{lab}" %></td>
               <% labno += 1 %>
               <% (0..14).each do |i| %>
                 <% this_contact = @ivcs[i] %>
@@ -69,7 +69,7 @@
             <% (0..14).each do |i| %>
               <% this_contact = @ivcs[i] %>
               <% if this_contact then %>
-                <td><%= this_contact.tier %></td>
+                <td><%= this_contact.hit_tier %></td>
               <% else %>
                 <th>&nbsp;</th>
               <% end %>

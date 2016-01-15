@@ -22,7 +22,7 @@
       <% @practices.each do |pr| %>
         <tr>
           <td>
-            <%= link_to pr.name, edit_coach_practice_path(pr) %>
+            <%= link_to pr.name, practice_lifetime_path(pr) %>
           </td>
           <td>
             <%= pr.coach.name if pr.coach %>
