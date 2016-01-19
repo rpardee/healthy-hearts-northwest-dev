@@ -6,6 +6,7 @@ updateContactType = (contact_type_field) ->
 	v = parseInt($(contact_type_field).val())
 	if v == 1  				# Required/in-person
 		$('#ivcontact-observations').show()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
 		$('#ivcontact-hit').show()
@@ -16,6 +17,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').show()
 	else if v == 2  	# Required/other
 		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
 		$('#ivcontact-hit').hide()
@@ -26,6 +28,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-contactmode').show()
 	else if v == 3  	# HIT only
 		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').hide()
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
 		$('#ivcontact-hit').hide()
@@ -36,6 +39,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-contactmode').hide()
 	else if v == 9		# Ad-hoc contact/blank
 		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
 		$('#ivcontact-hit').hide()
@@ -46,6 +50,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-contactmode').show()
 	else							# Blank
 		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
 		$('#ivcontact-hit').hide()
@@ -165,6 +170,8 @@ $(document).on "page:change", ->
 			closeText: "",
 			width: 600,
 			title: "Limited Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+      resizable: false,
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })
@@ -175,6 +182,8 @@ $(document).on "page:change", ->
 			closeText: "",
 			width: 600,
 			title: "Basic Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+      resizable: false,
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })
@@ -185,6 +194,8 @@ $(document).on "page:change", ->
 			closeText: "",
 			width: 600,
 			title: "Moderate Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+      resizable: false,
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })
@@ -195,6 +206,8 @@ $(document).on "page:change", ->
 			closeText: "",
 			width: 600,
 			title: "Advanced Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+      resizable: false,
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })

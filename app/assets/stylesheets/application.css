@@ -18,6 +18,7 @@
  *= require scaffolds.scss
  *= require mains.scss
  *= require practice_surveys.scss
+ *= require coach_practices.scss
  */
 .gyr-red {
   background-color: red ;

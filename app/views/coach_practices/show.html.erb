@@ -69,14 +69,14 @@
                 <td>
                   <%= aa.description %>
                 </td>
-                <td>
+                <td style="white-space: nowrap;">
                   <%= aa.status_date %>
                 </td>
                 <td>
                   <%= HighLeverageChangeTest::TEST_STATUSES.key(aa.test_status) %>
                 </td>
                 <td>
-                  <%= aa.comments %>
+                  <%= truncate(aa.comments, length: 100) if aa.comments %>
                 </td>
               </tr>
             <% end %>
@@ -120,7 +120,7 @@
       <em style="color: red;">Click the + icon above to add your first contact.</em>
       <br /><br />
     <% end %>
-    <button id="opener">View Comments</button>
+    <button id="coach-practice-comment-opener">View Contact Comments</button>
 
     <br />
     <% if @practice.ivcontacts.any? %>
@@ -225,7 +225,6 @@
     <%end %>
   </div>
   <div id = 'contact-comments' title="Comments from All Contacts">
-    <h3>Contact Comments</h3>
     <% if @practice.ivcontacts.any? then %>
       <% rowcolor = 1 %>
       <% @practice.ivcontacts.order('contact_dt desc').each do |ivc| %>
@@ -233,7 +232,7 @@
         <% rowcolor = 1 - rowcolor %>
       <% end %>
     <% else %>
-      <p>None yet--add some contacts.</p>
+      <p>None yet &mdash; add some contacts.</p>
     <% end %>
   </div>
 

@@ -127,97 +127,99 @@
       </tr>
     </table>
     <br />
-    <table id='qi-processes' class='space lined background-darkpurple' style="width: 95%;">
-      <tr>
-        <th colspan='3'>QI Processes</th>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_self_assessment %>
-          <%= f.label :topic_self_assessment, "Review/collect Self-Assessment Survey" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_brainstorm %>
-          <%= f.label :topic_brainstorm, "Brainstorm ideas" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_roles %>
-          <%= f.label :topic_roles, "Identify roles/responsibilities" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_share %>
-          <%= f.label :topic_share, "Share best practices from another site" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_observe_flow %>
-          <%= f.label :topic_observe_flow, "Observe team/clinic flow" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_qi_support %>
-          <%= f.label :topic_qi_support, "Provide QI meeting support" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_planning %>
-          <%= f.label :topic_planning, "Discuss PDSA cycles or action planning" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_consensus %>
-          <%= f.label :topic_consensus, "Facilitate a consensus discussion" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_huddle %>
-          <%= f.label :topic_huddle, "Huddles" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_workflow %>
-          <%= f.label :topic_workflow, "Support workflow design" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_connect %>
-          <%= f.label :topic_connect, "Connect practice to another practice" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_review_data %>
-          <%= f.label :topic_review_data, "Review data" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_leadership %>
-          <%= f.label :topic_leadership, "Leadership meeting" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_resource %>
-          <%= f.label :topic_resource, "Supply a tool or resource to support work" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_qi_display %>
-          <%= f.label :topic_qi_display, "Data displays/run-charts" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_review_guideline %>
-          <%= f.label :topic_review_guideline, "Review/discuss organizational guidelines" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_discuss_measurement %>
-          <%= f.label :topic_discuss_measurement, "Discuss value-based measurement" %>
-        </td>
-        <td>
-          &nbsp;
-        </td>
-      </tr>
-      <tr>
-      </tr>
-    </table>
-    <br />
+    <div id='ivcontact-topic-qi-processes'>
+      <table class='space lined background-darkpurple' style="width: 95%;">
+        <tr>
+          <th colspan='3'>QI Processes</th>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_self_assessment %>
+            <%= f.label :topic_self_assessment, "Review/collect Self-Assessment Survey" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_brainstorm %>
+            <%= f.label :topic_brainstorm, "Brainstorm ideas" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_roles %>
+            <%= f.label :topic_roles, "Identify roles/responsibilities" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_share %>
+            <%= f.label :topic_share, "Share best practices from another site" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_observe_flow %>
+            <%= f.label :topic_observe_flow, "Observe team/clinic flow" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_qi_support %>
+            <%= f.label :topic_qi_support, "Provide QI meeting support" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_planning %>
+            <%= f.label :topic_planning, "Discuss PDSA cycles or action planning" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_consensus %>
+            <%= f.label :topic_consensus, "Facilitate a consensus discussion" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_huddle %>
+            <%= f.label :topic_huddle, "Huddles" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_workflow %>
+            <%= f.label :topic_workflow, "Support workflow design" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_connect %>
+            <%= f.label :topic_connect, "Connect practice to another practice" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_review_data %>
+            <%= f.label :topic_review_data, "Review data" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_leadership %>
+            <%= f.label :topic_leadership, "Leadership meeting" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_resource %>
+            <%= f.label :topic_resource, "Supply a tool or resource to support work" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_qi_display %>
+            <%= f.label :topic_qi_display, "Data displays/run-charts" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_review_guideline %>
+            <%= f.label :topic_review_guideline, "Review/discuss organizational guidelines" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_discuss_measurement %>
+            <%= f.label :topic_discuss_measurement, "Discuss value-based measurement" %>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+        </tr>
+      </table>
+      <br />
+    </div>
     <table id='other-topics' class='space lined background-darkpurple' style="width: 95%;">
       <tr>
         <th>Other</th>
