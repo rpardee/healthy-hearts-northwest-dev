@@ -96,7 +96,7 @@
       <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
     </h2>
     <% if @practice.ivcontacts.any? %>
-      <table class='typical enable-data-table'>
+      <table class='typical enable-data-table' data-order='[[ 0, "desc" ]]'>
         <thead>
           <tr>
             <th>Date</th>
@@ -106,7 +106,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @practice.ivcontacts.each do |c| %>
+          <% @practice.ivcontacts.order(contact_dt: :desc).each do |c| %>
             <tr>
               <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
               <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
