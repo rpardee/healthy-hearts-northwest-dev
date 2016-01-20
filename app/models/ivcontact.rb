@@ -97,6 +97,13 @@ class Ivcontact < ActiveRecord::Base
     "Tier 4" => 4
   }
 
+  TIER_LABELS = {
+    "Limited"  => 1,
+    "Basic"    => 2,
+    "Moderate" => 3,
+    "Advanced" => 4
+  }
+
   HIT_QUALITY_VALS = {
     "Very confident" => 1,
     "Confident" => 2,

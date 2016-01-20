@@ -44,7 +44,7 @@ class CoachPracticesController < ApplicationController
         filter = "test_status in (1, 2)"
       end
       ivc.high_leverage_change_tests.where(filter).each do |aa|
-        @aa_hlcts << aa
+        @aa_hlcts << aa unless aa.description.blank?
       end
     end
   end
