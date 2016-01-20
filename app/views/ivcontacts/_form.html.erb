@@ -23,6 +23,12 @@
       <td><%= f.label :contact_mode, "Contact Method" %></td>
       <td><%= f.select :contact_mode, Ivcontact::CONTACT_MODE_VALS, include_blank: true %></td>
     </tr>
+    <tr id='ivcontact-hit-coach' style="display: none;">
+      <td><%= f.label :hit_coach, "HIT Coach" %></td>
+      <td>
+        <%= f.select :hit_coach, options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: f.object.hit_coach), include_blank: true %>
+      </td>
+    </tr>
     <tr>
       <td><%= f.label :contact_dt, "Date of Contact" %></td>
       <td><%= f.text_field :contact_dt, value: @ivcontact.contact_dt.try(:strftime, "%m/%d/%Y"), class: 'datepicker' %> mm/dd/yyyy</td>

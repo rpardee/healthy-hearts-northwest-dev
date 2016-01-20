@@ -5,6 +5,7 @@
 updateContactType = (contact_type_field) ->
 	v = parseInt($(contact_type_field).val())
 	if v == 1  				# Required/in-person
+		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').show()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
@@ -16,6 +17,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-contactmode').hide()
 		$('#ivcontact-disruption').show()
 	else if v == 2  	# Required/other
+		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
@@ -27,6 +29,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 	else if v == 3  	# HIT only
+		$('#ivcontact-hit-coach').show()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').hide()
 		$('#ivcontact-milestone').hide()
@@ -38,6 +41,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').hide()
 	else if v == 9		# Ad-hoc contact/blank
+		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()
@@ -49,6 +53,7 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 	else							# Blank
+		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()

@@ -149,14 +149,15 @@ class IvcontactsController < ApplicationController
         :milestone_community_discussed, :gyr, :gyr_notes, :tier,
         :pcmha_1, :pcmha_2, :pcmha_3, :pcmha_4, :pcmha_5, :pcmha_6, :pcmha_7, :pcmha_8, :pcmha_9,
         :pcmha_10, :pcmha_11, :pcmha_12, :pcmha_13, :pcmha_14, :pcmha_15, :pcmha_16, :pcmha_17,
-        :pcmha_18, :pcmha_19, :pcmha_20, :prach_change_ehr_which,
+        :pcmha_18, :pcmha_19, :pcmha_20, :prac_change_ehr_which,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify, :practice_id, :observations,
-        :status_text, :smsvy_name, :smsvy_email, :hit_ehr_vendor, :hit_tier, :hit_quality, :hit_quality_explain,
+        :prac_change_other, :prac_change_specify, :practice_id, :observations, :hit_coach,
+        :status_text, :smsvy_name, :smsvy_email, :hit_ehr_vendor, :hit_tier, :hit_quality,
+        :hit_quality_explain,
+        personnels_attributes: [:id, :_destroy, :name, :role, :role_other],
         high_leverage_change_tests_attributes: [:id, :_destroy, :description, :test_status, :comments, :embed_evidence, :use_data, :xfunc_qi,
                                                 :id_at_risk, :manage_pops, :self_management, :resource_linkages,
-                                                :hlc_other],
-        personnels_attributes: [:id, :_destroy, :name, :role, :role_other])
+                                                :hlc_other])
     end
 end
