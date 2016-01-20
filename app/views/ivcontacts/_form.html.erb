@@ -353,7 +353,7 @@
       <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p><br />
       <p>PDSAs that you indicated were ongoing (testing continuing) during your last contact will automatically show up in the table below. Please be sure to re-rate their status. Are they still being tested or have they been abandoned or accepted?</p>
       <%= f.fields_for :high_leverage_change_tests do |high_leverage_change_test| %>
-        <%= render 'high_leverage_change_test_fields', :f => high_leverage_change_test %>
+        <%= render('high_leverage_change_test_fields', :f => high_leverage_change_test) %>
       <% end %>
     </div>
     <div>

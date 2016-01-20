@@ -69,9 +69,11 @@ ActiveRecord::Schema.define(version: 20160115181421) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "hlc_other",         default: false
+    t.integer  "practice_id"
   end
 
   add_index "high_leverage_change_tests", ["ivcontact_id"], name: "index_high_leverage_change_tests_on_ivcontact_id", using: :btree
+  add_index "high_leverage_change_tests", ["practice_id"], name: "index_high_leverage_change_tests_on_practice_id", using: :btree
 
   create_table "ivcontacts", force: :cascade do |t|
     t.integer  "contact_type"
@@ -489,6 +491,7 @@ ActiveRecord::Schema.define(version: 20160115181421) do
   add_foreign_key "events", "partners"
   add_foreign_key "events", "practices"
   add_foreign_key "high_leverage_change_tests", "ivcontacts"
+  add_foreign_key "high_leverage_change_tests", "practices"
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
   add_foreign_key "practice_surveys", "practices"

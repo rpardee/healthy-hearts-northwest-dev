@@ -35,18 +35,25 @@
       </div>
       <br />
       <div id='last-qica-results'>
-        <h3>QICA Results from <%= @practice.iv_qica_dt.try(:strftime, '%-m/%-d/%Y') %></h3>
+        <h3>
+          QICA Results from <%= @practice.iv_qica_dt.try(:strftime, '%-m/%-d/%Y') %>
+          <% if not @practice.last_qica_complete? %>
+            <span class='incomplete-warning' title='This QICA has one or more missing ratings!'>(Not Complete!)</span>
+          <% end %>
+        </h3>
         <table class='lined space background-green'>
           <tr>
             <th>HLC #</th>
             <th>Total Score</th>
             <th>% for HLC</th>
+            <!-- <th>Missing Data?</th> -->
           </tr>
           <% @qica_summary.each.with_index do |q, idx| %>
             <tr>
               <td><%= idx + 1 %></td>
               <td><%= "#{q[0]}/#{q[2]}" %></td>
               <td><%= number_to_percentage(q[1], precision: 0) %></td>
+              <!-- <td><%= flag_incomplete(q[3]) %></td> -->
             </tr>
           <% end %>
         </table>
