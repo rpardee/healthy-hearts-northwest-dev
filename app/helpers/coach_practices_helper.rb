@@ -9,4 +9,11 @@ module CoachPracticesHelper
     end
     return html.html_safe if html
 	end
+  def flag_incomplete(boo, tit = "One or more items in this section is missing a response!")
+    if boo
+      return raw("&nbsp;")
+    else
+      return image_tag("red-x.png", size: "25", title: tit)
+    end
+  end
 end

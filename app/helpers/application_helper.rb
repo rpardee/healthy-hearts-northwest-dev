@@ -30,4 +30,15 @@ module ApplicationHelper
 			"Admin"
 		end
 	end
+  def check_if(boo, red_x_otherwise = false)
+    if boo
+      return image_tag("check-mark-blue.png", size: "25")
+    else
+    	if red_x_otherwise
+    		return image_tag("red-x.png", size: "25")
+    	else
+	      return raw("&nbsp;")
+	    end
+    end
+  end
 end

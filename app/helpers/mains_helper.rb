@@ -37,11 +37,4 @@ module MainsHelper
     # return ivc.high_leverage_change_tests.any?
     check_if(ivc.high_leverage_change_tests.any?)
   end
-  def check_if(boo)
-    if boo
-      return image_tag("check-mark-blue.png", size: "25")
-    else
-      return raw("&nbsp;")
-    end
-  end
 end

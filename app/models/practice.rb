@@ -60,36 +60,86 @@ class Practice < ActiveRecord::Base
     iv_qica_required.order(:contact_dt).last.contact_dt if iv_qica_required.count > 0
   end
 
+  def get_last_qica
+    visit14 = self.ivcontacts.where({ contact_type: 1, contact_specific: [1, 4] })
+    visit14.order(:contact_dt).last if visit14
+  end
+
+  def last_qica_complete?
+    qica = get_last_qica
+    if qica
+      [qica.pcmha_1,
+       qica.pcmha_2,
+       qica.pcmha_3,
+       qica.pcmha_4,
+       qica.pcmha_5,
+       qica.pcmha_6,
+       qica.pcmha_7,
+       qica.pcmha_8,
+       qica.pcmha_9,
+       qica.pcmha_10,
+       qica.pcmha_11,
+       qica.pcmha_12,
+       qica.pcmha_13,
+       qica.pcmha_14,
+       qica.pcmha_15,
+       qica.pcmha_16,
+       qica.pcmha_17,
+       qica.pcmha_18,
+       qica.pcmha_19,
+       qica.pcmha_20].all?
+    else
+      return nil
+    end
+  end
+
   # The grouping of QICA (old PCMHA) items was not considered when first built
   # Grouping is defined here and displayed separately in ivcontacts\form.html.erb
   # Update in both places if necessary
   def get_qica_summary
     qica_summary = Array.new
-    visit14 = self.ivcontacts.where({ contact_type: 1, contact_specific: [1, 4] })
-    qica = visit14.order(:contact_dt).last if visit14
+    qica = get_last_qica
     if qica
-      qica = visit14.order(:contact_dt).last
       sum = qica.pcmha_1 || 0
       pct = ((sum || 0)/12.to_f * 100)
-      qica_summary[0] = [sum, pct, 12]
-      sum = [qica.pcmha_2, qica.pcmha_3].compact.reduce(0, :+)
+      cmplt = [qica.pcmha_1].all?
+      qica_summary[0] = [sum, pct, 12, cmplt]
+
+      ar = [qica.pcmha_2, qica.pcmha_3]
+      sum = ar.compact.reduce(0, :+)
       pct = ((sum || 0)/24.to_f * 100)
-      qica_summary[1] = [sum, pct, 24]
-      sum = [qica.pcmha_4, qica.pcmha_5, qica.pcmha_6].compact.reduce(0, :+)
+      cmplt = ar.all?
+      qica_summary[1] = [sum, pct, 24, cmplt]
+
+      ar = [qica.pcmha_4, qica.pcmha_5, qica.pcmha_6]
+      sum = ar.compact.reduce(0, :+)
       pct = ((sum || 0)/36.to_f * 100)
-      qica_summary[2] = [sum, pct, 36]
-      sum = [qica.pcmha_7, qica.pcmha_8, qica.pcmha_9, qica.pcmha_10].compact.reduce(0, :+)
+      cmplt = ar.all?
+      qica_summary[2] = [sum, pct, 36, cmplt]
+
+      ar = [qica.pcmha_7, qica.pcmha_8, qica.pcmha_9, qica.pcmha_10]
+      sum = ar.compact.reduce(0, :+)
       pct = ((sum || 0)/48.to_f * 100)
-      qica_summary[3] = [sum, pct, 48]
-      sum = [qica.pcmha_11, qica.pcmha_12, qica.pcmha_13, qica.pcmha_14].compact.reduce(0, :+)
+      cmplt = ar.all?
+      qica_summary[3] = [sum, pct, 48, cmplt]
+
+      ar = [qica.pcmha_11, qica.pcmha_12, qica.pcmha_13, qica.pcmha_14]
+      sum = ar.compact.reduce(0, :+)
       pct = ((sum || 0)/48.to_f * 100)
-      qica_summary[4] = [sum, pct, 48]
-      sum = [qica.pcmha_15, qica.pcmha_16, qica.pcmha_17].compact.reduce(0, :+)
+      cmplt = ar.all?
+      qica_summary[4] = [sum, pct, 48, cmplt]
+
+      ar = [qica.pcmha_15, qica.pcmha_16, qica.pcmha_17]
+      sum = ar.compact.reduce(0, :+)
       pct = ((sum || 0)/36.to_f * 100)
-      qica_summary[5] = [sum, pct, 36]
-      sum = [qica.pcmha_18, qica.pcmha_19, qica.pcmha_20].compact.reduce(0, :+)
+      cmplt = ar.all?
+      qica_summary[5] = [sum, pct, 36, cmplt]
+
+      ar = [qica.pcmha_18, qica.pcmha_19, qica.pcmha_20]
+      sum = ar.compact.reduce(0, :+)
       pct = ((sum || 0)/36.to_f * 100)
-      qica_summary[6] = [sum, pct, 36]
+      cmplt = ar.all?
+      qica_summary[6] = [sum, pct, 36, cmplt]
     end
     return qica_summary
   end
