@@ -2,15 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
-  $('#contact-comments').dialog
-    autoOpen: false
-    resizable: true
-    minWidth: 800
-    buttons: Ok: ->
-      $(this).dialog 'close'
-      return
-  $('#opener').click ->
-    $('#contact-comments').dialog 'open'
-    return
-  return
+$(document).on "page:change", ->
+  $('#coach-practice-comment-opener').on 'click', ->
+    $('#contact-comments').dialog(
+      closeText: "",
+      minWidth: 800,
+      show: { effect: "fadeIn", delay: 100 },
+      resizable: false,
+      create: ->
+        closeBtn = $('.ui-dialog-titlebar-close')
+        closeBtn.css({ "position": "absolute", "right": "10px" })
+    )

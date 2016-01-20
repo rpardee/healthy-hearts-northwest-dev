@@ -76,14 +76,14 @@
                 <td>
                   <%= aa.description %>
                 </td>
-                <td>
+                <td style="white-space: nowrap;">
                   <%= aa.status_date %>
                 </td>
                 <td>
                   <%= HighLeverageChangeTest::TEST_STATUSES.key(aa.test_status) %>
                 </td>
                 <td>
-                  <%= aa.comments %>
+                  <%= truncate(aa.comments, length: 100) if aa.comments %>
                 </td>
               </tr>
             <% end %>
@@ -103,7 +103,7 @@
       <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
     </h2>
     <% if @practice.ivcontacts.any? %>
-      <table class='typical enable-data-table'>
+      <table class='typical enable-data-table' data-order='[[ 0, "desc" ]]'>
         <thead>
           <tr>
             <th>Date</th>
@@ -113,7 +113,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @practice.ivcontacts.each do |c| %>
+          <% @practice.ivcontacts.order(contact_dt: :desc).each do |c| %>
             <tr>
               <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
               <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
@@ -127,7 +127,7 @@
       <em style="color: red;">Click the + icon above to add your first contact.</em>
       <br /><br />
     <% end %>
-    <button id="opener">View Comments</button>
+    <button id="coach-practice-comment-opener">View Contact Comments</button>
 
     <br />
     <% if @practice.ivcontacts.any? %>
@@ -232,7 +232,6 @@
     <%end %>
   </div>
   <div id = 'contact-comments' title="Comments from All Contacts">
-    <h3>Contact Comments</h3>
     <% if @practice.ivcontacts.any? then %>
       <% rowcolor = 1 %>
       <% @practice.ivcontacts.order('contact_dt desc').each do |ivc| %>
@@ -240,7 +239,7 @@
         <% rowcolor = 1 - rowcolor %>
       <% end %>
     <% else %>
-      <p>None yet--add some contacts.</p>
+      <p>None yet &mdash; add some contacts.</p>
     <% end %>
   </div>
 

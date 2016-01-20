@@ -9,7 +9,6 @@
     <tr>
       <th>Practice</th>
       <th>Last Required Contact</th>
-      <th>Status</th>
       <th>EHR Vendor</th>
       <th>Last GYR Rating</th>
       <th>New Contact</th>
@@ -29,7 +28,6 @@
           <%= practice.last_required_iv_contact_date %>
           </span>
         </td>
-        <td><%= truncate(practice.brief_status, length: 20) %></td>
         <td><%= practice.iv_ehr_vendor %></td>
         <td>
           <%= get_gyr_html(practice.last_iv_gyr) %>
