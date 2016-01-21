@@ -36,6 +36,7 @@ class IvcontactsController < ApplicationController
     (@ivcontact.high_leverage_change_tests.count..2).each do
       @ivcontact.high_leverage_change_tests.build
     end
+    @hit_coach_selected = @ivcontact.hit_coach
     set_contact_type_options
   end
 
