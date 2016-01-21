@@ -36,7 +36,7 @@
       <br />
       <div id='last-qica-results'>
         <h3>
-          QICA Results from <%= @practice.iv_qica_dt.try(:strftime, '%-m/%-d/%Y') %>
+          QICA Results from <%= @practice.iv_qica_dt.try(:strftime, '%Y-%m-%d') %>
           <% if not @practice.last_qica_complete? %>
             <span class='incomplete-warning' title='This QICA has one or more missing ratings!'>(Not Complete!)</span>
           <% end %>

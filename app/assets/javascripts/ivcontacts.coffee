@@ -259,7 +259,7 @@ $(document).on "page:change", ->
 		$.ajax
 			url: '/personnels'
 			type: 'POST'
-			data: { personnel: { practice_id: $('#coach-personnel-practice').val(), name: $('#coach-personnel-name').val(), role: $('#coach-personnel-role').val(), role_other: $('#coach-personnel-role-other').val(), email1: $('#coach-personnel-email1').val(), site_contact_primary: $('#coach-personnel-site-contact-primary').val(), site_contact_secondary: $('#coach-personnel-site-contact-secondary').val(), site_contact_champion: $('#coach-personnel-site-contact-champion').val() } }
+			data: { personnel: { practice_id: $('#coach-personnel-practice').val(), name: $('#coach-personnel-name').val(), role: $('#coach-personnel-role').val(), role_other: $('#coach-personnel-role-other').val(), email1: $('#coach-personnel-email1').val() } }
 			dataType: 'json'
 			error: (jqXHR, textStatus, errorThrown) ->
 				$('#staffPopupMessage').html("Name is required. Cannot save staff member.")
@@ -270,7 +270,4 @@ $(document).on "page:change", ->
 				$('#coach-personnel-role').val("")
 				$('#coach-personnel-role-other').val("")
 				$('#coach-personnel-email1').val("")
-				$('#coach-personnel-site-contact-primary').attr('checked', false)
-				$('#coach-personnel-site-contact-secondary').attr('checked', false)
-				$('#coach-personnel-site-contact-champion').attr('checked', false)
 				$('#openPopupForm').before("<li><input type='checkbox' name='ivcontact[personnels][#{data.id}]' id='ivcontact_personnels_#{data.id}' value='1' checked /> <label for='ivcontact_personnels_#{data.id}'>#{data.name} (#{data.role_name}) #{data.email1}</label></li>")

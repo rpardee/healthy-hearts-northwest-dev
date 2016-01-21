@@ -114,7 +114,7 @@ class Ivcontact < ActiveRecord::Base
   CONTACT_TYPE_VALS = {
     "Quarterly in-person visit" => 1,
     "Other required contact" => 2,
-    "HIT only contact" => 3,
+    "HIT-only contact" => 3,
     "Other ad-hoc contact" => 9
   }
 

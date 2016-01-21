@@ -437,3 +437,19 @@ tr.subquestion {
 input.button-important {
   background-color: green;
 }
+
+#contact-comments {
+  clear: both ;
+  width: 70% ;
+  display: none ;
+}
+
+.comment-0 {
+  background-color: lighten($yellow, 25%) ;
+  padding: 4px ;
+}
+
+.comment-1 {
+  background-color: $yellow ;
+  padding: 4px ;
+}
