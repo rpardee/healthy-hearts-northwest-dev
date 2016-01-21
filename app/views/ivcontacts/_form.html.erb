@@ -26,7 +26,7 @@
     <tr id='ivcontact-hit-coach' style="display: none;">
       <td><%= f.label :hit_coach, "HIT Coach" %></td>
       <td>
-        <%= f.select :hit_coach, options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: f.object.hit_coach), include_blank: true %>
+        <%= f.select :hit_coach, options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: @hit_coach_selected), include_blank: true %>
       </td>
     </tr>
     <tr>
