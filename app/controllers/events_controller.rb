@@ -56,9 +56,9 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    # @practice_id = @event.practice_id
-    # @practice = Practice.where(id: @practice_id).first
-    # @event.current_partner = current_partner.name
+    @practice_id = @event.practice_id
+    @practice = Practice.where(id: @practice_id).first
+    @event.current_partner = current_partner.name
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to partner_path(@event.partner_id), notice: 'Activity was successfully updated.' }
