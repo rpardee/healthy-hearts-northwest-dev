@@ -5,7 +5,6 @@
 updateContactType = (contact_type_field) ->
 	v = parseInt($(contact_type_field).val())
 	if v == 1  				# Required/in-person
-		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').show()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
@@ -17,7 +16,6 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-contactmode').hide()
 		$('#ivcontact-disruption').show()
 	else if v == 2  	# Required/other
-		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
@@ -29,7 +27,6 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 	else if v == 3  	# HIT only
-		$('#ivcontact-hit-coach').show()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').hide()
 		$('#ivcontact-milestone').hide()
@@ -41,7 +38,6 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').hide()
 	else if v == 9		# Ad-hoc contact/blank
-		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()
@@ -53,7 +49,6 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 	else							# Blank
-		$('#ivcontact-hit-coach').hide()
 		$('#ivcontact-observations').hide()
 		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()
@@ -180,6 +175,10 @@ $(document).on "page:change", ->
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })
+			draggable: true,
+			drag: (event, ui) ->
+				iObj = ui.position
+				$(this).closest(".ui-dialog").css("top", iObj.top + "px")
 		)
 		$('#tier1').dialog('open')
 	$('#ivcontact-tier2').on 'click', ->
@@ -259,7 +258,7 @@ $(document).on "page:change", ->
 		$.ajax
 			url: '/personnels'
 			type: 'POST'
-			data: { personnel: { practice_id: $('#coach-personnel-practice').val(), name: $('#coach-personnel-name').val(), role: $('#coach-personnel-role').val(), role_other: $('#coach-personnel-role-other').val(), email1: $('#coach-personnel-email1').val() } }
+			data: { personnel: { practice_id: $('#coach-personnel-practice').val(), name: $('#coach-personnel-name').val(), role: $('#coach-personnel-role').val(), role_other: $('#coach-personnel-role-other').val(), email1: $('#coach-personnel-email1').val(), site_contact_primary: $('#coach-personnel-site-contact-primary').val(), site_contact_secondary: $('#coach-personnel-site-contact-secondary').val(), site_contact_champion: $('#coach-personnel-site-contact-champion').val() } }
 			dataType: 'json'
 			error: (jqXHR, textStatus, errorThrown) ->
 				$('#staffPopupMessage').html("Name is required. Cannot save staff member.")
@@ -270,4 +269,7 @@ $(document).on "page:change", ->
 				$('#coach-personnel-role').val("")
 				$('#coach-personnel-role-other').val("")
 				$('#coach-personnel-email1').val("")
+				$('#coach-personnel-site-contact-primary').attr('checked', false)
+				$('#coach-personnel-site-contact-secondary').attr('checked', false)
+				$('#coach-personnel-site-contact-champion').attr('checked', false)
 				$('#openPopupForm').before("<li><input type='checkbox' name='ivcontact[personnels][#{data.id}]' id='ivcontact_personnels_#{data.id}' value='1' checked /> <label for='ivcontact_personnels_#{data.id}'>#{data.name} (#{data.role_name}) #{data.email1}</label></li>")
