@@ -171,14 +171,9 @@ $(document).on "page:change", ->
 			width: 600,
 			title: "Limited Change Capacity",
       show: { effect: "fadeIn", delay: 100 },
-      resizable: false,
-			create: ->
+			create: (event) ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })
-			draggable: true,
-			drag: (event, ui) ->
-				iObj = ui.position
-				$(this).closest(".ui-dialog").css("top", iObj.top + "px")
 		)
 		$('#tier1').dialog('open')
 	$('#ivcontact-tier2').on 'click', ->
@@ -187,7 +182,6 @@ $(document).on "page:change", ->
 			width: 600,
 			title: "Basic Change Capacity",
       show: { effect: "fadeIn", delay: 100 },
-      resizable: false,
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })
@@ -199,7 +193,6 @@ $(document).on "page:change", ->
 			width: 600,
 			title: "Moderate Change Capacity",
       show: { effect: "fadeIn", delay: 100 },
-      resizable: false,
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })
@@ -211,7 +204,6 @@ $(document).on "page:change", ->
 			width: 600,
 			title: "Advanced Change Capacity",
       show: { effect: "fadeIn", delay: 100 },
-      resizable: false,
 			create: ->
 				closeBtn = $('.ui-dialog-titlebar-close')
 				closeBtn.css({ "position": "absolute", "right": "10px" })

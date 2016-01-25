@@ -16,7 +16,6 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/dialog
 //= require jquery-ui/draggable
-//= require jquery-ui/mouse
 //= require jquery-ui/progressbar
 //= require jquery-ui/resizable
 //= require jquery-ui/tooltip
