@@ -389,6 +389,24 @@ class Practice < ActiveRecord::Base
     "Already contracting but plan to join ... (see below)*" => 4
   }
 
+  INACTIVE_RSN_VALS = {
+    "Active" => 0,
+    "Dropout" => 1
+  }
+
+  DROP_DETERMINE_VALS = {
+    "Practice not responding to coaches" => 1,
+    "Practice notified coach of decision" => 2,
+    "H2N staff made decision" => 3
+  }
+
+  DROP_NOTIFY_HOW_VALS = {
+    "In person" => 1,
+    "Phone" => 2,
+    "Email" => 3,
+    "Other" => 9
+  }
+
   EXPORT_VARIABLES = %w(name, address, phone, url)
 
   require File.expand_path('lib/variable_map')

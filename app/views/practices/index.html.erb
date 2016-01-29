@@ -1,7 +1,7 @@
 <div id='wrapper'>
 <%= render 'layouts/header' %>
 
-<h1>Recruitment</h1>
+<h1>Practices</h1>
 
 <table class='typical enable-data-table'>
   <thead>
@@ -11,6 +11,7 @@
       <th>Study ID</th>
       <th>Recruiter</th>
       <th>Coach</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -22,6 +23,13 @@
         <td><%= practice.study_id if practice.study_id %></td>
         <td><%= practice.recruiter.name if practice.recruiter %></td>
         <td><%= practice.coach.name if practice.coach %></td>
+        <td>
+          <% if practice.active == false %>
+            <%= link_to "Re-enter", edit_dropout_path(practice) %>
+          <% elsif practice.active == true %>
+            <%= link_to "Drop out", edit_dropout_path(practice) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -29,8 +37,8 @@
 
 <br />
 
-<%= link_to 'New Practice', new_practice_path %>
+<%= link_to 'Add New Practice', new_practice_path %>
 <br />
-
+<br />
 <%= link_to "Back", :back %>
 </div>
