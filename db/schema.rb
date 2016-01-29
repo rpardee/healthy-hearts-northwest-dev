@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128192255) do
+ActiveRecord::Schema.define(version: 20160120231820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "coach_items", force: :cascade do |t|
     t.integer  "item_type"
@@ -188,7 +189,6 @@ ActiveRecord::Schema.define(version: 20160128192255) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20160128192255) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
     t.boolean  "recruiter"
     t.boolean  "coach"
   end
@@ -466,25 +467,6 @@ ActiveRecord::Schema.define(version: 20160128192255) do
     t.string   "study_id",                          limit: 5
     t.boolean  "residency_training_site",                      default: false
     t.integer  "site_id"
-    t.boolean  "active",                                       default: true
-    t.integer  "inactive_rsn"
-    t.date     "drop_dt"
-    t.date     "drop_reentry_dt"
-    t.integer  "drop_determine"
-    t.string   "drop_contact_num"
-    t.string   "drop_contact_who"
-    t.string   "drop_notify_who"
-    t.integer  "drop_notify_how"
-    t.date     "drop_notify_dt"
-    t.boolean  "drop_notify_rsn_demanding"
-    t.boolean  "drop_notify_rsn_priority"
-    t.boolean  "drop_notify_rsn_barrier"
-    t.boolean  "drop_notify_rsn_relevant"
-    t.boolean  "drop_notify_rsn_other"
-    t.string   "drop_notify_rsn_specify"
-    t.string   "drop_decide_who"
-    t.string   "drop_decide_why"
-    t.text     "drop_comments"
   end
 
   add_index "practices", ["site_id"], name: "index_practices_on_site_id", using: :btree
