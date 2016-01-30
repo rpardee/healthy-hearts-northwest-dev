@@ -19,11 +19,11 @@ class MainsController < ApplicationController
   end
   def practice_contacts
     @page_title = "Practice Contacts"
-    @practices = policy_scope(Practice).where(pal_status_cached: 'Returned').order(:name)
+    @practices = policy_scope(Practice).where(pal_status_cached: 'Returned', active: true).order(:name)
   end
   def practice_progress
     @page_title = "Practice Progress"
-    @practices = policy_scope(Practice).where(pal_status_cached: 'Returned').order(:name)
+    @practices = policy_scope(Practice).where(pal_status_cached: 'Returned', active: true).order(:name)
   end
   def practice_lifetime
     @practice = policy_scope(Practice).find(params[:id])
