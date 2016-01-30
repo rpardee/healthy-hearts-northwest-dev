@@ -5,7 +5,17 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts
   # GET /ivcontacts.json
   def index
-    @ivcontacts = Ivcontact.all
+    # It's likely there's a more graceful way to do this, but I don't know what it is.
+    order_by = "practices.name, ivcontacts.contact_dt"
+    if current_user.admin?
+      @ivcontacts = Ivcontact.joins(:practice).order(order_by)
+    else
+      @ivcontacts = Ivcontact.joins(:practice).where('practices.site_id' => current_user.site_id).order(order_by)
+    end
+    respond_to do |format|
+      format.html
+      format.csv
+    end
   end
 
   # GET /ivcontacts/1
