@@ -13,6 +13,9 @@
   <h2>
     <%= link_to "Export Practice Data", practices_path(format: "csv") %>
   </h2>
+  <h2>
+    <%= link_to "Export Intervention Contacts Data", ivcontacts_path(format: "csv") %>
+  </h2>
 <% end %>
 
 <% if current_partner.admin? %>

@@ -13,11 +13,17 @@
  * require_self
  *= require reset.css
  *= require jquery-ui/datepicker
+ *= require jquery-ui/dialog
+ *= require jquery-ui/draggable
  *= require jquery-ui/progressbar
+ *= require jquery-ui/resizable
+ *= require jquery-ui/tooltip
+ *= require jquery-ui/tabs
  *= require jquery.dataTables.css.scss
  *= require scaffolds.scss
  *= require mains.scss
  *= require practice_surveys.scss
+ *= require coach_practices.scss
  */
 .gyr-red {
   background-color: red ;

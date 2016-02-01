@@ -6,12 +6,12 @@
     <% if @ivcs.any? %>
       <h3>Topics</h3>
       <table id='topics' class='simple-grid'>
-      <%= render 'contacts_header', boxlab: "Blah" %>
+        <%= render 'contacts_header', boxlab: "Blah" %>
         <tbody>
           <% labno = 1 %>
           <% Ivcontact::DISCUSSION_TOPICS.each do |fld, lab| %>
             <tr>
-              <td>#<%= "#{labno}. #{lab}" %></td>
+              <td style="width: 17%">#<%= "#{labno}. #{lab}" %></td>
               <% labno += 1 %>
               <% (0..14).each do |i| %>
                 <% this_contact = @ivcs[i] %>
@@ -54,18 +54,22 @@
               <% this_contact = @ivcs[i] %>
               <% if this_contact then %>
                 <% clr = Ivcontact::GYR_VALS.key(this_contact.gyr) %>
-                <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+                <% if clr %>
+                  <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+                <% else %>
+                  <td>&nbsp;</td>
+                <% end %>
               <% else %>
                 <th>&nbsp;</th>
               <% end %>
             <% end %>
           </tr>
           <tr>
-            <th>Tier</th>
+            <th>Tier (Change Capacity)</th>
             <% (0..14).each do |i| %>
               <% this_contact = @ivcs[i] %>
               <% if this_contact then %>
-                <td><%= this_contact.tier %></td>
+                <td><%= Ivcontact::TIER_LABELS.key(this_contact.tier) %></td>
               <% else %>
                 <th>&nbsp;</th>
               <% end %>

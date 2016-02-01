@@ -1,0 +1,132 @@
+<div id='wrapper'>
+	<%= render 'layouts/header' %>
+
+	<div id='left-2'>
+		<h1>Study Dropout: <%= @practice.name %></h1>
+	</div>
+
+	<div class='clearfix'></div>
+
+	<%= form_for(@practice, url: dropout_path) do |f| %>
+	  <% if @practice.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@practice.errors.count, "error") %> prohibited this practice from being saved:</h2>
+
+	      <ul>
+	      <% @practice.errors.full_messages.each do |message| %>
+	        <li><%= message %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+	  <p style="color: red;">
+	  	Warning. You are about to <%= @dropout_desc %> the Healthy Hearts Northwest study.<br /><br />
+	  </p>
+
+	  <%= f.hidden_field :active, value: !@make_inactive %>
+	  <%= f.hidden_field :inactive_rsn, value: @inactive_rsn %>
+
+  	<div class='boxed'>
+  		<h3>General</h3>
+  		<table class='space'>
+  			<tr id="drop-dt" style="display: none;">
+  				<td><%= f.label :drop_dt, "Dropout Date" %></td>
+		  	  <td><%= f.text_field :drop_dt, class: 'datepicker', value: @today  %> mm/dd/yyyy</td>
+		  	</tr>
+    	 	<tr id="drop-reentry-dt" style="display: none;">
+    	 		<td><%= f.label :drop_reentry_dt, "Re-entry Date" %></td>
+	      	<td><%= f.text_field :drop_reentry_dt, class: 'datepicker', value: @today  %> mm/dd/yyyy</td>
+	    	</tr>
+	    	<tr>
+	  			<td><%= f.label :drop_determine, "How was the dropout decision determined?" %></td>
+	      	<td><%= f.select :drop_determine, Practice::DROP_DETERMINE_VALS, include_blank: true %></td>
+	      </tr>
+	    </table>
+	  </div>
+
+    <div id="drop-not-responding" class='boxed' style="display: none;">
+    	<h3>Practice Not Responding </h3>
+	  	<table class='space'>
+	  		<tr>
+	  			<td><%= f.label :drop_contact_num, "How many attempts at contacting this practice were made?" %></td>
+	      	<td><%= f.text_field :drop_contact_num %></td>
+	      </tr>
+	      <tr>
+	      	<td><%= f.label :drop_contact_who, "Who did you attempt to contact at the practice?" %></td>
+	      	<td><%= f.text_field :drop_contact_who, size: 80 %></td>
+	      </tr>
+	    </table>
+    </div>
+
+    <div id="drop-notified" class='boxed' style="display: none;">
+    	<h3>Practice Notified Coach</h3>
+    	<table class='lined space'>
+    		<tr>
+    			<td><%= f.label :drop_notify_who, "Which practice staff member notified you of the decision to drop out?", style: "margin-right: 10%;" %></td>
+    			<td><%= f.text_field :drop_notify_who, size: 80, placeholder: "Enter name and job role" %></td>
+    		</tr>
+    		<tr>
+	  			<td><%= f.label :drop_notify_how, "How were you notified?" %></td>
+	  			<td><%= f.select :drop_notify_how, Practice::DROP_NOTIFY_HOW_VALS, include_blank: true %></td>
+	    	</tr>
+	  		<tr>
+	  			<td><%= f.label :drop_notify_dt, "Date of notification" %></td>
+	      	<td><%= f.text_field :drop_notify_dt, class: 'datepicker' %> mm/dd/yyyy</td>
+	    	</tr>
+	  		<tr>
+	  			<td colspan='2'>What reasons did they give for dropping out?</td>
+	  		</tr>
+	  		<tr>
+	  			<td><%= f.label :drop_notify_rsn_demanding, "H2N is too demanding",  style: "margin-left: 10%;" %></td>
+	      	<td><%= f.check_box :drop_notify_rsn_demanding %></td>
+	      </tr>
+	      <tr>
+	  			<td><%= f.label :drop_notify_rsn_priority, "Practice has other priorities",  style: "margin-left: 10%;" %></td>
+	      	<td><%= f.check_box :drop_notify_rsn_priority %></td>
+	      </tr>
+	      <tr>
+	      	<td><%= f.label :drop_notify_rsn_barrier, "Practice is experience a specific barrier",  style: "margin-left: 10%;" %></td>
+	      	<td><%= f.check_box :drop_notify_rsn_barrier %> (e.g., moving location)</td>
+	      </tr>
+	      <tr>
+	      	<td><%= f.label :drop_notify_rsn_relevant, "Practice does not find H2N useful or relevant",  style: "margin-left: 10%;" %></td>
+	      	<td><%= f.check_box :drop_notify_rsn_relevant %></td>
+	      </tr>
+	      <tr>
+	      	<td><%= f.label :drop_notify_rsn_other, "Other",  style: "margin-left: 10%;" %></td>
+	      	<td>
+	      		<%= f.check_box :drop_notify_rsn_other, { class: 'enable-control', data: { :effector => '#practice_drop_notify_rsn_specify', :enablevalue => 1 } }  %>
+	      		<%= f.text_field :drop_notify_rsn_specify, size: 50, placeholder: "Please specify", class: 'disabled-question' %>
+	      	</td>
+	      </tr>
+	    </table>
+    </div>
+
+    <div id="drop-staff-decision" class='boxed' style="display: none;">
+    	<h3>H2N Staff Decision</h3>
+    	<table class='space'>
+    		<tr>
+    			<td><%= f.label :drop_decide_who, "Which H2N staff member made this decision?" %></td>
+    			<td><%= f.text_field :drop_decide_who, size: 80, placeholder: "List name and organization (ORPRN/OHSU, Qualis, GHRI)" %></td>
+    		</tr>
+    		<tr>
+    			<td><%= f.label :drop_decide_why, "Why was this decision made?" %></td>
+    			<td><%= f.text_area :drop_decide_why, cols: 80, rows: 5 %></td>
+    		</tr>
+    	</table>
+    </div>
+
+    <div class='boxed'>
+    	<p>
+	  		<%= f.label :drop_comments, "Additional Comments" %><br />
+	      <%= f.text_area :drop_comments, cols: 80, rows: 5 %>
+	    </p>
+	  </div>
+
+		<div class="actions">
+	    <%= f.submit @submit_button_text %>
+	  </div>
+	<% end %>
+
+</div>

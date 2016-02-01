@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117172834) do
+ActiveRecord::Schema.define(version: 20160128192255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,9 +70,11 @@ ActiveRecord::Schema.define(version: 20151117172834) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "hlc_other",         default: false
+    t.integer  "practice_id"
   end
 
   add_index "high_leverage_change_tests", ["ivcontact_id"], name: "index_high_leverage_change_tests_on_ivcontact_id", using: :btree
+  add_index "high_leverage_change_tests", ["practice_id"], name: "index_high_leverage_change_tests_on_practice_id", using: :btree
 
   create_table "ivcontacts", force: :cascade do |t|
     t.integer  "contact_type"
@@ -174,6 +176,8 @@ ActiveRecord::Schema.define(version: 20151117172834) do
     t.integer  "hit_tier"
     t.integer  "hit_quality"
     t.text     "hit_quality_explain"
+    t.text     "observations"
+    t.integer  "hit_coach"
   end
 
   create_table "ivcontacts_personnels", id: false, force: :cascade do |t|
@@ -465,6 +469,25 @@ ActiveRecord::Schema.define(version: 20151117172834) do
     t.string   "study_id",                          limit: 5
     t.boolean  "residency_training_site",                      default: false
     t.integer  "site_id"
+    t.boolean  "active",                                       default: true
+    t.integer  "inactive_rsn"
+    t.date     "drop_dt"
+    t.date     "drop_reentry_dt"
+    t.integer  "drop_determine"
+    t.string   "drop_contact_num"
+    t.string   "drop_contact_who"
+    t.string   "drop_notify_who"
+    t.integer  "drop_notify_how"
+    t.date     "drop_notify_dt"
+    t.boolean  "drop_notify_rsn_demanding"
+    t.boolean  "drop_notify_rsn_priority"
+    t.boolean  "drop_notify_rsn_barrier"
+    t.boolean  "drop_notify_rsn_relevant"
+    t.boolean  "drop_notify_rsn_other"
+    t.string   "drop_notify_rsn_specify"
+    t.string   "drop_decide_who"
+    t.string   "drop_decide_why"
+    t.text     "drop_comments"
   end
 
   add_index "practices", ["site_id"], name: "index_practices_on_site_id", using: :btree
@@ -489,6 +512,7 @@ ActiveRecord::Schema.define(version: 20151117172834) do
   add_foreign_key "events", "partners"
   add_foreign_key "events", "practices"
   add_foreign_key "high_leverage_change_tests", "ivcontacts"
+  add_foreign_key "high_leverage_change_tests", "practices"
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
   add_foreign_key "practice_surveys", "practices"

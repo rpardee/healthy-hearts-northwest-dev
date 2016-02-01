@@ -5,7 +5,17 @@ class IvcontactsController < ApplicationController
   # GET /ivcontacts
   # GET /ivcontacts.json
   def index
-    @ivcontacts = Ivcontact.all
+    # It's likely there's a more graceful way to do this, but I don't know what it is.
+    order_by = "practices.name, ivcontacts.contact_dt"
+    if current_user.admin?
+      @ivcontacts = Ivcontact.joins(:practice).order(order_by)
+    else
+      @ivcontacts = Ivcontact.joins(:practice).where('practices.site_id' => current_user.site_id).order(order_by)
+    end
+    respond_to do |format|
+      format.html
+      format.csv
+    end
   end
 
   # GET /ivcontacts/1
@@ -36,6 +46,7 @@ class IvcontactsController < ApplicationController
     (@ivcontact.high_leverage_change_tests.count..2).each do
       @ivcontact.high_leverage_change_tests.build
     end
+    @hit_coach_selected = @ivcontact.hit_coach
     set_contact_type_options
   end
 
@@ -97,7 +108,8 @@ class IvcontactsController < ApplicationController
     def set_contact_type_options
       # If this is changed, also update Ivcontact::CONTACT_TYPE_VALS
       @grouped_options_for_contact_type = { '15 required monthly contacts' => [['Quarterly in-person visit', 1],
-        ['Other required contact', 2]], 'Ad-hoc' => [['Other ad-hoc contact', 9]] }
+        ['Other required contact', 2]], 'HIT only' => [['HIT-only visit', 3]],
+        'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 
     def get_personnel_by_practice(practice)
@@ -148,14 +160,15 @@ class IvcontactsController < ApplicationController
         :milestone_community_discussed, :gyr, :gyr_notes, :tier,
         :pcmha_1, :pcmha_2, :pcmha_3, :pcmha_4, :pcmha_5, :pcmha_6, :pcmha_7, :pcmha_8, :pcmha_9,
         :pcmha_10, :pcmha_11, :pcmha_12, :pcmha_13, :pcmha_14, :pcmha_15, :pcmha_16, :pcmha_17,
-        :pcmha_18, :pcmha_19, :pcmha_20, :prach_change_ehr_which,
+        :pcmha_18, :pcmha_19, :pcmha_20, :prac_change_ehr_which,
         :prac_change_ehr, :prac_change_newlocation, :prac_change_lost_clin,
         :prac_change_lost_om, :prac_change_boughtover, :prac_change_billing,
-        :prac_change_other, :prac_change_specify, :practice_id,
-        :status_text, :smsvy_name, :smsvy_email, :hit_ehr_vendor, :hit_tier, :hit_quality, :hit_quality_explain,
+        :prac_change_other, :prac_change_specify, :practice_id, :observations, :hit_coach,
+        :status_text, :smsvy_name, :smsvy_email, :hit_ehr_vendor, :hit_tier, :hit_quality,
+        :hit_quality_explain,
+        personnels_attributes: [:id, :_destroy, :name, :role, :role_other],
         high_leverage_change_tests_attributes: [:id, :_destroy, :description, :test_status, :comments, :embed_evidence, :use_data, :xfunc_qi,
                                                 :id_at_risk, :manage_pops, :self_management, :resource_linkages,
-                                                :hlc_other],
-        personnels_attributes: [:id, :_destroy, :name, :role, :role_other])
+                                                :hlc_other])
     end
 end

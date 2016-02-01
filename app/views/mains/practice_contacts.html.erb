@@ -22,7 +22,7 @@
       <% @practices.each do |pr| %>
         <tr>
           <td>
-            <%= link_to pr.name, edit_coach_practice_path(pr) %>
+            <%= link_to pr.name, practice_lifetime_path(pr) %>
           </td>
           <td>
             <%= pr.coach.name if pr.coach %>
@@ -34,7 +34,11 @@
             <td><%= ivc_hlc_complete(lc)    %></td>
             <td><%= ivc_pdsa_complete(lc)   %></td>
             <% clr = Ivcontact::GYR_VALS.key(lc.gyr) %>
-            <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+            <% if clr %>
+              <td class='gyr-<%=clr.downcase%>'><%= clr %></td>
+            <% else %>
+              <td>&nbsp;</td>
+            <% end %>
           <% else %>
             <td>None Yet</td>
             <% (1..4).each do %>

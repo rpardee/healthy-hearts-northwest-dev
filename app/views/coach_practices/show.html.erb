@@ -35,32 +35,39 @@
       </div>
       <br />
       <div id='last-qica-results'>
-        <h3>QICA Results from <%= @practice.iv_qica_dt.try(:strftime, '%-m/%-d/%Y') %></h3>
+        <h3>
+          QICA Results from <%= @practice.iv_qica_dt.try(:strftime, '%Y-%m-%d') %>
+          <% if not @practice.last_qica_complete? %>
+            <span class='incomplete-warning' title='This QICA has one or more missing ratings!'>(Not Complete!)</span>
+          <% end %>
+        </h3>
         <table class='lined space background-green'>
           <tr>
             <th>HLC #</th>
             <th>Total Score</th>
             <th>% for HLC</th>
+            <!-- <th>Missing Data?</th> -->
           </tr>
           <% @qica_summary.each.with_index do |q, idx| %>
             <tr>
               <td><%= idx + 1 %></td>
               <td><%= "#{q[0]}/#{q[2]}" %></td>
               <td><%= number_to_percentage(q[1], precision: 0) %></td>
+              <!-- <td><%= flag_incomplete(q[3]) %></td> -->
             </tr>
           <% end %>
         </table>
       </div>
       <br />
       <div id='noncontinuing-hlcts'>
-        <h3>Abandoned/Adopted <abbr title = "High Leverage Change Tests">PDSA</abbr>s</h3>
+        <h3><abbr title = "High Leverage Change Tests">PDSA</abbr>s for this Practice</h3>
         <% if @aa_hlcts.length > 0 %>
           <table class = 'lined space background-lightpurple'>
             <thead>
               <tr>
                 <th>PDSA</th>
                 <th>Contact Date</th>
-                <th>Final Status</th>
+                <th>Status</th>
                 <th>Comments</th>
               </tr>
             </thead>
@@ -69,14 +76,14 @@
                 <td>
                   <%= aa.description %>
                 </td>
-                <td>
+                <td style="white-space: nowrap;">
                   <%= aa.status_date %>
                 </td>
                 <td>
                   <%= HighLeverageChangeTest::TEST_STATUSES.key(aa.test_status) %>
                 </td>
                 <td>
-                  <%= aa.comments %>
+                  <%= truncate(aa.comments, length: 100) if aa.comments %>
                 </td>
               </tr>
             <% end %>
@@ -86,17 +93,17 @@
         <% end %>
       </div>
     <% else %>
-      <h3>No intervention contacts logged yet--add one on the right side of the page to make this page more interesting.</h3>
+      <h3>No intervention contacts logged yet &mdash; add one on the right side of the page to make this page more interesting.</h3>
     <% end %>
   </div>
 
   <div id='right-2'>
     <h1>Coach: <%= @practice.coach.name if @practice.coach %></h1>
-    <h2 title="Add an intervention contact" rel="tooltip">Intervention Contacts
+    <h2 title="Add a site contact" rel="tooltip">Site Contacts
       <%= link_to image_tag("plus-blue.png", size: "15x15"), new_coach_practice_ivcontact_path(@practice), class: 'addButton' %>
     </h2>
     <% if @practice.ivcontacts.any? %>
-      <table class='typical enable-data-table'>
+      <table class='typical enable-data-table' data-order='[[ 0, "desc" ]]'>
         <thead>
           <tr>
             <th>Date</th>
@@ -106,7 +113,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @practice.ivcontacts.each do |c| %>
+          <% @practice.ivcontacts.order(contact_dt: :desc).each do |c| %>
             <tr>
               <td><%= link_to c.contact_dt || "-", edit_coach_practice_ivcontact_path(@practice, c) %></td>
               <td><%= Ivcontact::CONTACT_TYPE_VALS.key(c.contact_type) %></td>
@@ -117,12 +124,12 @@
         </tbody>
       </table>
     <% else %>
-      <em>Click the + icon above to add your first contact.</em>
+      <em style="color: red;">Click the + icon above to add your first contact.</em>
       <br /><br />
     <% end %>
+    <button id="coach-practice-comment-opener">View Contact Comments</button>
 
     <br />
-
     <% if @practice.ivcontacts.any? %>
       <div class='box'>
         <div id='openPopupForm'>
@@ -185,49 +192,65 @@
             <li><a href="#tabs-fu-complete">Complete</a></li>
           </ul>
           <div id='tabs-fu-incomplete'>
-          <table class='typical enable-data-table'>
-            <thead>
-              <tr>
-                <th>Add Date</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @coach_item_incomplete.each do |i| %>
+            <table class='typical enable-data-table'>
+              <thead>
                 <tr>
-                  <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-                  <td><%= truncate(i.notes, length: 255) %></td>
+                  <th>Add Date</th>
+                  <th>Notes</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <% @coach_item_incomplete.each do |i| %>
+                  <tr>
+                    <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                    <td><%= truncate(i.notes, length: 255) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
           <div id='tabs-fu-complete'>
-          <table class='typical enable-data-table'>
-            <thead>
-              <tr>
-                <th>Add Date</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @coach_item_complete.each do |i| %>
+            <table class='typical enable-data-table'>
+              <thead>
                 <tr>
-                  <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
-                  <td><%= truncate(i.notes, length: 255) %></td>
+                  <th>Add Date</th>
+                  <th>Notes</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% @coach_item_complete.each do |i| %>
+                  <tr>
+                    <td><%= link_to i.add_dt || "-", edit_coach_practice_coach_item_path(@practice, i) %></td>
+                    <td><%= truncate(i.notes, length: 255) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     <%end %>
   </div>
+  <div id = 'contact-comments' title="Comments from All Contacts">
+    <% if @practice.ivcontacts.any? then %>
+      <% rowcolor = 1 %>
+      <% @practice.ivcontacts.order('contact_dt desc').each do |ivc| %>
+        <p><%= render :partial => 'comment', :locals => {:ivc => ivc, :rowcolor => rowcolor} %></p>
+        <% rowcolor = 1 - rowcolor %>
+      <% end %>
+    <% else %>
+      <p>None yet &mdash; add some contacts.</p>
+    <% end %>
+  </div>
 
-  <div class='clearfix'></div>
+  <div class='clearfix'>
+
+  </div>
 
   <div class="actions">
     <br />
     <%= link_to "Back", :back %>
   </div>
+
 </div>
+

@@ -4,8 +4,8 @@ class EventPolicy < ApplicationPolicy
 			if user.admin?
 				scope.all
 			else
-				scope.all
-				# scope.joins(:partners).where('partners.site_id' => user.site_id)
+				# scope.all
+				scope.joins(:partner).where('partners.site_id' => user.site_id)
 			end
 		end
 	end

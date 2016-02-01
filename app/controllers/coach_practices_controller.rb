@@ -34,9 +34,17 @@ class CoachPracticesController < ApplicationController
     @coach_item_complete      = coach_item.where(complete: true)
     @coach_item_incomplete    = coach_item.where(complete: false)
     @coach_item               = @practice.coach_items.create
+
+    # For the last contact we want all HLCTs.  For all others we only want adopted/abandoned.
+    ld = @practice.last_required_iv_contact_date
     @practice.ivcontacts.order(:contact_dt).each do |ivc|
-      ivc.high_leverage_change_tests.where("test_status in (1, 2)").each do |aa|
-        @aa_hlcts << aa
+      if ivc.contact_dt == ld
+        filter = "1 = 1"
+      else
+        filter = "test_status in (1, 2)"
+      end
+      ivc.high_leverage_change_tests.where(filter).each do |aa|
+        @aa_hlcts << aa unless aa.description.blank?
       end
     end
   end

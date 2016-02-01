@@ -299,7 +299,7 @@ div {
   padding: 7px;
   padding-bottom: 0;
   margin-bottom: 20px;
-  background-color: #f0f0f0;
+  background-color: #f0f0f0 ;
   h2 {
     text-align: left;
     font-weight: bold;
@@ -336,7 +336,7 @@ div {
 
 header {
   background: $dark-red;
-  height: 10%;
+  height: 110px;
   margin-bottom: 15px;
 }
 
@@ -436,4 +436,20 @@ tr.subquestion {
 
 input.button-important {
   background-color: green;
+}
+
+#contact-comments {
+  clear: both ;
+  width: 70% ;
+  display: none ;
+}
+
+.comment-0 {
+  background-color: lighten($yellow, 25%) ;
+  padding: 4px ;
+}
+
+.comment-1 {
+  background-color: $yellow ;
+  padding: 4px ;
 }

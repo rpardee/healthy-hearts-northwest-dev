@@ -23,6 +23,12 @@
       <td><%= f.label :contact_mode, "Contact Method" %></td>
       <td><%= f.select :contact_mode, Ivcontact::CONTACT_MODE_VALS, include_blank: true %></td>
     </tr>
+    <tr id='ivcontact-hit-coach' style="display: none;">
+      <td><%= f.label :hit_coach, "HIT Coach" %></td>
+      <td>
+        <%= f.select :hit_coach, options_for_select(policy_scope(Partner).order("name").collect { |p| [p.name, p.id] }, selected: @hit_coach_selected), include_blank: true %>
+      </td>
+    </tr>
     <tr>
       <td><%= f.label :contact_dt, "Date of Contact" %></td>
       <td><%= f.text_field :contact_dt, value: @ivcontact.contact_dt.try(:strftime, "%m/%d/%Y"), class: 'datepicker' %> mm/dd/yyyy</td>
@@ -31,9 +37,9 @@
       <td><%= f.label :contact_duration, "Duration of Contact" %> (mins)</td>
       <td><%= f.text_field :contact_duration %></td>
     </tr>
-    <tr>
-      <td><%= f.label :contact_comments, "Comments" %> </td>
-      <td><%= f.text_area :contact_comments, :rows => 3, :cols => 60 %></td>
+    <tr id='ivcontact-observations'>
+      <td><%= f.label :observations, "Observations of Environment and Team Dynamics" %> </td>
+      <td><%= f.text_area :observations, :rows => 6, :cols => 100 %></td>
     </tr>
   </table>
 
@@ -47,7 +53,7 @@
           <% else %>
             <%= check_box_tag "ivcontact[personnels][#{p.id}]" %>
           <% end %>
-          <%= label_tag "ivcontact[personnels][#{p.id}]", "#{p.name} (#{Personnel::ROLE_VALS.key(p.role)})" %>
+          <%= label_tag "ivcontact[personnels][#{p.id}]", "#{p.name} (#{Personnel::ROLE_VALS.key(p.role)})   #{p.email1}" %>
         </li>
       <% end %>
       <li id='openPopupForm'>
@@ -64,7 +70,7 @@
   <%= render partial: 'add_staff_popup' %>
   <div class='boxed'>
     <h3>Topics Discussed:  Check all topics that apply</h3>
-    <table id='hit-specific' class='space lined background-lightpurple' style="width: 75%;">
+    <table id='hit-topics' class="space lined background-darkpurple">
       <tr>
         <th colspan='3'>HIT-specific</th>
       </tr>
@@ -73,7 +79,7 @@
         <th colspan='2'>&nbsp;</th>
       </tr>
       <tr>
-        <td>
+        <td class='br'>
           <%= f.check_box :topic_ehr_vendor %>
           <%= f.label :topic_ehr_vendor, "Work with EHR vendor" %>
         </td>
@@ -87,7 +93,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class='br'>
           <%= f.check_box :topic_3rdparty_vendor %>
           <%= f.label :topic_3rdparty_vendor, "Work with 3rd party vendor" %>
         </td>
@@ -101,7 +107,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td class='br'>
           <%= f.check_box :topic_custom_query %>
           <%= f.label :topic_custom_query, "Work on custom queries" %>
         </td>
@@ -115,7 +121,7 @@
         </td>
       </tr>
       <tr>
-        <td> &nbsp; </td>
+        <td class='br'> &nbsp; </td>
         <td>
           <%= f.check_box :topic_abcs %>
           <%= f.label :topic_abcs, "Submit ABCS measures to study team" %>
@@ -127,98 +133,100 @@
       </tr>
     </table>
     <br />
-    <table id='qi-processes' class='space lined background-darkpurple' style="width: 75%;">
-      <tr>
-        <th colspan='4'>QI Processes</th>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_self_assessment %>
-          <%= f.label :topic_self_assessment, "Review/collect Self-Assessment Survey" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_brainstorm %>
-          <%= f.label :topic_brainstorm, "Brainstorm ideas" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_roles %>
-          <%= f.label :topic_roles, "Identify roles/responsibilities" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_share %>
-          <%= f.label :topic_share, "Share best practices from another site" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_observe_flow %>
-          <%= f.label :topic_observe_flow, "Observe team/clinic flow" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_qi_support %>
-          <%= f.label :topic_qi_support, "Provide QI meeting support" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_planning %>
-          <%= f.label :topic_planning, "Discuss PDSA cycles or action planning" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_consensus %>
-          <%= f.label :topic_consensus, "Facilitate a consensus discussion" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_huddle %>
-          <%= f.label :topic_huddle, "Huddles" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_workflow %>
-          <%= f.label :topic_workflow, "Support workflow design" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_connect %>
-          <%= f.label :topic_connect, "Connect practice to another practice" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_review_data %>
-          <%= f.label :topic_review_data, "Review data" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_leadership %>
-          <%= f.label :topic_leadership, "Leadership meeting" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_resource %>
-          <%= f.label :topic_resource, "Supply a tool or resource to support work" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_qi_display %>
-          <%= f.label :topic_qi_display, "Data displays/run-charts" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= f.check_box :topic_review_guideline %>
-          <%= f.label :topic_review_guideline, "Review/discuss organizational guidelines" %>
-        </td>
-        <td>
-          <%= f.check_box :topic_discuss_measurement %>
-          <%= f.label :topic_discuss_measurement, "Discuss value-based measurement" %>
-        </td>
-        <td>
-          &nbsp;
-        </td>
-      </tr>
-      <tr>
-      </tr>
-    </table>
-    <br />
-    <table id='other-topics' class='space lined background-darkpurple' style="width: 75%;">
+    <div id='ivcontact-topic-qi-processes'>
+      <table class='space lined background-darkpurple' style="width: 95%;">
+        <tr>
+          <th colspan='3'>QI Processes</th>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_self_assessment %>
+            <%= f.label :topic_self_assessment, "Review/collect Self-Assessment Survey" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_brainstorm %>
+            <%= f.label :topic_brainstorm, "Brainstorm ideas" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_roles %>
+            <%= f.label :topic_roles, "Identify roles/responsibilities" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_share %>
+            <%= f.label :topic_share, "Share best practices from another site" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_observe_flow %>
+            <%= f.label :topic_observe_flow, "Observe team/clinic flow" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_qi_support %>
+            <%= f.label :topic_qi_support, "Provide QI meeting support" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_planning %>
+            <%= f.label :topic_planning, "Discuss PDSA cycles or action planning" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_consensus %>
+            <%= f.label :topic_consensus, "Facilitate a consensus discussion" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_huddle %>
+            <%= f.label :topic_huddle, "Huddles" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_workflow %>
+            <%= f.label :topic_workflow, "Support workflow design" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_connect %>
+            <%= f.label :topic_connect, "Connect practice to another practice" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_review_data %>
+            <%= f.label :topic_review_data, "Review data" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_leadership %>
+            <%= f.label :topic_leadership, "Leadership meeting" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_resource %>
+            <%= f.label :topic_resource, "Supply a tool or resource to support work" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_qi_display %>
+            <%= f.label :topic_qi_display, "Data displays/run-charts" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.check_box :topic_review_guideline %>
+            <%= f.label :topic_review_guideline, "Review/discuss organizational guidelines" %>
+          </td>
+          <td>
+            <%= f.check_box :topic_discuss_measurement %>
+            <%= f.label :topic_discuss_measurement, "Discuss value-based measurement" %>
+          </td>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+        </tr>
+      </table>
+      <br />
+    </div>
+    <table id='other-topics' class='space lined background-darkpurple' style="width: 95%;">
       <tr>
         <th>Other</th>
       </tr>
@@ -227,7 +235,7 @@
           <%= f.check_box :topic_other %>
           <%= f.label :topic_other, "Other" %>
           <span id='ivcontact-topicotherspecify'>
-            &nbsp; &nbsp; &nbsp;<%= f.label :topic_other_specify, "Specify:" %>
+            &nbsp; &nbsp; &nbsp;<%= f.label :topic_other_specify, "Please specify:" %>
             <%= f.text_field :topic_other_specify, size: 60 %>
           </span>
         </td>
@@ -255,7 +263,7 @@
     <table id='hlc-tooltip' class='space lined fulltext background-pink'>
       <tr>
         <th width="50%">HLC</th>
-        <th>Progress</th>
+        <th colspan="2">Progress</th>
       </tr>
       <tr>
         <td>Embed clinical evidence on ABCS into daily work to guide care for patients</td>
@@ -263,6 +271,10 @@
           <%= f.collection_radio_buttons :milestone_evidence_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_evidence_progress, 9 %>
+          <%= f.label :milestone_evidence_progress_9, "Did not discuss" %>
         </td>
       </tr>
       <tr>
@@ -272,6 +284,10 @@
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
         </td>
+        <td>
+          <%= f.radio_button :milestone_data_progress, 9 %>
+          <%= f.label :milestone_data_progress_9, "Did not discuss" %>
+        </td>
       </tr>
       <tr>
         <td>Establish a regular QI process involving cross-functional teams (QI, care team, huddles, all staff)</td>
@@ -279,6 +295,10 @@
           <%= f.collection_radio_buttons :milestone_qi_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_qi_progress, 9 %>
+          <%= f.label :milestone_qi_progress_9, "Did not discuss" %>
         </td>
       </tr>
       <tr>
@@ -288,6 +308,10 @@
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
         </td>
+        <td>
+          <%= f.radio_button :milestone_atrisk_progress, 9 %>
+          <%= f.label :milestone_atrisk_progress_9, "Did not discuss" %>
+        </td>
       </tr>
       <tr>
         <td>Define roles and responsibilities (tasks) across the care team to identify and manage ABCS populations</td>
@@ -295,6 +319,10 @@
           <%= f.collection_radio_buttons :milestone_task_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_task_progress, 9 %>
+          <%= f.label :milestone_task_progress_9, "Did not discuss" %>
         </td>
       </tr>
       <tr>
@@ -304,6 +332,10 @@
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
         </td>
+        <td>
+          <%= f.radio_button :milestone_selfmgmt_progress, 9 %>
+          <%= f.label :milestone_selfmgmt_progress_9, "Did not discuss" %>
+        </td>
       </tr>
       <tr>
         <td>Develop robust linkages to smoking cessation, CDSMP and other evidence-based community resources</td>
@@ -311,6 +343,10 @@
           <%= f.collection_radio_buttons :milestone_community_progress, Ivcontact::PROGRESS_VALS, "last", "first" do |b| %>
             <%= b.label(class: "priority#{b.value}") { b.radio_button + b.text } + tag("br") %>
           <% end %>
+        </td>
+        <td>
+          <%= f.radio_button :milestone_community_progress, 9 %>
+          <%= f.label :milestone_community_progress_9, "Did not discuss" %>
         </td>
       </tr>
     </table>
@@ -323,7 +359,7 @@
       <p>Please list any tests of change (PDSA cycles) that this practice has done since your last monthly contact.</p><br />
       <p>PDSAs that you indicated were ongoing (testing continuing) during your last contact will automatically show up in the table below. Please be sure to re-rate their status. Are they still being tested or have they been abandoned or accepted?</p>
       <%= f.fields_for :high_leverage_change_tests do |high_leverage_change_test| %>
-        <%= render 'high_leverage_change_test_fields', :f => high_leverage_change_test %>
+        <%= render('high_leverage_change_test_fields', :f => high_leverage_change_test) %>
       <% end %>
     </div>
     <div>
@@ -362,7 +398,7 @@
       internal and external factors.  Mark each site as green, yellow or red using the definitions provided, then indicate the activities or situations on which you are basing your rating.
       (A practice will likely move back and forth throughout the initiative based on current
       conditions and situations.)</p>
-    <table class='space lined'>
+    <table class='space lined' width='85%' style="margin-left: auto; margin-right: auto;">
       <tr>
         <th width="33%" class='gyr-green'>Green</th>
         <th width="33%" class='gyr-yellow'>Yellow</th>
@@ -383,7 +419,7 @@
       <label for="ivcontact_gyr_notes" style="display: table-cell; vertical-align: middle;">
         Activities or Situations for Rating: &nbsp;
       </label>
-      <%= f.text_area :gyr_notes, cols: 80, rows: 3 %>
+      <%= f.text_area :gyr_notes, cols: 100, rows: 6 %>
     </p>
   </div>
 
@@ -475,13 +511,13 @@
   <div id='ivcontact-tier' class='boxed'>
     <h3>Tiering Tool for Capacity</h3>
     <p>The Tiering Tool includes descriptions of the characteristics sites may possess at various phases of their journey toward developing change capacity and improving health outcomes. Using the definitions/examples provided for each tier, identify where this practice is with respect to capacity. Base your assessment on what you have observed or learned from the practice as its coach. Do not move the practice up to the next level unless you feel confident that the changes it has made to date will likely be sustained.</p>
-    <table id='tier-tooltip' class='space lined background-green'>
+    <table id='tier-tooltip' class='space lined background-green' style="margin-left: 30px;">
       <tr title="Click column heading to view description">
         <th>&nbsp;</th>
-        <th id='ivcontact-tier1'>STARTING<br /></th>
-        <th id='ivcontact-tier2'>LIMITED PRACTICE CHANGES;<br />NEED TO BUILD CAPACITY<br /></th>
-        <th id='ivcontact-tier3'>MAKING MANY PRACTICE CHANGES<br /></th>
-        <th id='ivcontact-tier4'>MANAGING MULTI-DIMENSIONAL CHANGE<br /></th>
+        <th id='ivcontact-tier1'>LIMITED CHANGE CAPACITY<br /></th>
+        <th id='ivcontact-tier2'>BASIC CHANGE CAPACITY<br /></th>
+        <th id='ivcontact-tier3'>MODERATE CHANGE CAPACITY<br /></th>
+        <th id='ivcontact-tier4'>ADVANCED CHANGE CAPACITY<br /></th>
       </tr>
       <% for t in 1..5 %>
         <tr align='center'>
@@ -1144,12 +1180,17 @@
       <tr>
         <td><%= f.label :prac_change_other, "Other" %></td>
         <td><%= f.check_box :prac_change_other %></td>
-      </tr>
-      <tr id='ivcontact-pracchangespecify'>
-        <td><%= f.label :prac_change_specify, "If other, please specify:" %></td>
-        <td><%= f.text_area :prac_change_specify, rows: 3, cols: 50 %></td>
+        <td id='ivcontact-pracchangespecify' style="padding-bottom: 15px;">
+          <%= f.label :prac_change_specify, "If other, please specify:" %>
+          <%= f.text_area :prac_change_specify, rows: 1, cols: 100 %>
+        </td>
       </tr>
     </table>
+  </div>
+
+  <div class='boxed'>
+    <h3><%= f.label :contact_comments, "Comments and Field Notes" %></h3>
+    <p><%= f.text_area :contact_comments, :rows => 6, :cols => 100 %></p>
   </div>
 
   <div>

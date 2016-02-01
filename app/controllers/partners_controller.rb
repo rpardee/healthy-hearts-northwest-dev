@@ -80,6 +80,7 @@ class PartnersController < ApplicationController
   # PATCH/PUT /partners/1
   # PATCH/PUT /partners/1.json
   def update
+    params[:partner] = params[:partner].reject{|_,v| v.blank?}
     respond_to do |format|
       if @partner.update(partner_params)
         format.html { redirect_to list_partners_path, notice: 'Partner was successfully updated.' }

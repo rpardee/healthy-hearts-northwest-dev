@@ -21,13 +21,13 @@ module MainsHelper
     end
   end
   def ivc_hlc_complete(ivc)
-    if ivc.milestone_evidence_progress.nil? or
-      ivc.milestone_data_progress.nil? or
-      ivc.milestone_qi_progress.nil? or
-      ivc.milestone_atrisk_progress.nil? or
-      ivc.milestone_task_progress.nil? or
-      ivc.milestone_selfmgmt_progress.nil? or
-      ivc.milestone_community_progress.nil?
+    if (ivc.milestone_evidence_progress  || 9) == 9 or
+      (ivc.milestone_data_progress       || 9) == 9 or
+      (ivc.milestone_qi_progress         || 9) == 9 or
+      (ivc.milestone_atrisk_progress     || 9) == 9 or
+      (ivc.milestone_task_progress       || 9) == 9 or
+      (ivc.milestone_selfmgmt_progress   || 9) == 9 or
+      (ivc.milestone_community_progress  || 9) == 9
       return raw("&nbsp;")
     else
       return image_tag("check-mark-blue.png", size: "25")
@@ -36,12 +36,5 @@ module MainsHelper
   def ivc_pdsa_complete(ivc)
     # return ivc.high_leverage_change_tests.any?
     check_if(ivc.high_leverage_change_tests.any?)
-  end
-  def check_if(boo)
-    if boo
-      return image_tag("check-mark-blue.png", size: "25")
-    else
-      return raw("&nbsp;")
-    end
   end
 end

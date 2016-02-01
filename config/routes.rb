@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :practice_surveys
   resources :high_leverage_change_tests
   resources :coach_items
+  resources :dropouts, only: [ :index, :edit, :update ]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

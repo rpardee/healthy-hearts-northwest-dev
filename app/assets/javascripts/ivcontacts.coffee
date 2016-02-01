@@ -5,6 +5,8 @@
 updateContactType = (contact_type_field) ->
 	v = parseInt($(contact_type_field).val())
 	if v == 1  				# Required/in-person
+		$('#ivcontact-observations').show()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
 		$('#ivcontact-hit').show()
@@ -14,6 +16,8 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-contactmode').hide()
 		$('#ivcontact-disruption').show()
 	else if v == 2  	# Required/other
+		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').show()
 		$('#ivcontact-pdsa').show()
 		$('#ivcontact-hit').hide()
@@ -22,7 +26,20 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-pcmha').hide()
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
+	else if v == 3  	# HIT only
+		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').hide()
+		$('#ivcontact-milestone').hide()
+		$('#ivcontact-pdsa').hide()
+		$('#ivcontact-hit').hide()
+		$('#ivcontact-gyr').hide()
+		$('#ivcontact-tier').hide()
+		$('#ivcontact-pcmha').hide()
+		$('#ivcontact-disruption').hide()
+		$('#ivcontact-contactmode').hide()
 	else if v == 9		# Ad-hoc contact/blank
+		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
 		$('#ivcontact-hit').hide()
@@ -32,6 +49,8 @@ updateContactType = (contact_type_field) ->
 		$('#ivcontact-disruption').hide()
 		$('#ivcontact-contactmode').show()
 	else							# Blank
+		$('#ivcontact-observations').hide()
+		$('#ivcontact-topic-qi-processes').show()
 		$('#ivcontact-milestone').hide()
 		$('#ivcontact-pdsa').hide()
 		$('#ivcontact-hit').hide()
@@ -81,12 +100,9 @@ updateHIT = (contact_specific_field) ->
 	if contactSpecific == 1							# 1st visit
 		$('#ivcontact-hit-vendor').show()
 		$('#ivcontact-hit-tier').show()
-	else if contactSpecific == 5				# 5th visit
-		$('#ivcontact-hit-vendor').hide()
-		$('#ivcontact-hit-tier').show()
 	else																# Other visits or Blank
 		$('#ivcontact-hit-vendor').hide()
-		$('#ivcontact-hit-tier').hide()
+		$('#ivcontact-hit-tier').show()
 
 updateHITQuality = (hit_quality_field) ->
 	hitQuality = parseInt($(hit_quality_field).val())
@@ -127,7 +143,6 @@ $(document).on "page:change", ->
 	updateHITQuality('#ivcontact_hit_quality')
 	updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
 	updateEHRWhich('#ivcontact_contact_type', '#contact_specific_calculated', 'ivcontact_prac_change_ehr')
-	updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 	updateCheckbox('ivcontact_prac_change_other', '#ivcontact-pracchangespecify')
 
 $(document).on "page:change", ->
@@ -136,10 +151,6 @@ $(document).on "page:change", ->
 		updateQICA('#ivcontact_contact_type', '#contact_specific_calculated')
 		updateHIT('#contact_specific_calculated')
 		updateStaffMemberSurvey('#ivcontact_contact_type', '#contact_specific_calculated')
-
-$(document).on "page:change", ->
-	$('#ivcontact_topic_other').on 'click',  ->
-		updateCheckbox('ivcontact_topic_other', '#ivcontact-topicotherspecify')
 
 $(document).on "page:change", ->
 	$('#ivcontact_prac_change_ehr').on 'click',  ->
@@ -157,25 +168,45 @@ $(document).on "page:change", ->
 	$('#ivcontact-tier1').on 'click', ->
 		$('#tier1').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Limited Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+			create: (event) ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier1').dialog('open')
 	$('#ivcontact-tier2').on 'click', ->
 		$('#tier2').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Basic Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+			create: ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier2').dialog('open')
 	$('#ivcontact-tier3').on 'click', ->
 		$('#tier3').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Moderate Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+			create: ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier3').dialog('open')
 	$('#ivcontact-tier4').on 'click', ->
 		$('#tier4').dialog(
 			closeText: "",
-			width: 450
+			width: 600,
+			title: "Advanced Change Capacity",
+      show: { effect: "fadeIn", delay: 100 },
+			create: ->
+				closeBtn = $('.ui-dialog-titlebar-close')
+				closeBtn.css({ "position": "absolute", "right": "10px" })
 		)
 		$('#tier4').dialog('open')
 
@@ -219,7 +250,7 @@ $(document).on "page:change", ->
 		$.ajax
 			url: '/personnels'
 			type: 'POST'
-			data: { personnel: { practice_id: $('#coach-personnel-practice').val(), name: $('#coach-personnel-name').val(), role: $('#coach-personnel-role').val() } }
+			data: { personnel: { practice_id: $('#coach-personnel-practice').val(), name: $('#coach-personnel-name').val(), role: $('#coach-personnel-role').val(), role_other: $('#coach-personnel-role-other').val(), email1: $('#coach-personnel-email1').val(), site_contact_primary: $('#coach-personnel-site-contact-primary').val(), site_contact_secondary: $('#coach-personnel-site-contact-secondary').val(), site_contact_champion: $('#coach-personnel-site-contact-champion').val() } }
 			dataType: 'json'
 			error: (jqXHR, textStatus, errorThrown) ->
 				$('#staffPopupMessage').html("Name is required. Cannot save staff member.")
@@ -228,4 +259,9 @@ $(document).on "page:change", ->
 				$('#staffPopupMessage').html("")
 				$('#coach-personnel-name').val("")
 				$('#coach-personnel-role').val("")
-				$('#openPopupForm').before("<li><input type='checkbox' name='ivcontact[personnels][#{data.id}]' id='ivcontact_personnels_#{data.id}' value='1' checked /> <label for='ivcontact_personnels_#{data.id}'>#{data.name} (#{data.role_name})</label></li>")
+				$('#coach-personnel-role-other').val("")
+				$('#coach-personnel-email1').val("")
+				$('#coach-personnel-site-contact-primary').attr('checked', false)
+				$('#coach-personnel-site-contact-secondary').attr('checked', false)
+				$('#coach-personnel-site-contact-champion').attr('checked', false)
+				$('#openPopupForm').before("<li><input type='checkbox' name='ivcontact[personnels][#{data.id}]' id='ivcontact_personnels_#{data.id}' value='1' checked /> <label for='ivcontact_personnels_#{data.id}'>#{data.name} (#{data.role_name}) #{data.email1}</label></li>")
