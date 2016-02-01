@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20160128192255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "coach_items", force: :cascade do |t|
     t.integer  "item_type"
@@ -69,9 +70,11 @@ ActiveRecord::Schema.define(version: 20160128192255) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "hlc_other",         default: false
+    t.integer  "practice_id"
   end
 
   add_index "high_leverage_change_tests", ["ivcontact_id"], name: "index_high_leverage_change_tests_on_ivcontact_id", using: :btree
+  add_index "high_leverage_change_tests", ["practice_id"], name: "index_high_leverage_change_tests_on_practice_id", using: :btree
 
   create_table "ivcontacts", force: :cascade do |t|
     t.integer  "contact_type"
@@ -188,7 +191,6 @@ ActiveRecord::Schema.define(version: 20160128192255) do
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
     t.string   "name",                                null: false
-    t.integer  "role",                   default: 0,  null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -204,6 +206,7 @@ ActiveRecord::Schema.define(version: 20160128192255) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "role"
     t.boolean  "recruiter"
     t.boolean  "coach"
   end
@@ -509,6 +512,7 @@ ActiveRecord::Schema.define(version: 20160128192255) do
   add_foreign_key "events", "partners"
   add_foreign_key "events", "practices"
   add_foreign_key "high_leverage_change_tests", "ivcontacts"
+  add_foreign_key "high_leverage_change_tests", "practices"
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
   add_foreign_key "practice_surveys", "practices"

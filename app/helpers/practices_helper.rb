@@ -51,7 +51,6 @@ module PracticesHelper
                   primary_care:                 'Primary Care',
                   number_clinicians:            'No. clinicians',
                   fte_clinicians:               'Clinician FTE',
-
                   prac_ehr:                     'EHR',
                   prac_ehr_mu:                  'MU-certified?',
                   prac_ehr_mu_yr:               'Year Certified',
@@ -92,7 +91,25 @@ module PracticesHelper
                   ehr_hlp_name:                 'EHR Helper',
                   ehr_hlp_phone:                'EHR Helper Phone',
                   ehr_hlp_email:                'EHR Helper Email',
-                  site_id:                      'Site'
+                  site_id:                      'Site',
+                  active:                       'Active in Study?',
+                  inactive_rsn:                 'Reason for dropping',
+                  drop_dt:                      'Date dropped',
+                  drop_reentry_dt:              'Date re-entered study',
+                  drop_determine:               'Drop determined by',
+                  drop_contact_who:             'Drop practice contact',
+                  drop_notify_who:              'Who notified of the drop?',
+                  drop_notify_how:              'Drop notification method',
+                  drop_notify_dt:               'Date of drop notification',
+                  drop_notify_rsn_demanding:    'Reason for drop: too demanding',
+                  drop_notify_rsn_priority:     'Reason for drop: other priorities',
+                  drop_notify_rsn_barrier:      'Reason for drop: barrier',
+                  drop_notify_rsn_relevant:     'Reason for drop: H2N not useful',
+                  drop_notify_rsn_other:        'Reason for drop: other',
+                  drop_notify_rsn_specify:      'Reason for drop: specify',
+                  drop_decide_who:              'Staff member dropping',
+                  drop_decide_why:              'Staff member reason',
+                  drop_comments:                'Drop Comments',
                 }
 
     csv_string = CSV.generate do |csv|
