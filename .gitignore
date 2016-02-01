@@ -13,7 +13,6 @@
 /tmp
 .env
 *.dump
-Gemfile.lock
 
 # Ignore the seed data
 /db/seeds.rb
