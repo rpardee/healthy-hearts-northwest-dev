@@ -1,0 +1,44 @@
+<%= render 'layouts/header' %>
+<div id = "wrapper">
+  <h1>Practices eligible for the Practice (and possibly Staff) Survey </h1>
+  <% if @practices && @practices.any? %>
+    <%= link_to 'Download this list', surveys_path(format: :csv) %>
+    <table class='simple-grid'>
+      <thead>
+        <tr>
+          <th>Site</th>
+          <th>Name</th>
+          <th>Study ID</th>
+          <th>Address</th>
+          <th>Primary Contact</th>
+          <th>FRIPC Date</th>
+          <th>Staff Survey Recipient</th>
+          <th>Drop Date</th>
+          <th>Coach</th>
+          <th>PAL status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @practices.each do |p| %>
+          <% pc = p.personnels.where(site_contact_primary: true).first %>
+          <% fc = p.ivcontacts.where(contact_type: 1).order(:contact_dt).first %>
+          <% pr = Partner.find(p.coach_id) if p.coach_id %>
+          <tr>
+            <td><%= p.site.name %></td>
+            <td><%= p.name %></td>
+            <td><%= p.study_id %></td>
+            <td><%= p.formatted_address %></td>
+            <td><%= "#{pc.try('name')} <#{pc.try('email1')}>" %></td>
+            <td><%= fc.try('contact_dt') %></td>
+            <td><%= fc.try('staff_survey_recipient') %></td>
+            <td><%= p.drop_dt %></td>
+            <td><%= "#{pr.try('name')} <#{pr.try('email')}>" %></td>
+            <td><%= p.pal_status_cached %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h2>There are none!</h2>
+  <% end %>
+</div>

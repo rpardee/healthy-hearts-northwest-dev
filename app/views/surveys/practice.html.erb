@@ -1,0 +1,27 @@
+<%= render 'layouts/header' %>
+<div id = "wrapper">
+  <h1>Practices eligible for the Practice Survey </h1>
+  <% if @practices.any? %>
+    <%= form_tag 'survey_update_path' do %>
+      <table class='simple-grid'>
+        <thead>
+          <tr>
+            <th>Site</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @practices.each do |p| %>
+            <tr>
+              <td><%= p.site.name %></td>
+              <td><%= p.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= submit_tag 'Update' %>
+    <% end %>
+  <% else %>
+    <h2>There aren't any!</h2>
+  <% end %>
+</div>

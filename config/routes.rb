@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'practice_progress', to: 'mains#practice_progress'
   get 'practice_lifetime/:id', to: 'mains#practice_lifetime', as: 'practice_lifetime'
 
+  resources :surveys
+
   resources :sites do
     resources :partners
   end
