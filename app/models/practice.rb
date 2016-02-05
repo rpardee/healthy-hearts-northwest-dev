@@ -223,6 +223,9 @@ class Practice < ActiveRecord::Base
       return contact.tier
     end
   end
+  def formatted_address
+    "#{address} #{city} #{PRAC_STATE_VALS.key(prac_state)} #{zip_code}"
+  end
 
   YN12_VALS = {
     "Yes" => 1,
