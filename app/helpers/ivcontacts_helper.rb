@@ -155,11 +155,12 @@ module IvcontactsHelper
           when :study_id
             cnt.practice.study_id
           when :name
-            cnt.practice.name
+            cnt.practice.name if cnt.practice
           when :drop_dt
             cnt.practice.drop_dt
           when :coach_name
-            cnt.practice.coach.name
+            pr = cnt.practice
+            pr.coach.name if pr.coach
           when :tier
             Ivcontact::TIER_LABELS.key(cnt.send(k))
           when :gyr
