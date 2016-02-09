@@ -1,5 +1,6 @@
 class Site < ActiveRecord::Base
 	has_many :partners, dependent: :destroy
+	has_many :manager_notes
 	has_paper_trail
 
 	SITE_VALS = {

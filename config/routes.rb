@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :manager_notes
   devise_for :partners
   devise_scope :partners do
     get  'partners/admin_new' => 'partners#admin_new'

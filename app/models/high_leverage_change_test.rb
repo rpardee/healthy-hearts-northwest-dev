@@ -1,7 +1,6 @@
 class HighLeverageChangeTest < ActiveRecord::Base
-
   belongs_to :ivcontact
-
+  has_paper_trail
 
   def list_hlcs
     lst = ""
