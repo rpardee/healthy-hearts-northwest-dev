@@ -110,6 +110,8 @@ module IvcontactsHelper
                   id:                           'Database ID',
                   study_id:                     'Study ID',
                   name:                         'Practice Name',
+                  drop_dt:                      'Date dropped',
+                  coach_name:                   'Coach',
                   contact_type:                 'Type',
                   contact_dt:                   'Date',
                   contact_specific:             'Contact',
@@ -153,7 +155,12 @@ module IvcontactsHelper
           when :study_id
             cnt.practice.study_id
           when :name
-            cnt.practice.name
+            cnt.practice.name if cnt.practice
+          when :drop_dt
+            cnt.practice.drop_dt
+          when :coach_name
+            pr = cnt.practice
+            pr.coach.name if pr.coach
           when :tier
             Ivcontact::TIER_LABELS.key(cnt.send(k))
           when :gyr

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120231820) do
+ActiveRecord::Schema.define(version: 20160128192255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -469,6 +469,25 @@ ActiveRecord::Schema.define(version: 20160120231820) do
     t.string   "study_id",                          limit: 5
     t.boolean  "residency_training_site",                      default: false
     t.integer  "site_id"
+    t.boolean  "active",                                       default: true
+    t.integer  "inactive_rsn"
+    t.date     "drop_dt"
+    t.date     "drop_reentry_dt"
+    t.integer  "drop_determine"
+    t.string   "drop_contact_num"
+    t.string   "drop_contact_who"
+    t.string   "drop_notify_who"
+    t.integer  "drop_notify_how"
+    t.date     "drop_notify_dt"
+    t.boolean  "drop_notify_rsn_demanding"
+    t.boolean  "drop_notify_rsn_priority"
+    t.boolean  "drop_notify_rsn_barrier"
+    t.boolean  "drop_notify_rsn_relevant"
+    t.boolean  "drop_notify_rsn_other"
+    t.string   "drop_notify_rsn_specify"
+    t.string   "drop_decide_who"
+    t.string   "drop_decide_why"
+    t.text     "drop_comments"
   end
 
   add_index "practices", ["site_id"], name: "index_practices_on_site_id", using: :btree

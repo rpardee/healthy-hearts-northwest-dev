@@ -47,6 +47,10 @@ class Ivcontact < ActiveRecord::Base
       lst[0..-3] # eat the last semicolon/space
     end
   end
+  def staff_survey_recipient
+    ret = smsvy_name
+    ret += " <#{smsvy_email}>" if smsvy_email.length > 0
+  end
 
   HLCS_SHORT = {
     milestone_evidence_progress:  "Embed evidence",
