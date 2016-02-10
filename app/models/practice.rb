@@ -16,6 +16,12 @@ class Practice < ActiveRecord::Base
 
 	has_many :personnels, dependent: :destroy
 
+  # Need these to cure the 3*(n + 1) queries problem in practices/index.csv
+  # http://guides.rubyonrails.org/association_basics.html#has-many-association-reference
+  has_many :primary_contacts, -> { where "site_contact_primary  = 't'"}, class_name: "Personnel"
+  has_many :ehr_extractors  , -> { where "ehr_extractor         = 't'"}, class_name: "Personnel"
+  has_many :ehr_helpers     , -> { where "ehr_helper            = 't'"}, class_name: "Personnel"
+
 	accepts_nested_attributes_for :personnels, :reject_if => :all_blank,
 		:allow_destroy => true
 
