@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201184704) do
+ActiveRecord::Schema.define(version: 20160210223847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -494,6 +494,8 @@ ActiveRecord::Schema.define(version: 20160201184704) do
     t.string   "drop_decide_who"
     t.string   "drop_decide_why"
     t.text     "drop_comments"
+    t.string   "reentry_who"
+    t.text     "reentry_comment"
   end
 
   add_index "practices", ["site_id"], name: "index_practices_on_site_id", using: :btree

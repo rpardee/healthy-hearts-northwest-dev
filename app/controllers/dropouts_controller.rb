@@ -50,6 +50,6 @@ class DropoutsController < ApplicationController
 				:drop_notify_rsn_priority, :drop_notify_rsn_barrier,
 				:drop_notify_rsn_relevant, :drop_notify_rsn_other,
 				:drop_notify_rsn_specify, :drop_decide_who, :drop_decide_why,
-				:drop_comments)
+				:drop_comments, :reentry_who, :reentry_comment)
     end
 end

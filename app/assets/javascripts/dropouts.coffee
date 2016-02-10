@@ -7,9 +7,11 @@ updateDropoutReentry = () ->
 	if v == "true"						# Update practice to active
 		$("#drop-dt").hide()
 		$("#drop-reentry-dt").show()
+		$("#drop-reentry").show()
 	else if v == "false"			# Update practice to inactive
 		$("#drop-dt").show()
 		$("#drop-reentry-dt").hide()
+		$("#drop-reentry").hide()
 
 updateDropoutType = () ->
 	v = parseInt($("#practice_drop_determine").val())

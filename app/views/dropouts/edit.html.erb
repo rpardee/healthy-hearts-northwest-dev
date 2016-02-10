@@ -2,7 +2,7 @@
 	<%= render 'layouts/header' %>
 
 	<div id='left-2'>
-		<h1>Study Dropout: <%= @practice.name %></h1>
+		<h1>Dropout: <%= @practice.name %></h1>
 	</div>
 
 	<div class='clearfix'></div>
@@ -20,9 +20,11 @@
 	    </div>
 	  <% end %>
 
-	  <p style="color: red;">
-	  	Warning. You are about to <%= @dropout_desc %> the Healthy Hearts Northwest study.<br /><br />
-	  </p>
+	  <% if @make_inactive %>
+		  <p style="color: red;">
+		  	Warning. You are about to <%= @dropout_desc %> the Healthy Hearts Northwest study.<br /><br />
+		  </p>
+	  <% end %>
 
 	  <%= f.hidden_field :active, value: !@make_inactive %>
 	  <%= f.hidden_field :inactive_rsn, value: @inactive_rsn %>
@@ -117,11 +119,26 @@
     	</table>
     </div>
 
+    <div id="drop-reentry" class='boxed' style="display: none;">
+    	<h3>H2N Re-entry</h3>
+    	<table class='space'>
+    		<tr>
+    			<td><%= f.label :reentry_who, "Which H2N staff member made this decision?" %></td>
+    			<td><%= f.text_field :reentry_who, size: 80, placeholder: "List name and organization (ORPRN/OHSU, Qualis, GHRI)" %></td>
+    		</tr>
+    		<tr>
+    			<td><%= f.label :reentry_comment, "Why was this decision made?" %></td>
+    			<td><%= f.text_area :reentry_comment, cols: 80, rows: 5 %></td>
+    		</tr>
+    	</table>
+    </div>
+
     <div class='boxed'>
+    	<h3>Comments</h3>
     	<p>
-	  		<%= f.label :drop_comments, "Additional Comments" %><br />
 	      <%= f.text_area :drop_comments, cols: 80, rows: 5 %>
 	    </p>
+    	<p>Please do not delete comments. But feel free to add more.</p>
 	  </div>
 
 		<div class="actions">

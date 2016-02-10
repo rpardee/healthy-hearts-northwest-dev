@@ -1,4 +1,4 @@
-<%= form_for @site do |f| %>
+<%= form_for(@site) do |f| %>
   <% if @manager_note.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@manager_note.errors.count, "error") %> prohibited this manager_note from being saved:</h2>
