@@ -114,7 +114,8 @@ module PracticesHelper
 
     csv_string = CSV.generate do |csv|
       csv << to_export.values
-      practices.all.each do |prac|
+      # practices.all.each do |prac|
+      practices.all.find_each do |prac|
         prim_con  = prac.personnels.where(site_contact_primary: true).first
         ehr_ext   = prac.personnels.where(ehr_extractor: true).first
         ehr_hlp   = prac.personnels.where(ehr_helper: true).first

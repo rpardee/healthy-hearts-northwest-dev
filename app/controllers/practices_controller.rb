@@ -13,6 +13,16 @@ class PracticesController < ApplicationController
     end
   end
 
+  def export
+    export_name = 'practices.csv'
+    @practices = policy_scope(Practice).all
+    response.headers['Content-Type'] = 'text/event-stream'
+    response.headers['Content-Disposition'] = "attachment; filename=#{export_name}"
+    render :template => 'practices/export.csv.erb'
+  ensure
+    response.stream.close
+  end
+
   # GET /practices/1
   # GET /practices/1.json
   def show

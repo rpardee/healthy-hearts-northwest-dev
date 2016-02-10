@@ -1,6 +1,10 @@
-<h1>Editing Manager Note</h1>
+<div id='wrapper'>
+	<%= render 'layouts/header' %>
 
-<%= render 'form' %>
+	<h1>Editing Manager Note</h1>
 
-<%= link_to 'Show', @manager_note %> |
-<%= link_to 'Back', manager_notes_path %>
+	<%= render 'form' %>
+
+	<br /><br />
+  <%= link_to "Back", :back %>
+</div>

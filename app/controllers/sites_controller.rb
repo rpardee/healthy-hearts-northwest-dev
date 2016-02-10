@@ -16,6 +16,8 @@ class SitesController < ApplicationController
   # GET /sites/new
   def new
     @site = Site.new
+    @manager_note = ManagerNote.new
+    @site.manager_notes.build unless @site.manager_notes.length > 0
   end
 
   # GET /sites/1/edit
@@ -70,6 +72,8 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params[:site].permit(:name)
+      params[:site].permit(:name,
+      manager_notes_attributes: [:id, :_destroy, :manager_note_type,
+        :manager_note_topic, :manager_note_comment])
     end
 end

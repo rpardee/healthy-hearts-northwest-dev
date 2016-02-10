@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :practices do
     resources :events
     resources :personnels
+    get 'export', on: :collection
   end
   resources :coach_practices do
     resources :ivcontacts
