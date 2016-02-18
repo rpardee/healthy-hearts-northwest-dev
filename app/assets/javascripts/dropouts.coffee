@@ -6,10 +6,14 @@ updateDropoutReentry = () ->
 	v = $("#practice_active").val()
 	if v == "true"						# Update practice to active
 		$("#drop-dt").hide()
+		$("#all-dropout-sections").hide()
+		$("#practice_drop_determine").prop('disabled', true)
 		$("#drop-reentry-dt").show()
 		$("#drop-reentry").show()
 	else if v == "false"			# Update practice to inactive
 		$("#drop-dt").show()
+		$("#all-dropout-sections").show()
+		$("#practice_drop_determine").prop('disabled', false)
 		$("#drop-reentry-dt").hide()
 		$("#drop-reentry").hide()
 

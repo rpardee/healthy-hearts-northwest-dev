@@ -22,7 +22,7 @@
 
 	  <% if @make_inactive %>
 		  <p style="color: red;">
-		  	Warning. You are about to <%= @dropout_desc %> the Healthy Hearts Northwest study.<br /><br />
+		  	Warning. You are about to <%= @dropout_desc %> Healthy Hearts Northwest.<br /><br />
 		  </p>
 	  <% end %>
 
@@ -40,13 +40,14 @@
     	 		<td><%= f.label :drop_reentry_dt, "Re-entry Date" %></td>
 	      	<td><%= f.text_field :drop_reentry_dt, class: 'datepicker', value: @today  %> mm/dd/yyyy</td>
 	    	</tr>
-	    	<tr>
+	    	<tr id='drop-determined'>
 	  			<td><%= f.label :drop_determine, "How was the dropout decision determined?" %></td>
 	      	<td><%= f.select :drop_determine, Practice::DROP_DETERMINE_VALS, include_blank: true %></td>
 	      </tr>
 	    </table>
 	  </div>
 
+	  <div id='all-dropout-sections'>
     <div id="drop-not-responding" class='boxed' style="display: none;">
     	<h3>Practice Not Responding </h3>
 	  	<table class='space'>
@@ -117,6 +118,7 @@
     			<td><%= f.text_area :drop_decide_why, cols: 80, rows: 5 %></td>
     		</tr>
     	</table>
+    </div>
     </div>
 
     <div id="drop-reentry" class='boxed' style="display: none;">
