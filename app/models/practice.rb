@@ -71,6 +71,15 @@ class Practice < ActiveRecord::Base
     visit14.order(:contact_dt).last if visit14
   end
 
+  def randomization_fields_complete?
+    REQUIRED_FOR_RANDOMIZATION.each do |fld|
+      if self.send(fld).nil? then
+        return false
+      end
+    end
+    return true
+  end
+
   def last_qica_complete?
     qica = get_last_qica
     if qica
@@ -415,6 +424,10 @@ class Practice < ActiveRecord::Base
     "Email" => 3,
     "Other" => 9
   }
+
+
+  # This list is made-up for now--just roughing out a possible solution to demo.
+  REQUIRED_FOR_RANDOMIZATION = [:prac_aco_join_medicaid, :prac_ehr_mu, :prac_ehr_extractdata, :number_clinicians, :fte_clinicians]
 
   EXPORT_VARIABLES = %w(name, address, phone, url)
 

@@ -117,7 +117,10 @@ module IvcontactsHelper
                   contact_specific:             'Contact',
                   contact_mode:                 'Mode',
                   contact_duration:             'Duration (minutes)',
+                  hit_quality:                  'Confidence in ABCS ability',
+                  hit_quality_explain:          'Explain lack of Confidence',
                   gyr:                          'GYR',
+                  gyr_notes:                    'GYR Notes',
                   tier:                         'Change Capacity Tier',
                   pcmha_1:                      'QICA Guideline',
                   pcmha_2:                      'QICA Perf Meas',
@@ -140,7 +143,8 @@ module IvcontactsHelper
                   pcmha_19:                     'QICA Specialty Care',
                   pcmha_20:                     'QICA Community Link',
                   disruptions:                  'Disruptions',
-                  contact_comments:             'Comments'
+                  contact_comments:             'Comments',
+                  observations:                 'observations'
                 }
     to_export = to_export.merge(Ivcontact::DISCUSSION_TOPICS)
     to_export = to_export.merge(Ivcontact::HLCS_SHORT)
@@ -171,6 +175,8 @@ module IvcontactsHelper
             Ivcontact::CONTACT_TYPE_VALS.key(cnt.send(k))
           when :contact_specific
             Ivcontact::CONTACT_SPECIFIC_VALS.key(cnt.send(k))
+          when :hit_quality
+            Ivcontact::HIT_QUALITY_VALS.key(cnt.send(k))
           when :disruptions
             cnt.disruptions
           else
