@@ -1,390 +1,381 @@
 <%= form_for(@practice) do |f| %>
   <% if @practice.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@practice.errors.count, "error") %> prohibited this practice from being saved:</h2>
-
+      <h2>This Practice record has <%= pluralize(@practice.errors.count, "problem") %>:</h2>
       <ul>
-      <% @practice.errors.full_messages.each do |message| %>
+        <% @practice.errors.full_messages.each do |message| %>
         <li><%= message %></li>
-      <% end %>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-<div id='nav-section'>
-  <nav>
-    <ul id='main-menu'>
-      <li><%= link_to "General", "#general" %></li>
-      <li><%= link_to "Staff", "#staff" %></li>
-      <li><%= link_to "Interest", "#interest" %></li>
-      <li><%= link_to "Eligibility", "#eligibility" %></li>
-      <li><%= link_to "Characteristics", "#characteristics" %></li>
-      <li><%= link_to "EHR Assessment", "#assessment" %></li><br />
-      <li><%= link_to "Back", :back %></li>
-      <li><%= f.submit "Save!", class: "button-important" %></li>
-    </ul>
-  </nav>
-</div>
-
-<!-- A copy of the associated recruiter so that ID can be deleted as necessary -->
-<%= hidden_field_tag "original_recruiter", @recruiter_id %>
-
-<div id='nav-right'>
-  <div class='box'>
-    <a name="general"></a>
-    <p class='title'>General</p>
-    <table class='space'>
-      <tr>
-        <td><%= f.label :name, "Name" %></td>
-        <td><%= f.text_field :name, size: 40 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :parent_organization, "Parent Organization (if any)" %></td>
-        <td><%= f.text_field :parent_organization, size: 40 %></td>
-      </tr>
-      <tr>
-        <td><%= label_tag "recruiter_partner", "Primary Recruiter" %></td>
-        <td><%= select_tag "recruiter_partner", options_for_select(policy_scope(Partner).where(recruiter: true).order("name").map{ |p| [p.name, p.id] }, selected: @recruiter_id), include_blank: true %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :recruitment_source, "Recruitment Source" %></td>
-        <td><%= f.select :recruitment_source, Practice::RECRUITMENT_SOURCE_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_recruitment_source_referral', :enablevalue => 4 } }  %></td>
-      </tr>
-      <tr class='disabled-question'>
-        <td><%= f.label :recruitment_source_referral, "Specify" %></td>
-        <td><%= f.text_field :recruitment_source_referral %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :address %></td>
-        <td><%= f.text_field :address, size: 40 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :city, "City" %></td>
-        <td><%= f.text_field :city, size: 40 %></td>
-        <td><%= f.label :prac_state, "State" %></td>
-        <td><%= f.select :prac_state, Practice::PRAC_STATE_VALS, include_blank: true %></td>
-        <% if current_partner.admin? %>
+  <div id='nav-section'>
+    <nav>
+      <ul id='main-menu'>
+        <li><%= link_to "General", "#general" %></li>
+        <li><%= link_to "Staff", "#staff" %></li>
+        <li><%= link_to "Interest", "#interest" %></li>
+        <li><%= link_to "Eligibility", "#eligibility" %></li>
+        <li><%= link_to "Characteristics", "#characteristics" %></li>
+        <li><%= link_to "EHR Assessment", "#assessment" %></li><br />
+        <li><%= link_to "Back", :back %></li>
+        <li><%= f.submit "Save!", class: "button-important" %></li>
+      </ul>
+    </nav>
+  </div>
+  <!-- A copy of the associated recruiter so that ID can be deleted as necessary -->
+  <%= hidden_field_tag "original_recruiter", @recruiter_id %>
+  <div id='nav-right'>
+    <div class='box'>
+      <a name="general"></a>
+      <p class='title'>General</p>
+      <table class='space'>
+        <tr>
+          <td><%= f.label :name, "Name" %></td>
+          <td><%= f.text_field :name, size: 40 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :parent_organization, "Parent Organization (if any)" %></td>
+          <td><%= f.text_field :parent_organization, size: 40 %></td>
+        </tr>
+        <tr>
+          <td><%= label_tag "recruiter_partner", "Primary Recruiter" %></td>
+          <td><%= select_tag "recruiter_partner", options_for_select(policy_scope(Partner).where(recruiter: true).order("name").map{ |p| [p.name, p.id] }, selected: @recruiter_id), include_blank: true %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :recruitment_source, "Recruitment Source" %></td>
+          <td><%= f.select :recruitment_source, Practice::RECRUITMENT_SOURCE_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_recruitment_source_referral', :enablevalue => 4 } }  %></td>
+        </tr>
+        <tr class='disabled-question'>
+          <td><%= f.label :recruitment_source_referral, "Specify" %></td>
+          <td><%= f.text_field :recruitment_source_referral %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :address %></td>
+          <td><%= f.text_field :address, size: 40 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :city, "City" %></td>
+          <td><%= f.text_field :city, size: 40 %></td>
+          <td><%= f.label :prac_state, "State" %></td>
+          <td><%= f.select :prac_state, Practice::PRAC_STATE_VALS, include_blank: true %></td>
+          <% if current_partner.admin? %>
           <td><%= f.label :site_id, "Site" %></td>
           <td><%= f.select :site_id, Site::SITE_VALS, include_blank: true %></td>
-        <% end %>
-      </tr>
-      <tr>
-        <td><%= f.label :zip_code, "ZIP Code" %></td>
-        <td><%= f.text_field :zip_code %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :phone %></td>
-        <td><%= f.text_field :phone %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :url, "URL" %></td>
-        <td><%= f.text_field :url, size: 40 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :email, "Email" %></td>
-        <td><%= f.text_field :email, size: 40 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :residency_training_site, "Residency Training Site?" %></td>
-        <td><%= f.check_box :residency_training_site %></td>
-      </tr>
-    </table>
-  </div>
-
-  <div class='box'>
-    <a name='staff'></a>
-    <p class='title'>Staff</p>
-    <div id='personnels'>
-      <%= f.fields_for :personnels do |personnel| %>
+          <% end %>
+        </tr>
+        <tr>
+          <td><%= f.label :zip_code, "ZIP Code" %></td>
+          <td><%= f.text_field :zip_code %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :phone %></td>
+          <td><%= f.text_field :phone %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :url, "URL" %></td>
+          <td><%= f.text_field :url, size: 40 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :email, "Email" %></td>
+          <td><%= f.text_field :email, size: 40 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :residency_training_site, "Residency Training Site?" %></td>
+          <td><%= f.check_box :residency_training_site %></td>
+        </tr>
+      </table>
+    </div>
+    <div class='box'>
+      <a name='staff'></a>
+      <p class='title'>Staff</p>
+      <div id='personnels'>
+        <%= f.fields_for :personnels do |personnel| %>
         <%= render 'personnel_fields', :f => personnel %>
-      <% end %>
+        <% end %>
+      </div>
+      <div class='links'>
+        <%= link_to_add_association 'Add Staff Member', f, :personnels %>
+      </div>
     </div>
-    <div class='links'>
-      <%= link_to_add_association 'Add Staff Member', f, :personnels %>
+    <div class='box'>
+      <a name="interest"></a>
+      <p class='title'>Interest</p>
+      <table class='space'>
+        <tr>
+          <td><%= f.label :interest_yn, "Are you interested in participating in this study?" %></td>
+          <td><%= f.select :interest_yn, Practice::YN12_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_interest_why_not', :enablevalue => 2 } } %></td>
+        </tr>
+        <tr class='disabled-question'>
+          <td><%= f.label :interest_why_not, "If no, why not?" %></td>
+          <td><%= f.select :interest_why_not, Practice::INTEREST_WHY_NOT_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_interest_why_not_other', :enablevalue => 99 } } %></td>
+        </tr>
+        <tr class='disabled-question'>
+          <td><%= f.label :interest_why_not_other, "Please specify:" %></td>
+          <td><%= f.text_field :interest_why_not_other %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :interest_why, "Why is your practice interested in participating in H2N?" %></td>
+          <td><%= f.text_area :interest_why, rows: 3, cols: 50 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :interest_expect, "What are your practice's expected outcomes from participating in H2N? What do you hope your practice gets out of participating?" %></td>
+          <td><%= f.text_area :interest_expect, rows: 3, cols: 50 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :interest_challenge, "What do you expect your practice's challenges will be?" %></td>
+          <td><%= f.text_area :interest_challenge, rows: 3, cols: 50 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :interest_contact_month, "What would be a good month for the coach to visit your practice for the first time?" %></td>
+          <td><%= f.select :interest_contact_month, Practice::INTEREST_CONTACT_MONTH_VALS, include_blank: true %></td>
+        </tr>
+      </table>
     </div>
-  </div>
-
-  <div class='box'>
-    <a name="interest"></a>
-    <p class='title'>Interest</p>
-    <table class='space'>
-      <tr>
-        <td><%= f.label :interest_yn, "Are you interested in participating in this study?" %></td>
-        <td><%= f.select :interest_yn, Practice::YN12_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_interest_why_not', :enablevalue => 2 } } %></td>
-      </tr>
-      <tr class='disabled-question'>
-        <td><%= f.label :interest_why_not, "If no, why not?" %></td>
-        <td><%= f.select :interest_why_not, Practice::INTEREST_WHY_NOT_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_interest_why_not_other', :enablevalue => 99 } } %></td>
-      </tr>
-      <tr class='disabled-question'>
-        <td><%= f.label :interest_why_not_other, "Please specify:" %></td>
-        <td><%= f.text_field :interest_why_not_other %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :interest_why, "Why is your practice interested in participating in H2N?" %></td>
-        <td><%= f.text_area :interest_why, rows: 3, cols: 50 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :interest_expect, "What are your practice's expected outcomes from participating in H2N? What do you hope your practice gets out of participating?" %></td>
-        <td><%= f.text_area :interest_expect, rows: 3, cols: 50 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :interest_challenge, "What do you expect your practice's challenges will be?" %></td>
-        <td><%= f.text_area :interest_challenge, rows: 3, cols: 50 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :interest_contact_month, "What would be a good month for the coach to visit your practice for the first time?" %></td>
-        <td><%= f.select :interest_contact_month, Practice::INTEREST_CONTACT_MONTH_VALS, include_blank: true %></td>
-      </tr>
-    </table>
-  </div>
-
-  <div class='box'>
-    <a name="eligibility"></a>
-    <p class='title'>Eligibility</p>
-    <table class='space'>
-      <tr>
-        <td><%= f.label :primary_care, "1. Primary care practice with Family Physicians or General Internists" %></td>
-        <td><%= f.select :primary_care, Practice::YN12_VALS, include_blank: true %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :number_clinicians, "2. Number of clinicians (MD, DO, NP, PA) at street address of practice" %></td>
-        <td><%= f.text_field :number_clinicians, size: 5 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :fte_clinicians, "3. Number of combined clinician (MD, DO, NP, PA) FTE at street address of practice" %></td>
-        <td><%= f.text_field :fte_clinicians, size: 5 %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_ehr, "4. Does your practice use an electronic health record (EHR) system? Do not include billing record systems." %></td>
-        <td><%= f.select :prac_ehr, Practice::PRAC_EHR_VALS, include_blank: true %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_ehr_mu, "5. Is your current system Certified to meet Meaningful Use as defined by Health and Human Services/Office of the National Coordinator for Health Information
+    <div class='box'>
+      <a name="eligibility"></a>
+      <p class='title'>Eligibility</p>
+      <table class='space'>
+        <tr>
+          <td><%= f.label :primary_care, "1. Primary care practice with Family Physicians or General Internists" %></td>
+          <td><%= f.select :primary_care, Practice::YN12_VALS, include_blank: true %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :number_clinicians, "2. Number of clinicians (MD, DO, NP, PA) at street address of practice" %></td>
+          <td><%= f.text_field :number_clinicians, size: 5 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :fte_clinicians, "3. Number of combined clinician (MD, DO, NP, PA) FTE at street address of practice" %></td>
+          <td><%= f.text_field :fte_clinicians, size: 5 %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_ehr, "4. Does your practice use an electronic health record (EHR) system? Do not include billing record systems." %></td>
+          <td><%= f.select :prac_ehr, Practice::PRAC_EHR_VALS, include_blank: true %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_ehr_mu, "5. Is your current system Certified to meet Meaningful Use as defined by Health and Human Services/Office of the National Coordinator for Health Information
           Technology (ONC)?" %></td>
-        <td><%= f.select :prac_ehr_mu, Practice::YN12_VALS, include_blank: true %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_ehr_mu_yr, "6. What year was your EHR certified?" %></td>
-        <td><%= f.text_field :prac_ehr_mu_yr, size: 4 %></td>
-      </tr>
-    </table>
-  </div>
-
-  <div class='box'>
-    <a name='characteristics'></a>
-    <p class='title'>Practice Characteristics</p>
-    <table class='space'>
-      <tr>
-        <td colspan='2'>1. Which of the following best describes your practice's ownership? (Check all that apply.)</td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_clinician, "Clinician-owned solo or group practice" %></td>
-        <td><%= f.check_box :prac_own_clinician %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_hosp, "Hospital/health system owned" %></td>
-        <td><%= f.check_box :prac_own_hosp %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_hmo, "Health maintenance organization (e.g., Kaiser Permanente)" %></td>
-        <td><%= f.check_box :prac_own_hmo %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_fqhc, "Federally Qualified Health Center or Look-Alike" %></td>
-        <td><%= f.check_box :prac_own_fqhc %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_nonfed, "Non-federal government clinic (e.g., state, county, city, public health clinic, etc.)" %></td>
-        <td><%= f.check_box :prac_own_nonfed %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_academic, "Academic health center/faculty practice" %></td>
-        <td><%= f.check_box :prac_own_academic %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_fed, "Federal (military, Veterans Administration, Dept of Defense)" %></td>
-        <td><%= f.check_box :prac_own_fed %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_rural, "Rural Health Clinic" %></td>
-        <td><%= f.check_box :prac_own_rural %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_ihs, "Indian Health Service" %></td>
-        <td><%= f.check_box :prac_own_ihs %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_own_other, "Other" %></td>
-        <td><%= f.check_box :prac_own_other, { class: 'enable-control', data: { :effector => '#practice_prac_own_other_specify', :enablevalue => 1 } } %></td>
-      </tr>
-      <tr class='disabled-question'>
-        <td><%= f.label :prac_own_other_specify, "Specify" %></td>
-        <td><%= f.text_field :prac_own_other_specify  %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_own_yrs, "2. How many years has this practice been under the current ownership? (Please round to the nearest year and enter 0 if this practice has been under the current ownership for less than one year)" %></td>
-        <td><%= f.text_field :prac_own_yrs, size: 5  %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :elig_clinic_count, "3. What is the total number of primary care clinics operated by parent organization?" %></td>
-        <td><%= f.text_field :elig_clinic_count, size: 5  %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_spec_mix, "4. Which of the following describes your practice's specialty mix?" %></td>
-        <td><%= f.select :prac_spec_mix, Practice::PRAC_SPEC_MIX_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_pcmh, "5. Is your practice recognized or accredited as a patient-centered medical home (PCMH)?" %></td>
-        <td><%= f.select :prac_pcmh, Practice::YN12_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td colspan='2'>6. Is your practice part of an accountable care organization (ACO)? (Check all that apply.)</td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_aco_medicaid, "Yes, Medicaid ACO" %></td>
-        <td><%= f.check_box :prac_aco_medicaid %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_aco_medicare, "Yes, Medicare ACO (Pioneer, Shared Savings Plan or Advance Payment)" %></td>
-        <td><%= f.check_box :prac_aco_medicare %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_aco_commercial, "Yes, Private/Commercial ACO" %></td>
-        <td><%= f.check_box :prac_aco_commercial %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_aco_other, "Yes, Another type of ACO" %></td>
-        <td><%= f.check_box :prac_aco_other %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_aco_none, "No, not part of an ACO" %></td>
-        <td><%= f.check_box :prac_aco_none %></td>
-      </tr>
-      <tr class='subquestion'>
-        <td><%= f.label :prac_aco_dk, "Don't know" %></td>
-        <td><%= f.check_box :prac_aco_dk %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_aco_join_medicaid, "7. Do you plan on newly joining or newly
-          contracting with a Medicaid ACO or ACO-type arrangement in the next 12 months?" %></td>
-        <td><%= f.select :prac_aco_join_medicaid, Practice::PRAC_ACO_JOIN_MEDICAID_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_aco_join_medicare, "8. If you are not part of a Medicare ACO, do you plan on newly joining or newly contracting with a Medicare ACO (Pioneer or Shared Savings Plan) in the next 12 months?" %></td>
-        <td><%= f.select :prac_aco_join_medicare, Practice::PRAC_ACO_JOIN_MEDICARE_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_aco_join_commercial, "9. Do you plan on newly joining or newly
-          contracting with a private/commercial ACO or ACO-type arrangement in the next 12 months?" %></td>
-        <td><%= f.select :prac_aco_join_commercial, Practice::PRAC_ACO_JOIN_COMMERCIAL_VALS, include_blank: true  %><br />
-          <sup>*</sup>Already contracting with at least one Private/Commercial ACO but plan to join additional
-          Private/Commercial ACO arrangements.</td>
-      </tr>
-    </table>
-  </div>
-
-  <div class='box'>
-    <a name='assessment'></a>
-    <p class='title'>EHR Assessment</p>
-    <div> RECRUITER INSTRUCTIONS:<br />
-      The first person with whom you speak may not know the answers to all
-      of these questions. If so, please note who they think will know the
-      answers.
+          <td><%= f.select :prac_ehr_mu, Practice::YN12_VALS, include_blank: true %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_ehr_mu_yr, "6. What year was your EHR certified?" %></td>
+          <td><%= f.text_field :prac_ehr_mu_yr, size: 4 %></td>
+        </tr>
+      </table>
     </div>
-    <table class='space'>
-      <!--
-      <tr>
-        <td>< %= f.label :prac_ehr_yr, "1. In which year did you install your current EHR system?" %></td>
-        <td>< %= f.text_field :prac_ehr_yr, size: 5 %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_ehrname, "2. What is the name of your current EHR system? (choose one)" %></td>
-        <td>
-          < %= f.select :prac_ehrname, Practice::PRAC_EHRNAME_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_prac_ehrname_other', :enablevalue => 99 } }   %>
-        </td>
-      </tr>
-      <tr class='disabled-question'>
-        <td>< %= f.label :prac_ehrname_other, "Please specify" %></td>
-        <td>< %= f.text_field :prac_ehrname_other %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_ehrversion, "3. What version of your EHR system are you currently using? You should be able to find the
+    <div class='box'>
+      <a name='characteristics'></a>
+      <p class='title'>Practice Characteristics</p>
+      <table class='space'>
+        <tr>
+          <td colspan='2'>1. Which of the following best describes your practice's ownership? (Check all that apply.)</td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_clinician, "Clinician-owned solo or group practice" %></td>
+          <td><%= f.check_box :prac_own_clinician %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_hosp, "Hospital/health system owned" %></td>
+          <td><%= f.check_box :prac_own_hosp %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_hmo, "Health maintenance organization (e.g., Kaiser Permanente)" %></td>
+          <td><%= f.check_box :prac_own_hmo %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_fqhc, "Federally Qualified Health Center or Look-Alike" %></td>
+          <td><%= f.check_box :prac_own_fqhc %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_nonfed, "Non-federal government clinic (e.g., state, county, city, public health clinic, etc.)" %></td>
+          <td><%= f.check_box :prac_own_nonfed %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_academic, "Academic health center/faculty practice" %></td>
+          <td><%= f.check_box :prac_own_academic %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_fed, "Federal (military, Veterans Administration, Dept of Defense)" %></td>
+          <td><%= f.check_box :prac_own_fed %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_rural, "Rural Health Clinic" %></td>
+          <td><%= f.check_box :prac_own_rural %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_ihs, "Indian Health Service" %></td>
+          <td><%= f.check_box :prac_own_ihs %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_own_other, "Other" %></td>
+          <td><%= f.check_box :prac_own_other, { class: 'enable-control', data: { :effector => '#practice_prac_own_other_specify', :enablevalue => 1 } } %></td>
+        </tr>
+        <tr class='disabled-question'>
+          <td><%= f.label :prac_own_other_specify, "Specify" %></td>
+          <td><%= f.text_field :prac_own_other_specify  %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_own_yrs, "2. How many years has this practice been under the current ownership? (Please round to the nearest year and enter 0 if this practice has been under the current ownership for less than one year)" %></td>
+          <td><%= f.text_field :prac_own_yrs, size: 5  %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :elig_clinic_count, "3. What is the total number of primary care clinics operated by parent organization?" %></td>
+          <td><%= f.text_field :elig_clinic_count, size: 5  %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_spec_mix, "4. Which of the following describes your practice's specialty mix?" %></td>
+          <td><%= f.select :prac_spec_mix, Practice::PRAC_SPEC_MIX_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_pcmh, "5. Is your practice recognized or accredited as a patient-centered medical home (PCMH)?" %></td>
+          <td><%= f.select :prac_pcmh, Practice::YN12_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td colspan='2'>6. Is your practice part of an accountable care organization (ACO)? (Check all that apply.)</td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_aco_medicaid, "Yes, Medicaid ACO" %></td>
+          <td><%= f.check_box :prac_aco_medicaid %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_aco_medicare, "Yes, Medicare ACO (Pioneer, Shared Savings Plan or Advance Payment)" %></td>
+          <td><%= f.check_box :prac_aco_medicare %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_aco_commercial, "Yes, Private/Commercial ACO" %></td>
+          <td><%= f.check_box :prac_aco_commercial %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_aco_other, "Yes, Another type of ACO" %></td>
+          <td><%= f.check_box :prac_aco_other %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_aco_none, "No, not part of an ACO" %></td>
+          <td><%= f.check_box :prac_aco_none %></td>
+        </tr>
+        <tr class='subquestion'>
+          <td><%= f.label :prac_aco_dk, "Don't know" %></td>
+          <td><%= f.check_box :prac_aco_dk %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_aco_join_medicaid, "7. Do you plan on newly joining or newly
+          contracting with a Medicaid ACO or ACO-type arrangement in the next 12 months?" %></td>
+          <td><%= f.select :prac_aco_join_medicaid, Practice::PRAC_ACO_JOIN_MEDICAID_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_aco_join_medicare, "8. If you are not part of a Medicare ACO, do you plan on newly joining or newly contracting with a Medicare ACO (Pioneer or Shared Savings Plan) in the next 12 months?" %></td>
+          <td><%= f.select :prac_aco_join_medicare, Practice::PRAC_ACO_JOIN_MEDICARE_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_aco_join_commercial, "9. Do you plan on newly joining or newly
+          contracting with a private/commercial ACO or ACO-type arrangement in the next 12 months?" %></td>
+          <td><%= f.select :prac_aco_join_commercial, Practice::PRAC_ACO_JOIN_COMMERCIAL_VALS, include_blank: true  %><br />
+            <sup>*</sup>Already contracting with at least one Private/Commercial ACO but plan to join additional
+          Private/Commercial ACO arrangements.</td>
+        </tr>
+      </table>
+    </div>
+    <div class='box'>
+      <a name='assessment'></a>
+      <p class='title'>EHR Assessment</p>
+      <div> RECRUITER INSTRUCTIONS:<br />
+        The first person with whom you speak may not know the answers to all
+        of these questions. If so, please note who they think will know the
+        answers.
+      </div>
+      <table class='space'>
+        <!--
+        <tr>
+          <td>< %= f.label :prac_ehr_yr, "1. In which year did you install your current EHR system?" %></td>
+          <td>< %= f.text_field :prac_ehr_yr, size: 5 %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_ehrname, "2. What is the name of your current EHR system? (choose one)" %></td>
+          <td>
+            < %= f.select :prac_ehrname, Practice::PRAC_EHRNAME_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_prac_ehrname_other', :enablevalue => 99 } }   %>
+          </td>
+        </tr>
+        <tr class='disabled-question'>
+          <td>< %= f.label :prac_ehrname_other, "Please specify" %></td>
+          <td>< %= f.text_field :prac_ehrname_other %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_ehrversion, "3. What version of your EHR system are you currently using? You should be able to find the
           software version on the log-in screen." %></td>
-        <td>< %= f.text_field :prac_ehrversion %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_mu_stage1, '4. Medicare and Medicaid offer incentives to practices that demonstrate "meaningful use of health IT." Did your practice apply for Stage 1 of these incentive
+          <td>< %= f.text_field :prac_ehrversion %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_mu_stage1, '4. Medicare and Medicaid offer incentives to practices that demonstrate "meaningful use of health IT." Did your practice apply for Stage 1 of these incentive
           payments?' %></td>
-        <td>
-          < %= f.select :prac_mu_stage1, Practice::PRAC_MU_STAGE1_VALS, include_blank: true  %>
-        </td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_mu_stage2, "5. Are there plans to apply for Stage 2 incentive payments?" %></td>
-        <td>
-          < %= f.select :prac_mu_stage2, Practice::YNMU1234_VALS, include_blank: true  %>
-        </td>
-      </tr>
-      -->
-      <tr>
-        <td><%= f.label :prac_ehr_extractdata, "1. Does your practice have someone who can configure or write quality reports from the
+          <td>
+            < %= f.select :prac_mu_stage1, Practice::PRAC_MU_STAGE1_VALS, include_blank: true  %>
+          </td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_mu_stage2, "5. Are there plans to apply for Stage 2 incentive payments?" %></td>
+          <td>
+            < %= f.select :prac_mu_stage2, Practice::YNMU1234_VALS, include_blank: true  %>
+          </td>
+        </tr>
+        -->
+        <tr>
+          <td><%= f.label :prac_ehr_extractdata, "1. Does your practice have someone who can configure or write quality reports from the
           EHR/EMR?" %></td>
-        <td>
-          <%= f.select :prac_ehr_extractdata, Practice::PRAC_EHR_EXTRACTDATA_VALS, include_blank: true  %>
-        </td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_ehr_person_extractdata, "2. Who is the person primarily responsible for configuring and writing quality reports
+          <td>
+            <%= f.select :prac_ehr_extractdata, Practice::PRAC_EHR_EXTRACTDATA_VALS, include_blank: true  %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_ehr_person_extractdata, "2. Who is the person primarily responsible for configuring and writing quality reports
           from the EHR/EMR?" %></td>
-        <td>
-          <%= f.select :prac_ehr_person_extractdata, Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_prac_ehr_person_extractdata_other', :enablevalue => 9 } }   %>
-        </td>
-      </tr>
-      <tr class='disabled-question'>
-        <td><%= f.label :prac_ehr_person_extractdata_other, "If other, please specify" %></td>
-        <td><%= f.text_field :prac_ehr_person_extractdata_other %></td>
-      </tr>
-      <tr>
-        <td> 3. What is the name and contact information of the person responsible for configuring and writing quality reports from
-        the EHR/EMR?</td>
-        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %> as "Configure & Write EHR Reports.")</td>
-      </tr>
-      <tr>
-        <td><%= f.label :prac_it_support, "4. Does your practice have a Health IT support person who can help with EHR problems when they arise?" %></td>
-        <td><%= f.select :prac_it_support, Practice::PRAC_IT_SUPPORT_VALS, include_blank: true  %></td>
-      </tr>
-      <tr class='toggle-enable'>
-        <td>5. What is the name and contact information of the support person responsible for helping with EHR problems?</td>
-        <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %> as "Help with EHR Problems.")</td>
-      </tr>
-      <!--
-      <tr>
-        <td>< %= f.label :prac_ehr_vendor, "11. Does your EHR vendor help extract data and clinical quality measures?" %></td>
-        <td>< %= f.select :prac_ehr_vendor, Practice::PRAC_EHR_VENDOR_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_share_healthinfo, "12. Do you share any patient health information (e.g., lab results, imaging reports, problem lists, medication lists) electronically (not with fax) with any other providers, including hospitals, ambulatory providers or labs?" %></td>
-        <td>< %= f.select :prac_share_healthinfo, Practice::YN12_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_cqm_submit, "13. Have you or are you soon going to submit CQM reports through the Physician Quality Reporting System (PQRS)?" %></td>
-        <td>< %= f.select :prac_cqm_submit, Practice::PRAC_CQM_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_cqm_who, "14. Through whom do you or will you report? (Examples include CMS, professional societies, state organizations.)" %></td>
-        <td>< %= f.text_area :prac_cqm_who, :cols => 40, :rows => 3, :limit => 200 %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_ehr_satisfaction, "15. Overall, how satisfied or dissatisfied are you with your EHR system?" %></td>
-        <td>< %= f.select :prac_ehr_satisfaction, Practice::SATISFIED1234_VALS, include_blank: true  %></td>
-      </tr>
-      <tr>
-        <td>< %= f.label :prac_new_ehr, "16. At your practice are there plans for installing a new EHR system within the next 18 months?" %></td>
-        <td>< %= f.select :prac_new_ehr, Practice::YNMU1234_VALS, include_blank: true  %></td>
-      </tr>
-      -->
-    </table>
+          <td>
+            <%= f.select :prac_ehr_person_extractdata, Practice::PRAC_EHR_PERSON_EXTRACTDATA_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_prac_ehr_person_extractdata_other', :enablevalue => 9 } }   %>
+          </td>
+        </tr>
+        <tr class='disabled-question'>
+          <td><%= f.label :prac_ehr_person_extractdata_other, "If other, please specify" %></td>
+          <td><%= f.text_field :prac_ehr_person_extractdata_other %></td>
+        </tr>
+        <tr>
+          <td> 3. What is the name and contact information of the person responsible for configuring and writing quality reports from
+          the EHR/EMR?</td>
+          <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %> as "Configure & Write EHR Reports.")</td>
+        </tr>
+        <tr>
+          <td><%= f.label :prac_it_support, "4. Does your practice have a Health IT support person who can help with EHR problems when they arise?" %></td>
+          <td><%= f.select :prac_it_support, Practice::PRAC_IT_SUPPORT_VALS, include_blank: true  %></td>
+        </tr>
+        <tr class='toggle-enable'>
+          <td>5. What is the name and contact information of the support person responsible for helping with EHR problems?</td>
+          <td>(Please enter this information in the <%= link_to "Staff List", "#staff" %> as "Help with EHR Problems.")</td>
+        </tr>
+        <!--
+        <tr>
+          <td>< %= f.label :prac_ehr_vendor, "11. Does your EHR vendor help extract data and clinical quality measures?" %></td>
+          <td>< %= f.select :prac_ehr_vendor, Practice::PRAC_EHR_VENDOR_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_share_healthinfo, "12. Do you share any patient health information (e.g., lab results, imaging reports, problem lists, medication lists) electronically (not with fax) with any other providers, including hospitals, ambulatory providers or labs?" %></td>
+          <td>< %= f.select :prac_share_healthinfo, Practice::YN12_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_cqm_submit, "13. Have you or are you soon going to submit CQM reports through the Physician Quality Reporting System (PQRS)?" %></td>
+          <td>< %= f.select :prac_cqm_submit, Practice::PRAC_CQM_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_cqm_who, "14. Through whom do you or will you report? (Examples include CMS, professional societies, state organizations.)" %></td>
+          <td>< %= f.text_area :prac_cqm_who, :cols => 40, :rows => 3, :limit => 200 %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_ehr_satisfaction, "15. Overall, how satisfied or dissatisfied are you with your EHR system?" %></td>
+          <td>< %= f.select :prac_ehr_satisfaction, Practice::SATISFIED1234_VALS, include_blank: true  %></td>
+        </tr>
+        <tr>
+          <td>< %= f.label :prac_new_ehr, "16. At your practice are there plans for installing a new EHR system within the next 18 months?" %></td>
+          <td>< %= f.select :prac_new_ehr, Practice::YNMU1234_VALS, include_blank: true  %></td>
+        </tr>
+        -->
+      </table>
+    </div>
   </div>
 <% end %>
-</div>
