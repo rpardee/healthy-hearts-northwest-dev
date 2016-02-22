@@ -108,7 +108,7 @@ module IvcontactsHelper
   def export_contacts(ivcontacts)
     to_export = {
                   id:                           'Database ID',
-                  study_id:                     'Study ID',
+                  study_id:                     'Practice ID',
                   name:                         'Practice Name',
                   drop_dt:                      'Date dropped',
                   coach_name:                   'Coach',

@@ -69,7 +69,7 @@ class Ivcontact < ActiveRecord::Base
     topic_validate_data:        "Validate data",
     topic_meaningful_use:       "Meaningful Use",
     topic_cqm_report:           "Generate clinical quality measure reports",
-    topic_abcs:                 "Submit ABCS measures to study team",
+    topic_abcs:                 "Submit ABCS measures to project team",
     topic_data_error:           "Data errors",
     topic_coding:               "Coding/IT needs",
     topic_hit_display:          "Create data displays",

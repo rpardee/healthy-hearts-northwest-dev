@@ -24,7 +24,7 @@ module PracticesHelper
   def export(practices)
     to_export = {
                   id:                           'Database ID',
-                  study_id:                     'Study ID',
+                  study_id:                     'Practice ID',
                   name:                         'Practice Name',
                   enrolled:                     'Enrolled?',
                   interest_yn:                  'Interested?',
@@ -92,10 +92,10 @@ module PracticesHelper
                   ehr_hlp_phone:                'EHR Helper Phone',
                   ehr_hlp_email:                'EHR Helper Email',
                   site_id:                      'Site',
-                  active:                       'Active in Study?',
+                  active:                       'Active in Project?',
                   inactive_rsn:                 'Reason for dropping',
                   drop_dt:                      'Date dropped',
-                  drop_reentry_dt:              'Date re-entered study',
+                  drop_reentry_dt:              'Date re-entered project',
                   drop_determine:               'Drop determined by',
                   drop_contact_who:             'Drop practice contact',
                   drop_notify_who:              'Who notified of the drop?',

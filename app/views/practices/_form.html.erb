@@ -103,7 +103,7 @@
       <p class='title'>Interest</p>
       <table class='space'>
         <tr>
-          <td><%= f.label :interest_yn, "Are you interested in participating in this study?" %></td>
+          <td><%= f.label :interest_yn, "Are you interested in participating in this project?" %></td>
           <td><%= f.select :interest_yn, Practice::YN12_VALS, { include_blank: true }, { class: 'enable-control', data: { :effector => '#practice_interest_why_not', :enablevalue => 2 } } %></td>
         </tr>
         <tr class='disabled-question'>

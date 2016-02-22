@@ -4,7 +4,7 @@ module SurveysHelper
     to_export = {
       site_id: 'Site',
       name: 'Practice Name',
-      study_id: 'Study ID',
+      study_id: 'Practice ID',
       formatted_address: 'Address',
       pc_name: 'Primary Contact Name',
       pc_email1: 'Primary Contact E-Mail',
