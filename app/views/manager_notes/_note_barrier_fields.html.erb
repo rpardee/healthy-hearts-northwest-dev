@@ -1,0 +1,9 @@
+<tr>
+	<td>
+		<%= f.hidden_field :manager_note_type, value: ManagerNote::MANAGER_NOTE_TYPE_VALS["Barrier"] %>
+		<%= f.text_field :manager_note_topic, size: 30 %>
+	</td>
+	<td>
+		<%= f.text_area :manager_note_comment, rows: 3, cols: 75 %>
+	</td>
+</tr>

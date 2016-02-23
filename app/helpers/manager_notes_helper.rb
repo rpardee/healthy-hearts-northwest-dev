@@ -1,0 +1,2 @@
+module ManagerNotesHelper
+end

@@ -1,0 +1,34 @@
+<%= form_for(@site) do |f| %>
+  <% if @manager_note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manager_note.errors.count, "error") %> prohibited this manager_note from being saved:</h2>
+
+      <ul>
+      <% @manager_note.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='box'>
+    <p class='title'>What are the primary barriers or challenges your coaches are currently experiencing in their coaching work?</p>
+    <table id='barriers' class='space'>
+      <tr>
+        <td>Topic</td>
+        <td>Comments</td>
+      </tr>
+      <%= f.fields_for :manager_notes do |note| %>
+        <%= render 'note_barrier_fields', :f => note %>
+      <% end %>
+      <tr id='last-barrier-note'></tr>
+    </table>
+    <div id='add-barrier-note'>
+      <%= link_to_add_association 'Add new barrier', f, :manager_notes, partial: 'note_barrier_fields', 'data-association-insertion-method' => 'after', 'data-association-insertion-node' => '#last-barrier-note' %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save Notes" %>
+  </div>
+<% end %>

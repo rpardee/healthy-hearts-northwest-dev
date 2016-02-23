@@ -1,5 +1,6 @@
 class CoachItem < ActiveRecord::Base
 	belongs_to :practice
+	has_paper_trail
 
   validates_presence_of :practice_id
 

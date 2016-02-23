@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :manager_notes
   devise_for :partners
   devise_scope :partners do
     get  'partners/admin_new' => 'partners#admin_new'
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   resources :practices do
     resources :events
     resources :personnels
+    get 'export', on: :collection
   end
   resources :coach_practices do
     resources :ivcontacts

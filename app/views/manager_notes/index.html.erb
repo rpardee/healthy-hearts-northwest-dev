@@ -1,0 +1,32 @@
+<div id='wrapper'>
+<%= render 'layouts/header' %>
+<p id="notice"><%= notice %></p>
+
+<h1>Manager Notes</h1>
+
+<table class='typical enable-data-table'>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manager_notes.each do |manager_note| %>
+      <tr>
+        <td><%= link_to truncate(manager_note.manager_note_topic, length: 25), edit_manager_note_path(manager_note) %></td>
+        <td><%= ManagerNote::MANAGER_NOTE_TYPE_VALS.key(manager_note.manager_note_type) %></td>
+        <td><%= manager_note.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%= truncate(manager_note.manager_note_comment, length: 50) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manager Note', new_manager_note_path %>
+</div>

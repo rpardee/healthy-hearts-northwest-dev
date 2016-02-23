@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128192255) do
+ActiveRecord::Schema.define(version: 20160210223847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,11 +70,9 @@ ActiveRecord::Schema.define(version: 20160128192255) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "hlc_other",         default: false
-    t.integer  "practice_id"
   end
 
   add_index "high_leverage_change_tests", ["ivcontact_id"], name: "index_high_leverage_change_tests_on_ivcontact_id", using: :btree
-  add_index "high_leverage_change_tests", ["practice_id"], name: "index_high_leverage_change_tests_on_practice_id", using: :btree
 
   create_table "ivcontacts", force: :cascade do |t|
     t.integer  "contact_type"
@@ -187,6 +185,15 @@ ActiveRecord::Schema.define(version: 20160128192255) do
 
   add_index "ivcontacts_personnels", ["ivcontact_id"], name: "index_ivcontacts_personnels_on_ivcontact_id", using: :btree
   add_index "ivcontacts_personnels", ["personnel_id"], name: "index_ivcontacts_personnels_on_personnel_id", using: :btree
+
+  create_table "manager_notes", force: :cascade do |t|
+    t.integer  "site_id"
+    t.integer  "manager_note_type"
+    t.string   "manager_note_topic"
+    t.text     "manager_note_comment"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "partners", force: :cascade do |t|
     t.integer  "site_id",                             null: false
@@ -488,6 +495,8 @@ ActiveRecord::Schema.define(version: 20160128192255) do
     t.string   "drop_decide_who"
     t.string   "drop_decide_why"
     t.text     "drop_comments"
+    t.string   "reentry_who"
+    t.text     "reentry_comment"
   end
 
   add_index "practices", ["site_id"], name: "index_practices_on_site_id", using: :btree
@@ -512,7 +521,6 @@ ActiveRecord::Schema.define(version: 20160128192255) do
   add_foreign_key "events", "partners"
   add_foreign_key "events", "practices"
   add_foreign_key "high_leverage_change_tests", "ivcontacts"
-  add_foreign_key "high_leverage_change_tests", "practices"
   add_foreign_key "partners", "sites"
   add_foreign_key "personnels", "practices"
   add_foreign_key "practice_surveys", "practices"
