@@ -29,10 +29,7 @@ class PracticesController < ApplicationController
   def edit
     @recruiter_id = @practice.recruiter.id if @practice.recruiter
 
-    if not @practice.randomization_fields_complete?
-      @practice.errors[:base] = "This practice cannot be randomized because it is missing one or more crucial values."
-    end
-    Practice::REQUIRED_FOR_RANDOMIZATION.each do |fld|
+    Practice::REQUIRED_FOR_RANDOMIZATION.keys.each do |fld|
       if @practice.send(fld).nil? then
         @practice.errors.add(fld, " is required for randomization.")
       end
