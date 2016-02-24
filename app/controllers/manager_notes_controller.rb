@@ -17,8 +17,7 @@ class ManagerNotesController < ApplicationController
   def new
     @site = current_user.site
     set_manager_barriers
-    # @manager_note = ManagerNote.new
-    # @site.manager_notes.build unless @site.manager_notes.length > 0
+    @site.manager_notes.build unless @site.manager_notes.length > 0
   end
 
   # GET /manager_notes/1/edit
