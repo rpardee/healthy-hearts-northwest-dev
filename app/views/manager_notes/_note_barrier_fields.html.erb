@@ -6,4 +6,8 @@
 	<td>
 		<%= f.text_area :manager_note_comment, rows: 3, cols: 75 %>
 	</td>
+	<td>
+		<%= f.text_field :updated_at, value: (f.object.updated_at.strftime('%Y-%m-%d %H:%M') if f.object.updated_at), disabled: 'disabled' %>
+	</td>
+  <td><%= link_to_remove_association "Delete Barrier", f %></td>
 </tr>

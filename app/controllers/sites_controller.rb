@@ -16,12 +16,14 @@ class SitesController < ApplicationController
   # GET /sites/new
   def new
     @site = Site.new
-    @manager_note = ManagerNote.new
     @site.manager_notes.build unless @site.manager_notes.length > 0
   end
 
   # GET /sites/1/edit
   def edit
+    @manager_barriers = @site.manager_notes
+      .where(manager_note_type: ManagerNote::MANAGER_NOTE_TYPE_VALS["Barrier"])
+      .order(created_at: :desc)
   end
 
   # POST /sites
@@ -31,7 +33,7 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to @site, notice: 'Site was successfully created.' }
+        format.html { redirect_to manager_notes_path, notice: 'Manager notes were successfully created.' }
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
@@ -45,7 +47,7 @@ class SitesController < ApplicationController
   def update
     respond_to do |format|
       if @site.update(site_params)
-        format.html { redirect_to @site, notice: 'Site was successfully updated.' }
+        format.html { redirect_to manager_notes_path, notice: 'Manager notes were successfully updated.' }
         format.json { render :show, status: :ok, location: @site }
       else
         format.html { render :edit }
