@@ -72,7 +72,7 @@ class Practice < ActiveRecord::Base
   end
 
   def randomization_fields_complete?
-    REQUIRED_FOR_RANDOMIZATION.each do |fld|
+    REQUIRED_FOR_RANDOMIZATION.keys.each do |fld|
       if self.send(fld).nil? then
         return false
       end
@@ -427,7 +427,15 @@ class Practice < ActiveRecord::Base
 
 
   # This list is made-up for now--just roughing out a possible solution to demo.
-  REQUIRED_FOR_RANDOMIZATION = [:prac_aco_join_medicaid, :prac_ehr_mu, :prac_ehr_extractdata, :number_clinicians, :fte_clinicians]
+  REQUIRED_FOR_RANDOMIZATION = {
+     prac_aco_join_medicaid: "Plans to join medicaid ACO",
+     prac_ehr_mu: "Whether EMR is meaningful-use certified",
+     prac_ehr_extractdata: "Does practice have someone to extract data from EHR?",
+     number_clinicians: "Number of clinicians.",
+     fte_clinicians: "Clinician FTE",
+     name: "Practice Name",
+     prac_state: "Practice State"
+   }
 
   EXPORT_VARIABLES = %w(name, address, phone, url)
 

@@ -1,10 +1,10 @@
 <%= form_for(@practice) do |f| %>
   <% if @practice.errors.any? %>
     <div id="error_explanation">
-      <h2>This Practice record has <%= pluralize(@practice.errors.count, "problem") %>:</h2>
+      <h2>This practice cannot be randomized, because these fields (highlighted below) have missing values:</h2>
       <ul>
-        <% @practice.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <% @practice.errors.messages.each do |message| %>
+        <li><%= Practice::REQUIRED_FOR_RANDOMIZATION[message[0]] %></li>
         <% end %>
       </ul>
     </div>
