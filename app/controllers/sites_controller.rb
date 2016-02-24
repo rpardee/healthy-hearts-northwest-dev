@@ -16,14 +16,16 @@ class SitesController < ApplicationController
   # GET /sites/new
   def new
     @site = Site.new
-    @site.manager_notes.build unless @site.manager_notes.length > 0
   end
 
   # GET /sites/1/edit
   def edit
     @manager_barriers = @site.manager_notes
       .where(manager_note_type: ManagerNote::MANAGER_NOTE_TYPE_VALS["Barrier"])
-      .order(created_at: :desc)
+      .order(updated_at: :desc)
+    @manager_successes = @site.manager_notes
+      .where(manager_note_type: ManagerNote::MANAGER_NOTE_TYPE_VALS["Success"])
+      .order(updated_at: :desc)
   end
 
   # POST /sites

@@ -1,0 +1,17 @@
+<tr class='nested-fields'>
+	<td>
+		<%= f.hidden_field :manager_note_type, value: ManagerNote::MANAGER_NOTE_TYPE_VALS["Success"] %>
+		<%= f.text_field :manager_note_topic, size: 30 %>
+	</td>
+	<td>
+		<%= f.text_area :manager_note_comment, rows: 3, cols: 75 %>
+	</td>
+	<td>
+		<% if f.object.updated_at %>
+			<%= f.text_field :updated_at, value: f.object.updated_at.strftime('%Y-%m-%d %H:%M'), disabled: 'disabled' %>
+		<% else %>
+			<%= f.text_field :updated_at, placeholder: "Automatically calculated", disabled: 'disabled' %>
+		<% end %>
+	</td>
+  <td><%= link_to_remove_association "Delete Success", f %></td>
+</tr>

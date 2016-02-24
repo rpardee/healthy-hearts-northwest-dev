@@ -3,9 +3,9 @@
   <div class='box'>
     <p class='title'>What are the primary barriers or challenges your coaches are currently experiencing in their coaching work?</p>
     <div id='add-barrier-note'>
-      <%= link_to_add_association "Add new barrier", f, :manager_notes, partial: 'note_barrier_fields', 'data-association-insertion-method' => 'prepend', 'data-association-insertion-node' => '#manager_notes' %>
+      <%= link_to_add_association "Add new barrier", f, :manager_notes, partial: 'note_barrier_fields', 'data-association-insertion-method' => 'prepend', 'data-association-insertion-node' => '#manager_barriers' %>
     </div>
-    <table id='barriers' class='space'>
+    <table class='space'>
       <thead>
         <tr>
           <td>Topic</td>
@@ -13,9 +13,30 @@
           <td>Last Updated</td>
         </tr>
       </thead>
-      <tbody id='manager_notes'>
+      <tbody id='manager_barriers'>
         <%= f.fields_for(:manager_notes, @manager_barriers) do |note| %>
           <%= render 'note_barrier_fields', :f => note %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class='box'>
+    <p class='title'>What are some of the successes your coaches are experiencing in their work with practices?</p>
+    <div id='add-success-note'>
+      <%= link_to_add_association "Add new success", f, :manager_notes, partial: 'note_success_fields', 'data-association-insertion-method' => 'prepend', 'data-association-insertion-node' => '#manager_successes' %>
+    </div>
+    <table class='space'>
+      <thead>
+        <tr>
+          <td>Topic</td>
+          <td>Comments</td>
+          <td>Last Updated</td>
+        </tr>
+      </thead>
+      <tbody id='manager_successes'>
+        <%= f.fields_for(:manager_notes, @manager_successes) do |note| %>
+          <%= render 'note_success_fields', :f => note %>
         <% end %>
       </tbody>
     </table>
