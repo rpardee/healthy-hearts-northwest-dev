@@ -5,7 +5,6 @@ class PracticesController < ApplicationController
   # GET /practices
   # GET /practices.json
   def index
-    @recruiter_or_coach_override = "Admin"
     @practices = policy_scope(Practice).includes(:primary_contacts, :ehr_helpers, :ehr_extractors, :site, :partners).all
     respond_to do |format|
       format.html

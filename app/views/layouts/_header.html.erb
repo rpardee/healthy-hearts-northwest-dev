@@ -31,7 +31,7 @@
 						<% if current_partner.supervisor? %>
 							<%= link_to "Manager Area", supervisor_area_path, title: "Tasks for Supervisors of Recruiters & Coaches" %>
 						<% else %>
-							&nbsp;
+							<%= link_to "Coach List", coach_assignments_path %>
 						<% end %>
 					</td>
 				</tr>
