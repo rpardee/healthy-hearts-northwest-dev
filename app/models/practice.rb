@@ -428,11 +428,11 @@ class Practice < ActiveRecord::Base
 
   # This list is made-up for now--just roughing out a possible solution to demo.
   REQUIRED_FOR_RANDOMIZATION = {
-     prac_aco_join_medicaid: "Plans to join medicaid ACO",
-     prac_ehr_mu: "Whether EMR is meaningful-use certified",
-     prac_ehr_extractdata: "Does practice have someone to extract data from EHR?",
-     number_clinicians: "Number of clinicians.",
-     fte_clinicians: "Clinician FTE",
+     # prac_aco_join_medicaid: "Plans to join medicaid ACO",
+     # prac_ehr_mu: "Whether EMR is meaningful-use certified",
+     # prac_ehr_extractdata: "Does practice have someone to extract data from EHR?",
+     # number_clinicians: "Number of clinicians.",
+     # fte_clinicians: "Clinician FTE",
      name: "Practice Name",
      prac_state: "Practice State"
    }
@@ -468,4 +468,9 @@ class Practice < ActiveRecord::Base
     end
     return ('"' + prettyVars.join('","') + '"').html_safe
   end
+
+  def self.import_excel(xlsx)
+
+  end
+
 end
