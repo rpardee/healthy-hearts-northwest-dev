@@ -1,7 +1,7 @@
 <tr class='nested-fields'>
 	<td>
 		<%= tag "a", name: "note-#{f.object.id}" %>
-		<%= f.hidden_field :manager_note_type, value: ManagerNote::MANAGER_NOTE_TYPE_VALS["Success"] %>
+		<%= f.hidden_field :manager_note_type, value: ManagerNote::MANAGER_NOTE_TYPE_VALS["Support"] %>
 		<%= f.text_field :manager_note_topic, size: 30 %>
 	</td>
 	<td>
@@ -14,5 +14,5 @@
 			<%= f.text_field :updated_at, placeholder: "Automatically calculated", disabled: 'disabled' %>
 		<% end %>
 	</td>
-  <td><%= link_to_remove_association "Delete Success", f %></td>
+  <td><%= link_to_remove_association "Delete Support", f %></td>
 </tr>
