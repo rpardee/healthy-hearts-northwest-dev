@@ -161,6 +161,10 @@
           <td><%= f.label :prac_ehr_mu_yr, "6. What year was your EHR certified?" %></td>
           <td><%= f.text_field :prac_ehr_mu_yr, size: 4 %></td>
         </tr>
+        <tr>
+          <td><%= f.label :eligibility_exception, "7. Please list any anomalies or exceptions that make this practice eligible despite not meeting all criteria (e.g., EHR not yet certified, >10 clinician FTE, etc.)" %></td>
+          <td><%= f.text_area :eligibility_exception, rows: 4, cols: 50 %></td>
+        </tr>
       </table>
     </div>
     <div class='box'>

@@ -132,7 +132,7 @@ class PracticesController < ApplicationController
         :prac_aco_medicaid, :prac_aco_medicare, :prac_aco_commercial,
         :prac_aco_other, :prac_aco_none, :prac_aco_dk,
         :prac_aco_join_medicare, :prac_aco_join_commercial,
-        :zip_code, :city, :residency_training_site,
+        :zip_code, :city, :residency_training_site, :eligibility_exception,
         personnels_attributes: [:id, :_destroy, :name, :role, :role_other, :phone1,
           :phone1_best, :phone2, :phone2_best, :email1, :email1_best,
           :email2, :email2_best, :ehr_extractor, :ehr_helper, :ehr_cqm,
