@@ -58,7 +58,7 @@ require 'csv'
 
 group :production do
 	# Error tracking
-	gem 'rollbar', '~> 1.2.7'
+	gem 'rollbar', '~> 2.8.3'
 
 	# Web server
 	gem 'puma', '~> 2.14.0'
