@@ -1,7 +1,7 @@
 <%= form_for(@site) do |f| %>
 
   <div class='box'>
-    <p class='title'>What are the primary barriers or challenges your coaches are currently experiencing in their coaching work?</p>
+    <p class='title'>In the last month, what are the primary barriers or challenges your coaches are currently experiencing in their coaching work?</p>
     <div id='add-barrier-note'>
       <%= link_to_add_association "Add new barrier", f, :manager_notes, partial: 'note_barrier_fields', 'data-association-insertion-method' => 'prepend', 'data-association-insertion-node' => '#manager_barriers' %>
     </div>
@@ -22,7 +22,7 @@
   </div>
 
   <div class='box'>
-    <p class='title'>What are some of the successes your coaches are experiencing in their work with practices?</p>
+    <p class='title'>In the last month, what are some of the successes your coaches are experiencing in their work with practices?</p>
     <div id='add-success-note'>
       <%= link_to_add_association "Add new success", f, :manager_notes, partial: 'note_success_fields', 'data-association-insertion-method' => 'prepend', 'data-association-insertion-node' => '#manager_successes' %>
     </div>
@@ -43,7 +43,7 @@
   </div>
 
   <div class='box'>
-    <p class='title'>Based on what you are hearing from the coaches about their own work and what the practices’ needs are, what kinds of support are needed? This can include training, resources, access to expertise, etc. </p>
+    <p class='title'>In the last month, based on what you are hearing from the coaches about their own work and what the practices’ needs are, what kinds of support are needed? This can include training, resources, access to expertise, etc. </p>
     <div id='add-success-note'>
       <%= link_to_add_association "Add new support", f, :manager_notes, partial: 'note_support_fields', 'data-association-insertion-method' => 'prepend', 'data-association-insertion-node' => '#manager_support' %>
     </div>
