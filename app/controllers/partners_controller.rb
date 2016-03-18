@@ -23,7 +23,6 @@ class PartnersController < ApplicationController
   # GET /partners/1
   # GET /partners/1.json
   def show
-    @recruiter_or_coach_override = "Recruiter"
     @partner = Partner.find(params[:id])
     @event = Event.new
     # If this partner is from GHRI, set a var that the view can use to show every damn practice.

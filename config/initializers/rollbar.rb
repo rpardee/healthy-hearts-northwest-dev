@@ -1,4 +1,4 @@
-require 'rollbar/rails'
+require 'rollbar'
 require 'rack/timeout/rollbar'
 Rollbar.configure do |config|
   # Without configuration, Rollbar is enabled in all environments.

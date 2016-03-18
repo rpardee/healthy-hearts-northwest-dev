@@ -1,5 +1,6 @@
 <tr class='nested-fields'>
 	<td>
+		<%= tag "a", name: "note-#{f.object.id}" %>
 		<%= f.hidden_field :manager_note_type, value: ManagerNote::MANAGER_NOTE_TYPE_VALS["Barrier"] %>
 		<%= f.text_field :manager_note_topic, size: 30 %>
 	</td>

@@ -5,7 +5,7 @@ class ManagerNotesController < ApplicationController
   # GET /manager_notes
   # GET /manager_notes.json
   def index
-    @manager_notes = policy_scope(ManagerNote).all
+    @manager_notes = policy_scope(ManagerNote).order(updated_at: :desc)
   end
 
   # GET /manager_notes/1
@@ -16,14 +16,14 @@ class ManagerNotesController < ApplicationController
   # GET /manager_notes/new
   def new
     @site = current_user.site
-    set_manager_barriers
+    set_manager_notes
     @site.manager_notes.build unless @site.manager_notes.length > 0
   end
 
   # GET /manager_notes/1/edit
   def edit
     @site = current_user.site
-    set_manager_barriers
+    set_manager_notes
   end
 
   # POST /manager_notes
@@ -72,9 +72,15 @@ class ManagerNotesController < ApplicationController
       @manager_note = ManagerNote.find(params[:id])
     end
 
-    def set_manager_barriers
+    def set_manager_notes
       @manager_barriers = @site.manager_notes
         .where(manager_note_type: ManagerNote::MANAGER_NOTE_TYPE_VALS["Barrier"])
+        .order(updated_at: :desc)
+      @manager_successes = @site.manager_notes
+        .where(manager_note_type: ManagerNote::MANAGER_NOTE_TYPE_VALS["Success"])
+        .order(updated_at: :desc)
+      @manager_support = @site.manager_notes
+        .where(manager_note_type: ManagerNote::MANAGER_NOTE_TYPE_VALS["Support"])
         .order(updated_at: :desc)
     end
 
