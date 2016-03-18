@@ -5,11 +5,11 @@ class Practice < ActiveRecord::Base
 	has_many :ivcontacts
 	has_many :events
 	has_and_belongs_to_many :partners
-	has_one :practice_survey
 
 	belongs_to :site
 
 	has_many :coach_items
+  has_many :surveys
 
 	accepts_nested_attributes_for :coach_items, :reject_if => :all_blank,
 		:allow_destroy => true
@@ -467,10 +467,6 @@ class Practice < ActiveRecord::Base
       end
     end
     return ('"' + prettyVars.join('","') + '"').html_safe
-  end
-
-  def self.import_excel(xlsx)
-
   end
 
 end

@@ -47,6 +47,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Not sure where this should really go--needed for practices_helper.rb.  Not a gem, but I get an error if this isn't somewhere.
 require 'csv'
 
+gem 'roo', '~> 2.1.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,39 +1,48 @@
 <%= render 'layouts/header' %>
 <div id = "wrapper">
-  <h1>Practices eligible for the Practice (and possibly Staff) Survey </h1>
-  <% if @practices && @practices.any? %>
-    <%= link_to 'Download this list', surveys_path(format: :csv) %>
-    <table class='simple-grid'>
+  <h1>Surveys</h1>
+  <div>
+    <h2>Download Spreadsheet of Practices Who Have Not Completed</h2>
+    <ul>
+      <li><%= link_to 'The first Practice Survey', practice_survey_practices_path(format: 'csv') %></li>
+      <li><%= link_to 'The first Staff Survey', staff_survey_practices_path(format: 'csv') %></li>
+    </ul>
+  </div>
+
+  <div style="border: 1px solid black ;">
+    <h2>Upload Spreadsheet Of Survey Return Information</h2>
+    <%= form_tag import_surveys_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= label_tag :spreadsheet_type, "Spreadsheet Type" %>
+      <%= select_tag :spreadsheet_type, options_for_select(Survey::SPREADSHEET_TYPES.invert) %>
+      <%= submit_tag "Upload" %>
+    <% end %>
+  </div>
+
+  <h2>Raw Survey Return Information</h2>
+  <% if @surveys && @surveys.any? %>
+    <table class='enable-data-table'>
       <thead>
         <tr>
+          <th>Practice ID</th>
           <th>Site</th>
           <th>Name</th>
-          <th>Practice ID</th>
-          <th>Address</th>
-          <th>Primary Contact</th>
-          <th>FRIPC Date</th>
-          <th>Staff Survey Recipient</th>
-          <th>Drop Date</th>
-          <th>Coach</th>
-          <th>PAL status</th>
+          <th>Survey Type</th>
+          <th>Status</th>
+          <th>Date Sent</th>
+          <th>Percent Complete</th>
         </tr>
       </thead>
       <tbody>
-        <% @practices.each do |p| %>
-          <% pc = p.personnels.where(site_contact_primary: true).first %>
-          <% fc = p.ivcontacts.where(contact_type: 1).order(:contact_dt).first %>
-          <% pr = Partner.find(p.coach_id) if p.coach_id %>
+        <% @surveys.each do |s| %>
           <tr>
-            <td><%= p.site.name %></td>
-            <td><%= p.name %></td>
-            <td><%= p.study_id %></td>
-            <td><%= p.formatted_address %></td>
-            <td><%= "#{pc.try('name')} <#{pc.try('email1')}>" %></td>
-            <td><%= fc.try('contact_dt') %></td>
-            <td><%= fc.try('staff_survey_recipient') %></td>
-            <td><%= p.drop_dt %></td>
-            <td><%= "#{pr.try('name')} <#{pr.try('email')}>" %></td>
-            <td><%= p.pal_status_cached %></td>
+            <td><%= s.practice.study_id %></td>
+            <td><%= s.practice.site.name %></td>
+            <td><%= s.practice.name %></td>
+            <td><%= s.survey_type %></td>
+            <td><%= s.status %></td>
+            <td><%= s.date_sent %></td>
+            <td style="text-align: right"><%= number_to_percentage(s.percent_complete * 100, precision: 0) if s.percent_complete %></td>
           </tr>
         <% end %>
       </tbody>
