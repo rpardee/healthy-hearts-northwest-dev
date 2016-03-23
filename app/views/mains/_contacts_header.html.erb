@@ -18,7 +18,7 @@
       <% (0..14).each do |i| %>
         <% this_contact = @ivcs[i] %>
         <% if this_contact then %>
-          <th><%= link_to this_contact.contact_dt, coach_practice_path(this_contact.practice) %></th>
+          <th><%= link_to this_contact.contact_dt, edit_coach_practice_ivcontact_path(this_contact.practice, this_contact), {title: "View this contact."} %></th>
         <% else %>
           <th>&nbsp;</th>
         <% end %>

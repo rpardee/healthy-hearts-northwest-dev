@@ -2,7 +2,8 @@
   <%= render 'layouts/header' %>
   <% if @practice %>
     <h2><%= @practice.name %> Lifetime</h2>
-    <% @ivcs = @practice.ivcontacts.order(:contact_dt) %>
+    <!-- limit to quarterly, and other required contacts. -->
+    <% @ivcs = @practice.ivcontacts.where(contact_type: [1, 2]).order(:contact_dt) %>
     <% if @ivcs.any? %>
       <h3>Topics</h3>
       <table id='topics' class='simple-grid'>

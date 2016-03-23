@@ -15,7 +15,7 @@
       <%= file_field_tag :file %>
       <%= label_tag :spreadsheet_type, "Spreadsheet Type" %>
       <%= select_tag :spreadsheet_type, options_for_select(Survey::SPREADSHEET_TYPES.invert) %>
-      <%= submit_tag "Upload" %>
+      <%= submit_tag "Upload", disabled: true %>
     <% end %>
   </div>
 
