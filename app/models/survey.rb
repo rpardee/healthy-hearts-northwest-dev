@@ -11,6 +11,7 @@ class Survey < ActiveRecord::Base
 
   def self.write_abcs(row, practice, result)
     # Create additional survey records for any ABCSs
+    # CHANGE TO FIRST DAY AFTER THE QUARTER
     abcs_fields = { :q20154 => Date.new(2015, 9, 1),
                     :q20161 => Date.new(2016, 1, 1),
                     :q20162 => Date.new(2016, 3, 1),
@@ -42,7 +43,7 @@ class Survey < ActiveRecord::Base
 
   def self.import_excel(file, spreadsheet_type)
 
-
+    # raise spreadsheet_type
     result = Hash.new(0)
 
     result[:error_messages] = ""
@@ -80,7 +81,7 @@ class Survey < ActiveRecord::Base
 
             if spreadsheet_type == 'staff_abcs'
               srv.date_sent = row["Sent"]
-              srv.percent_complete = row["% of Staff completed"]
+              srv.percent_complete = row["% of Staff completed"] || row["% of Staff completed "]
               srv.status = "complete" if srv.percent_complete == 1
               write_abcs(row, prac, result)
             elsif spreadsheet_type == 'practice' then
