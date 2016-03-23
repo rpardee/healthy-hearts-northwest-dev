@@ -12,11 +12,10 @@
   <h3>
     <%= link_to "Practice Export", practices_path(format: "csv"), title: "General purpose export of all Practices." %>
   </h3>
-  <h3>
-    <%= link_to "Surveyable Practices Export", surveys_path(format: "csv"), title: "Selected fields for enrolled practices who need to be sent Practice and/or Staff surveys." %>
-  </h3>
-
   <h2>General Tasks</h2>
+  <h3>
+    <%= link_to "External Survey Information", surveys_path, title: "Page detailing survey information" %>
+  </h3>
   <h3>
     <%= link_to "Coach List", coach_assignments_path %>
   </h3>

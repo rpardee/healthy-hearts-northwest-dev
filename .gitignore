@@ -18,5 +18,7 @@
 /db/seeds.rb
 /db/full_ream_seeds.rb
 
+/db/dumps/
 /notes
 roy_notes.txt
+routes.txt

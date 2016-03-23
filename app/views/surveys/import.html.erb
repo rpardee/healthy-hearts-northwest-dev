@@ -1,0 +1,37 @@
+<%= render 'layouts/header' %>
+<div id = "wrapper">
+  <table class = 'simple-grid'>
+    <tr>
+      <th>File uploaded:</th>
+      <td><%= @results[:original_filename] %></td>
+    </tr>
+    <tr>
+      <th>Spreadsheet type:</th>
+      <td><%= @results[:spreadsheet_type] %></td>
+    </tr>
+    <tr>
+      <th>New records created:</th>
+      <td><%= @results[:new_rows] %></td>
+    </tr>
+    <tr>
+      <th>Existing records updated:</th>
+      <td><%= @results[:updated_rows] %></td>
+    </tr>
+
+    <tr>
+      <th>Rows unable to process:</th>
+      <td><%= @results[:error_rows] %></td>
+    </tr>
+
+    <tr>
+      <th>Error Messages</th>
+      <td><pre><%= @results[:error_messages] %></pre></td>
+    </tr>
+
+    <tr>
+      <th>File Info:</th>
+      <td><pre><%= @results[:file_info] %></pre></td>
+    </tr>
+  </table>
+  <%= link_to 'Back', surveys_path %>
+</div>
