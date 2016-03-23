@@ -17,7 +17,11 @@ class SurveysController < ApplicationController
   end
 
   def import
-    @results = Survey.import_excel(params[:file], params[:spreadsheet_type])
+    if params[:file].nil?
+      redirect_to surveys_path, alert: 'No file selected!'
+    else
+      @results = Survey.import_excel(params[:file], params[:spreadsheet_type])
+    end
   end
 
 private

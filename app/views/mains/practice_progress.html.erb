@@ -34,7 +34,7 @@
             </td>
             <% ivcs = pr.ivcontacts.where({ contact_type: 1 }).order(:contact_dt) %>
             <% ivcs.each do |ivc| %>
-              <td><%= ivc.contact_dt %></td>
+              <td><%= link_to ivc.contact_dt, edit_coach_practice_ivcontact_path(pr, ivc) %></td>
             <% end %>
             <% (ivcs.length..4).each do %>
               <td>&nbsp;</td>
