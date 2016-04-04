@@ -40,6 +40,7 @@ class HighLeverageChangeTest < ActiveRecord::Base
   }
 
   TEST_STATUSES = {
+    "Planning" => 3,
     "Continuing testing" => 0,
     "Adopted change" => 1,
     "Abandoned" => 2

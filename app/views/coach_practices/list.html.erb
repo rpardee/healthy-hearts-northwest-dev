@@ -8,6 +8,7 @@
   <thead>
     <tr>
       <th>Practice</th>
+      <th>Randomizable?</th>
       <th>Last Required Contact</th>
       <th>EHR Vendor</th>
       <th>Last GYR Rating</th>
@@ -18,8 +19,19 @@
   <tbody>
     <% @practices.each do |practice| %>
       <tr>
-        <td><%= link_to practice.name, coach_practice_path(practice) %></td>
-        <td>
+        <td <%= practice_td_style(practice)%>><%= link_to practice.name, coach_practice_path(practice) %> </td>
+        <td <%= practice_td_style(practice) %>>
+          <% if practice.practice_survey %>
+            <% if practice.practice_survey.status == "complete" %>
+              Yes
+            <% else %>
+              No--practice survey not yet sent.
+            <% end %>
+          <% else %>
+            No--practice survey sent, but not yet returned.
+          <% end %>
+        </td>
+        <td <%= practice_td_style(practice) %>>
           <% if practice.last_required_iv_contact_date && practice.last_required_iv_contact_date <= Date.today - 45 %>
             <span style="color: red;">
           <% else %>
@@ -28,11 +40,11 @@
           <%= practice.last_required_iv_contact_date %>
           </span>
         </td>
-        <td><%= practice.iv_ehr_vendor %></td>
-        <td>
+        <td <%= practice_td_style(practice) %>><%= practice.iv_ehr_vendor %></td>
+        <td <%= practice_td_style(practice) %>>
           <%= get_gyr_html(practice.last_iv_gyr) %>
         </td>
-        <td align=center><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Contact"), new_coach_practice_ivcontact_path(practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %></td>
+        <td <%= practice_td_style(practice) %> align=center><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Contact"), new_coach_practice_ivcontact_path(practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %></td>
       </tr>
     <% end %>
   </tbody>
