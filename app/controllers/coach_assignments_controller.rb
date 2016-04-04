@@ -13,7 +13,7 @@ class CoachAssignmentsController < ApplicationController
   def edit
   	@coach = Partner.find(params[:id])
   	@practices = policy_scope(Practice).where(coach_id: @coach.id).order(:name)
-  	@practices_unselected = policy_scope(Practice).where("coach_id != ? or coach_id IS NULL", @coach.id)
+  	@practices_unselected = policy_scope(Practice).where("pal_status_cached = 'Returned' AND (coach_id != ? or coach_id IS NULL)", @coach.id)
   end
 
   # PATCH/PUT /coach_assignments/1
