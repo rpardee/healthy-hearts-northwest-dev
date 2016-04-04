@@ -32,6 +32,18 @@ class Practice < ActiveRecord::Base
       .order(:updated_at).last.try(:notes)
   end
 
+  def practice_survey
+    self.surveys.where(survey_type: 'Practice').order('date_sent').last
+  end
+
+  def staff_survey
+    self.surveys.where(survey_type: 'Staff').order('date_sent').last
+  end
+
+  def abcs(which_quarter = 'q20154')
+    self.surveys.where(survey_type: 'ABCS', status: which_quarter).first
+  end
+
 	def primary_contact
 		self.personnels.where(site_contact_primary: true).first.try(:name)
 	end
