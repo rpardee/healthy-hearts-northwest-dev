@@ -36,7 +36,8 @@ class CoachPracticesController < ApplicationController
 
     # For the last contact we want all HLCTs.  For all others we only want adopted/abandoned.
     ld = @practice.last_required_iv_contact_date
-    @practice.ivcontacts.order(:contact_dt).each do |ivc|
+    # custom sort adopted/abandoned at the bottom
+    @practice.ivcontacts.order(contact_dt: :desc).each do |ivc|
       if ivc.contact_dt == ld
         filter = "1 = 1"
       else
