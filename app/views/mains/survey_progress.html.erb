@@ -1,0 +1,44 @@
+<div id='wrapper'>
+  <%= render 'layouts/header' %>
+
+  <% if @practices.nil? %>
+    <p>No practices returned!</p>
+  <% else %>
+    <table class='enable-data-table'>
+    <!-- <table class='survey-progress'> this class gets us the pretty colors, but the sorting is more valuable. -->
+      <thead>
+        <tr>
+          <th rowspan="2">Site</th>
+          <th rowspan="2">Practice ID</th>
+          <th rowspan="2">Primary Facilitator</th>
+          <th rowspan="2">Clinic Name</th>
+          <th colspan="2">Practice Survey</th>
+          <th colspan="2">Staff Survey</th>
+          <th>ABCS</th>
+        </tr>
+        <tr>
+          <th>Date Issued</th>
+          <th>Status</th>
+          <th>Date Issued</th>
+          <th>Return Rate</th>
+          <th>Baseline Returned?</th>
+        </tr>
+      </thead>
+      <% @practices.each do |pr| %>
+        <tr class="<%= cycle('alt', '') -%>">
+          <td><%= pr.site.name %></td>
+          <td><%= pr.study_id %></td>
+          <td><%= link_to pr.coach.name, list_coach_practice_path(pr.coach), {title: "Coach view of practice"} if pr.coach %></td>
+          <td><%= link_to pr.name, practice_path(pr) %></td>
+          <td class="<%= cell_classname(pr.practice_survey, 'date_sent', 'nonnil') -%>"><%= pr.practice_survey.date_sent if pr.practice_survey %></td>
+          <td class="<%= cell_classname(pr.practice_survey, 'status', 'complete') -%>"><%= pr.practice_survey.status if pr.practice_survey %></td>
+          <td class="<%= cell_classname(pr.staff_survey, 'date_sent', 'nonnil') -%>"><%= pr.staff_survey.date_sent if pr.staff_survey %></td>
+          <td class="<%= cell_classname(pr.staff_survey, 'percent_complete', 0.75) -%>"><%= number_to_percentage((pr.staff_survey.percent_complete * 100), precision: 0) if pr.staff_survey && pr.staff_survey.percent_complete %></td>
+          <td align="center" class="<%= cell_classname(pr.abcs('q20154'), 'status', 'nonnil') -%>">
+            <%= pr.abcs('q20154') ? raw("&#10004;") : raw("&#10008;") %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>

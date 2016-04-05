@@ -37,4 +37,18 @@ module MainsHelper
     # return ivc.high_leverage_change_tests.any?
     check_if(ivc.high_leverage_change_tests.any?)
   end
+  def cell_classname(obj, meth, good_value)
+    if obj then
+      res = obj.send(meth)
+      if good_value == 'nonnil' and res then
+        'good'
+      elsif res and (res >= good_value) then
+        'good'
+      else
+        'bad'
+      end
+    else
+      'bad'
+    end
+  end
 end

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # 'dashboardy' things
   get 'practice_contacts', to: 'mains#practice_contacts'
   get 'practice_progress', to: 'mains#practice_progress'
+  get 'survey_progress', to: 'mains#survey_progress'
   get 'practice_lifetime/:id', to: 'mains#practice_lifetime', as: 'practice_lifetime'
 
   resources :surveys do

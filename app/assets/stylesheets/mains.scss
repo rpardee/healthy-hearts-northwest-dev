@@ -73,6 +73,34 @@ span#recruiter-or-coach-view {
   	color: #92D7E7;
   }
 }
+.survey-progress
+{
+  td, th {
+    padding: 10px ;
+    border: 1px solid black ;
+  }
+  th {
+    font-weight: bold ;
+    background-color: #9BBB59;
+    color: white ;
+  }
+  td.bad {
+    background-color: #F8696B;
+    color: white ;
+  }
+  td.good {
+    background-color: #76933C;
+    color: white ;
+  }
+  td.na {
+    background-color: #808080;
+    color: white ;
+  }
+  tr.alt {
+    background-color: #EBF1DE;
+  }
+
+}
 .simple-grid
 {
   text-align: left ;

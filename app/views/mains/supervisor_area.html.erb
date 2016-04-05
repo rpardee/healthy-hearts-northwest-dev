@@ -7,15 +7,13 @@
   <h2>Intervention Dashboards</h2>
   <h3><%= link_to "Coach Contacts Overview", practice_contacts_path, title: "Practices and details on the contents of their last Intervention visits." %></h3>
   <h3><%= link_to "Practice Progress", practice_progress_path, title: "Practices, visit dates, topics discussed, etc." %></h3>
+  <h3><%= link_to "Survey Progress Overview", survey_progress_path, title: "What external surveys have gone out and come back." %></h3>
 
   <h2>Exports</h2>
   <h3>
     <%= link_to "Practice Export", practices_path(format: "csv"), title: "General purpose export of all Practices." %>
   </h3>
   <h2>General Tasks</h2>
-  <h3>
-    <%= link_to "External Survey Information", surveys_path, title: "Page detailing survey information" %>
-  </h3>
   <h3>
     <%= link_to "Coach List", coach_assignments_path %>
   </h3>

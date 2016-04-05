@@ -11,6 +11,11 @@ class MainsController < ApplicationController
   def practice_survey_thanks
   end
 
+  def survey_progress
+    @page_title = "Survey Progress"
+    @practices = policy_scope(Practice).where(pal_status_cached: 'Returned', active: true).order(:name)
+  end
+
   def admin_area
     @page_title = "Site Admin Area"
   end

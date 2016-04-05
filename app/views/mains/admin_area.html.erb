@@ -10,6 +10,11 @@
   <h2>
     <%= link_to "Recruiters List", practices_path %>
   </h2>
+  <h2>Survey Stuff</h2>
+  <h3>
+    <%= link_to "External Survey Interface", surveys_path, title: "Export/Import spreadsheets with SurveyMonkey survey information." %>
+  </h3>
+  <h3><%= link_to "Survey Progress Overview", survey_progress_path, title: "What external surveys have gone out and come back." %></h3>
   <h2>
     <%= link_to "Export Practice Data", practices_path(format: "csv") %>
   </h2>
