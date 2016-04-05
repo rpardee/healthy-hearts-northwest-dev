@@ -15,10 +15,14 @@ class DropoutsController < ApplicationController
   		@dropout_desc = "drop #{@practice.name} from"
   		@submit_button_text = "Drop from H2N"
 	  	@inactive_rsn = Practice::INACTIVE_RSN_VALS["Dropout"]
-  	elsif @make_inactive == false
-  		@dropout_desc = "reinstate #{@practice.name} into"
-  		@submit_button_text = "Re-enter H2N"
-	  	@inactive_rsn = Practice::INACTIVE_RSN_VALS["Active"]
+      @dropout_dt = @today
+      @reentry_dt = @practice.drop_reentry_dt
+    elsif @make_inactive == false
+      @dropout_desc = "reinstate #{@practice.name} into"
+      @submit_button_text = "Re-enter H2N"
+      @inactive_rsn = Practice::INACTIVE_RSN_VALS["Active"]
+      @reentry_dt = @today
+      @dropout_dt = @practice.drop_dt
   	end
   end
 

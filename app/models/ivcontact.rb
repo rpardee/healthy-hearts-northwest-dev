@@ -116,6 +116,8 @@ class Ivcontact < ActiveRecord::Base
   }
 
   # If this is changed, also update ivcontacts_controller.set_contact_type_options
+  # Also note that there are other references to the exact option names
+  #   in this list in other forms (ivcontacts_controller#create, practice.next_inperson_contact)
   CONTACT_TYPE_VALS = {
     "Quarterly in-person visit (5)" => 1,
     "Other required monthly contact (in-person)" => 2,

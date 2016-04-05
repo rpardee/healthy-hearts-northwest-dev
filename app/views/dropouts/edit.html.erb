@@ -34,11 +34,11 @@
   		<table class='space'>
   			<tr id="drop-dt" style="display: none;">
   				<td><%= f.label :drop_dt, "Dropout Date" %></td>
-		  	  <td><%= f.text_field :drop_dt, class: 'datepicker', value: @today  %> mm/dd/yyyy</td>
+		  	  <td><%= f.text_field :drop_dt, class: 'datepicker', value: @dropout_dt  %> mm/dd/yyyy</td>
 		  	</tr>
     	 	<tr id="drop-reentry-dt" style="display: none;">
     	 		<td><%= f.label :drop_reentry_dt, "Re-entry Date" %></td>
-	      	<td><%= f.text_field :drop_reentry_dt, class: 'datepicker', value: @today  %> mm/dd/yyyy</td>
+	      	<td><%= f.text_field :drop_reentry_dt, class: 'datepicker', value: @reentry_dt  %> mm/dd/yyyy</td>
 	    	</tr>
 	    	<tr id='drop-determined'>
 	  			<td><%= f.label :drop_determine, "How was the dropout decision determined?" %></td>
