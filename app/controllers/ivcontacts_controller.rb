@@ -1,6 +1,7 @@
 class IvcontactsController < ApplicationController
   before_action :set_ivcontact, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_partner!
+  respond_to :html, :csv, :txt
 
   # GET /ivcontacts
   # GET /ivcontacts.json
@@ -97,6 +98,30 @@ class IvcontactsController < ApplicationController
       format.html { redirect_to ivcontacts_url, notice: 'Ivcontact was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # /qualitative_export
+  def qualitative_export
+    compressed_filestream = Zip::OutputStream.write_buffer do |f|
+      Ivcontact.all.each do |iv|
+        f.put_next_entry "ivcontact-#{iv.id}.txt"
+        f.write "Practice ID: #{iv.practice.study_id}\n"
+        f.write "Practice Name: #{iv.practice.name}\n"
+        f.write "Contact Date: #{iv.contact_dt}\n"
+        f.write "Coach: #{Partner.find(iv.practice.coach_id).name}\n"
+        f.write "Contact Type: #{Ivcontact::CONTACT_TYPE_VALS.key([iv.contact_type])}\n"
+        f.write "Contact Mode: #{Ivcontact::CONTACT_MODE_VALS.key([iv.contact_mode])}\n"
+        f.write "Contact Duration: #{iv.contact_duration}\n"
+        f.write "Comments: #{iv.contact_comments}\n"
+        f.write "Observations: #{iv.observations}\n"
+        f.write "GYR Notes: #{iv.gyr_notes}\n"
+        f.write "HIT Quality Explanation: #{iv.hit_quality_explain}\n"
+      end
+    end
+    compressed_filestream.rewind
+    current_dt = Date.today.strftime("%Y-%m-%d")
+    zipfile_name = "H2N Qualitative #{current_dt}.zip"
+    send_data(compressed_filestream.read, type: 'application/zip', filename: zipfile_name)
   end
 
   private
