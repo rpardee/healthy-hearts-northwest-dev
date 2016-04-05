@@ -1,6 +1,7 @@
 class IvcontactsController < ApplicationController
   before_action :set_ivcontact, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_partner!
+  respond_to :html, :csv, :txt
 
   # GET /ivcontacts
   # GET /ivcontacts.json
@@ -55,7 +56,7 @@ class IvcontactsController < ApplicationController
   def create
     @ivcontact = Ivcontact.new(ivcontact_params)
     @practice = Practice.find(@ivcontact.practice_id)
-    if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Quarterly in-person visit"
+    if Ivcontact::CONTACT_TYPE_VALS.key(@ivcontact.contact_type) == "Quarterly in-person visit (5)"
       @ivcontact.contact_specific = @practice.next_inperson_contact
     end
     save_personnel_list(params[:ivcontact][:personnels])
@@ -99,6 +100,30 @@ class IvcontactsController < ApplicationController
     end
   end
 
+  # /qualitative_export
+  def qualitative_export
+    compressed_filestream = Zip::OutputStream.write_buffer do |f|
+      Ivcontact.all.each do |iv|
+        f.put_next_entry "ivcontact-#{iv.id}.txt"
+        f.write "Practice ID: #{iv.practice.study_id}\n"
+        f.write "Practice Name: #{iv.practice.name}\n"
+        f.write "Contact Date: #{iv.contact_dt}\n"
+        f.write "Coach: #{Partner.find(iv.practice.coach_id).name}\n"
+        f.write "Contact Type: #{Ivcontact::CONTACT_TYPE_VALS.key([iv.contact_type])}\n"
+        f.write "Contact Mode: #{Ivcontact::CONTACT_MODE_VALS.key([iv.contact_mode])}\n"
+        f.write "Contact Duration: #{iv.contact_duration}\n"
+        f.write "Comments: #{iv.contact_comments}\n"
+        f.write "Observations: #{iv.observations}\n"
+        f.write "GYR Notes: #{iv.gyr_notes}\n"
+        f.write "HIT Quality Explanation: #{iv.hit_quality_explain}\n"
+      end
+    end
+    compressed_filestream.rewind
+    current_dt = Date.today.strftime("%Y-%m-%d")
+    zipfile_name = "H2N Qualitative #{current_dt}.zip"
+    send_data(compressed_filestream.read, type: 'application/zip', filename: zipfile_name)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ivcontact
@@ -107,8 +132,9 @@ class IvcontactsController < ApplicationController
 
     def set_contact_type_options
       # If this is changed, also update Ivcontact::CONTACT_TYPE_VALS
-      @grouped_options_for_contact_type = { '15 required monthly contacts' => [['Quarterly in-person visit', 1],
-        ['Other required contact', 2]], 'HIT only' => [['HIT-only visit', 3]],
+      @grouped_options_for_contact_type = { '15 required monthly contacts' => [['Quarterly in-person visit (5)', 1],
+        ['Other required monthly contact (in-person)', 2],
+        ['Other required monthly contact (phone/web)', 4]], 'HIT only' => [['HIT-only visit', 3]],
         'Ad-hoc' => [['Other ad-hoc contact', 9]] }
     end
 

@@ -6,6 +6,8 @@ class Practice < ActiveRecord::Base
 	has_many :events
 	has_and_belongs_to_many :partners
 
+  has_many :practice_surveys
+
 	belongs_to :site
 
 	has_many :coach_items
@@ -54,6 +56,7 @@ class Practice < ActiveRecord::Base
     lric = last_required_iv_contact
     lric.contact_dt if lric
   end
+
   def last_required_iv_contact
     self.ivcontacts.where({ contact_type: [1, 2] }).order(:contact_dt).last
   end
@@ -229,7 +232,9 @@ class Practice < ActiveRecord::Base
 	end
 
   def next_inperson_contact
-    last_contact = Ivcontact.where(practice_id: self.id, contact_type: Ivcontact::CONTACT_TYPE_VALS["Quarterly in-person visit"]).maximum(:contact_specific)
+    last_contact = Ivcontact.where(practice_id: self.id, contact_type:
+      Ivcontact::CONTACT_TYPE_VALS["Quarterly in-person visit (5)"])
+      .maximum(:contact_specific)
     if last_contact.nil?
       return 1
     else

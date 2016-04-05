@@ -12,12 +12,18 @@
   <% end %>
 
   <%= f.hidden_field :practice_id, value: @practice.id %>
-  <%= hidden_field_tag :contact_specific_calculated, @contact_specific %>
 
   <table class='space'>
     <tr>
       <td><%= f.label :contact_type, "Type of Contact" %></td>
-      <td><%= f.select :contact_type, grouped_options_for_select(@grouped_options_for_contact_type, @ivcontact.contact_type), include_blank: true %></td>
+      <td>
+        <%= f.select :contact_type, grouped_options_for_select(@grouped_options_for_contact_type, @ivcontact.contact_type), include_blank: true %>
+        <span id='ivcontact-inperson-visit-number'>
+          Quarterly In-person Visit Number:
+          <%= select_tag :contact_specific_calculated,
+          options_for_select(Array.new(5){ |i| Array.new([i+1, i+1]) }, @contact_specific) %>
+        </span>
+      </td>
     </tr>
     <tr id='ivcontact-contactmode' style="display: none;">
       <td><%= f.label :contact_mode, "Contact Method" %></td>

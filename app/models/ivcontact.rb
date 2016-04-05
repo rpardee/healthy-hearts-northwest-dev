@@ -115,9 +115,13 @@ class Ivcontact < ActiveRecord::Base
     "Not confident" => 4,
   }
 
+  # If this is changed, also update ivcontacts_controller.set_contact_type_options
+  # Also note that there are other references to the exact option names
+  #   in this list in other forms (ivcontacts_controller#create, practice.next_inperson_contact)
   CONTACT_TYPE_VALS = {
-    "Quarterly in-person visit" => 1,
-    "Other required contact" => 2,
+    "Quarterly in-person visit (5)" => 1,
+    "Other required monthly contact (in-person)" => 2,
+    "Other required monthly contact (phone/web)" => 4,
     "HIT-only contact" => 3,
     "Other ad-hoc contact" => 9
   }
