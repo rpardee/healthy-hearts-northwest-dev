@@ -4,7 +4,7 @@
 
 <h1>Coach View for <%= @coach.name %></h1>
 
-<table class='typical enable-data-table'>
+<table class='typical enable-data-table' data-ordering="false" data-order="[]">
   <thead>
     <tr>
       <th>Practice</th>
@@ -22,14 +22,13 @@
         <td><%= link_to practice.name, coach_practice_path(practice) %> </td>
         <td>
           <% if practice.surveys.exists? %>
-          Status: <%= practice.survey.status %>
-            <% if practice.survey.status == "complete" %>
+            <% if practice.surveys.first.status == "complete" %>
               Yes
             <% else %>
-              No &ndash; practice survey not yet sent.
+              No &ndash; practice survey not yet sent
             <% end %>
           <% else %>
-            No &ndash; practice survey sent, but not yet returned.
+            No &ndash; practice survey sent, but not yet returned
           <% end %>
         </td>
         <td>
