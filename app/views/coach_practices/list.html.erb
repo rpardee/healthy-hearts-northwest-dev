@@ -21,18 +21,15 @@
       <tr <%= practice_tr_style(practice) %>>
         <td><%= link_to practice.name, coach_practice_path(practice) %> </td>
         <td>
-          Survey exists? <%= practice.practice_surveys.exists? %><br />
-          Survey count? <%= practice.practice_surveys.count %><br />
-          Survey specific? <%= practice.practice_surveys.first %><br />
-          < % if practice.practice_surveys.exists? %>
-            < % if practice.practice_survey.status == "complete" %>
+          <% if practice.practice_surveys.exists? %>
+            <% if practice.practice_survey.first.status == "complete" %>
               Yes
-            < % else %>
+            <% else %>
               No &ndash; practice survey not yet sent.
-            < % end %>
-          < % else %>
+            <% end %>
+          <% else %>
             No &ndash; practice survey sent, but not yet returned.
-          < % end %>
+          <% end %>
         </td>
         <td>
           <% if practice.last_required_iv_contact_date && practice.last_required_iv_contact_date <= Date.today - 45 %>
