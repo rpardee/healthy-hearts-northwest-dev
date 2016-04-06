@@ -21,8 +21,8 @@
       <tr <%= practice_tr_style(practice) %>>
         <td><%= link_to practice.name, coach_practice_path(practice) %> </td>
         <td>
-          Status: <%= practice.survey.status %>
           <% if practice.surveys.exists? %>
+          Status: <%= practice.survey.status %>
             <% if practice.survey.status == "complete" %>
               Yes
             <% else %>
