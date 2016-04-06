@@ -16,7 +16,7 @@ module CoachPracticesHelper
       return image_tag("red-x.png", size: "25", title: tit)
     end
   end
-  def practice_td_style(prac)
-    raw('style="background-color: darkgrey;" title="This practice has dropped from the study."') if prac.drop_dt and not prac.drop_reentry_dt
+  def practice_tr_style(prac)
+    raw('style="background-color: darkgrey;" title="This practice has dropped from the study."') if !prac.active
   end
 end

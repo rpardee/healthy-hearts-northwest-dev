@@ -17,11 +17,11 @@ $(document).on('click', '#closePopupForm', ( ->
 $(document).on "page:change", ->
 	$('table.enable-data-table')
 		.addClass("compact hover stripe")
-		.DataTable( {
+		.dataTable( {
 			"paging": true,
 			"info": true,
 			"lengthMenu": [ 25, 100, 250 ],
-			retrieve: true
+			retrieve: true,
 			stateSave: true
 		})
 

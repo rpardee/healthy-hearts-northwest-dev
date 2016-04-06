@@ -18,20 +18,23 @@
 
   <tbody>
     <% @practices.each do |practice| %>
-      <tr>
-        <td <%= practice_td_style(practice)%>><%= link_to practice.name, coach_practice_path(practice) %> </td>
-        <td <%= practice_td_style(practice) %>>
-          <% if practice.practice_surveys.exists? %>
-            <% if practice.practice_survey.status == "complete" %>
+      <tr <%= practice_tr_style(practice) %>>
+        <td><%= link_to practice.name, coach_practice_path(practice) %> </td>
+        <td>
+          Survey exists? <%= practice.practice_surveys.exists? %><br />
+          Survey count? <%= practice.practice_surveys.count %><br />
+          Survey specific? <%= practice.practice_survey %><br />
+          < % if practice.practice_surveys.exists? %>
+            < % if practice.practice_survey.status == "complete" %>
               Yes
-            <% else %>
-              No--practice survey not yet sent.
-            <% end %>
-          <% else %>
-            No--practice survey sent, but not yet returned.
-          <% end %>
+            < % else %>
+              No &ndash; practice survey not yet sent.
+            < % end %>
+          < % else %>
+            No &ndash; practice survey sent, but not yet returned.
+          < % end %>
         </td>
-        <td <%= practice_td_style(practice) %>>
+        <td>
           <% if practice.last_required_iv_contact_date && practice.last_required_iv_contact_date <= Date.today - 45 %>
             <span style="color: red;">
           <% else %>
@@ -40,11 +43,11 @@
           <%= practice.last_required_iv_contact_date %>
           </span>
         </td>
-        <td <%= practice_td_style(practice) %>><%= practice.iv_ehr_vendor %></td>
-        <td <%= practice_td_style(practice) %>>
+        <td><%= practice.iv_ehr_vendor %></td>
+        <td>
           <%= get_gyr_html(practice.last_iv_gyr) %>
         </td>
-        <td <%= practice_td_style(practice) %> align=center><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Contact"), new_coach_practice_ivcontact_path(practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %></td>
+        <td align=center><%= link_to image_tag("plus-blue.png", size: "20x20", alt: "Add New Contact"), new_coach_practice_ivcontact_path(practice), class: 'addButton', title: 'Add New Contact', rel: 'tooltip' %></td>
       </tr>
     <% end %>
   </tbody>
