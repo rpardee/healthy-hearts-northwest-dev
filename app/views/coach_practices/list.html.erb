@@ -23,7 +23,7 @@
         <td>
           Survey exists? <%= practice.practice_surveys.exists? %><br />
           Survey count? <%= practice.practice_surveys.count %><br />
-          Survey specific? <%= practice.practice_survey %><br />
+          Survey specific? <%= practice.practice_surveys.first %><br />
           < % if practice.practice_surveys.exists? %>
             < % if practice.practice_survey.status == "complete" %>
               Yes
