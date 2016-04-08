@@ -11,7 +11,9 @@ module HealthyHeartsNorthwestDev
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.web_console.development_only = false
+
+    # This allows me to boot to test but fails on Heroku
+    # config.web_console.development_only = false
 
     # Serve content gzipped
     config.middleware.use Rack::Deflater
