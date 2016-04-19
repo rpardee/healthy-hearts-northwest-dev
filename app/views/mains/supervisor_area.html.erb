@@ -17,13 +17,13 @@
     <%= link_to "External Survey Information", surveys_path, title: "Page detailing survey information" %>
   </h3>
   <h3>
-    <%= link_to "Coach List", coach_assignments_path %>
+    <%= link_to "Coach List", coach_assignments_path, title: 'Coaches and coach assignments', rel: 'tooltip' %>
   </h3>
   <h3>
-    <%= link_to "Practice List", practices_path %>
+    <%= link_to "Practice List", practices_path, title: 'Full list of practices', rel: 'tooltip' %>
   </h3>
   <h3>
-    <%= link_to "Program Management Notes", new_manager_note_path %>
+    <%= link_to "Program Management Notes", new_manager_note_path, title: 'General management notes', rel: 'tooltip' %>
   </h3>
 <% else %>
   <h3>The account you're currently logged in as (<%= current_partner.name %>) is not registered as a supervisor, so there's nothing for you to do here.</h3>
