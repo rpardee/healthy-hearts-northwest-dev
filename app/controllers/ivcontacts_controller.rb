@@ -118,8 +118,8 @@ class IvcontactsController < ApplicationController
           f.write "GYR Notes\n#{iv.gyr_notes}\n\n" if iv.gyr_notes
           f.write "HIT Quality Explanation\n#{iv.hit_quality_explain}\n\n" if iv.hit_quality_explain
           iv.high_leverage_change_tests.each_with_index do |hlct, i|
-            f.write "PDSA #{i+1} Description\n#{hlct.description}\n\n" if !hlct.description.empty?
-            f.write "PDSA #{i+1} Comments\n#{hlct.comments}\n\n" if !hlct.comments.empty?
+            f.write "PDSA #{i+1} Description\n#{hlct.description}\n\n" if hlct.description && !hlct.description.empty?
+            f.write "PDSA #{i+1} Comments\n#{hlct.comments}\n\n" if hlct.comments && !hlct.comments.empty?
           end
         end
       end
