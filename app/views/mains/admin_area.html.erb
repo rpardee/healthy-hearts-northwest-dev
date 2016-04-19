@@ -21,6 +21,9 @@
   <h2>
     <%= link_to "Export Intervention Contacts Data", ivcontacts_path(format: "csv") %>
   </h2>
+  <h2>
+    <%= link_to "Export Qualitative Data", qualitative_export_path(format: "zip") %>
+  </h2>
 <% end %>
 
 <% if current_partner.admin? %>

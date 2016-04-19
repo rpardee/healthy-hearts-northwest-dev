@@ -105,12 +105,12 @@ class IvcontactsController < ApplicationController
     compressed_filestream = Zip::OutputStream.write_buffer do |f|
       Ivcontact.all.each do |iv|
         f.put_next_entry "ivcontact-#{iv.id}.txt"
-        f.write "Practice ID: #{iv.practice.study_id}\n"
-        f.write "Practice Name: #{iv.practice.name}\n"
+        f.write "Practice ID: #{iv.practice.study_id}\n" if iv.practice
+        f.write "Practice Name: #{iv.practice.name}\n" if iv.practice
         f.write "Contact Date: #{iv.contact_dt}\n"
-        f.write "Coach: #{Partner.find(iv.practice.coach_id).name}\n"
-        f.write "Contact Type: #{Ivcontact::CONTACT_TYPE_VALS.key([iv.contact_type])}\n"
-        f.write "Contact Mode: #{Ivcontact::CONTACT_MODE_VALS.key([iv.contact_mode])}\n"
+        f.write "Coach: #{Partner.find(iv.practice.coach_id).name}\n" if iv.practice && iv.practice.coach_id
+        f.write "Contact Type: #{Ivcontact::CONTACT_TYPE_VALS.key(iv.contact_type)}\n"
+        f.write "Contact Mode: #{Ivcontact::CONTACT_MODE_VALS.key(iv.contact_mode)}\n"
         f.write "Contact Duration: #{iv.contact_duration}\n"
         f.write "Comments: #{iv.contact_comments}\n"
         f.write "Observations: #{iv.observations}\n"

@@ -6,7 +6,7 @@ class CoachPracticesController < ApplicationController
   # GET /coach_practices/1/list
   def list
     @coach = Partner.find(params[:id])
-    @practices = policy_scope(Practice).where(coach_id: @coach.id).order("name")
+    @practices = policy_scope(Practice).where(coach_id: @coach.id).order(active: :desc, name: :asc)
   end
 
   # TODO: Limit this to admins
