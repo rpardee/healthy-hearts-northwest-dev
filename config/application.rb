@@ -12,7 +12,7 @@ module HealthyHeartsNorthwestDev
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Added this to run the test DB in console. Causes Heroku to fail
+    # This allows me to boot to test but fails on Heroku
     # config.web_console.development_only = false
 
     # Serve content gzipped

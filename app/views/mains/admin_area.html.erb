@@ -5,10 +5,10 @@
 
 <% if current_partner.supervisor? %>
   <h2>
-    <%= link_to "Coaches List", coach_assignments_path %>
+    <%= link_to "Coaches List", coach_assignments_path, title: 'Coaches and coach assignments', rel: 'tooltip' %>
   </h2>
   <h2>
-    <%= link_to "Recruiters List", practices_path %>
+    <%= link_to "Recruiters List", practices_path, title: 'Full list of practices', rel: 'tooltip' %>
   </h2>
   <h2>Survey Stuff</h2>
   <h3>
@@ -16,19 +16,19 @@
   </h3>
   <h3><%= link_to "Survey Progress Overview", survey_progress_path, title: "What external surveys have gone out and come back." %></h3>
   <h2>
-    <%= link_to "Export Practice Data", practices_path(format: "csv") %>
+    <%= link_to "Export Practice Data", practices_path(format: "csv"), title: 'General purpose export of all Practices.', rel: 'tooltip' %>
   </h2>
   <h2>
-    <%= link_to "Export Intervention Contacts Data", ivcontacts_path(format: "csv") %>
+    <%= link_to "Export Intervention Contacts Data", ivcontacts_path(format: "csv"), title: 'Excel export of individual practice contacts', rel: 'tooltip' %>
   </h2>
   <h2>
-    <%= link_to "Export Qualitative Data", qualitative_export_path(format: "zip") %>
+    <%= link_to "Export Qualitative Data", qualitative_export_path(format: "zip"), title: 'Zipped export of qualitative data from practice contacts', rel: 'tooltip' %>
   </h2>
 <% end %>
 
 <% if current_partner.admin? %>
   <h2>
-    <%= link_to "System Users List", list_partners_path %>
+    <%= link_to "System Users List", list_partners_path, title: 'User accounts and permissions', rel: 'tooltip' %>
   </h2>
 <% end %>
 

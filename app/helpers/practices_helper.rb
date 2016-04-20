@@ -26,6 +26,7 @@ module PracticesHelper
                   id:                           'Database ID',
                   study_id:                     'Practice ID',
                   name:                         'Practice Name',
+                  coach_name:                   'Coach Name',
                   enrolled:                     'Enrolled?',
                   interest_yn:                  'Interested?',
                   status:                       'Recruitment Status',
@@ -170,6 +171,8 @@ module PracticesHelper
                                     ehr_hlp.phone1 if ehr_hlp
                                   when :ehr_hlp_email
                                     ehr_hlp.email1 if ehr_hlp
+                                  when :coach_name
+                                    prac.coach_id ? Partner.find(prac.coach_id).name : 'Not assigned'
                                   else
                                     prac.send(k)
                                   end

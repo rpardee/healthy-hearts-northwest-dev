@@ -104,18 +104,24 @@ class IvcontactsController < ApplicationController
   def qualitative_export
     compressed_filestream = Zip::OutputStream.write_buffer do |f|
       Ivcontact.all.each do |iv|
-        f.put_next_entry "ivcontact-#{iv.id}.txt"
-        f.write "Practice ID: #{iv.practice.study_id}\n" if iv.practice
-        f.write "Practice Name: #{iv.practice.name}\n" if iv.practice
-        f.write "Contact Date: #{iv.contact_dt}\n"
-        f.write "Coach: #{Partner.find(iv.practice.coach_id).name}\n" if iv.practice && iv.practice.coach_id
-        f.write "Contact Type: #{Ivcontact::CONTACT_TYPE_VALS.key(iv.contact_type)}\n"
-        f.write "Contact Mode: #{Ivcontact::CONTACT_MODE_VALS.key(iv.contact_mode)}\n"
-        f.write "Contact Duration: #{iv.contact_duration}\n"
-        f.write "Comments: #{iv.contact_comments}\n"
-        f.write "Observations: #{iv.observations}\n"
-        f.write "GYR Notes: #{iv.gyr_notes}\n"
-        f.write "HIT Quality Explanation: #{iv.hit_quality_explain}\n"
+        if iv.has_qualitative_data then
+          f.put_next_entry "ivcontact-#{iv.id}.txt"
+          f.write "Practice ID\n#{iv.practice.study_id}\n\n" if iv.practice
+          f.write "Practice Name\n#{iv.practice.name}\n\n" if iv.practice
+          f.write "Contact Date\n#{iv.contact_dt}\n\n"
+          f.write "Coach\n#{Partner.find(iv.practice.coach_id).name}\n\n" if iv.practice && iv.practice.coach_id
+          f.write "Contact Type\n#{Ivcontact::CONTACT_TYPE_VALS.key(iv.contact_type)}\n\n"
+          f.write "Contact Mode\n#{Ivcontact::CONTACT_MODE_VALS.key(iv.contact_mode)}\n\n"
+          f.write "Contact Duration\n#{iv.contact_duration}\n\n"
+          f.write "Comments\n#{iv.contact_comments}\n\n" if iv.contact_comments
+          f.write "Observations\n#{iv.observations}\n\n" if iv.observations
+          f.write "GYR Notes\n#{iv.gyr_notes}\n\n" if iv.gyr_notes
+          f.write "HIT Quality Explanation\n#{iv.hit_quality_explain}\n\n" if iv.hit_quality_explain
+          iv.high_leverage_change_tests.each_with_index do |hlct, i|
+            f.write "PDSA #{i+1} Description\n#{hlct.description}\n\n" if hlct.description && !hlct.description.empty?
+            f.write "PDSA #{i+1} Comments\n#{hlct.comments}\n\n" if hlct.comments && !hlct.comments.empty?
+          end
+        end
       end
     end
     compressed_filestream.rewind

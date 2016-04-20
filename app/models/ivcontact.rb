@@ -9,6 +9,12 @@ class Ivcontact < ActiveRecord::Base
 
   validates_presence_of :contact_dt
 
+  def has_qualitative_data
+    contact_comments.present? || observations.present? ||
+      gyr_notes.present? || hit_quality_explain.present? ||
+      self.high_leverage_change_tests.present?
+  end
+
   def disruptions
     disruptions = ""
     disruptions += "New EHR*" if prac_change_ehr == 1
@@ -47,6 +53,7 @@ class Ivcontact < ActiveRecord::Base
       lst[0..-3] # eat the last semicolon/space
     end
   end
+
   def staff_survey_recipient
     ret = smsvy_name
     ret += " <#{smsvy_email}>" if smsvy_email.length > 0
