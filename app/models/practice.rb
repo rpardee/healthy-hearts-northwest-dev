@@ -6,7 +6,7 @@ class Practice < ActiveRecord::Base
 	has_many :events
 	has_and_belongs_to_many :partners
 
-  has_many :practice_surveys
+  # has_many :practice_surveys
 
 	belongs_to :site
 
